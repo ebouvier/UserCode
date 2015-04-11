@@ -6,8 +6,8 @@
 
 import sys, os, string, shutil
 
-outRoot ="MuTagForRivet_El_selection_date"
-#outRoot ="MuTagForRivet_Mu_selection_date"
+outRoot ="AnalysisJpsi_El_selection_date"
+#outRoot ="AnalysisJpsi_Mu_selection_date"
 exe = "./runMyAna"
 
 fileListDir = "filelists_15Apr01"

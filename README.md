@@ -1,2 +1,11 @@
 # UserCode
-J/psi and D0 analysis codes
+Contains the following up-to-date analysis codes (to run after the latest version of the JPsiExtractor):
+
+TrackSmearing
+=============
+
+D0Analysis
+==========
+
+JpsiAnalysis
+============
