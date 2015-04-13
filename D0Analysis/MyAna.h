@@ -11,18 +11,19 @@
 #include "AnglesUtil.h"
 #include "RootTupleDefs.h"
 #include "TLorentzVector.h"
+#include "TH1F.h"
 class MyAna : public RootTupleDefs {
 
 public :
-  MyAna(TTree *_muonstree,TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_jpsitree, TTree *_mujetstree, TTree *_MCtree);
+  MyAna(TTree *_muonstree,TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_mujetstree, TTree *_MCtree);
   ~MyAna();
   
   void   Loop();
   
   void SetDebugMode(bool debug)                 { _debug    = debug;}   
   void SetMCmode(bool isMC)                     { _isMC     = isMC;}
-  void SetTTbarmode(bool isTTbar)               { _isTTbar     = isTTbar;}
-  void SetSIGmode(bool isSIG)                   { _isSIG    = isSIG}
+  void SetTTbarmode(bool isTTbar)               { _isTTbar  = isTTbar;}
+  void SetSIGmode(bool isSIG)                   { _isSIG    = isSIG;}
   void SetRootName(const std::string& rootName) { _rootName = rootName;}
   void SetDoSkim(bool doSkim)                   { _doSkim   = doSkim;}
   void SetNevent(int nevent)                    { _nevt = nevent;}
@@ -57,7 +58,6 @@ private:
   TTree* _newHLTtree;
   TTree* _newelectronsloosetree;
   TTree* _newmuonsloosetree;
-  TTree* _newjpsitree;
   TTree* _newmujetstree;
   TTree* _newMCtree;
   bool _debug;

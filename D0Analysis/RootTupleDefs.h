@@ -23,7 +23,6 @@ class RootTupleDefs {
     TTree          *muonslooseChain;   
     TTree          *electronslooseChain;
     TTree          *MCChain;
-    TTree          *jpsiChain;
     TTree          *mujetsChain;
 
     Int_t           fCurrent; //!current Tree number in a TChain
@@ -248,49 +247,27 @@ class RootTupleDefs {
     Float_t         MC_vz[200]; 
     Float_t         MC_eta[200]; 
     Float_t         MC_phi[200]; 
-    Char_t          MC_JPsiFromTop[200]; 
-    Char_t          MC_JPsiFromAntiTop[200]; 
-    Char_t          MC_LeptonFromTop[200]; 
-    Char_t          MC_LeptonFromAntiTop[200]; 
-    TClonesArray    *MC_JPsi_4vector;
-    TClonesArray    *MC_Bhad_4vector;
-    Int_t           MC_Bhad_id[200]; 
-    TClonesArray    *MC_Bquark_4vector;
     TClonesArray    *MC_D0_4vector;
     TClonesArray    *MC_D0_daughter0_4vector;
     Int_t           MC_D0_daughter0_id[200]; 
     TClonesArray    *MC_D0_daughter1_4vector;
     Int_t           MC_D0_daughter1_id[200]; 
 
-    //J/psi leaves
-    Int_t           n_jpsi;
-    Int_t           jpsi_indjet[50]; 
-    Float_t         jpsi_jet_btag_CSV[50]; 
-    Int_t           jpsi_indpf1[50]; 
-    Int_t           jpsi_indpf2[50]; 
-    TClonesArray    *jpsi_jet_4vector;
-    TClonesArray    *jpsipf_4vector;
-    TClonesArray    *jpsi_4vector;
-    TClonesArray    *jpsi_mu1_4vector;
-    TClonesArray    *jpsi_mu2_4vector;
-    Float_t         jpsi_vx[50]; 
-    Float_t         jpsi_vy[50]; 
-    Float_t         jpsi_vz[50]; 
-    Bool_t          jpsi_vtxvalid[50]; 
-    Float_t         jpsi_vtxchi2[50]; 
-    Float_t         jpsi_ndf[50]; 
-    Float_t         jpsi_L3D[50]; 
-    Float_t         jpsi_sigmaL3D[50]; 
-    Float_t         jpsi_L3DoverSigmaL3D[50];
-
     // Mu-tagged jet leaves
     Int_t           n_mujet;
     Float_t         mujet_jet_btag_CSV[200];  
     TClonesArray    *mujet_jet_4vector;
+    std::vector<std::vector<double> > *mujet_jet_scaleFactor;
     TClonesArray    *mujet_nonisomuplus_4vector;
     Int_t           mujet_nonisomuplus_pdgid[200];  
+    std::vector<std::vector<double> > *mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso;
+    std::vector<std::vector<double> > *mujet_nonisomuplus_muon_scaleFactor_tighteff_looseiso;
+    std::vector<std::vector<double> > *mujet_nonisomuplus_muon_scaleFactor_tighteff_tightiso;
     TClonesArray    *mujet_nonisomuminus_4vector;
     Int_t           mujet_nonisomuminus_pdgid[200];  
+    std::vector<std::vector<double> > *mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso;
+    std::vector<std::vector<double> > *mujet_nonisomuminus_muon_scaleFactor_tighteff_looseiso;
+    std::vector<std::vector<double> > *mujet_nonisomuminus_muon_scaleFactor_tighteff_tightiso;
     Int_t           mujet_ntr[200];  
     Float_t         mujet_sump[200];  
     Float_t         mujet_sumpt[200];  
@@ -331,13 +308,13 @@ class RootTupleDefs {
     Float_t         mujet_unfold_mu_dr[10000];
 
 
-    RootTupleDefs(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_jpsitree, TTree *_mujetstree, TTree * _MCtree);
+    RootTupleDefs(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_mujetstree, TTree * _MCtree);
 
     virtual ~RootTupleDefs();
     virtual Int_t    Cut(Long64_t entry);
     virtual Int_t    GetEntry(Long64_t entry);
     virtual Long64_t LoadTree(Long64_t entry);
-    virtual void     Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_jpsitree, TTree *_mujetstree, TTree *_MCtree);
+    virtual void     Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_mujetstree, TTree *_MCtree);
     //virtual void     Loop();
     virtual Bool_t   Notify();
     virtual void     Show(Long64_t entry = -1);
@@ -346,7 +323,7 @@ class RootTupleDefs {
 #endif
 
 #ifdef MyAna_cxx
-RootTupleDefs::RootTupleDefs(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_jpsitree, TTree *_mujetstree, TTree * _MCtree)
+RootTupleDefs::RootTupleDefs(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_mujetstree, TTree * _MCtree)
 {
   // if parameter tree is not specified (or zero), connect the file
   // /* used to generate this class and read the Tree. */
@@ -364,7 +341,7 @@ RootTupleDefs::RootTupleDefs(TTree *_muonstree, TTree *_electronstree, TTree *_j
   //protéger les autres tree si renvois 0
   ///////////////////////////////////////
 
-  Init(_muonstree, _electronstree, _jetstree, _METtree, _verticestree, _eventstree, _HLTtree, _muonsloosetree, _electronsloosetree, _jpsitree, _mujetstree, _MCtree );
+  Init(_muonstree, _electronstree, _jetstree, _METtree, _verticestree, _eventstree, _HLTtree, _muonsloosetree, _electronsloosetree, _mujetstree, _MCtree );
 }
 
 RootTupleDefs::~RootTupleDefs()
@@ -387,7 +364,6 @@ Int_t RootTupleDefs::GetEntry(Long64_t entry)
   HLTChain->GetEntry(entry);
   muonslooseChain->GetEntry(entry);
   electronslooseChain->GetEntry(entry);
-  jpsiChain->GetEntry(entry);
   mujetsChain->GetEntry(entry); 
   if (MCChain != 0) MCChain->GetEntry(entry); //No Mc branch in data files 
   return muonsChain->GetEntry(entry); //return muon tree size to be consistent with the old make class structure 
@@ -409,7 +385,7 @@ Long64_t RootTupleDefs::LoadTree(Long64_t entry) //not used in myana
 
 }
 
-void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_jpsitree, TTree *_mujetstree, TTree *_MCtree)
+void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_mujetstree, TTree *_MCtree)
 {
 
   muonsChain=NULL;
@@ -422,7 +398,6 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   muonslooseChain=NULL;
   electronslooseChain=NULL;
   MCChain=NULL;
-  jpsiChain=NULL;
   mujetsChain=NULL;
 
   // The Init() function is called when the selector needs to initialize
@@ -455,22 +430,21 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   muonloose_scaleFactor_tighteff_tightiso = NULL;
   electronloose_4vector = NULL;
   electronloose_scaleFactor_looseeff_tightiso=NULL;
-  electronloose_scaleFactor_looseeff_tightiso=NULL;
+  electronloose_scaleFactor_tighteff_tightiso = NULL;
   MC_4vector = NULL;
-  MC_JPsi_4vector = NULL;
-  MC_Bhad_4vector = NULL;
-  MC_Bquark_4vector = NULL;
   MC_D0_4vector = NULL;
   MC_D0_daughter0_4vector = NULL;
   MC_D0_daughter1_4vector = NULL;
-  jpsi_jet_4vector = NULL;
-  jpsipf_4vector = NULL;
-  jpsi_4vector = NULL;
-  jpsi_mu1_4vector = NULL;
-  jpsi_mu2_4vector = NULL;
   mujet_jet_4vector = NULL;
+  mujet_jet_scaleFactor = NULL;
   mujet_nonisomuplus_4vector = NULL;
+  mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso = NULL;
+  mujet_nonisomuplus_muon_scaleFactor_tighteff_looseiso = NULL;
+  mujet_nonisomuplus_muon_scaleFactor_tighteff_tightiso = NULL;
   mujet_nonisomuminus_4vector = NULL;
+  mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso = NULL;
+  mujet_nonisomuminus_muon_scaleFactor_tighteff_looseiso = NULL;
+  mujet_nonisomuminus_muon_scaleFactor_tighteff_tightiso = NULL;
   mujet_tr_4vector = NULL;
   mujet_d0pf_4vector = NULL;
   mujet_d0_4vector = NULL;
@@ -758,14 +732,6 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
     SetBranchStatusAndAddress(MCChain, "MC_vz", &MC_vz);
     SetBranchStatusAndAddress(MCChain, "MC_eta", &MC_eta);
     SetBranchStatusAndAddress(MCChain, "MC_phi", &MC_phi);
-    SetBranchStatusAndAddress(MCChain, "MC_JPsiFromTop", &MC_JPsiFromTop);
-    SetBranchStatusAndAddress(MCChain, "MC_JPsiFromAntiTop", &MC_JPsiFromAntiTop);
-    SetBranchStatusAndAddress(MCChain, "MC_LeptonFromTop", &MC_LeptonFromTop);
-    SetBranchStatusAndAddress(MCChain, "MC_LeptonFromAntiTop", &MC_LeptonFromAntiTop);
-    SetBranchStatusAndAddress(MCChain, "MC_JPsi_4vector", &MC_JPsi_4vector);
-    SetBranchStatusAndAddress(MCChain, "MC_Bhad_4vector", &MC_Bhad_4vector);
-    SetBranchStatusAndAddress(MCChain, "MC_Bhad_id", &MC_Bhad_id);
-    SetBranchStatusAndAddress(MCChain, "MC_Bquark_4vector", &MC_Bquark_4vector);
     SetBranchStatusAndAddress(MCChain, "MC_D0_4vector", &MC_D0_4vector);
     SetBranchStatusAndAddress(MCChain, "MC_D0_daughter0_4vector", &MC_D0_daughter0_4vector);
     SetBranchStatusAndAddress(MCChain, "MC_D0_daughter0_id", &MC_D0_daughter0_id);
@@ -773,34 +739,6 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
     SetBranchStatusAndAddress(MCChain, "MC_D0_daughter1_id", &MC_D0_daughter1_id);
 
   }   
-
-  // set pointers and branches adresses for J/psi 
-
-  if (!_jpsitree) return;
-  jpsiChain = _jpsitree;
-  fCurrent = -1;
-  jpsiChain->SetMakeClass(1);
-  jpsiChain->SetBranchStatus("*",0); //desactivate all J/psi branches
-
-  SetBranchStatusAndAddress(jpsiChain, "n_jpsi", &n_jpsi);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_indjet", &jpsi_indjet);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_jet_btag_CSV", &jpsi_jet_btag_CSV);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_indpf1", &jpsi_indpf1);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_indpf2", &jpsi_indpf2);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_jet_4vector", &jpsi_jet_4vector);
-  SetBranchStatusAndAddress(jpsiChain, "jpsipf_4vector", &jpsipf_4vector);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_4vector", &jpsi_4vector);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_4vector", &jpsi_mu1_4vector);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_4vector", &jpsi_mu2_4vector);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_vx", &jpsi_vx);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_vy", &jpsi_vy);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_vz", &jpsi_vz);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_vtxvalid", &jpsi_vtxvalid);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_vtxchi2", &jpsi_vtxchi2);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_ndf", &jpsi_ndf);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_L3D", &jpsi_L3D);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_sigmaL3D", &jpsi_sigmaL3D);
-  SetBranchStatusAndAddress(jpsiChain, "jpsi_L3DoverSigmaL3D", &jpsi_L3DoverSigmaL3D);
 
   // set pointers and branches adresses for mu-tagged jets 
 
@@ -813,9 +751,16 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   SetBranchStatusAndAddress(mujetsChain, "n_mujet", &n_mujet);
   SetBranchStatusAndAddress(mujetsChain, "mujet_jet_btag_CSV", &mujet_jet_btag_CSV);
   SetBranchStatusAndAddress(mujetsChain, "mujet_jet_4vector", &mujet_jet_4vector);
+  SetBranchStatusAndAddress(mujetsChain, "mujet_jet_scaleFactor", &mujet_jet_scaleFactor);
   SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuplus_4vector", &mujet_nonisomuplus_4vector);
+  SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso", &mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso);
+  SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuplus_muon_scaleFactor_tighteff_looseiso", &mujet_nonisomuplus_muon_scaleFactor_tighteff_looseiso);
+  SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuplus_muon_scaleFactor_tighteff_tightiso", &mujet_nonisomuplus_muon_scaleFactor_tighteff_tightiso);
   SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuplus_pdgid", &mujet_nonisomuplus_pdgid);
   SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuminus_4vector", &mujet_nonisomuminus_4vector);
+  SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso", &mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso);
+  SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuminus_muon_scaleFactor_tighteff_looseiso", &mujet_nonisomuminus_muon_scaleFactor_tighteff_looseiso);
+  SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuminus_muon_scaleFactor_tighteff_tightiso", &mujet_nonisomuminus_muon_scaleFactor_tighteff_tightiso);
   SetBranchStatusAndAddress(mujetsChain, "mujet_nonisomuminus_pdgid", &mujet_nonisomuminus_pdgid);
   SetBranchStatusAndAddress(mujetsChain, "mujet_ntr", &mujet_ntr);
   SetBranchStatusAndAddress(mujetsChain, "mujet_sump", &mujet_sump);
