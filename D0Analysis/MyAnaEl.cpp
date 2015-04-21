@@ -3,6 +3,7 @@
 #include <memory>
 #include "MyAna.h"
 #include "TopTriggerEfficiencyProvider.h"
+#include "PUReweighter.h"
 
 
 #include <TStyle.h>
@@ -36,7 +37,10 @@ void MyAna::Loop()
   cout << " => Running on MC     ? " << boolalpha << _isMC  << endl;
   cout << " => Running on Signal ? " << boolalpha << _isSIG << endl;
 
-  float PUWEIGHT[41] = {0.343966,0.421778,0.436096,0.244907,0.159864,0.301344,0.241472,0.274829,0.44007,0.758224,1.17234,1.57047,1.65648,1.48344,1.25881,1.09602,1.02284,1.01614,1.05619,1.11854,1.17075,1.1998,1.20717,1.1982,1.17317,1.13123,1.0737,1.00772,0.928615,0.834017,0.723992,0.605741,0.485348,0.371787,0.270933,0.187491,0.124365,0.0791913,0.0484192,0.0288752,0.0127159};
+  PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/AllPaths/MyFinalDataPileupHistogram.root"); // FIXME should be replaced by: 
+  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/D0AnaPaths/MyFinalDataPileupHistogram.root"); 
+  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/D0AnaPaths/MyFinalDataPileupHistogram_PUup.root"); 
+  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/D0AnaPaths/MyFinalDataPileupHistogram_PUdown.root"); 
 
   _newfile = new TFile(_rootName.c_str(),"RECREATE");
 
@@ -45,10 +49,13 @@ void MyAna::Loop()
   //================================================================================================
 
   TH1::SetDefaultSumw2(true);
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields",100,0.,100.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields",3,0.,3.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
+
+  TH1F* _h_nPUBefore = new TH1F("NTrueInteractions", "NTrueInteractions", 80, 0., 80.);
+  TH1F* _h_nPUAfter = new TH1F("NTrueInteractionsReweighted", "NTrueInteractionsReweighted", 80, 0., 80.);
 
   TH1F* _h_nVtx = new TH1F("NPrimaryVtx", "NPrimaryVtx", 50, 0., 50.);
 
@@ -330,6 +337,7 @@ void MyAna::Loop()
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; // /!\ no pu reweighting or scalefactors yet
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
 
+    _h_nPUBefore->Fill((float)nTrueInteractions, _weight);
     if (_isMC) {
       // Trigger scalefactors
       double lumitab[4]= {888.7,4446,7021 ,7221}; // when running on all the stat
@@ -347,12 +355,12 @@ void MyAna::Loop()
       _weight = _weight*(*jet_scaleFactor)[ind30jet[1]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[ind30jet[2]][0]; // 0 for central, 1 for up, 2 for down
       // PU reweighting 
-      // FIXME
       _weight = _weight*(*jet_scaleFactor)[ind30jet[3]][0]; // 0 for central, 1 for up, 2 for down
       int npu = (int) nTrueInteractions;
-      if (npu>40) npu = 40;
-      _weight = _weight * PUWEIGHT[npu];
+      if (npu > 79) npu = 79;
+      _weight = _weight * myPUReweighter->weight(npu);
     }
+    _h_nPUAfter->Fill((float)nTrueInteractions, _weight);
 
     //======================================================
     // Analyze mu-tagged jets
@@ -514,7 +522,7 @@ void MyAna::Loop()
   cout << "Initial number of events                                  = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
-  for ( Int_t i=1; i<10 ; i++ ){
+  for (int i = 1; i < 3 ; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
   cout << "------------------------------------------------------------------------" << endl;
