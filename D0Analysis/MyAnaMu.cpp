@@ -229,10 +229,10 @@ void MyAna::Loop()
     if (!_isMC) {
       for ( unsigned int i=0; i<HLT_vector->size(); ++i){
         TString ThistrigName= (TString) HLT_vector->at(i);        
-        if (run <  191691                 && ThistrigName.Contains("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFJet30")) passTrigger = true;
-        if (run >= 191691 && run < 194225 && ThistrigName.Contains("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFNoPUJet30")) passTrigger = true;
-        if (run >= 194225 && run < 199608 && ThistrigName.Contains("HLT_Ele25_CaloIdVT_CaloIsoT_TrkIdT_TrkIsoT_TriCentralPFNoPUJet30_30_20")) passTrigger = true;
-        if (run >= 199608                 && ThistrigName.Contains("HLT_Ele25_CaloIdVT_CaloIsoVL_TrkIdVL_TrkIsoT_TriCentralPFNoPUJet45_35_25")) passTrigger = true;        
+        if ( run <  193834                 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFJet30")) passTrigger = true;
+        if ( run >= 193834 && run < 194270 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFNoPUJet30")) passTrigger = true;
+        if ( run >= 194270 && run < 199698 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFNoPUJet30_30_20")) passTrigger = true;
+        if ( run >= 199698                 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFNoPUJet45_35_25")) passTrigger = true;
       }
     }	
 
