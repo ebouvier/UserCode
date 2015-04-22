@@ -18,19 +18,25 @@ if not options.version:
 date = datetime.datetime.now().strftime("%y%b%d")
 
 outRoot = date
+haddCmd = "hadd "
 if not os.path.isdir(outRoot):
     os.mkdir(outRoot)
-outRoot = os.path.join(outRoot, "v"+options.version)    
+outRoot = os.path.join(outRoot, "v"+options.version)   
 if not os.path.isdir(outRoot):
     os.mkdir(outRoot)
+haddCmd += os.path.join(outRoot, "MyAna")
 if options.channel.lower().count("mu"):
     outRoot = os.path.join(outRoot, "MyAnaMu")
+    haddCmd += "Mu"
 if options.channel.lower().count("el"):
     outRoot = os.path.join(outRoot, "MyAnaEl")
+    haddCmd += "El"
 try:    
     os.mkdir(outRoot)
 except OSError:    
     raise OSError("this version for this channel already exists")
+
+haddCmd += "_mergedData.root "
 
 if not os.path.isdir("LogMyAna"):
     os.mkdir("LogMyAna/")
@@ -61,6 +67,8 @@ for aFile in filelist:
 #    option  = " -skim"
     if aFile.count("SingleElectron") != 1 and aFile.count("SingleMu") != 1 and aFile.count("MuHad") != 1 and aFile.count("ElectronHad") != 1 :
         option = option+" -mc"
+    else:
+        haddCmd += outRoo1+" "
 
     if aFile.count("TTJets_FullLeptMGDecays") ==  1 or aFile.count("TTJets_SemiLeptMGDecays") == 1 :
         option = option+" -sig"    
@@ -73,5 +81,8 @@ for aFile in filelist:
     log.write(cmd)
     os.system(cmd)
     
+log.write(haddCmd)    
+os.system(haddCmd+">& /dev/null")    
+
 log.close()
 sys.exit()
