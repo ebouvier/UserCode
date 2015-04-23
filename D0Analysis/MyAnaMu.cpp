@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "MyAna.h"
+#include "HiggsTriggerEfficiencyProvider.h"
 #include "TopTriggerEfficiencyProvider.h"
 #include "PUReweighter.h"
 
@@ -50,7 +51,9 @@ void MyAna::Loop()
   TH1::SetDefaultSumw2(true);
 
   TH1F* _h_nPUBefore = new TH1F("NTrueInteractions", "NTrueInteractions", 80, 0., 80.);
+  _h_nPUBefore->SetXTitle("Number of true interactions (before PU reweighing)");
   TH1F* _h_nPUAfter = new TH1F("NTrueInteractionsReweighted", "NTrueInteractionsReweighted", 80, 0., 80.);
+  _h_nPUAfter->SetXTitle("Number of true interactions (after PU reweighing)");
   if (!_isMC) {
     for (int ibin = 1; ibin <= _h_nPUBefore->GetNbinsX(); ++ibin) {
       _h_nPUBefore->SetBinContent(ibin, myPUReweighter->getBinContent(ibin));
@@ -58,15 +61,18 @@ void MyAna::Loop()
     }
   }
 
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields",3,0.,3.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 3, 0., 3.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
+  TH1F* _h_weight = new TH1F("Weight", "Weight", 20, 0., 2.);
+  _h_weight->SetXTitle("Weight");
 
   TH1F* _h_nVtx = new TH1F("NPrimaryVtx", "NPrimaryVtx", 50, 0., 50.);
+  _h_nVtx->SetXTitle("Primary vertex multiplicity");
 
   TH1F* _h_NSelJets = new TH1F("N-b-jets", "N-b-jets", 5, 0., 5.);
-  _h_NSelJets->SetXTitle("Primary vertices multiplicity");
+  _h_NSelJets->SetXTitle("Number of #mu-tagged jets");
   TH1F* _h_CSVSelJets = new TH1F("CSV-b-jets", "CSV-b-jets", 100, 0., 1.);
   _h_CSVSelJets->SetXTitle("CSV discriminant");
   TH1F* _h_pTSelJets = new TH1F("TransverseMomentum-b-jets", "TransverseMomentum-b-jets", 100, 0., 500.); 
@@ -359,14 +365,8 @@ void MyAna::Loop()
 
     if (_isMC) {
       // Trigger scalefactors
-      double lumitab[4]= {888.7,4446,7021 ,7221}; // when running on all the stat
-      TopTriggerEfficiencyProvider *weight_provider = new TopTriggerEfficiencyProvider(true,lumitab);
-      _weight = _weight*weight_provider->get_weight(GetP4(muon_4vector, indgoodmu[0])->Pt(), 
-          GetP4(muon_4vector, indgoodmu[0])->Eta(), 
-          GetP4(jet_4vector, ind30jet[3])->Pt(), 
-          GetP4(jet_4vector, ind30jet[3])->Eta(), 
-          nvtx, ngoodjet,
-          false, TopTriggerEfficiencyProvider::NOMINAL);
+      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
+      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muon_4vector, indgoodmu[0])->Pt(), GetP4(muon_4vector, indgoodmu[0])->Eta());
       // Muon scalefactor
       _weight = _weight*(*muon_scaleFactor_tighteff_tightiso)[indgoodmu[0]][0]; // 0 for central, 1 for up, 2 for down
       // Jet scalefactors
@@ -375,6 +375,7 @@ void MyAna::Loop()
       _weight = _weight*(*jet_scaleFactor)[ind30jet[2]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[ind30jet[3]][0]; // 0 for central, 1 for up, 2 for down
     }
+    _h_weight->Fill(_weight);
 
     //======================================================
     // Analyze mu-tagged jets

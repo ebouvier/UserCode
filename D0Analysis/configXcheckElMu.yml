@@ -4,7 +4,7 @@ configuration:
   luminosity-label: '(8 TeV)'
   experiment: "CMS"
   extra-label: "Simulation preliminary"
-  root: 'XcheckElMu'
+  root: 'MyAnaMu'
   luminosity: 19705 
   luminosity-error: 0.026
   error-fill-style: 3154
@@ -21,16 +21,17 @@ files:
   'MuHadASingleMuBCD.root':
     type: data
     legend: "#mu + Jets channel"
+    marker-color: 46
 
-  'TTJets_SemiLeptMGDecays.root':
+  '../MyAnaEl/ElectronHadASingleElectronBCD.root':
     type: signal
     cross-section: 1
     generated-events: 19690 
     legend: "e + Jets channel"
+    marker-color: 38
+    marker-type: 21
+    line-width: 0
     fill-type: 0
-    line-color: 38 
-    line-width: 2
-    line-type: 1
 
 plots:
   "NTrueInteractions":
