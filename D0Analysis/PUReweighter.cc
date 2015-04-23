@@ -6,12 +6,12 @@
 #include <iostream>
 
 PUReweighter::PUReweighter(PUProfile profile/* = PUProfile::S10*/, Systematic syst/* = Systematic::NOMINAL*/):
-  puHisto(NULL) {
-  
-    const std::string dataFileName = "/gridgroup/cms/pequegnot/CMSSW/CMSSW_5_3_9_patch2/src/PatTopProduction/MyDataPileupHistogram_merged_Run2012ABCD.root";
-    
+  puHisto(NULL), PUHisto(NULL) {
+
+    const std::string dataFileName = "/gridgroup/cms/bouvier/CMSSW_5_3_27/src/PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram.root";
+
     TDirectory* currentDirectory = gDirectory;
-    
+
     TFile* dataFile = TFile::Open(dataFileName.c_str());
 
     if (! dataFile) {
@@ -40,6 +40,9 @@ PUReweighter::PUReweighter(PUProfile profile/* = PUProfile::S10*/, Systematic sy
 
     //TODO: Check for NULL ptr
 
+    PUHisto = static_cast<TH1*>(dataHisto->Clone("toto"));
+    PUHisto->SetDirectory(NULL); // "detach" the histo from the file
+
     // Normalize
     dataHisto->Scale(1.0 / dataHisto->Integral());
     mcHisto->Scale(1.0 / mcHisto->Integral());
@@ -50,14 +53,14 @@ PUReweighter::PUReweighter(PUProfile profile/* = PUProfile::S10*/, Systematic sy
     puHisto->SetDirectory(NULL); // "detach" the histo from the file
 
     /*
-std::cout << " Lumi/Pileup Reweighting: Computed Weights per In-Time Nint " << std::endl;
+       std::cout << " Lumi/Pileup Reweighting: Computed Weights per In-Time Nint " << std::endl;
 
-int NBins = puHisto->GetNbinsX();
+       int NBins = puHisto->GetNbinsX();
 
-for (int ibin = 1; ibin < NBins + 1; ++ibin) {
-std::cout << " " << ibin - 1 << " " << puHisto->GetBinContent(ibin) << std::endl;
-}
-*/
+       for (int ibin = 1; ibin < NBins + 1; ++ibin) {
+       std::cout << " " << ibin - 1 << " " << puHisto->GetBinContent(ibin) << std::endl;
+       }
+       */
 
     dataFile->Close();
 
@@ -68,12 +71,12 @@ std::cout << " " << ibin - 1 << " " << puHisto->GetBinContent(ibin) << std::endl
   }
 
 PUReweighter::PUReweighter(const std::string& dataFileName, PUProfile profile/* = PUProfile::S10*/, Systematic syst/* = Systematic::NOMINAL*/):
-  puHisto(NULL) {
-  
+  puHisto(NULL), PUHisto(NULL) {
+
     //const std::string dataFileName = "/gridgroup/cms/pequegnot/CMSSW/CMSSW_5_3_9_patch2/src/PatTopProduction/MyDataPileupHistogram_merged_Run2012ABCD.root";
-    
+
     TDirectory* currentDirectory = gDirectory;
-    
+
     TFile* dataFile = TFile::Open(dataFileName.c_str());
 
     if (! dataFile) {
@@ -102,6 +105,9 @@ PUReweighter::PUReweighter(const std::string& dataFileName, PUProfile profile/* 
 
     //TODO: Check for NULL ptr
 
+    PUHisto = static_cast<TH1*>(dataHisto->Clone());
+    PUHisto->SetDirectory(NULL); // "detach" the histo from the file
+
     // Normalize
     dataHisto->Scale(1.0 / dataHisto->Integral());
     mcHisto->Scale(1.0 / mcHisto->Integral());
@@ -112,14 +118,14 @@ PUReweighter::PUReweighter(const std::string& dataFileName, PUProfile profile/* 
     puHisto->SetDirectory(NULL); // "detach" the histo from the file
 
     /*
-std::cout << " Lumi/Pileup Reweighting: Computed Weights per In-Time Nint " << std::endl;
+       std::cout << " Lumi/Pileup Reweighting: Computed Weights per In-Time Nint " << std::endl;
 
-int NBins = puHisto->GetNbinsX();
+       int NBins = puHisto->GetNbinsX();
 
-for (int ibin = 1; ibin < NBins + 1; ++ibin) {
-std::cout << " " << ibin - 1 << " " << puHisto->GetBinContent(ibin) << std::endl;
-}
-*/
+       for (int ibin = 1; ibin < NBins + 1; ++ibin) {
+       std::cout << " " << ibin - 1 << " " << puHisto->GetBinContent(ibin) << std::endl;
+       }
+       */
 
     dataFile->Close();
 
@@ -137,6 +143,14 @@ double PUReweighter::weight(float interactions) const {
 
   int bin = puHisto->GetXaxis()->FindBin(interactions);
   return puHisto->GetBinContent(bin);
+}
+
+double PUReweighter::getBinContent(int ibin) const {
+  if (!PUHisto) {
+    return 1.;
+  }
+
+  return PUHisto->GetBinContent(ibin);
 }
 
 void PUReweighter::initPUProfiles() {

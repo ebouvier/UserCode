@@ -1,0 +1,179 @@
+configuration:
+  width: 600
+  height: 600
+  luminosity-label: '(8 TeV)'
+  experiment: "CMS"
+  extra-label: "Simulation preliminary"
+  root: 'XcheckElMu'
+  luminosity: 19705 
+  luminosity-error: 0.026
+  error-fill-style: 3154
+  error-fill-color: "#ee556270"
+  ratio-fit-error-fill-style: 1001
+  ratio-fit-error-fill-color: "#aa556270"
+  ratio-fit-line-color: "#0B486B"  
+  labels:
+    - text: 'X-check'
+      position: [0.22, 0.9]
+      size: 24
+
+files:
+  'MuHadASingleMuBCD.root':
+    type: data
+    legend: "#mu + Jets channel"
+
+  'TTJets_SemiLeptMGDecays.root':
+    type: signal
+    cross-section: 1
+    generated-events: 19690 
+    legend: "e + Jets channel"
+    fill-type: 0
+    line-color: 38 
+    line-width: 2
+    line-type: 1
+
+plots:
+  "NTrueInteractions":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NTrueInteractionsReweighted":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Event-yields":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NPrimaryVtx":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "N-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "CSV-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "TransverseMomentum-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Eta-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Nch-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Sump-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "VectorialSump-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Highestp-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Sum2p-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Sum3p-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Mass3-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "R1-b-jets":
+    show-ratio: false
+    rebin: 3
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "R2-b-jets":
+    show-ratio: false
+    rebin: 3
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "R3-b-jets":
+    show-ratio: false
+    rebin: 3
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Highestp-nomu-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Sum2p-nomu-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Sum3p-nomu-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Mass3-nomu-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "R1-nomu-b-jets":
+    show-ratio: false
+    rebin: 3
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "R2-nomu-b-jets":
+    show-ratio: false
+    rebin: 3
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "R3-nomu-b-jets":
+    show-ratio: false
+    rebin: 3
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "D0Mass-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "D0p-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "D0pT-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "D0eta-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "BMomentum-nobias-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "BMass-nobias-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "BMomentum-D0cut-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "BMass-D0cut-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Muonp-nobias-b-jets":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+legend:
+    position: [0.7, 0.888888880.9]

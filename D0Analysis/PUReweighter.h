@@ -21,14 +21,17 @@ class PUReweighter {
 
     ~PUReweighter() {
       delete puHisto;
+      delete PUHisto;
     }
 
     double weight(float interactions) const;
+    double getBinContent(int ibin) const;
 
   private:
     void initPUProfiles();
 
     TH1* puHisto;
+    TH1* PUHisto;
 
     std::map<PUProfile, std::vector<double>> mPUCoefs;
 };

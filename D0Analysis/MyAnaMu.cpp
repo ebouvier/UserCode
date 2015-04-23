@@ -37,10 +37,9 @@ void MyAna::Loop()
   cout << " => Running on MC     ? " << boolalpha << _isMC  << endl;
   cout << " => Running on Signal ? " << boolalpha << _isSIG << endl;
 
-  PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/AllPaths/MyFinalDataPileupHistogram.root"); // FIXME should be replaced by: 
-  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/D0AnaPaths/MyFinalDataPileupHistogram.root"); 
-  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/D0AnaPaths/MyFinalDataPileupHistogram_PUup.root"); 
-  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/D0AnaPaths/MyFinalDataPileupHistogram_PUdown.root"); 
+  PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram.root"); 
+  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUup.root"); 
+  // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUdown.root"); 
 
   _newfile = new TFile(_rootName.c_str(),"RECREATE");
 
@@ -49,13 +48,20 @@ void MyAna::Loop()
   //================================================================================================
 
   TH1::SetDefaultSumw2(true);
+
+  TH1F* _h_nPUBefore = new TH1F("NTrueInteractions", "NTrueInteractions", 80, 0., 80.);
+  TH1F* _h_nPUAfter = new TH1F("NTrueInteractionsReweighted", "NTrueInteractionsReweighted", 80, 0., 80.);
+  if (!_isMC) {
+    for (int ibin = 1; ibin <= _h_nPUBefore->GetNbinsX(); ++ibin) {
+      _h_nPUBefore->SetBinContent(ibin, myPUReweighter->getBinContent(ibin));
+      _h_nPUAfter->SetBinContent(ibin, myPUReweighter->getBinContent(ibin));
+    }
+  }
+
   TH1F* _h_iCut = new TH1F("Event-yields","event-yields",3,0.,3.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
-
-  TH1F* _h_nPUBefore = new TH1F("NTrueInteractions", "NTrueInteractions", 80, 0., 80.);
-  TH1F* _h_nPUAfter = new TH1F("NTrueInteractionsReweighted", "NTrueInteractionsReweighted", 80, 0., 80.);
 
   TH1F* _h_nVtx = new TH1F("NPrimaryVtx", "NPrimaryVtx", 50, 0., 50.);
 
@@ -216,8 +222,17 @@ void MyAna::Loop()
     else
       _weight = 1.;
 
+    // PU reweighting 
+    if (_isMC) {
+      _h_nPUBefore->Fill((float)nTrueInteractions, _weight);
+      int npu = (int) nTrueInteractions;
+      if (npu > 79) npu = 79;
+      _weight = _weight * myPUReweighter->weight(npu);
+      _h_nPUAfter->Fill((float)nTrueInteractions, _weight);
+    }
+
     int iCut = 0;
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Starting"; ++iCut; // /!\ no pu reweighting or scalefactors yet
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Starting"; ++iCut; // /!\ no scalefactors yet
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Starting");
 
     //======================================================
@@ -229,16 +244,13 @@ void MyAna::Loop()
     if (!_isMC) {
       for ( unsigned int i=0; i<HLT_vector->size(); ++i){
         TString ThistrigName= (TString) HLT_vector->at(i);        
-        if ( run <  193834                 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFJet30")) passTrigger = true;
-        if ( run >= 193834 && run < 194270 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFNoPUJet30")) passTrigger = true;
-        if ( run >= 194270 && run < 199698 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFNoPUJet30_30_20")) passTrigger = true;
-        if ( run >= 199698                 && ThistrigName.Contains("HLT_IsoMu17_eta2p1_TriCentralPFNoPUJet45_35_25")) passTrigger = true;
+        if (ThistrigName.Contains("HLT_IsoMu24_eta2p1")) passTrigger = true;
       }
     }	
 
     if (!passTrigger && !_isMC) continue;  
 
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Trigger"; ++iCut; // /!\ no pu reweighting or scalefactors yet
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Trigger"; ++iCut; // /!\ no scalefactors yet
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Trigger");
 
     //================================================================================================
@@ -342,10 +354,9 @@ void MyAna::Loop()
 
     if (ngoodmuon != 1 || nsoftelectron != 0 || n30jet < 4) continue;
 
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; // /!\ no pu reweighting or scalefactors yet
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; // /!\ no scalefactors yet
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
 
-    _h_nPUBefore->Fill((float)nTrueInteractions, _weight);
     if (_isMC) {
       // Trigger scalefactors
       double lumitab[4]= {888.7,4446,7021 ,7221}; // when running on all the stat
@@ -362,13 +373,8 @@ void MyAna::Loop()
       _weight = _weight*(*jet_scaleFactor)[ind30jet[0]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[ind30jet[1]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[ind30jet[2]][0]; // 0 for central, 1 for up, 2 for down
-      // PU reweighting 
       _weight = _weight*(*jet_scaleFactor)[ind30jet[3]][0]; // 0 for central, 1 for up, 2 for down
-      int npu = (int) nTrueInteractions;
-      if (npu > 79) npu = 79;
-      _weight = _weight * myPUReweighter->weight(npu);
     }
-    _h_nPUAfter->Fill((float)nTrueInteractions, _weight);
 
     //======================================================
     // Analyze mu-tagged jets
