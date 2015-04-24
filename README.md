@@ -62,3 +62,38 @@ In `root`:
 
 
 ## JpsiAnalysis
+
+
+### Run the analysis
+
+Modify `MyAnaEl.cpp` or `MyAnaMu.cpp` and copy it into `MyAna.cc`
+
+Run the analysis with:
+
+    ./run_ALL_MyAna.py --version 1 --channel muonic --descr test
+
+It will run the analysis for all the files in the filelists repository and create rootfiles in:
+
+    Date/vX/MyAnaMu/
+
+
+### Get the stacked distributions 
+
+Then, you can run:
+
+    ./plotIt.py --date 15AprYY --version X --channel muonic
+
+Using `configPlotItMu.yml`, stacked histograms will be stored in:
+
+    Date/vX/PlotItMu/
+
+
+### Get event yields
+
+You can also get the number of events in:
+
+    Date/vX/NumberOfEvents.tex
+
+after running:
+
+    ./getNumberOfEvents.py --date 15AprYY --version X

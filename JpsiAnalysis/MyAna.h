@@ -14,7 +14,7 @@
 class MyAna : public RootTupleDefs {
 
 public :
-  MyAna(TTree *_muonstree,TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_jpsitree, TTree *_mujetstree, TTree *_MCtree);
+  MyAna(TTree *_muonstree,TTree *_electronstree, TTree *_jetstree, TTree *_METtree, TTree *_verticestree, TTree *_eventstree, TTree *_HLTtree, TTree *_muonsloosetree, TTree *_electronsloosetree, TTree *_jpsitree, TTree *_MCtree);
   ~MyAna();
   
   void   Loop();
@@ -58,7 +58,6 @@ private:
   TTree* _newelectronsloosetree;
   TTree* _newmuonsloosetree;
   TTree* _newjpsitree;
-  TTree* _newmujetstree;
   TTree* _newMCtree;
   bool _debug;
   bool _isMC;
