@@ -193,7 +193,7 @@ for aodsim_name in aodsim_names:
             aodsim_ngen = aodsim[4]
 
             if aodsim_group is group:
-                factor = Lumi[key] * aodsim_xsection / aodsim_ngen
+                factor = 1e3*Lumi[key] * aodsim_xsection / aodsim_ngen
                 file = TFile.Open(os.path.join(dirAna[key], aodsim_root))
                 histo = file.Get(histname)
                 nentries = histo.Integral()
