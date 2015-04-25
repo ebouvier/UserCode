@@ -11,6 +11,7 @@
 #include "AnglesUtil.h"
 #include "RootTupleDefs.h"
 #include "TLorentzVector.h"
+#include "TH1F.h"
 class MyAna : public RootTupleDefs {
 
 public :
@@ -21,8 +22,8 @@ public :
   
   void SetDebugMode(bool debug)                 { _debug    = debug;}   
   void SetMCmode(bool isMC)                     { _isMC     = isMC;}
-  void SetTTbarmode(bool isTTbar)               { _isTTbar     = isTTbar;}
-  void SetSIGmode(bool isSIG)                   { _isSIG    = isSIG}
+  void SetTTbarmode(bool isTTbar)               { _isTTbar  = isTTbar;}
+  void SetSIGmode(bool isSIG)                   { _isSIG    = isSIG;}
   void SetRootName(const std::string& rootName) { _rootName = rootName;}
   void SetDoSkim(bool doSkim)                   { _doSkim   = doSkim;}
   void SetNevent(int nevent)                    { _nevt = nevent;}

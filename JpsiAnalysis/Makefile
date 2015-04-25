@@ -5,7 +5,7 @@ DEPS =  $(patsubst %.cc, %.d, $(wildcard *.cc))
 
 all: run
 
-run: MyAna.o runMyAna.o  
+run: MyAna.o runMyAna.o HiggsTriggerEfficiencyProvider.o PUReweighter.o 
 	${CXX} ${LDFLAGS} -o runMyAna $^ `root-config --libs`
 
 runMyAna.o: runMyAna.cc
@@ -14,8 +14,14 @@ runMyAna.o: runMyAna.cc
 MyAna.o: MyAna.cc 
 	${CXX} -c ${CXXFLAGS} `root-config --cflags` MyAna.cc
 
+HiggsTriggerEfficiencyProvider.o: HiggsTriggerEfficiencyProvider.cc 
+	${CXX} -c ${CXXFLAGS} `root-config --cflags` HiggsTriggerEfficiencyProvider.cc
+
+PUReweighter.o: PUReweighter.cc 
+	${CXX} -c ${CXXFLAGS} `root-config --cflags` PUReweighter.cc
+
 clean:
-	rm -f MyAna.o runMyAna.o runMyAna core *.d
+	rm -f MyAna.o runMyAna.o HiggsTriggerEfficiencyProvider.o PUReweighter.o runMyAna core *.d
 
 
 # Make the dependencies 

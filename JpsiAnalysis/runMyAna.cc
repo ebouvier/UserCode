@@ -85,7 +85,6 @@ int main(int argc, char *argv[])
   TChain *electronsloose = new TChain("electron_loose_PF");
   TChain *MC = new TChain("MC");
   TChain* jpsi = new TChain("jpsi_KVF");
-  TChain* mujets = new TChain("muTaggedJet_PF");
   TString fNameList = input.c_str();
   cout << "=> Load Chain from file: " << fNameList << endl;
   ifstream fList(fNameList.Data());
@@ -115,7 +114,6 @@ int main(int argc, char *argv[])
     }
     else MC=NULL;
     jpsi->Add(lineFromFile.c_str());
-    mujets->Add(lineFromFile.c_str());
   } while (fList.good());
   
   
@@ -125,7 +123,7 @@ int main(int argc, char *argv[])
   cout << "======================================================================" << endl;
   cout << "Total Number of events = "  << muons->GetEntries() << endl;//all 7 trees have the same number of entries
   cout << "======================================================================" << endl;
-  MyAna ana(muons, electrons, jets, MET, vertices, events, HLT, muonsloose, electronsloose, jpsi, mujets, MC); //instantiate one MyAna object
+  MyAna ana(muons, electrons, jets, MET, vertices, events, HLT, muonsloose, electronsloose, jpsi, MC); //instantiate one MyAna object
   ana.SetNevent(nevent);// configure the object of type MyAna
   ana.SetRootName(output);
   ana.SetDebugMode(debug);
