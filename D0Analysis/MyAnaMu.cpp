@@ -14,6 +14,7 @@
 #include <iomanip>
 #include <set>
 #include <map>
+#include <TH2F.h>
 
 using namespace std;
 
@@ -49,6 +50,7 @@ void MyAna::Loop()
   //================================================================================================
 
   TH1::SetDefaultSumw2(true);
+  TH2::SetDefaultSumw2(true);
 
   TH1F* _h_nPUBefore = new TH1F("NTrueInteractions", "NTrueInteractions", 80, 0., 80.);
   _h_nPUBefore->SetXTitle("Number of true interactions (before PU reweighing)");
@@ -79,6 +81,23 @@ void MyAna::Loop()
   _h_pTSelJets->SetXTitle("p_{T}(jets) (GeV/c)");
   TH1F* _h_etaSelJets = new TH1F("Eta-b-jets", "Eta-b-jets", 60, -3., 3.); 
   _h_etaSelJets->SetXTitle("#eta(jets)");
+
+  TH2F* _h_unfold_tr_eta = new TH2F("EtaCh-nomu-b-jets", "EtaCh-nomu-b-jets", 60, -3., 3., 60, -3., 3.);
+  _h_unfold_tr_eta->SetXTitle("#eta^{reco}(tracks, no #mu)");
+  _h_unfold_tr_eta->SetYTitle("#eta^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_pt = new TH2F("PtCh-nomu-b-jets", "PtCh-nomu-b-jets", 300, 0., 300., 300, 0., 300.);
+  _h_unfold_tr_pt->SetXTitle("p_{T}^{reco}(tracks, no #mu)");
+  _h_unfold_tr_pt->SetYTitle("p_{T}^{gen}(tracks, no #mu)");
+  TH1F* _h_unfold_tr_dr = new TH1F("DrCh-nomu-b-jets", "DrCh-nomu-b-jets", 150, 0., 1.5);
+  _h_unfold_tr_dr->SetXTitle("#DeltaR^{gen-reco}(tracks, no #mu)");
+  TH2F* _h_unfold_mu_eta = new TH2F("EtaSoftMu-b-jets", "EtaSoftMu-b-jets", 60, -3., 3., 60, -3., 3.);
+  _h_unfold_mu_eta->SetXTitle("#eta^{reco}(soft #mu)");
+  _h_unfold_mu_eta->SetYTitle("#eta^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_pt = new TH2F("PtSoftMu-b-jets", "PtSoftMu-b-jets", 300, 0., 300., 300, 0., 300.);
+  _h_unfold_mu_pt->SetXTitle("p_{T}^{reco}(soft #mu)");
+  _h_unfold_mu_pt->SetYTitle("p_{T}^{gen}(soft #mu)");
+  TH1F* _h_unfold_mu_dr = new TH1F("DrSoftMu-b-jets", "DrSoftMu-b-jets", 150, 0., 1.5);
+  _h_unfold_mu_dr->SetXTitle("#DeltaR^{gen-reco}(soft #mu)");
 
   TH1F* _h_Nch = new TH1F("Nch-b-jets", "Nch-b-jets", 45, 0, 45); 
   _h_Nch->SetXTitle("Track multiplicity");
@@ -415,6 +434,29 @@ void MyAna::Loop()
       _h_CSVSelJets->Fill(mujet_jet_btag_CSV[i], _weight);
       _h_pTSelJets->Fill(GetP4(mujet_jet_4vector,i)->Pt(), _weight);
       _h_etaSelJets->Fill(GetP4(mujet_jet_4vector,i)->Eta(), _weight);
+
+      // Unfold
+      if (_isMC) {
+        for (int j = 0; j < n_unfold_tr; ++j) {
+          if (mujet_unfold_indmujet[j] != i) continue;
+          // nomu
+          if (mujet_unfold_tr_genpt[j] > 1e-6) {
+            _h_unfold_tr_dr->Fill(mujet_unfold_tr_dr[j], _weight);
+            if (mujet_unfold_tr_dr[j] <= 0.015) {
+              _h_unfold_tr_eta->Fill(mujet_unfold_tr_recoeta[j], mujet_unfold_tr_geneta[j], _weight);
+              _h_unfold_tr_pt->Fill(mujet_unfold_tr_recopt[j], mujet_unfold_tr_genpt[j], _weight);
+            }
+          }
+          // soft mu
+          if (mujet_unfold_mu_genpt[j] > 1e-6) {
+            _h_unfold_mu_dr->Fill(mujet_unfold_mu_dr[j], _weight);
+            if (mujet_unfold_mu_dr[j] <= 0.015) {
+              _h_unfold_mu_eta->Fill(mujet_unfold_mu_recoeta[j], mujet_unfold_mu_geneta[j], _weight);
+              _h_unfold_mu_pt->Fill(mujet_unfold_mu_recopt[j], mujet_unfold_mu_genpt[j], _weight);
+            }
+          }
+        }
+      }
       
       _Ntr = (float)mujet_ntr[i];
       _h_Nch->Fill((float)mujet_ntr[i], _weight);
