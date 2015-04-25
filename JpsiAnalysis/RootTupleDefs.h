@@ -255,11 +255,6 @@ class RootTupleDefs {
     TClonesArray    *MC_Bhad_4vector;
     Int_t           MC_Bhad_id[200]; 
     TClonesArray    *MC_Bquark_4vector;
-    TClonesArray    *MC_D0_4vector;
-    TClonesArray    *MC_D0_daughter0_4vector;
-    Int_t           MC_D0_daughter0_id[200]; 
-    TClonesArray    *MC_D0_daughter1_4vector;
-    Int_t           MC_D0_daughter1_id[200]; 
 
     //J/psi leaves
     Int_t           n_jpsi;
@@ -417,9 +412,6 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   MC_JPsi_4vector = NULL;
   MC_Bhad_4vector = NULL;
   MC_Bquark_4vector = NULL;
-  MC_D0_4vector = NULL;
-  MC_D0_daughter0_4vector = NULL;
-  MC_D0_daughter1_4vector = NULL;
   jpsi_jet_4vector = NULL;
   jpsi_jet_scaleFactor = NULL;
   jpsipf_4vector = NULL;
@@ -722,11 +714,6 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
     SetBranchStatusAndAddress(MCChain, "MC_Bhad_4vector", &MC_Bhad_4vector);
     SetBranchStatusAndAddress(MCChain, "MC_Bhad_id", &MC_Bhad_id);
     SetBranchStatusAndAddress(MCChain, "MC_Bquark_4vector", &MC_Bquark_4vector);
-    SetBranchStatusAndAddress(MCChain, "MC_D0_4vector", &MC_D0_4vector);
-    SetBranchStatusAndAddress(MCChain, "MC_D0_daughter0_4vector", &MC_D0_daughter0_4vector);
-    SetBranchStatusAndAddress(MCChain, "MC_D0_daughter0_id", &MC_D0_daughter0_id);
-    SetBranchStatusAndAddress(MCChain, "MC_D0_daughter1_4vector", &MC_D0_daughter1_4vector);
-    SetBranchStatusAndAddress(MCChain, "MC_D0_daughter1_id", &MC_D0_daughter1_id);
 
   }   
 
