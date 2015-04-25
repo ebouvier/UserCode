@@ -257,7 +257,7 @@ void MyAna::Loop()
     }
 
     int iCut = 0;
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Starting"; ++iCut; // /!\ no scalefactors yet
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Starting"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Starting");
 
     //======================================================
@@ -267,16 +267,13 @@ void MyAna::Loop()
     bool passTrigger = false;
 
     if (!_isMC) {
-      for ( unsigned int i=0; i<HLT_vector->size(); ++i){
+      for ( unsigned int i = 0; i < HLT_vector->size(); ++i){
         TString ThistrigName= (TString) HLT_vector->at(i);        
         if (ThistrigName.Contains("HLT_Ele27_WP80")) passTrigger = true;
       }
     }	
 
     if (!passTrigger && !_isMC) continue;  
-
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Trigger"; ++iCut; // /!\ no scalefactors yet
-    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Trigger");
 
     //================================================================================================
     // Objects selection 
@@ -306,6 +303,15 @@ void MyAna::Loop()
     unsigned int ngoodelectron = indgoodel.size();
 
     if (_debug) cout << "Number of good electrons = " << ngoodelectron << endl;
+
+    if (_isMC && ngoodelectron > 0) {
+      // Trigger scalefactors
+      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
+      _weight = _weight*weight_provider->get_weight_isoel(GetP4(electron_4vector, indgoodel[0])->Pt(), GetP4(electron_4vector, indgoodel[0])->Eta()); 
+    }
+
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Trigger"; ++iCut;
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Trigger");
 
     //======================================================
     // Soft muons selection
@@ -371,13 +377,7 @@ void MyAna::Loop()
 
     if (ngoodelectron != 1 || nsoftmuon != 0 || n30jet < 4) continue;
 
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; // /!\ no scalefactors yet
-    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
-
     if (_isMC) {
-      // Trigger scalefactors
-      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
-      _weight = _weight*weight_provider->get_weight_isoel(GetP4(electron_4vector, indgoodel[0])->Pt(), GetP4(electron_4vector, indgoodel[0])->Eta()); 
       // Electron scalefactor
       _weight = _weight*(*electron_scaleFactor_tighteff_tightiso)[indgoodel[0]][0]; // 0 for central, 1 for up, 2 for down
       // Jet scalefactors
@@ -386,6 +386,10 @@ void MyAna::Loop()
       _weight = _weight*(*jet_scaleFactor)[ind30jet[2]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[ind30jet[3]][0]; // 0 for central, 1 for up, 2 for down
     }
+
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; // /!\ no scalefactors yet
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
+
     _h_weight->Fill(_weight);
 
     //======================================================
@@ -568,13 +572,13 @@ void MyAna::Loop()
   //================================================================================================
 
   cout << "========================================================================" << endl;
-  cout << "Initial number of events                                  = " << _h_iCut->GetBinContent(1) << endl;
+  cout << "Number of events before cuts                              = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
   for (int i = 1; i < 3 ; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
-  cout << "------------------------------------------------------------------------" << endl;
+  cout << "========================================================================" << endl;
   cout << "Total Number of events selected                           = "  << nselected			   << endl;
   cout << "========================================================================" << endl;
   cout << "Total Number of events skimmed                            = "  << nwrite			   << endl;
