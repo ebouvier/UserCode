@@ -196,13 +196,168 @@ plots:
     ##x-axis-range: [,]
     ##y-axis-range: [,]
 
-  "NTrueInteractionsReweighted":
+  "PUAfter":
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
     save-extensions: ["pdf","C","jpg","eps"]
 
-  "NPrimaryVtx":
+  "NMuons-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NElectrons-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets20-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJpsi-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NIsoLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtIsoLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaIsoLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiIsoLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PfIsoIsoLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJets20":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJets20":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJets20":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJets20":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "CsvJets20":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtLeadJet1":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet1":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet1":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtLeadJet2":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet2":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet2":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtLeadJet3":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet3":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet3":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtLeadJet4":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet4":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet4":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "MetMet":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMet":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MtW":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NVertices":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "XVertices":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "YVertices":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ZVertices":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NdofVertices":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NormChi2Vertices":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "IsFakeVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NTracksVertices":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "XLeadingVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "YLeadingVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ZLeadingVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NdofLeadingVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NormChi2LeadingVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "IsFakeLeadingVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NTracksLeadingVertex":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-zoom":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "SigmaLJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtFracJpsiJet":
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "DPhiJpsiIsoLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "PtMuJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaMuJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMuJpsi":
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "MTriLept-allPair":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtTriLept":
+    save-extensions: ["pdf","C","jpg","eps"]
+    
+  "bjjMass":
+    save-extensions: ["pdf","C","jpg","eps"]
+  "WMass":
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:

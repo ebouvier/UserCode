@@ -63,35 +63,35 @@ void MyAna::Loop()
   }
 
   int counter[20]; for (int i=0; i<20; ++i) counter[i] = 0;
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 10, 0., 10.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 8, 0., 8.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
-  TH1F* _h_weight = new TH1F("Weight", "Weight", 20, 0., 2.);
+  TH1F* _h_weight = new TH1F("Weight", "Weight", 100, 0., 2.);
   _h_weight->SetXTitle("Weight");
 
   float _weight = 1.;
 
-  TH1F* _h_cuts_muons_n          = new TH1F("NMuons-cuts", "NMuons-cuts", 10, 0., 10.);
+  TH1F* _h_cuts_muons_n          = new TH1F("NMuons-cuts", "NMuons-cuts", 4, 0., 4.);
   _h_cuts_muons_n->SetXTitle("Number of isolated #mu (before cut)");
-  TH1F* _h_cuts_electrons_n      = new TH1F("NElectrons-cuts", "NElectrons-cuts", 10, 0., 10.);
+  TH1F* _h_cuts_electrons_n      = new TH1F("NElectrons-cuts", "NElectrons-cuts", 4, 0., 4.);
   _h_cuts_electrons_n->SetXTitle("Number of veto e (before cut)");
-  TH1F* _h_cuts_jet20_n          = new TH1F("NJets20-cuts", "NJets20-cuts", 20, 0., 20.);
+  TH1F* _h_cuts_jet20_n          = new TH1F("NJets20-cuts", "NJets20-cuts", 15, 0., 15.);
   _h_cuts_jet20_n->SetXTitle("Number of jets with p_{T} > 20 GeV/c (before cut)");
-  TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 20, 0., 20.);
+  TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 6, 0., 6.);
   _h_cuts_csvJet20_n->SetXTitle("Number of CSV b-tagged jets (before cut)");
   TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 20, 3., 3.2);
   _h_cuts_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2}) (before cut)");
-  TH1F* _h_cuts_jpsi_n           = new TH1F("NJpsi-cuts", "NJpsi-cuts", 5, 0., 5.);
+  TH1F* _h_cuts_jpsi_n           = new TH1F("NJpsi-cuts", "NJpsi-cuts", 3, 0., 3.);
   _h_cuts_jpsi_n->SetXTitle("Number of J/#psi (before cut)");
-  TH1F* _h_cuts_jpsi_chi2        = new TH1F("Chi2Jpsi-cuts", "Chi2Jpsi-cuts", 40, 0., 20.);
+  TH1F* _h_cuts_jpsi_chi2        = new TH1F("Chi2Jpsi-cuts", "Chi2Jpsi-cuts", 32, 0., 16.);
   _h_cuts_jpsi_chi2->SetXTitle("#chi^{2}(J/#psi vertex) (before cut)");
   TH1F* _h_cuts_jpsi_l           = new TH1F("LJpsi-cuts", "LJpsi-cuts", 50, 0., 1.);
   _h_cuts_jpsi_l->SetXTitle("c#tau(J/#psi) (cm) (before cut)");
   TH1F* _h_cuts_jpsi_lOverSig    = new TH1F("LOverSigmaJpsi-cuts", "LOverSigmaJpsi-cuts", 42, 0., 7000.);
   _h_cuts_jpsi_lOverSig->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
 
-  TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 2, 0., 2.);
+  TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of isolated #mu");
   TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 50, 0., 500.);   
   _h_isoLept_pt->SetXTitle("p_{T}(isolated #mu) (GeV/c)");
@@ -99,7 +99,7 @@ void MyAna::Loop()
   _h_isoLept_eta->SetXTitle("#eta(isolated #mu)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
   _h_isoLept_phi->SetXTitle("#phi(isolated #mu)");
-  TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 55, 0., 1.1);  
+  TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 25, 0., 0.5);  
   _h_isoLept_pfiso->SetXTitle("#mu isolation");
 
   TH1F* _h_jet20_n                = new TH1F("NJets20", "NJets20", 11, 0., 11.); 
@@ -112,7 +112,7 @@ void MyAna::Loop()
   _h_jet20_phi->SetXTitle("#phi(jets)");
   TH1F* _h_jet20_csv              = new TH1F("CsvJets20", "CsvJets20", 25, 0.5, 1.);
   _h_jet20_csv->SetXTitle("CSV discriminant");
-  TH1F* _h_csvJet20_n             = new TH1F("NCsvJets20", "NCsvJets20", 20, 0., 11.); 
+  TH1F* _h_csvJet20_n             = new TH1F("NCsvJets20", "NCsvJets20", 5, 0., 5.); 
   _h_csvJet20_n->SetXTitle("Number of CSV b-tagged jets with p_{T}>20 GeV/c");
   TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 11, 0., 11.);
   _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
@@ -150,43 +150,43 @@ void MyAna::Loop()
   _h_met_met->SetXTitle("MET (GeV)");
   TH1F* _h_met_phi                = new TH1F("PhiMet", "PhiMet", 40, -4., 4.);
   _h_met_phi->SetXTitle("#phi(MET)");
-  TH1F* _h_W_mt                   = new TH1F("MtW", "MtW", 50, 0., 500.);
+  TH1F* _h_W_mt                   = new TH1F("MtW", "MtW", 30, 0., 300.);
   _h_W_mt->SetXTitle("W transwerse mass (GeV/c^{2})");
 
   TH1F* _h_vertex_n               = new TH1F("NVertices", "NVertices", 20, 0., 40.);
   _h_vertex_n->SetXTitle("Number of vertices");
-  TH1F* _h_vertex_x               = new TH1F("XVertices", "XVertices", 25, -0.5, 0.5);
-  _h_vertex_x->SetXTitle("x(vertices) (#mum)");
-  TH1F* _h_vertex_y               = new TH1F("YVertices", "YVertices", 25, -0.5, 0.5);
-  _h_vertex_y->SetXTitle("y(vertices) (#mum)");
-  TH1F* _h_vertex_z               = new TH1F("ZVertices", "ZVertices", 25, -50., 50.);
-  _h_vertex_z->SetXTitle("z(vertices) (#mum)");
+  TH1F* _h_vertex_x               = new TH1F("XVertices", "XVertices", 25, 0., 0.5);
+  _h_vertex_x->SetXTitle("x(vertices) (cm)");
+  TH1F* _h_vertex_y               = new TH1F("YVertices", "YVertices", 25, 0., 0.5);
+  _h_vertex_y->SetXTitle("y(vertices) (cm)");
+  TH1F* _h_vertex_z               = new TH1F("ZVertices", "ZVertices", 15, -30., 30.);
+  _h_vertex_z->SetXTitle("z(vertices) (cm)");
   TH1F* _h_vertex_ndof            = new TH1F("NdofVertices", "NdofVertices", 25, 0., 250.);
   _h_vertex_ndof->SetXTitle("Number of degrees of freedom (vertices)");
-  TH1F* _h_vertex_chi2Norm        = new TH1F("NormChi2Vertices","NormChi2Vertices", 20, 0., 20.);
+  TH1F* _h_vertex_chi2Norm        = new TH1F("NormChi2Vertices","NormChi2Vertices", 10, 0., 5.);
   _h_vertex_chi2Norm->SetXTitle("Normalized #chi^{2}(vertices)");
   TH1F* _h_vertex_isFake          = new TH1F("IsFakeVertex","IsFakeVertex", 3, 0., 3.);
   _h_vertex_isFake->SetXTitle("Vertex validity");
-  TH1F* _h_vertex_nTracks         = new TH1F("NTracksVertices","NTracksVertices", 250, 0., 250.);
+  TH1F* _h_vertex_nTracks         = new TH1F("NTracksVertices","NTracksVertices", 100, 0., 200.);
   _h_vertex_nTracks->SetXTitle("Track multiplicity per vertex");
 
-  TH1F* _h_leadVertex_x           = new TH1F("XLeadingVertex", "XLeadingVertex", 25, -0.5, 0.5);
-  _h_leadVertex_x->SetXTitle("x(main vertex) (#mum)");
-  TH1F* _h_leadVertex_y           = new TH1F("YLeadingVertex", "YLeadingVertex", 25, -0.5, 0.5);
-  _h_leadVertex_y->SetXTitle("y(main vertex) (#mum)");
-  TH1F* _h_leadVertex_z           = new TH1F("ZLeadingVertex", "ZLeadingVertex", 25, -50., 50.);
-  _h_leadVertex_z->SetXTitle("z(main vertex) (#mum)");
+  TH1F* _h_leadVertex_x           = new TH1F("XLeadingVertex", "XLeadingVertex", 25, 0., 0.5);
+  _h_leadVertex_x->SetXTitle("x(main vertex) (cm)");
+  TH1F* _h_leadVertex_y           = new TH1F("YLeadingVertex", "YLeadingVertex", 25, 0., 0.5);
+  _h_leadVertex_y->SetXTitle("y(main vertex) (cm)");
+  TH1F* _h_leadVertex_z           = new TH1F("ZLeadingVertex", "ZLeadingVertex", 15, -30., 30.);
+  _h_leadVertex_z->SetXTitle("z(main vertex) (cm)");
   TH1F* _h_leadVertex_ndof        = new TH1F("NdofLeadingVertex", "NdofLeadingVertex", 25, 0., 250.);
   _h_leadVertex_ndof->SetXTitle("Number of degrees of freedom (main vertex)");
-  TH1F* _h_leadVertex_chi2Norm    = new TH1F("NormChi2LeadingVertex","NormChi2LeadingVertex", 20, 0., 20.);
+  TH1F* _h_leadVertex_chi2Norm    = new TH1F("NormChi2LeadingVertex","NormChi2LeadingVertex", 10, 0., 5.);
   _h_leadVertex_chi2Norm->SetXTitle("Normalized #chi^{2}(main vertex)");
   TH1F* _h_leadVertex_isFake      = new TH1F("IsFakeLeadingVertex","IsFakeLeadingVertex", 3, 0., 3.);
   _h_leadVertex_isFake->SetXTitle("Main vertex validity");
-  TH1F* _h_leadVertex_nTracks     = new TH1F("NTracksLeadingVertex","NTracksLeadingVertex", 250, 0., 250.);
+  TH1F* _h_leadVertex_nTracks     = new TH1F("NTracksLeadingVertex","NTracksLeadingVertex", 100, 0., 200.);
   _h_leadVertex_nTracks->SetXTitle("Track multiplicity for the main vertex");
 
   TH1F* _h_jpsi_n                 = new TH1F("NJpsi", "NJpsi", 3, 0., 3.);
-  _h_jpsi_n->SetXTitle("");
+  _h_jpsi_n->SetXTitle("Number of J/#psi");
   TH1F* _h_jpsi_m                 = new TH1F("MJpsi", "MJpsi", 20, 3., 3.2);
   _h_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
   TH1F* _h_jpsi_pt                = new TH1F("PtJpsi", "PtJpsi", 28, 0., 140.);   
@@ -194,33 +194,31 @@ void MyAna::Loop()
   TH1F* _h_jpsi_eta               = new TH1F("EtaJpsi", "EtaJpsi", 30, -3., 3.); 
   _h_jpsi_eta->SetXTitle("#eta (J/#psi)");
   TH1F* _h_jpsi_phi               = new TH1F("PhiJpsi", "PhiJpsi", 32, -3.2, 3.2); 
-  _h_jpsi_phi->SetXTitle("");
+  _h_jpsi_phi->SetXTitle("#phi (J/#psi)");
   TH1F* _h_jpsi_chi2              = new TH1F("Chi2Jpsi", "Chi2Jpsi", 16, 0., 8.);
   _h_jpsi_chi2->SetXTitle("#chi^{2}(J/#psi vertex)");
   TH1F* _h_jpsi_l                 = new TH1F("LJpsi", "LJpsi", 25, 0., 0.5);
   _h_jpsi_l->SetXTitle("c#tau(J/#psi) (cm)");
   TH1F* _h_jpsi_l_zoom            = new TH1F("LJpsi-zoom", "LJpsi-zoom", 50, 0., 0.05);
   _h_jpsi_l_zoom->SetXTitle("c#tau(J/#psi) (cm)");
-  TH1F* _h_jpsi_sigmaL            = new TH1F("SigmaLJpsi", "SigmaLJpsi", 50, 0., 0.005);
+  TH1F* _h_jpsi_sigmaL            = new TH1F("SigmaLJpsi", "SigmaLJpsi", 15, 0., 0.0015);
   _h_jpsi_sigmaL->SetXTitle("#Delta(c#tau)(J/#psi) (cm)");
   TH1F* _h_jpsi_lOverSigma        = new TH1F("LOverSigmaJpsi", "LOverSigmaJpsi", 42, 0., 7000.);
   _h_jpsi_lOverSigma->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi)");
-  TH1F* _h_jpsi_jetPtFrac         = new TH1F("PtFracJpsiJet", "PtFracJpsiJet", 22, 0., 1.1);
-  _h_jpsi_jetPtFrac->SetXTitle("p_{T}(J/#psi)/p_{T}(nearest jet)");
+  TH1F* _h_jpsi_jetPtFrac         = new TH1F("PtFracJpsiJet", "PtFracJpsiJet", 20, 0., 1.);
+  _h_jpsi_jetPtFrac->SetXTitle("p_{T}(J/#psi)/p_{T}(jet)");
 
   TH1F* _h_jpsi_dPhiLept          = new TH1F("DPhiJpsiIsoLept", "DPhiJpsiIsoLept", 16, 0., 4.);
   _h_jpsi_dPhiLept->SetXTitle("#Delta#phi (J/#psi-isolated #mu)");
   TH1F* _h_jpsi_dRLept            = new TH1F("DRJpsiIsoLept", "DRJpsiIsoLept", 20, 0., 5.);
-  _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi - isolated #mu)");
+  _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-isolated #mu)");
 
-  TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 30, 0., 300.);  
+  TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 15, 0., 150.);  
   _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm} (GeV/c)");
   TH1F* _h_muJpsi_eta             = new TH1F("EtaMuJpsi", "EtaMuJpsi", 30, -3., 3.); 
   _h_muJpsi_eta->SetXTitle("#eta(#mu^{#pm}");
   TH1F* _h_muJpsi_phi             = new TH1F("PhiMuJpsi", "PhiMuJpsi", 32, -3.2, 3.2);
   _h_muJpsi_phi->SetXTitle("#phi(#mu^{#pm}");
-  TH1F* _h_muJpsi_dist            = new TH1F("DistMuJpsi", "DistMuJpsi", 20, 0., 200.);
-  _h_muJpsi_dist->SetXTitle("d(#mu^{+},#mu^{-}) (#mum)");
 
   TH1F* _h_triLept_m              = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
   _h_triLept_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
@@ -230,18 +228,18 @@ void MyAna::Loop()
   _h_triLept_wrongPair_m->SetXTitle("M(J/#psi+l, not from same top) (GeV/c^{2})");
   TH1F* _h_triLept_pt             = new TH1F("PtTriLept", "PtTriLept", 25, 0., 250.); 
   _h_triLept_pt->SetXTitle("p_{T}(J/#psi+l) (GeV/c)");
-  TH1F* _h_jpsi_resR              = new TH1F("ResRJpsi", "ResRJpsi", 20, 0., 0.2); 
+  TH1F* _h_jpsi_resR              = new TH1F("ResRJpsi", "ResRJpsi", 200, 0., 0.1); 
   _h_jpsi_resR->SetXTitle("#DeltaR(gen-reco J/#psi)");
   TH1F* _h_jpsi_resPt 	          = new TH1F("ResPtJpsi", "ResPtJpsi", 20,0.,0.2); 
   _h_jpsi_resPt->SetXTitle("#Deltap_{T}(gen-reco J/#psi)/p_{T}^{gen}(J/#psi)");
-  TH1F* _h_isoLept_resR		        = new TH1F("ResRIsoLept", "ResRIsoLept", 20, 0., 0.2); 
+  TH1F* _h_isoLept_resR		        = new TH1F("ResRIsoLept", "ResRIsoLept", 50, 0., 0.2); 
   _h_isoLept_resR->SetXTitle("#DeltaR(gen-reco iso #mu)");
-  TH1F* _h_isoLept_resPt		      = new TH1F("ResPtIsoLept", "ResPtIsoLept", 20, 0., 0.2); 
+  TH1F* _h_isoLept_resPt		      = new TH1F("ResPtIsoLept", "ResPtIsoLept", 80, 0., 0.2); 
   _h_isoLept_resPt->SetXTitle("#Deltap_{T}(gen-reco iso #mu)/p_{T}^{gen}(iso #mu)");
 
   TH1F* _h_bjj_m                  = new TH1F("bjjMass", "bjjMass", 25, 0., 500.);
   _h_bjj_m->SetXTitle("M(bjj) (GeV/c^{2})");
-  TH1F* _h_W_m                    = new TH1F("WMass", "WMass", 25, 0., 500.);
+  TH1F* _h_W_m                    = new TH1F("WMass", "WMass", 10, 0., 200.);
   _h_W_m->SetXTitle("W mass (GeV/c^{2})");
 
   TTree* _t_triLept_m       = new TTree("MTriLept","MTriLept");
@@ -316,8 +314,8 @@ void MyAna::Loop()
     }
 
     int iCut = 0;
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Starting"; ++iCut; // /!\ no scalefactors yet
-    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Starting");
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Starting"; ++iCut; 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "Starting");
 
     //======================================================
     // Trigger
@@ -348,6 +346,7 @@ void MyAna::Loop()
     //======================================================
     // Good muons selection
     //======================================================
+
     if (_debug) cout <<" -> muons size "<< n_muons << endl;
 
     for (unsigned int i = 0; i < n_muons; ++i) {
@@ -520,27 +519,10 @@ void MyAna::Loop()
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Exactly 1 J/psi"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Exactly 1 J/psi");
 
-    // Distance between daughters
-    TVector3 AB(GetP4(jpsi_mu2_4vector, indgoodjpsi[0])->X() - GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->X(),
-        GetP4(jpsi_mu2_4vector, indgoodjpsi[0])->Y() - GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->Y(),
-        GetP4(jpsi_mu2_4vector, indgoodjpsi[0])->Z() - GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->Z());
-    TVector3 v1(GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->Px(), GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->Py(), GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->Pz());
-    TVector3 v2(GetP4(jpsi_mu2_4vector, indgoodjpsi[0])->Px(), GetP4(jpsi_mu2_4vector, indgoodjpsi[0])->Py(), GetP4(jpsi_mu2_4vector, indgoodjpsi[0])->Pz());
-
-    TVector3 v1Xv2 = v1.Cross(v2);
-    float mp = AB.Dot(v1Xv2);
-    float dist = fabs(mp)/v1Xv2.Mag();
-    dist = dist * 10000.; // conversion to micrometer
-    if ( dist >= 105. ) continue;
-    ++counter[6];
-
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with d(#mu^{+},#mu^{-})<105 #mum"; ++iCut; 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with d(#mu^{+},#mu^{-})<105 #mum");
-
     // Chi2
     _h_cuts_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
     if (jpsi_vtxchi2[indgoodjpsi[0]] >= 5.) continue;
-    ++counter[7];
+    ++counter[6];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with #chi2<5"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with #chi2<5");
@@ -548,7 +530,7 @@ void MyAna::Loop()
     // ctau
     _h_cuts_jpsi_l->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
     if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue;
-    ++counter[8];
+    ++counter[7];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm");
@@ -576,7 +558,7 @@ void MyAna::Loop()
       isolike = muon_deltaBetaCorrectedRelIsolation[indgoodmu[0]];
 
     if (isolike > 0.12) continue;
-    ++counter[12];
+    ++counter[11];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Tighter isolated muon"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Tighter isolated muon");
@@ -687,8 +669,6 @@ void MyAna::Loop()
     _h_muJpsi_eta->Fill(GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Eta(), _weight);
     _h_muJpsi_phi->Fill(GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Phi(), _weight);
 
-    _h_muJpsi_dist->Fill(dist, _weight);
-
     _h_jpsi_l->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
     _h_jpsi_l_zoom->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
     _h_jpsi_sigmaL->Fill(jpsi_sigmaL3D[indgoodjpsi[0]], _weight);
@@ -731,7 +711,7 @@ void MyAna::Loop()
               MC_eta[i], MC_phi[i]);
           float MC_pt = sqrt(MC_px[i] * MC_px[i] + MC_py[i] * MC_py[i]);
           float dpt_jpsi_tmp = fabs(GetP4(jpsi_4vector,indgoodjpsi[0])->Pt() - MC_pt) / fabs(MC_pt);
-          if (dpt_jpsi_tmp<dpt_jpsi && dr_jpsi_tmp<dr_jpsi) {
+          if (dpt_jpsi_tmp < dpt_jpsi && dr_jpsi_tmp < dr_jpsi) {
             dr_jpsi = dr_jpsi_tmp;
             dpt_jpsi = dpt_jpsi_tmp;
             indJPsi = i;
@@ -750,7 +730,7 @@ void MyAna::Loop()
           float dr_l_tmp = kinem::delta_R(GetP4(muon_4vector,indgoodmu[0])->Eta(),GetP4(muon_4vector,indgoodmu[0])->Phi(),MC_eta[i],MC_phi[i]);
           float MC_pt = sqrt( MC_px[i] * MC_px[i] + MC_py[i] * MC_py[i] );
           float dpt_l_tmp = fabs(GetP4(muon_4vector,indgoodmu[0])->Pt()-MC_pt)/fabs(MC_pt);
-          if (dpt_l_tmp<dpt_l && dr_l_tmp<dr_l) {
+          if (dpt_l_tmp < dpt_l && dr_l_tmp < dr_l) {
             dr_l = dr_l_tmp;
             dpt_l = dpt_l_tmp;
             indLepton = i;
@@ -776,13 +756,13 @@ void MyAna::Loop()
       if (_debug) cout << "good paired : " << goodpaired << endl;
 
       if (JPsiMatched && LeptonMatched) {
-        ++counter[9];
+        ++counter[8];
         if (goodpaired) {
           _h_triLept_goodPair_m->Fill(m_reco, _weight);
-          ++counter[10];
+          ++counter[9];
         } else {
           _h_triLept_wrongPair_m->Fill(m_reco, _weight);
-          ++counter[11];
+          ++counter[10];
         }
       }  
     }
@@ -915,11 +895,11 @@ void MyAna::Loop()
   cout << "Number of events before cut :                                  = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
-  for (int i = 1; i < 10 ; i++){
+  for (int i = 1; i < 8; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
   cout << "========================================================================" << endl;
-  cout << "Total Number of events selected                           = "  << nselected			   << endl;
+  cout << "Total Number of events selected                           = "  << nselected << endl;
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
   cout << "Only 1 iso lepton                                         = " << counter[3] << endl;
@@ -927,18 +907,17 @@ void MyAna::Loop()
   cout << "-> no soft electron                                       = " << counter[2] << endl;
   cout << "At least 2 jets pT>40 GeV/c                               = " << counter[4] << endl;
   cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
-  cout << "... with dist < 105 microns                               = " << counter[6] << endl;
-  cout << "... and chi2 < 5                                          = " << counter[7] << endl;
-  cout << "... and ctau > 0.005 cm                                   = " << counter[8] << endl;
-  cout << "Tighter isolated lepton                                   = " << counter[12] << endl;
+  cout << "... with chi2 < 5                                         = " << counter[6] << endl;
+  cout << "... and ctau > 0.005 cm                                   = " << counter[7] << endl;
+  cout << "Tighter isolated lepton                                   = " << counter[11] << endl;
   if (_isMC && _isSIG) {
     cout << "========================================================================" << endl;
-    cout << "Events matched to MC truth (DeltaR<0.05 for J/psi and lepton)   = " << counter[9] << endl;
-    cout << "... good pairing                                                = " << counter[10] << endl;
-    cout << "... wrong pairing                                               = " << counter[11] << endl;
+    cout << "Events matched to MC truth (DeltaR<0.05 for J/psi and lepton)   = " << counter[8] << endl;
+    cout << "... good pairing                                                = " << counter[9] << endl;
+    cout << "... wrong pairing                                               = " << counter[10] << endl;
   }
   cout << "========================================================================" << endl;
-  cout << "Total Number of events skimmed                            = "  << nwrite			   << endl;
+  cout << "Total Number of events skimmed                            = "  << nwrite	 << endl;
   cout << "========================================================================" << endl;
 
   _newfile->Write();
