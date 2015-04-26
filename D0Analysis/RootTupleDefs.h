@@ -417,7 +417,7 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   muon_scaleFactor_tighteff_tightiso = NULL;
   electron_4vector = NULL;
   electron_scaleFactor_looseeff_tightiso=NULL;
-  electron_scaleFactor_looseeff_tightiso=NULL;
+  electron_scaleFactor_tighteff_tightiso=NULL;
   jet_4vector = NULL;
   genjet_4vector = NULL;
   rawjet_4vector = NULL;

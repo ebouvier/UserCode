@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
   TChain *muonsloose = new TChain("muon_loose_PF");
   TChain *electronsloose = new TChain("electron_loose_PF");
   TChain *MC = new TChain("MC");
-  TChain* jpsi = new TChain("jpsi_KVF");
+  TChain *jpsi = new TChain("jpsi_KVF");
   TString fNameList = input.c_str();
   cout << "=> Load Chain from file: " << fNameList << endl;
   ifstream fList(fNameList.Data());
