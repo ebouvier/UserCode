@@ -63,7 +63,7 @@ void MyAna::Loop()
     }
   }
 
-  TH1F* _h_iCut = new TH1F("Event-yields","Event-yields", 3, 0., 3.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 3, 0., 3.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
@@ -269,7 +269,7 @@ void MyAna::Loop()
     if (!_isMC) {
       for ( unsigned int i = 0; i < HLT_vector->size(); ++i){
         TString ThistrigName= (TString) HLT_vector->at(i);        
-        if (ThistrigName.Contains("HLT_Ele27_WP80")) passTrigger = true;
+        if (ThistrigName.Contains("HLT_IsoMu24_eta2p1") || ThistrigName.Contains("HLT_Ele27_WP80")) passTrigger = true;
       }
     }	
 
@@ -279,11 +279,63 @@ void MyAna::Loop()
     // Objects selection 
     //================================================================================================
 
+    vector<int> indgoodmu;
+    vector<int> indsoftel;
     vector<int> indgoodel;
     vector<int> indsoftmu;
     vector<int> indgoodjet;
     vector<int> ind30jet;
     vector<int> indgoodver;
+
+    //======================================================
+    // Good muons selection
+    //======================================================
+    if (_debug) cout <<" -> muons size "<< n_muons << endl;
+
+    for (unsigned int i = 0; i < n_muons; ++i) {
+
+      float muPt = GetP4(muon_4vector,i)->Pt();
+      float muEta = GetP4(muon_4vector,i)->Eta();
+
+      if (muPt <= 26) continue;
+      if (fabs(muEta) >= 2.1) continue;
+      if (muon_normChi2[i] >= 10) continue;
+      if (muon_trackerLayersWithMeasurement[i] <= 5) continue;
+      if (muon_globalTrackNumberOfValidHits[i] <= 0) continue;
+      if (muon_nMatchedStations[i] <= 1) continue;
+      if (muon_dB[i] >= 0.2) continue;
+      if (muon_dZ[i] >= 0.5) continue;
+      if (muon_nValPixelHits[i] <= 0) continue; 
+
+      indgoodmu.push_back(i);
+    }
+    unsigned int ngoodmuon = indgoodmu.size();
+
+    if (_debug) cout << "Number of good muons = " << ngoodmuon << endl;
+    
+    if (_isMC && ngoodmuon > 0) {
+      // Trigger scalefactors
+      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
+      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muon_4vector, indgoodmu[0])->Pt(), GetP4(muon_4vector, indgoodmu[0])->Eta());
+    }
+
+    //======================================================
+    // Soft electrons selection
+    //======================================================
+
+    if (_debug) cout << " -> loose electrons size " << n_electronsloose << endl;
+
+    for (unsigned int i = 0; i < n_electronsloose; ++i) {
+      float elPt = GetP4(electronloose_4vector,i)->Pt();
+      float elEta = GetP4(electronloose_4vector,i)->Eta();
+      if (elPt <= 20) continue;
+      if (fabs(elEta) >= 2.5) continue;
+      if (fabs(electron_SCEta[i]) >= 1.4442 && fabs(electron_SCEta[i]) < 1.5660) continue;
+      indsoftel.push_back(i);
+    }
+    unsigned int nsoftelectron = indsoftel.size();
+
+    if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
 
     //======================================================
     // Good electrons selection
@@ -360,7 +412,7 @@ void MyAna::Loop()
     // Vertices
     //======================================================
 
-    if (_debug) cout <<" -> vertices size "<< n_vertices << endl;
+    if (_debug) cout << " -> vertices size " << n_vertices << endl;
 
     for (unsigned int i = 0; i < n_vertices; ++i) {
       if (vertex_isFake[i]) continue;
@@ -369,23 +421,13 @@ void MyAna::Loop()
     }
     unsigned int nvtx = indgoodver.size();
 
-    if (_debug) cout << "Number of good vertices "<< nvtx << endl;
+    if (_debug) cout << "Number of good vertices " << nvtx << endl;
 
     //======================================================
-    // Semi-electronic event selection and scale factor
+    // Semi-muonic event selection 
     //======================================================
 
-    if (ngoodelectron != 1 || nsoftmuon != 0 || n30jet < 4) continue;
-
-    if (_isMC) {
-      // Electron scalefactor
-      _weight = _weight*(*electron_scaleFactor_tighteff_tightiso)[indgoodel[0]][0]; // 0 for central, 1 for up, 2 for down
-      // Jet scalefactors
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[0]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[1]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[2]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[3]][0]; // 0 for central, 1 for up, 2 for down
-    }
+    if (((ngoodmuon != 1 || nsoftelectron != 0) && (ngoodelectron != 1 || nsoftmuon != 0)) || n30jet < 4) continue;
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; // /!\ no scalefactors yet
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
@@ -405,17 +447,21 @@ void MyAna::Loop()
       if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
       // Look for good soft muon
       if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4.) continue;
-      // no Z veto in semi_e channel
-      ++nSelJets;
-
-      // Apply scale factor for soft muon and jet
-      if (_isMC) {
-        _weight = _weight*(*mujet_jet_scaleFactor)[i][0]; // 0 for central, 1 for up, 2 for down
+      /*
+      // Z veto in semi_mu channel
+      if (ngoodmuon == 1) {
+        int idIsoLep = muon_charge[indgoodmu[0]];
+        int idMuCand = mujet_nonisomuplus_pdgid[i];
+        TLorentzVector p_MuCand, p_IsoLep;
         if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() > GetP4(mujet_nonisomuplus_4vector,i)->Pt())
-          _weight = _weight*(*mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso)[i][0]; // 0 for central, 1 for up, 2 for down
+          p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,i)->Pt(), GetP4(mujet_nonisomuplus_4vector,i)->Eta(), GetP4(mujet_nonisomuplus_4vector,i)->Phi(), gMassMu);
         else
-          _weight = _weight*(*mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso)[i][0]; // 0 for central, 1 for up, 2 for down
+          p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,i)->Pt(), GetP4(mujet_nonisomuminus_4vector,i)->Eta(), GetP4(mujet_nonisomuminus_4vector,i)->Phi(), gMassMu);
+        p_IsoLep.SetPtEtaPhiM(GetP4(muon_4vector,indgoodmu[0])->Pt(), GetP4(muon_4vector,indgoodmu[0])->Eta(), GetP4(muon_4vector,indgoodmu[0])->Phi(), gMassMu);
+        if (idIsoLep*idMuCand < 0 && (p_MuCand+p_IsoLep).M() < 106. && (p_MuCand+p_IsoLep).M() >= 76) continue; 
       }
+      */
+      ++nSelJets;
       
       _CSVdisc = mujet_jet_btag_CSV[i];
       _h_CSVSelJets->Fill(mujet_jet_btag_CSV[i], _weight);

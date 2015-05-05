@@ -1,6 +1,6 @@
 configuration:
-  width: 600
-  height: 600
+  width: 800
+  height: 800
   luminosity-label: '%lumi% fb^{-1} (8 TeV)'
   experiment: "CMS"
   extra-label: "Simulation preliminary"
@@ -111,77 +111,88 @@ files:
 
   'WW-incl.root':
     type: mc
-    cross-section: 54.838
+    cross-section: 56.0
+##cross-section: 54.838
     generated-events: 10000431
     group: dib
     order: 2
 
   'WZ-incl.root':
     type: mc
-    cross-section: 33.21
+    cross-section: 33.6
+##cross-section: 33.21
     generated-events: 10000283
     group: dib
     order: 2
 
   'ZZ-incl.root':
     type: mc
-    cross-section: 17.654
+    cross-section: 7.6
+##cross-section: 17.654
     generated-events: 9799908
     group: dib
     order: 2
 
   'DY1JetsToLL_M-50.root':
     type: mc
-    cross-section: 561.0
+    cross-section: 666.3
+##cross-section: 561.0
     generated-events: 24045248
     group: zll
     order: 1
 
   'DY2JetsToLL_M-50.root':
     type: mc
-    cross-section: 181.0
+    cross-section: 215.0
+##cross-section: 181.0
     generated-events: 21852156
     group: zll
     order: 1
 
   'DY3JetsToLL_M-50.root':
     type: mc
-    cross-section: 51.1
+    cross-section: 60.7
+##cross-section: 51.1
     generated-events: 11015445
     group: zll
     order: 1
 
   'DY4JetsToLL_M-50.root':
     type: mc
-    cross-section: 23.04
+    cross-section: 27.3
+##cross-section: 23.04
     generated-events: 6402827
     group: zll
     order: 1
 
   'W1JetsToLNu.root':
     type: mc
-    cross-section: 5562.36 
+    cross-section: 6662.8
+##cross-section: 5562.36 
     generated-events: 23141598
     group: wln
     order: 0
 
   'W2JetsToLNu.root':
     type: mc
-    cross-section: 1802.62
+    cross-section: 2159.2
+##cross-section: 1802.62
     generated-events: 34044921
     group: wln
     order: 0
 
   'W3JetsToLNu.root':
     type: mc
-    cross-section: 534.604
+    cross-section: 640.4
+##cross-section: 534.604
     generated-events: 15539503
     group: wln
     order: 0
 
   'W4JetsToLNu.root':
     type: mc
-    cross-section: 220.434
+    cross-section: 264.0
+##cross-section: 220.434
     generated-events: 13382803
     group: wln
     order: 0
@@ -197,167 +208,467 @@ plots:
     ##y-axis-range: [,]
 
   "PUAfter":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NMuons-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NElectrons-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets20-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NCsvJets20-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJpsi-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi-cuts":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PfIsoIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "CsvJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NCsvJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets30":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets40":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets50":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtLeadJet1":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaLeadJet1":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiLeadJet1":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtLeadJet2":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaLeadJet2":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiLeadJet2":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtLeadJet3":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaLeadJet3":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiLeadJet3":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtLeadJet4":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaLeadJet4":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiLeadJet4":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "MetMet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiMet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "XVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "YVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "ZVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NdofVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NormChi2Vertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "IsFakeVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NTracksVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "XLeadingVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "YLeadingVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "ZLeadingVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NdofLeadingVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NormChi2LeadingVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "IsFakeLeadingVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NTracksLeadingVertex":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-zoom":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "SigmaLJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtFracJpsiJet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "DPhiJpsiIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "DRJpsiIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   
   "PtMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtTriLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
     
   "bjjMass":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "WMass":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:

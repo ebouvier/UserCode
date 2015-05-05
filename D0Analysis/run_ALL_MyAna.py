@@ -4,12 +4,12 @@ import sys, os, string, shutil, datetime
 from optparse import OptionParser
 
 parser = OptionParser()
-parser.add_option("-c", "--channel", dest="channel", type="string", default=False, help="electronic or muonic")
+parser.add_option("-c", "--channel", dest="channel", type="string", default=False, help="electronic, muonic, or skim")
 parser.add_option("-v", "--version", dest="version", type="string", default=False, help="version of the day")
 parser.add_option("-d", "--descr", dest="descr", type="string", default=False, help="description of the selection") 
 (options, args) = parser.parse_args()
 
-if not options.channel or (not options.channel.lower().count("mu") and not options.channel.lower().count("el")):
+if not options.channel or (not options.channel.lower().count("mu") and not options.channel.lower().count("el") and not options.channel.lower().count("skim")):
     parser.error("you must specify the channel considered")
  
 if not options.version:
@@ -27,6 +27,8 @@ if options.channel.lower().count("mu"):
     outRoot = os.path.join(outRoot, "MyAnaMu")
 if options.channel.lower().count("el"):
     outRoot = os.path.join(outRoot, "MyAnaEl")
+if options.channel.lower().count("skim"):
+    outRoot = os.path.join(outRoot, "MyAnaSkim")
 try:    
     os.mkdir(outRoot)
 except OSError:    
@@ -38,14 +40,25 @@ logFile = os.path.join("LogMyAna", date)
 logFile += "_v"+options.version     
 if options.channel.lower().count("mu"):
     logFile += "_Mu"
-if options.channel.lower().count("El"):
+if options.channel.lower().count("el"):
     logFile += "_El"
+if options.channel.lower().count("skim"):
+    logFile += "_Skim"
 if options.descr:
     logFile += "_"+options.descr
 logFile += ".log"
 log = open(logFile, 'w')
 
 fileListDir = "filelists_15Apr01"
+
+os.system("make clean")
+if options.channel.lower().count("mu"):
+    os.system("cp MyAnaMu.cpp MyAna.cc")
+if options.channel.lower().count("el"):
+    os.system("cp MyAnaEl.cpp MyAna.cc")
+if options.channel.lower().count("skim"):
+    os.system("cp MyAnaSkim.cpp MyAna.cc")
+os.system("make")
 
 copy = "cp MyAna.cc " + outRoot + "/"
 os.system(copy)
@@ -58,7 +71,9 @@ for aFile in filelist:
     outLog1 = outRoot+os.sep+string.split(string.strip(aFile),"/")[-1][:-5]+".log"
     
     option  = ""
-#    option  = " -skim"
+    if options.channel.lower().count("skim"):
+        option  = option+" -skim"
+
     if aFile.count("SingleElectron") != 1 and aFile.count("SingleMu") != 1 and aFile.count("MuHad") != 1 and aFile.count("ElectronHad") != 1 :
         option = option+" -mc"
 

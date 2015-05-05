@@ -112,7 +112,7 @@ void MyAna::Loop()
   _h_sum2p->SetXTitle("Scalar sum of the 2 highest track momenta (GeV/c)");
   TH1F* _h_sum3p = new TH1F("Sum3p-b-jets", "Sum3p-b-jets", 150, 0, 300);
   _h_sum3p->SetXTitle("Scalar sum of the 3 highest track momenta (GeV/c)");
-  TH1F* _h_mass3 = new TH1F("Mass3-b-jets", "Mass3-b-jets", 400, 0., 10.);
+  TH1F* _h_mass3 = new TH1F("Mass3-b-jets", "Mass3-b-jets", 40, 0., 10.);
   _h_mass3->SetXTitle("Invariant mass of the 3 highest momentum tracks (GeV/c^{2})");
   TH1F* _h_R1 = new TH1F("R1-b-jets", "R1-b-jets", 102, 0, 1.02);
   _h_R1->SetXTitle("R_{1}");
@@ -127,7 +127,7 @@ void MyAna::Loop()
   _h_sum2p_nomu->SetXTitle("Scalar sum of the 2 highest track momenta (no #mu) (GeV/c)");
   TH1F* _h_sum3p_nomu = new TH1F("Sum3p-nomu-b-jets", "Sum3p-nomu-b-jets", 150, 0, 300);
   _h_sum3p_nomu->SetXTitle("Scalar sum of the 3 highest track momenta (no #mu) (GeV/c)");
-  TH1F* _h_mass3_nomu = new TH1F("Mass3-nomu-b-jets", "Mass3-nomu-b-jets", 400, 0., 10.);
+  TH1F* _h_mass3_nomu = new TH1F("Mass3-nomu-b-jets", "Mass3-nomu-b-jets", 40, 0., 10.);
   _h_mass3_nomu->SetXTitle("Invariant mass of the 3 highest momentum tracks (no #mu) (GeV/c^{2})");
   TH1F* _h_R1_nomu = new TH1F("R1-nomu-b-jets", "R1-nomu-b-jets", 102, 0, 1.02);
   _h_R1_nomu->SetXTitle("R_{1} (no #mu)");
