@@ -547,7 +547,7 @@ void MyAna::Loop()
 
     _h_cuts_jpsi_n->Fill((float)njpsi, _weight);
 
-    if (njpsi != 1) continue;
+    if (njpsi >= 1) continue;
     ++counter[5];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Exactly 1 J/psi"; ++iCut; 
@@ -555,16 +555,16 @@ void MyAna::Loop()
 
     // Chi2
     _h_cuts_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
-    if (jpsi_vtxchi2[indgoodjpsi[0]] >= 5.) continue;
-    ++counter[6];
+    if (jpsi_vtxchi2[indgoodjpsi[0]] >= 5.)
+      ++counter[6];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with #chi2<5"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with #chi2<5");
 
     // ctau
     _h_cuts_jpsi_l->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
-    if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue;
-    ++counter[7];
+    if (jpsi_L3D[indgoodjpsi[0]] <= 0.005)
+      ++counter[7];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm");
@@ -1032,7 +1032,7 @@ void MyAna::Loop()
   cout << "-> 1 iso muon/electron                                    = " << counter[1] << endl;
   cout << "-> no soft electron/muon                                  = " << counter[2] << endl;
   cout << "At least 2 jets pT>40 GeV/c                               = " << counter[4] << endl;
-  cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
+  cout << ">=1 J/psi in [3, 3.2] GeV/c^2                             = " << counter[5] << endl;
   cout << "... with chi2 < 5                                         = " << counter[6] << endl;
   cout << "... and ctau > 0.005 cm                                   = " << counter[7] << endl;
   if (_isMC && _isSIG) {
