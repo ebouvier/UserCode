@@ -628,9 +628,9 @@ void MyAna::Loop()
     _h_isoLept_n->Fill((float)ngoodmuon, _weight);
 
     for(unsigned int j = 0; j < ngoodelectron; ++j) {
-      _h_isoLept_pt->Fill(GetP4(electron_4vector,indgoodmu[j])->Pt(), _weight);
-      _h_isoLept_eta->Fill(GetP4(electron_4vector,indgoodmu[j])->Eta(), _weight);
-      _h_isoLept_phi->Fill(GetP4(electron_4vector,indgoodmu[j])->Phi(), _weight);
+      _h_isoLept_pt->Fill(GetP4(electron_4vector,indgoodel[j])->Pt(), _weight);
+      _h_isoLept_eta->Fill(GetP4(electron_4vector,indgoodel[j])->Eta(), _weight);
+      _h_isoLept_phi->Fill(GetP4(electron_4vector,indgoodel[j])->Phi(), _weight);
       _h_isoLept_pfiso->Fill(electron_deltaBetaCorrectedRelIsolation[indgoodel[j]], _weight);
     }    
     _h_isoLept_n->Fill((float)ngoodelectron, _weight);
