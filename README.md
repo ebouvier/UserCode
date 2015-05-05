@@ -12,7 +12,7 @@ Modify `MyAnaEl.cpp` or `MyAnaMu.cpp` and copy it into `MyAna.cc`
 
 Run the analysis with:
 
-    ./run_ALL_MyAna.py --version 1 --channel muonic --descr test
+    ./run_ALL_MyAna.py --filelist filelists_date --version 1 --channel muonic --descr test
 
 It will run the analysis for all the files in the filelists repository and create rootfiles in:
 
@@ -70,7 +70,7 @@ Modify `MyAnaEl.cpp` or `MyAnaMu.cpp` and copy it into `MyAna.cc`
 
 Run the analysis with:
 
-    ./run_ALL_MyAna.py --version 1 --channel muonic --descr test
+    ./run_ALL_MyAna.py --filelist filelists_date --version 1 --channel muonic --descr test
 
 It will run the analysis for all the files in the filelists repository and create rootfiles in:
 

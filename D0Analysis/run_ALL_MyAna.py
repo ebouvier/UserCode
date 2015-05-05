@@ -5,6 +5,7 @@ from optparse import OptionParser
 
 parser = OptionParser()
 parser.add_option("-c", "--channel", dest="channel", type="string", default=False, help="electronic, muonic, or skim")
+parser.add_option("-f", "--filelist", dest="filelist", type="string", default=False, help="file list directory")
 parser.add_option("-v", "--version", dest="version", type="string", default=False, help="version of the day")
 parser.add_option("-d", "--descr", dest="descr", type="string", default=False, help="description of the selection") 
 (options, args) = parser.parse_args()
@@ -14,6 +15,9 @@ if not options.channel or (not options.channel.lower().count("mu") and not optio
  
 if not options.version:
     parser.error("you must specify the version")
+
+if not options.filelist or not os.path.isdir(options.filelist):
+    parser.error("you must specify a file list directory")
 
 date = datetime.datetime.now().strftime("%y%b%d")
 
@@ -49,7 +53,7 @@ if options.descr:
 logFile += ".log"
 log = open(logFile, 'w')
 
-fileListDir = "filelists_15Apr01"
+fileListDir = options.filelist
 
 os.system("make clean")
 if options.channel.lower().count("mu"):
