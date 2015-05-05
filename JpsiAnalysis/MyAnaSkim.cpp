@@ -547,7 +547,7 @@ void MyAna::Loop()
 
     _h_cuts_jpsi_n->Fill((float)njpsi, _weight);
 
-    if (njpsi >= 1) continue;
+    if (njpsi < 1) continue;
     ++counter[5];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Exactly 1 J/psi"; ++iCut; 
