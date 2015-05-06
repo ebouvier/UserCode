@@ -13,7 +13,7 @@ configuration:
   ratio-fit-error-fill-color: "#aa556270"
   ratio-fit-line-color: "#0B486B"  
   labels:
-    - text: 'X-check'
+    - text: 'X-check data'
       position: [0.22, 0.9]
       size: 24
 
@@ -22,16 +22,23 @@ files:
     type: data
     legend: "#mu + Jets channel"
     marker-color: 46
+    line-color: 46
+    line-width: 3
 
   '../MyAnaEl/ElectronHadASingleElectronBCD.root':
     type: signal
     cross-section: 1
     generated-events: 19690 
     legend: "e + Jets channel"
+    marker-type: 20
     marker-color: 38
-    marker-type: 21
-    line-width: 0
+    marker-size: 1
+    line-type: 0
+    line-color: 38
+    line-width: 3
     fill-type: 0
+    drawing-options: 'P'
+    legend-style: 'P'
 
 plots:
   "NTrueInteractions":
@@ -43,6 +50,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
+    y-axis-range: [0, 200000]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -59,6 +67,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "TransverseMomentum-b-jets":
+    x-axis-range: [0, 400]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -71,22 +80,27 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sump-b-jets":
+    x-axis-range: [0, 500]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "VectorialSump-b-jets":
+    x-axis-range: [0, 600]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Highestp-b-jets":
+    x-axis-range: [0, 200]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum2p-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum3p-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -95,29 +109,35 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "R1-b-jets":
-    show-ratio: false
     rebin: 3
+#    log-y: true
+    show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "R2-b-jets":
-    show-ratio: false
     rebin: 3
+#    log-y: true
+    show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "R3-b-jets":
-    show-ratio: false
     rebin: 3
+#    log-y: true
+    show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Highestp-nomu-b-jets":
+    x-axis-range: [0, 200]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum2p-nomu-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum3p-nomu-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -126,21 +146,25 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "R1-nomu-b-jets":
-    show-ratio: false
     rebin: 3
+#    log-y: true
+    show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "R2-nomu-b-jets":
-    show-ratio: false
     rebin: 3
+#    log-y: true
+    show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "R3-nomu-b-jets":
-    show-ratio: false
     rebin: 3
+#    log-y: true
+    show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0Mass-b-jets":
+    x-axis-range: [0, 5]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -149,10 +173,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0pT-b-jets":
+    x-axis-range: [0, 150]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0eta-b-jets":
+    y-axis-range: [0, 500]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -177,4 +203,5 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:
-    position: [0.7, 0.888888880.9]
+    position: [0.6, 0.8, 0.9, 0.9]
+

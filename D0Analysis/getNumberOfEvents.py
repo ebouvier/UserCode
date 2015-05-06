@@ -52,7 +52,7 @@ aodsim_names = [
     ["tts", "\\ttbar $\\to \\text{b} \\ell \\nu \\text{bqq}$"],
     ["ttd", "\\ttbar $\\to \\text{b} \\ell \\nu \\text{b} \\ell \\nu$"], 
     ["tth", "\\ttbar $\\to \\text{bqq} \\text{bqq}$"],
-    ["tto", "\\ttbar other"],
+    ["tto", "\\ttbar{} other"],
     ["sto", "single top (t, tW, s channels)"],
     ["zll", "$\\text{Z} / \\gamma^* \\to \\ell^+ \\ell^- + \\text{jets}$, $\\text{M}_{\\ell\\ell} > 50 \\; \\text{GeV/c}^2$"],
     ["wln", "$\\text{W}^\\pm \\to \\ell^\\pm \\nu + \\text{jets}$"],
@@ -77,32 +77,39 @@ aodsims = [
     ["/Tbar\\_t-channel\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "Tbar_t-channel.root", "sto", 30.7, 1935072],
     ["/Tbar\\_tW-channel-DR\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "Tbar_tW-channel.root", "sto", 11.1, 493460], 
     # diboson
-    #["/WW\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WW-incl.root", "dib", 54.838, 10000431],
-    ["/WW\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WW-incl.root", "dib", 56.0, 10000431],
-    #["/WZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WZ-incl.root", "dib", 33.21, 10000283],
-    ["/WZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WZ-incl.root", "dib", 33.6, 10000283],
-    #["/ZZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "ZZ-incl.root", "dib", 17.654, 9799908],
-    ["/ZZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "ZZ-incl.root", "dib", 7.6, 9799908],
+    ["/WW\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WW-incl.root", "dib", 54.838, 10000431],
+    #["/WW\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WW-incl.root", "dib", 56.0, 10000431],
+    ["/WZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WZ-incl.root", "dib", 33.21, 10000283],
+    #["/WZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WZ-incl.root", "dib", 33.6, 10000283],
+    ["/ZZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "ZZ-incl.root", "dib", 17.654, 9799908],
+    #["/ZZ\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "ZZ-incl.root", "dib", 7.6, 9799908],
     # W + jets
-    #["/W1JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W1JetsToLNu.root", "wln", 5562.36, 23141598],
-    ["/W1JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W1JetsToLNu.root", "wln", 6662.8, 23141598],
-    #["/W2JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W2JetsToLNu.root", "wln", 1802.62, 34044921],
-    ["/W2JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W2JetsToLNu.root", "wln", 2159.2, 34044921],
-    #["/W3JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W3JetsToLNu.root", "wln", 534.604, 15539503],
-    ["/W3JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W3JetsToLNu.root", "wln", 640.4, 15539503],
-    #["/W4JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W4JetsToLNu.root", "wln", 220.434, 13382803],
-    ["/W4JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W4JetsToLNu.root", "wln", 264.0, 13382803],
+    ["/W1JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W1JetsToLNu.root", "wln", 5562.36, 23141598],
+    #["/W1JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W1JetsToLNu.root", "wln", 6662.8, 23141598],
+    ["/W2JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W2JetsToLNu.root", "wln", 1802.62, 34044921],
+    #["/W2JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W2JetsToLNu.root", "wln", 2159.2, 34044921],
+    ["/W3JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W3JetsToLNu.root", "wln", 534.604, 15539503],
+    #["/W3JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W3JetsToLNu.root", "wln", 640.4, 15539503],
+    ["/W4JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W4JetsToLNu.root", "wln", 220.434, 13382803],
+    #["/W4JetsToLNu\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "W4JetsToLNu.root", "wln", 264.0, 13382803],
     # Z + jets
-    #["/DY1JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY1JetsToLL_M-50.root", "zll", 561.0, 24045248],
-    ["/DY1JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY1JetsToLL_M-50.root", "zll", 666.3, 24045248],
-    #["/DY2JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7C-v1/AODSIM", "DY2JetsToLL_M-50.root", "zll", 181.0, 21852156],
-    ["/DY2JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7C-v1/AODSIM", "DY2JetsToLL_M-50.root", "zll", 215.0, 21852156],
-    #["/DY3JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY3JetsToLL_M-50.root", "zll", 51.1, 11015445],
-    ["/DY3JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY3JetsToLL_M-50.root", "zll", 60.7, 11015445],
-    #["/DY4JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY4JetsToLL_M-50.root", "zll", 23.04, 6402827],
-    ["/DY4JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY4JetsToLL_M-50.root", "zll", 27.3, 6402827],
+    ["/DY1JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY1JetsToLL_M-50.root", "zll", 561.0, 24045248],
+    #["/DY1JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY1JetsToLL_M-50.root", "zll", 666.3, 24045248],
+    ["/DY2JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7C-v1/AODSIM", "DY2JetsToLL_M-50.root", "zll", 181.0, 21852156],
+    #["/DY2JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7C-v1/AODSIM", "DY2JetsToLL_M-50.root", "zll", 215.0, 21852156],
+    ["/DY3JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY3JetsToLL_M-50.root", "zll", 51.1, 11015445],
+    #["/DY3JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY3JetsToLL_M-50.root", "zll", 60.7, 11015445],
+    ["/DY4JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY4JetsToLL_M-50.root", "zll", 23.04, 6402827],
+    #["/DY4JetsToLL\\_M-50\\_TuneZ2Star\\_8TeV-madgraph/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "DY4JetsToLL_M-50.root", "zll", 27.3, 6402827],
     ] 
 
+tex.write("\\documentclass[a4paper]{article}\n")
+tex.write("\\usepackage{array}\n")
+tex.write("\\usepackage{amsmath}\n")
+tex.write("\\newcommand{\\ttbar}{\\ensuremath{\\text{t}\\bar{\\text{t}}}}\n")
+tex.write("\\begin{document}\n")
+tex.write("\\begin{center}\n")
+tex.write("\n%%%\n")
 
 ## Datasets and AODSIM used with lumi and xsections
 
@@ -216,14 +223,14 @@ for aodsim_name in aodsim_names:
          
         ErrNTot[key] = math.sqrt(ErrNTot[key])
 
-    tex.write(text+" & $%f \\pm %f$ & $%f \\pm %f$ \\\\ \n" % (NTot["mu"], ErrNTot["mu"], NTot["el"], ErrNTot["el"]))
+    tex.write(text+" & $%.1f \\pm %.1f$ & $%.1f \\pm %.1f$ \\\\ \n" % (NTot["mu"], ErrNTot["mu"], NTot["el"], ErrNTot["el"]))
     tex.write("\\hline\n")
 
 ErrNSim["mu"] = math.sqrt(ErrNSim["mu"])
 ErrNSim["el"] = math.sqrt(ErrNSim["el"])
 
 tex.write("\\hline\n")
-tex.write("Total from simulations & $%f \\pm %f$ & $%f \\pm %f$ \\\\ \n" % (NSim["mu"], ErrNSim["mu"], NSim["el"], ErrNSim["el"]))
+tex.write("Total from simulations & $%.1f \\pm %.1f$ & $%.1f \\pm %.1f$ \\\\ \n" % (NSim["mu"], ErrNSim["mu"], NSim["el"], ErrNSim["el"]))
 tex.write("\\hline\n")
 
 NData = {"mu": 0., "el": 0.}
@@ -245,6 +252,10 @@ tex.write("\\hline\n")
 tex.write("\\end{tabular}\n")
 tex.write("\\end{center}\n")
 tex.write("\\end{table}\n")
+
+tex.write("\n%%%\n")
+tex.write("\\end{center}\n")
+tex.write("\n\\end{document}")
     
 tex.close()
 

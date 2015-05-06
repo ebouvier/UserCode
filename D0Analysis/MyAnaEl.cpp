@@ -65,6 +65,7 @@ void MyAna::Loop()
 
   TH1F* _h_iCut = new TH1F("Event-yields","Event-yields", 3, 0., 3.);
   _h_iCut->SetOption("bar");
+  _h_iCut->SetFillStyle(3008);
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
   TH1F* _h_weight = new TH1F("Weight", "Weight", 20, 0., 2.);
@@ -409,6 +410,7 @@ void MyAna::Loop()
       ++nSelJets;
 
       // Apply scale factor for soft muon and jet
+      /*
       if (_isMC) {
         _weight = _weight*(*mujet_jet_scaleFactor)[i][0]; // 0 for central, 1 for up, 2 for down
         if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() > GetP4(mujet_nonisomuplus_4vector,i)->Pt())
@@ -416,6 +418,7 @@ void MyAna::Loop()
         else
           _weight = _weight*(*mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso)[i][0]; // 0 for central, 1 for up, 2 for down
       }
+      */
       
       _CSVdisc = mujet_jet_btag_CSV[i];
       _h_CSVSelJets->Fill(mujet_jet_btag_CSV[i], _weight);

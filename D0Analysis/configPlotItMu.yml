@@ -111,88 +111,88 @@ files:
 
   'WW-incl.root':
     type: mc
-    cross-section: 56.0
-##cross-section: 54.838
+##    cross-section: 56.0
+    cross-section: 54.838
     generated-events: 10000431
     group: dib
     order: 2
 
   'WZ-incl.root':
     type: mc
-    cross-section: 33.6
-##cross-section: 33.21
+##    cross-section: 33.6
+    cross-section: 33.21
     generated-events: 10000283
     group: dib
     order: 2
 
   'ZZ-incl.root':
     type: mc
-    cross-section: 7.6
-##cross-section: 17.654
+##    cross-section: 7.6
+    cross-section: 17.654
     generated-events: 9799908
     group: dib
     order: 2
 
   'DY1JetsToLL_M-50.root':
     type: mc
-    cross-section: 666.3
-##cross-section: 561.0
+##    cross-section: 666.3
+    cross-section: 561.0
     generated-events: 24045248
     group: zll
     order: 1
 
   'DY2JetsToLL_M-50.root':
     type: mc
-    cross-section: 215.0
-##cross-section: 181.0
+##    cross-section: 215.0
+    cross-section: 181.0
     generated-events: 21852156
     group: zll
     order: 1
 
   'DY3JetsToLL_M-50.root':
     type: mc
-    cross-section: 60.7
-##cross-section: 51.1
+##    cross-section: 60.7
+    cross-section: 51.1
     generated-events: 11015445
     group: zll
     order: 1
 
   'DY4JetsToLL_M-50.root':
     type: mc
-    cross-section: 27.3
-##cross-section: 23.04
+##    cross-section: 27.3
+    cross-section: 23.04
     generated-events: 6402827
     group: zll
     order: 1
 
   'W1JetsToLNu.root':
     type: mc
-    cross-section: 6662.8
-##cross-section: 5562.36 
+##    cross-section: 6662.8
+    cross-section: 5562.36 
     generated-events: 23141598
     group: wln
     order: 0
 
   'W2JetsToLNu.root':
     type: mc
-    cross-section: 2159.2
-##cross-section: 1802.62
+##    cross-section: 2159.2
+    cross-section: 1802.62
     generated-events: 34044921
     group: wln
     order: 0
 
   'W3JetsToLNu.root':
     type: mc
-    cross-section: 640.4
-##cross-section: 534.604
+##    cross-section: 640.4
+    cross-section: 534.604
     generated-events: 15539503
     group: wln
     order: 0
 
   'W4JetsToLNu.root':
     type: mc
-    cross-section: 264.0
-##cross-section: 220.434
+##    cross-section: 264.0
+    cross-section: 220.434
     generated-events: 13382803
     group: wln
     order: 0
@@ -210,6 +210,7 @@ plots:
     ##log-y: true
     ##x-axis-range: [,]
     ##y-axis-range: [,]
+    ##legend-position: [0.7, 0.45, 0.9, 0.9] 
 
   "NTrueInteractionsReweighted":
     show-ratio: true
@@ -219,6 +220,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
+    y-axis-range: [0, 200000]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -247,6 +249,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "TransverseMomentum-b-jets":
+    x-axis-range: [0, 400]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -268,6 +271,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sump-b-jets":
+    x-axis-range: [0, 500]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -275,6 +279,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "VectorialSump-b-jets":
+    x-axis-range: [0, 600]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -282,6 +287,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Highestp-b-jets":
+    x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -289,6 +295,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum2p-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -296,6 +303,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum3p-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -311,6 +319,7 @@ plots:
 
   "R1-b-jets":
     rebin: 3
+#    log-y: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -319,6 +328,7 @@ plots:
 
   "R2-b-jets":
     rebin: 3
+#    log-y: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -327,6 +337,7 @@ plots:
 
   "R3-b-jets":
     rebin: 3
+#    log-y: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -334,6 +345,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Highestp-nomu-b-jets":
+    x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -341,6 +353,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum2p-nomu-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -348,6 +361,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum3p-nomu-b-jets":
+    x-axis-range: [0, 250]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -363,6 +377,7 @@ plots:
 
   "R1-nomu-b-jets":
     rebin: 3
+#    log-y: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -371,6 +386,7 @@ plots:
 
   "R2-nomu-b-jets":
     rebin: 3
+#    log-y: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -379,6 +395,7 @@ plots:
 
   "R3-nomu-b-jets":
     rebin: 3
+#    log-y: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -386,6 +403,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0Mass-b-jets":
+    x-axis-range: [0, 5]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -400,6 +418,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0pT-b-jets":
+    x-axis-range: [0, 150]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -407,6 +426,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0eta-b-jets":
+    y-axis-range: [0, 500]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -442,6 +462,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Muonp-nobias-b-jets":
+    x-axis-range: [0, 150]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -449,7 +470,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:
-    position: [0.7, 0.65, 0.9, 0.9]
+    position: [0.72, 0.55, 0.9, 0.9]
 
 groups:
   sto:

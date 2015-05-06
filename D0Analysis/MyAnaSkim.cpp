@@ -65,6 +65,7 @@ void MyAna::Loop()
 
   TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 3, 0., 3.);
   _h_iCut->SetOption("bar");
+  _h_iCut->SetFillStyle(3008);
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
   TH1F* _h_weight = new TH1F("Weight", "Weight", 20, 0., 2.);
