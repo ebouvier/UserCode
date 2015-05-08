@@ -50,9 +50,9 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
-    y-axis-range: [0, 200000]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-range: [50000, 140000]
 
   "NPrimaryVtx":
     show-ratio: false
@@ -178,9 +178,9 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0eta-b-jets":
-    y-axis-range: [0, 500]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-show-zero: true
 
   "BMomentum-nobias-b-jets":
     show-ratio: false

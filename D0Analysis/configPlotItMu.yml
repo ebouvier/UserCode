@@ -220,12 +220,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
-    y-axis-range: [0, 200000]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-show-zero: true
 
   "NPrimaryVtx":
     show-ratio: true
@@ -426,12 +426,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0eta-b-jets":
-    y-axis-range: [0, 500]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-show-zero: true
 
   "BMomentum-nobias-b-jets":
     show-ratio: true

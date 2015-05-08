@@ -27,8 +27,6 @@ if not os.path.isdir(outPlot):
     os.mkdir(outPlot)
 
 print "/!\\ you should not have sourced cmsenv"
-cmd = "../../../../plotIt/setup_lyoserv_sl6_env.sh"
-os.system(cmd)
 
 cmd = "../../../../plotIt/plotIt -o " + outPlot + " " + ymlFile
 os.system(cmd)
