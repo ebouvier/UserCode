@@ -227,6 +227,111 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-show-zero: true
 
+  "NMuons-cuts":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NElectrons-cuts":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJets30-cuts":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NIsoLept":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtIsoLept":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "EtaIsoLept":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PhiIsoLept":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PfIsoIsoLept":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJets30":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtJets30":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "EtaJets30":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PhiJets30":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "CsvJets30":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "MetMet":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PhiMet":  
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
   "NPrimaryVtx":
     show-ratio: true
     fit-ratio: true
@@ -254,7 +359,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 400]
+    x-axis-range: [0, 300]
 
   "Eta-b-jets":
     show-ratio: true
@@ -276,7 +381,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 500]
+    x-axis-range: [0, 400]
 
   "VectorialSump-b-jets":
     show-ratio: true
@@ -284,7 +389,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 600]
+    x-axis-range: [0, 400]
 
   "Highestp-b-jets":
     show-ratio: true
@@ -434,6 +539,7 @@ plots:
     y-axis-show-zero: true
 
   "BMomentum-nobias-b-jets":
+    x-axis-range: [0, 350]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -448,6 +554,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "BMomentum-D0cut-b-jets":
+    x-axis-range: [0, 350]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -467,7 +574,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 150]
+    x-axis-range: [0, 200]
 
 legend:
     position: [0.72, 0.55, 0.9, 0.9]

@@ -54,6 +54,58 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-range: [50000, 140000]
 
+  "NJets30-cuts":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NIsoLept":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtIsoLept":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "EtaIsoLept":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PhiIsoLept":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PfIsoIsoLept":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJets30":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtJets30":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "EtaJets30":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PhiJets30":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "CsvJets30":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "MetMet":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PhiMet":  
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
   "NPrimaryVtx":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
@@ -67,7 +119,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "TransverseMomentum-b-jets":
-    x-axis-range: [0, 400]
+    x-axis-range: [0, 300]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -80,12 +132,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sump-b-jets":
-    x-axis-range: [0, 500]
+    x-axis-range: [0, 400]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "VectorialSump-b-jets":
-    x-axis-range: [0, 600]
+    x-axis-range: [0, 400]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -183,6 +235,7 @@ plots:
     y-axis-show-zero: true
 
   "BMomentum-nobias-b-jets":
+    x-axis-range: [0, 350]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -191,6 +244,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "BMomentum-D0cut-b-jets":
+    x-axis-range: [0, 350]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -199,6 +253,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Muonp-nobias-b-jets":
+    x-axis-range: [0, 200]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
