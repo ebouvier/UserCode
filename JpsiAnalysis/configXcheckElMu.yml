@@ -1,0 +1,327 @@
+configuration:
+  width: 800
+  height: 800
+  luminosity-label: '(8 TeV)'
+  experiment: "CMS"
+  extra-label: "Simulation preliminary"
+  root: 'MyAnaMu'
+  luminosity: 19705 
+  luminosity-error: 0.026
+  error-fill-style: 3154
+  error-fill-color: "#ee556270"
+  ratio-fit-error-fill-style: 1001
+  ratio-fit-error-fill-color: "#aa556270"
+  ratio-fit-line-color: "#0B486B"  
+  labels:
+    - text: 'X-check data'
+      position: [0.22, 0.9]
+      size: 24
+
+files:
+  'MuHadASingleMuBCD.root':
+    type: data
+    legend: "#mu + Jets channel"
+    marker-color: 46
+    line-color: 46
+    line-width: 3
+
+  '../MyAnaEl/ElectronHadASingleElectronBCD.root':
+    type: signal
+    cross-section: 1
+    generated-events: 19690 
+    legend: "e + Jets channel"
+    marker-type: 20
+    marker-color: 38
+    marker-size: 1
+    line-type: 0
+    line-color: 38
+    line-width: 3
+    fill-type: 0
+    drawing-options: 'P'
+    legend-style: 'P'
+
+plots:
+  ##"Histo":
+    ##save-extensions: ["pdf","C","jpg","eps"]
+    ##rebin: 1
+    ##show-ratio: false
+    ##show-errors: true
+    ##log-y: true
+    ##x-axis-range: [,]
+    ##y-axis-range: [,]
+
+  "PUAfter":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "Event-yields":
+    log-y: true
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+    ##y-axis-range; [1e4, 1e8]
+    y-axis-show-zero: true
+
+  "NMuons-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NElectrons-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets20-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJpsi-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NIsoLept":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtIsoLept":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaIsoLept":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiIsoLept":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PfIsoIsoLept":
+    show-ratio: false
+    x-axis-range: [0, 0.2]
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJets20":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJets20":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJets20":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJets20":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "CsvJets20":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtLeadJet1":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet1":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet1":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtLeadJet2":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet2":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet2":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtLeadJet3":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet3":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet3":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtLeadJet4":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaLeadJet4":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiLeadJet4":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "MetMet":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMet":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MtW":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NVertices":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "XVertices":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "YVertices":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ZVertices":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NdofVertices":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NormChi2Vertices":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "IsFakeVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NTracksVertices":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "XLeadingVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "YLeadingVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ZLeadingVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NdofLeadingVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NormChi2LeadingVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "IsFakeLeadingVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NTracksLeadingVertex":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJpsi":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-zoom":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "SigmaLJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtFracJpsiJet":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "DPhiJpsiIsoLept":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "PtMuJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaMuJpsi":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMuJpsi":
+    show-ratio: false
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "MTriLept-allPair":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtTriLept":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+    
+  "bjjMass":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+  "WMass":
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
+
+legend:
+    position: [0.6, 0.8, 0.9, 0.9]
+
+groups:
+  sto:
+    legend: 'single top'
+    fill-color: 28
+
+  tto:
+    legend: 't#bar{t} other'
+    fill-color: 625
+
+  dib:
+    legend: 'WW, WZ, ZZ'
+    fill-color: 5
+
+  zll:
+    legend: 'Z + jets'
+    fill-color: 870
+
+  wln:
+    legend: 'W #rightarrow l#nu + jets'
+    fill-color: 33

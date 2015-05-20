@@ -63,7 +63,7 @@ void MyAna::Loop()
   }
 
   int counter[20]; for (int i=0; i<20; ++i) counter[i] = 0;
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 8, 0., 8.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 9, 0., 9.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
@@ -251,7 +251,7 @@ void MyAna::Loop()
   // Clone the tree
   //================================================================================================
 
-  if ( _doSkim ) {
+  if (_doSkim) {
     GetEntry(0);
     _newmuonstree=muonsChain->GetTree()->CloneTree(0);
     _newelectronstree=electronsChain->CloneTree(0);
@@ -314,7 +314,7 @@ void MyAna::Loop()
     }
 
     int iCut = 0;
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Starting"; ++iCut; 
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Starting"; ++iCut; // /!\ no SF 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Starting");
 
     //======================================================
@@ -332,6 +332,8 @@ void MyAna::Loop()
 
     if (!passTrigger && !_isMC) continue;  
     ++counter[0];
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Trigger"; ++iCut; // /!\ no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Trigger");
 
     //================================================================================================
     // Objects selection 
@@ -342,81 +344,6 @@ void MyAna::Loop()
     vector<int> indgoodjet;
     vector<int> indgoodver;
     vector<int> indgoodjpsi;
-
-    //======================================================
-    // Good muons selection
-    //======================================================
-
-    if (_debug) cout <<" -> muons size "<< n_muons << endl;
-
-    for (unsigned int i = 0; i < n_muons; ++i) {
-
-      float muPt = GetP4(muon_4vector,i)->Pt();
-      float muEta = GetP4(muon_4vector,i)->Eta();
-
-      if (muPt <= 26) continue;
-      if (fabs(muEta) >= 2.1) continue;
-      if (muon_normChi2[i] >= 10) continue;
-      if (muon_trackerLayersWithMeasurement[i] <= 5) continue;
-      if (muon_globalTrackNumberOfValidHits[i] <= 0) continue;
-      if (muon_nMatchedStations[i] <= 1) continue;
-      if (muon_dB[i] >= 0.2) continue;
-      if (muon_dZ[i] >= 0.5) continue;
-      if (muon_nValPixelHits[i] <= 0) continue; 
-
-      indgoodmu.push_back(i);
-    }
-    unsigned int ngoodmuon = indgoodmu.size();
-
-    _h_cuts_muons_n->Fill((float)ngoodmuon, _weight);
-    if (ngoodmuon == 1) ++counter[1];
-
-    if (_debug) cout << "Number of good muons = " << ngoodmuon << endl;
-
-    if (_isMC && ngoodmuon > 0) {
-      // Trigger scalefactors
-      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
-      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muon_4vector, indgoodmu[0])->Pt(), GetP4(muon_4vector, indgoodmu[0])->Eta());
-    }  
-
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Trigger"; ++iCut; 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "Trigger");
-
-    //======================================================
-    // Soft electrons selection
-    //======================================================
-
-    if (_debug) cout << " -> loose electrons size " << n_electronsloose << endl;
-
-    for (unsigned int i = 0; i < n_electronsloose; ++i) {
-      float elPt = GetP4(electronloose_4vector,i)->Pt();
-      float elEta = GetP4(electronloose_4vector,i)->Eta();
-      if (elPt <= 20) continue;
-      if (fabs(elEta) >= 2.5) continue;
-      if (fabs(electron_SCEta[i]) >= 1.4442 && fabs(electron_SCEta[i]) < 1.5660) continue;
-      indsoftel.push_back(i);
-    }
-    unsigned int nsoftelectron = indsoftel.size();
-
-    _h_cuts_electrons_n->Fill((float)nsoftelectron, _weight);
-    if (nsoftelectron == 0) ++counter[2];
-
-    if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
-
-    //======================================================
-    // Good leptons selection
-    //======================================================
-
-    if (ngoodmuon != 1 || nsoftelectron > 0) continue;
-    ++counter[3];
-
-    if (_isMC) {
-      // Muon scalefactor
-      _weight = _weight*(*muon_scaleFactor_tighteff_tightiso)[indgoodmu[0]][0]; // 0 for central, 1 for up, 2 for down
-    }  
-
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "1 isolated lepton"; ++iCut; 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "1 isolated lepton");
 
     //======================================================
     // Good jet selection
@@ -434,11 +361,11 @@ void MyAna::Loop()
       float jetEta = GetP4(jet_4vector,i)->Eta();
       if (jetPt <= 20.) continue;
       if (fabs(jetEta) >= 2.4) continue;
-      if (jetPt >= 30. ) ++njet30;
-      if (jetPt >= 40. ) ++njet40;
-      if (jetPt >= 50. ) ++njet50;
+      if (jetPt >= 30.) ++njet30;
+      if (jetPt >= 40.) ++njet40;
+      if (jetPt >= 50.) ++njet50;
 
-      if (jet_btag_CSV[i] > 0.814 ) ++nbjet; 
+      if (jet_btag_CSV[i] > 0.814) ++nbjet; 
 
       indgoodjet.push_back(i);
     }
@@ -450,16 +377,74 @@ void MyAna::Loop()
     if (_debug) cout << "Number of good jets = " << ngoodjet << endl;
 
     if (njet40 < 2) continue;
-    ++counter[4];
+    ++counter[1];
 
-    if (_isMC) {
-      // Jet scalefactors
-      _weight = _weight*(*jet_scaleFactor)[indgoodjet[0]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jet_scaleFactor)[indgoodjet[1]][0]; // 0 for central, 1 for up, 2 for down
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=2 jets with p_{T}>40 GeV/c"; ++iCut; // /!\ no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=2 jets with p_{T}>40 GeV/c");
+
+    //======================================================
+    // Good muons selection
+    //======================================================
+
+    if (_debug) cout <<" -> muons size "<< n_muons << endl;
+
+    for (unsigned int i = 0; i < n_muons; ++i) {
+
+      float muPt = GetP4(muon_4vector,i)->Pt();
+      float muEta = GetP4(muon_4vector,i)->Eta();
+
+      if (!muon_isGlobal[i]) continue;
+      if (muPt <= 26) continue;
+      if (fabs(muEta) >= 2.1) continue;
+      if (muon_normChi2[i] >= 10) continue;
+      if (muon_trackerLayersWithMeasurement[i] <= 5) continue;
+      if (muon_globalTrackNumberOfValidHits[i] <= 0) continue;
+      if (muon_nMatchedStations[i] <= 1) continue;
+      if (muon_dB[i] >= 0.2) continue;
+      if (muon_dZ[i] >= 0.5) continue;
+      if (muon_nValPixelHits[i] <= 0) continue; 
+      if (muon_deltaBetaCorrectedRelIsolation[i] >= 0.12) continue;
+
+      indgoodmu.push_back(i);
     }
+    unsigned int ngoodmuon = indgoodmu.size();
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">2 jets with p_{T}>40 GeV/c"; ++iCut; 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">2 jets with p_{T}>40 GeV/c");
+    _h_cuts_muons_n->Fill((float)ngoodmuon, _weight);
+
+    if (_debug) cout << "Number of good muons = " << ngoodmuon << endl;
+
+    if (ngoodmuon != 1) continue;
+    ++counter[2];
+
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "1 isolated #mu"; ++iCut; // no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "1 isolated #mu");
+
+    //======================================================
+    // Soft electrons selection
+    //======================================================
+
+    if (_debug) cout << " -> loose electrons size " << n_electronsloose << endl;
+
+    for (unsigned int i = 0; i < n_electronsloose; ++i) {
+      float elPt = GetP4(electronloose_4vector,i)->Pt();
+      float elEta = GetP4(electronloose_4vector,i)->Eta();
+      if (elPt <= 20) continue;
+      if (fabs(elEta) >= 2.5) continue;
+      if (!electronloose_passVetoID[i]) continue;
+      if (electronloose_rhoCorrectedRelIsolation[i] >= 0.15) continue;
+      indsoftel.push_back(i);
+    }
+    unsigned int nsoftelectron = indsoftel.size();
+
+    _h_cuts_electrons_n->Fill((float)nsoftelectron, _weight);
+
+    if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
+
+    if (nsoftelectron != 0) continue;
+    ++counter[3];
+
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e veto"; ++iCut; // no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "e veto");
 
     //======================================================
     // Vertices
@@ -508,13 +493,7 @@ void MyAna::Loop()
     _h_cuts_jpsi_n->Fill((float)njpsi, _weight);
 
     if (njpsi != 1) continue;
-    ++counter[5];
-
-    if (_isMC) { 
-      // Jpsi scalefactors
-      _weight = _weight*(*jpsi_mu1_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jpsi_mu2_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
-    }
+    ++counter[4];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Exactly 1 J/psi"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Exactly 1 J/psi");
@@ -522,7 +501,7 @@ void MyAna::Loop()
     // Chi2
     _h_cuts_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
     if (jpsi_vtxchi2[indgoodjpsi[0]] >= 5.) continue;
-    ++counter[6];
+    ++counter[5];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with #chi2<5"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with #chi2<5");
@@ -530,7 +509,7 @@ void MyAna::Loop()
     // ctau
     _h_cuts_jpsi_l->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
     if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue;
-    ++counter[7];
+    ++counter[6];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm");
@@ -558,10 +537,31 @@ void MyAna::Loop()
       isolike = muon_deltaBetaCorrectedRelIsolation[indgoodmu[0]];
 
     if (isolike > 0.12) continue;
-    ++counter[11];
+    ++counter[7];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Tighter isolated muon"; ++iCut; 
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Tighter isolated muon"; ++iCut; // noSF 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Tighter isolated muon");
+
+    //======================================================
+    // Scale factors
+    //======================================================
+
+    if (_isMC) {
+      // Trigger scalefactors
+      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
+      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muon_4vector, indgoodmu[0])->Pt(), GetP4(muon_4vector, indgoodmu[0])->Eta()); 
+      // Muon scalefactor
+      _weight = _weight*(*muon_scaleFactor_tighteff_tightiso)[indgoodmu[0]][0]; // 0 for central, 1 for up, 2 for down
+      // Jet scalefactors
+      _weight = _weight*(*jet_scaleFactor)[indgoodjet[0]][0]; // 0 for central, 1 for up, 2 for down
+      _weight = _weight*(*jet_scaleFactor)[indgoodjet[1]][0]; // 0 for central, 1 for up, 2 for down
+      // Jpsi scalefactors
+      _weight = _weight*(*jpsi_mu1_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
+      _weight = _weight*(*jpsi_mu2_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
+    }
+
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
 
     //======================================================
     // Plots
@@ -692,8 +692,8 @@ void MyAna::Loop()
     float p_reco  = sqrt(pow(px_reco, 2.) + pow(py_reco, 2.) + pow(pz_reco, 2.));
     float pt_reco = sqrt(pow(px_reco, 2.) + pow(py_reco, 2.));
     float m_reco  = pow(e_reco, 2.) - pow(p_reco, 2.);
-    if ( m_reco >= 0 ) m_reco = sqrt(m_reco);
-    else               m_reco = 0.;
+    if (m_reco >= 0) m_reco = sqrt(m_reco);
+    else             m_reco = 0.;
 
     _h_triLept_m->Fill(m_reco, _weight);
 
@@ -895,21 +895,20 @@ void MyAna::Loop()
   cout << "Number of events before cut :                                  = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
-  for (int i = 1; i < 8; i++){
+  for (int i = 1; i < 9; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
   cout << "========================================================================" << endl;
   cout << "Total Number of events selected                           = "  << nselected << endl;
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
-  cout << "Only 1 iso lepton                                         = " << counter[3] << endl;
-  cout << "-> 1 iso muon                                             = " << counter[1] << endl;
-  cout << "-> no soft electron                                       = " << counter[2] << endl;
-  cout << "At least 2 jets pT>40 GeV/c                               = " << counter[4] << endl;
-  cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
-  cout << "... with chi2 < 5                                         = " << counter[6] << endl;
-  cout << "... and ctau > 0.005 cm                                   = " << counter[7] << endl;
-  cout << "Tighter isolated lepton                                   = " << counter[11] << endl;
+  cout << "At least 2 jets pT>40 GeV/c                               = " << counter[1] << endl;
+  cout << "1 iso electron                                            = " << counter[2] << endl;
+  cout << "muon veto                                                 = " << counter[3] << endl;
+  cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[4] << endl;
+  cout << "... with chi2 < 5                                         = " << counter[5] << endl;
+  cout << "... and ctau > 0.005 cm                                   = " << counter[6] << endl;
+  cout << "Tighter isolated lepton                                   = " << counter[7] << endl;
   if (_isMC && _isSIG) {
     cout << "========================================================================" << endl;
     cout << "Events matched to MC truth (DeltaR<0.05 for J/psi and lepton)   = " << counter[8] << endl;

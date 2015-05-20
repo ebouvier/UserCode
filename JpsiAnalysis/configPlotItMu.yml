@@ -215,71 +215,63 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
+    log-y: true
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    ##y-axis-range; [1e4, 1e8]
+    y-axis-show-zero: true
 
   "NMuons-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NElectrons-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets20-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NCsvJets20-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJpsi-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi-cuts":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":
@@ -299,12 +291,14 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PfIsoIsoLept":
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    x-axis-range: [0, 0.2]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJets20":
@@ -379,6 +373,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtLeadJet2":
     show-ratio: true
@@ -397,6 +392,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtLeadJet3":
     show-ratio: true
@@ -415,6 +411,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtLeadJet4":
     show-ratio: true
@@ -433,6 +430,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "MetMet":
@@ -446,6 +444,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
     show-ratio: true
@@ -575,6 +574,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi":
     show-ratio: true
@@ -643,6 +643,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
@@ -672,7 +673,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:
-    position: [0.7, 0.65, 0.9, 0.9]
+    position: [0.72, 0.55, 0.9, 0.9]
 
 groups:
   sto:

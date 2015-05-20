@@ -105,6 +105,7 @@ aodsims = [
 
 tex.write("\\documentclass[a4paper]{article}\n")
 tex.write("\\usepackage{array}\n")
+tex.write("\\usepackage{multirow}\n")
 tex.write("\\usepackage{amsmath}\n")
 tex.write("\\newcommand{\\ttbar}{\\ensuremath{\\text{t}\\bar{\\text{t}}}}\n")
 tex.write("\\begin{document}\n")
@@ -188,9 +189,9 @@ tex.write("quoted uncertainties are statistical only. \n")
 tex.write("} \n")
 tex.write("\\begin{tabular}{|l||c|c|} \n")
 tex.write("\\hline\n")
-tex.write(" & \\multicolumn{2}{c|}{Number of events} \\\\ \n")
-tex.write("\\hline\n")
-tex.write("Process & $\\mu+\\text{jets}$ channel & $\\text{e}+\\text{jets}$ channel \\\\ \n")
+tex.write("\multirow{2}{*}{Process} & \\multicolumn{2}{c|}{Number of events} \\\\ \n")
+tex.write("\\cline{2-3}\n")
+tex.write(" & $\\mu+\\text{jets}$ channel & $\\text{e}+\\text{jets}$ channel \\\\ \n")
 tex.write("\\hline\\hline\n")
 
 NSim = {"mu": 0., "el": 0.}

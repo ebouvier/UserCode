@@ -225,7 +225,7 @@ plots:
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    y-axis-range; [1e4, 1e8]
+    y-axis-range: [1e4, 1e8]
     ##y-axis-show-zero: true
 
   "NMuons-cuts":  
@@ -334,7 +334,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
-    y-axis-show-zero:true
+    y-axis-show-zero: true
     y-axis-range: [0, 7000]
     save-extensions: ["pdf","C","jpg","eps"]
 

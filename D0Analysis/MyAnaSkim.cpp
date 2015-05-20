@@ -76,7 +76,7 @@ void MyAna::Loop()
   TH1F* _h_cuts_electrons_n = new TH1F("NElectrons-cuts", "NElectrons-cuts", 4, 0., 4.);
   _h_cuts_electrons_n->SetXTitle("Number of isolated e (before cut)");
   // FIXME
-  TH1F* _h_cuts_muons_dr = new TH1F("DRMuons-cuts", "DRMuons-cuts", 1000, 0., 0.5);
+  TH1F* _h_cuts_muons_dr = new TH1F("DRMuons-cuts", "DRMuons-cuts", 1000, 0., 0.05);
   _h_cuts_muons_dr->SetXTitle("#DeltaR(soft #mu, veto #mu)");
   // FIXME
 
@@ -496,7 +496,7 @@ void MyAna::Loop()
 
     if (_debug) cout << "Number of soft muons = " << nsoftmuon << endl;
 
-    if ((ngoodmuon == 1 && nsoftelectron != 0) || (ngoodelectron == 1 && nsoftmuon != 0)) continue; // FIXME
+    if ((ngoodmuon == 1 && nsoftelectron != 0) || (ngoodelectron == 1 && nsoftmuon != 0)) continue; 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "soft lepton veto"; ++iCut; // /!\ no scalefactors yet 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"soft lepton veto");
 

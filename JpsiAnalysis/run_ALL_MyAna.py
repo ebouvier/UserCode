@@ -80,7 +80,7 @@ for aFile in filelist:
     if aFile.count("SingleElectron") != 1 and aFile.count("SingleMu") != 1 and aFile.count("MuHad") != 1 and aFile.count("ElectronHad") != 1 :
         option = option+" -mc"
 
-    if aFile.count("TTJets_FullLeptMGDecays") ==  1 or aFile.count("TTJets_SemiLeptMGDecays") == 1 :
+    if aFile.count("TTJets") == 1 :
         option = option+" -sig"    
         
     if aFile.count("TTJets") == 1 or aFile.count("TTWJets") == 1 or aFile.count("TTWWJets") == 1 or aFile.count("TTZJets") ==1 :
