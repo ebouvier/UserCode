@@ -75,6 +75,10 @@ void MyAna::Loop()
   _h_cuts_muons_n->SetXTitle("Number of isolated #mu (before cut)");
   TH1F* _h_cuts_electrons_n = new TH1F("NElectrons-cuts", "NElectrons-cuts", 4, 0., 4.);
   _h_cuts_electrons_n->SetXTitle("Number of isolated e (before cut)");
+  // FIXME
+  TH1F* _h_cuts_muons_dr = new TH1F("DRMuons-cuts", "DRMuons-cuts", 1000, 0., 0.5);
+  _h_cuts_muons_dr->SetXTitle("#DeltaR(soft #mu, veto #mu)");
+  // FIXME
 
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of isolated lepton");
@@ -422,6 +426,7 @@ void MyAna::Loop()
 
     if (_debug) cout << " -> loose electrons size " << n_electronsloose << endl;
 
+    /*
     for (unsigned int i = 0; i < n_electrons; ++i) {
       float elPt = GetP4(electron_4vector,i)->Pt();
       float elEta = GetP4(electron_4vector,i)->Eta();
@@ -430,7 +435,7 @@ void MyAna::Loop()
       if (fabs(electron_SCEta[i]) >= 1.4442 && fabs(electron_SCEta[i]) < 1.5660) continue;
       indsoftel.push_back(i);
     }
-    /*
+    */
     for (unsigned int i = 0; i < n_electronsloose; ++i) {
       float elPt = GetP4(electronloose_4vector,i)->Pt();
       float elEta = GetP4(electronloose_4vector,i)->Eta();
@@ -439,7 +444,6 @@ void MyAna::Loop()
       if (fabs(electronloose_SCEta[i]) >= 1.4442 && fabs(electronloose_SCEta[i]) < 1.5660) continue;
       indsoftel.push_back(i);
     }
-    */
     unsigned int nsoftelectron = indsoftel.size();
 
     if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
@@ -450,6 +454,7 @@ void MyAna::Loop()
 
     if (_debug) cout << " -> loose muons size " << n_muonsloose << endl;
 
+    /*
     for (unsigned int i = 0; i < n_muons; ++i) {
       float muPt = GetP4(muon_4vector,i)->Pt();
       float muEta = GetP4(muon_4vector,i)->Eta();
@@ -457,7 +462,7 @@ void MyAna::Loop()
       if (fabs(muEta) >= 2.5) continue;
       indsoftmu.push_back(i);
     }
-    /*
+    */
     for (unsigned int i = 0; i < n_muonsloose; ++i) {
       float muPt = GetP4(muonloose_4vector,i)->Pt();
       float muEta = GetP4(muonloose_4vector,i)->Eta();
@@ -487,14 +492,13 @@ void MyAna::Loop()
       if (deltar_min < 0.005) continue;
       indsoftmu.push_back(i);
     }
-    */
     unsigned int nsoftmuon = indsoftmu.size();
 
     if (_debug) cout << "Number of soft muons = " << nsoftmuon << endl;
 
     if ((ngoodmuon == 1 && nsoftelectron != 0) || (ngoodelectron == 1 && nsoftmuon != 0)) continue; // FIXME
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "no soft #mu"; ++iCut; // /!\ no scalefactors yet 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut,"no soft #mu");
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "soft lepton veto"; ++iCut; // /!\ no scalefactors yet 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"soft lepton veto");
 
     //======================================================
     // Vertices
