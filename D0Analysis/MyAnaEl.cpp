@@ -76,7 +76,7 @@ void MyAna::Loop()
   TH1F* _h_cuts_electrons_n = new TH1F("NElectrons-cuts", "NElectrons-cuts", 4, 0., 4.);
   _h_cuts_electrons_n->SetXTitle("Number of isolated e (before cut)");
   // FIXME
-  TH1F* _h_cuts_muons_dr = new TH1F("DRMuons-cuts", "DRMuons-cuts", 1000, 0., 0.5);
+  TH1F* _h_cuts_muons_dr = new TH1F("DRMuons-cuts", "DRMuons-cuts", 1000, 0., 0.05);
   _h_cuts_muons_dr->SetXTitle("#DeltaR(soft #mu, veto #mu)");
   TH1F* _h_cuts_electrons_nafterpt = new TH1F("NElectrons-AfterPt-cuts", "NElectrons-AfterPt-cuts", 4, 0., 4.);
   _h_cuts_electrons_nafterpt->SetXTitle("Number of isolated e (after p_{T} cut)");
@@ -105,7 +105,7 @@ void MyAna::Loop()
 
   TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 11, 0., 11.); 
   _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
-  TH1F* _h_jet30_pt               = new TH1F("PtJets30", "PtJets30", 25, 0., 500.); 
+  TH1F* _h_jet30_pt               = new TH1F("PtJets30", "PtJets30", 100, 0., 500.); 
   _h_jet30_pt->SetXTitle("p_{T}(jets) (GeV/c)");
   TH1F* _h_jet30_eta              = new TH1F("EtaJets30", "EtaJets30", 25, -5., 5);
   _h_jet30_eta->SetXTitle("#eta(jets)");
@@ -428,6 +428,15 @@ void MyAna::Loop()
 
     if (_debug) cout << " -> loose muons size " << n_muonsloose << endl;
 
+    /*
+    for (unsigned int i = 0; i < n_muons; ++i) {
+      float muPt = GetP4(muon_4vector,i)->Pt();
+      float muEta = GetP4(muon_4vector,i)->Eta();
+      if (muPt <= 10) continue;
+      if (fabs(muEta) >= 2.5) continue;
+      indsoftmu.push_back(i);
+    }
+    */
     for (unsigned int i = 0; i < n_muonsloose; ++i) {
       float muPt = GetP4(muonloose_4vector,i)->Pt();
       float muEta = GetP4(muonloose_4vector,i)->Eta();
@@ -523,7 +532,7 @@ void MyAna::Loop()
 
     _h_isoLept_n->Fill(ngoodelectron, _weight);
     for(unsigned int j = 0; j < ngoodelectron; ++j) {
-      _h_isoLept_pt->Fill(GetP4(electron_4vector,indgoodel[j])->Phi(), _weight);
+      _h_isoLept_pt->Fill(GetP4(electron_4vector,indgoodel[j])->Pt(), _weight);
       _h_isoLept_eta->Fill(GetP4(electron_4vector,indgoodel[j])->Eta(), _weight);
       _h_isoLept_phi->Fill(GetP4(electron_4vector,indgoodel[j])->Phi(), _weight);
       _h_isoLept_pfiso->Fill(electron_deltaBetaCorrectedRelIsolation[indgoodel[j]], _weight);

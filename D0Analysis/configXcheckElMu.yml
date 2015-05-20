@@ -41,18 +41,19 @@ files:
     legend-style: 'P'
 
 plots:
-  "NTrueInteractions":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
+  ##"NTrueInteractions":
+    ##show-ratio: false
+    ##save-extensions: ["pdf","C","jpg","eps"]
 
-  "NTrueInteractionsReweighted":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
+  ##"NTrueInteractionsReweighted":
+    ##show-ratio: false
+    ##save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
+    log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    y-axis-range: [50000, 140000]
+    y-axis-range: [1e4, 1e8]
 
   "NJets30-cuts":  
     show-ratio: false
@@ -75,14 +76,17 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PfIsoIsoLept":  
+    x-axis-range: [0, 0.2]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJets30":  
+    x-axis-range: [3, 11]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtJets30":  
+    x-axis-range: [0, 300]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -147,12 +151,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum2p-b-jets":
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum3p-b-jets":
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -184,12 +188,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum2p-nomu-b-jets":
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum3p-nomu-b-jets":
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -217,6 +221,8 @@ plots:
 
   "D0Mass-b-jets":
     x-axis-range: [0, 5]
+    ##x-axis-range: [1.6, 2.2]
+    ##y-axis-range: [0, 300]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 

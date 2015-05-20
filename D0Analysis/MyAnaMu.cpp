@@ -97,7 +97,7 @@ void MyAna::Loop()
 
   TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 11, 0., 11.); 
   _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
-  TH1F* _h_jet30_pt               = new TH1F("PtJets30", "PtJets30", 25, 0., 500.); 
+  TH1F* _h_jet30_pt               = new TH1F("PtJets30", "PtJets30", 100, 0., 500.); 
   _h_jet30_pt->SetXTitle("p_{T}(jets) (GeV/c)");
   TH1F* _h_jet30_eta              = new TH1F("EtaJets30", "EtaJets30", 25, -5., 5);
   _h_jet30_eta->SetXTitle("#eta(jets)");
@@ -409,6 +409,16 @@ void MyAna::Loop()
 
     if (_debug) cout << " -> loose electrons size " << n_electronsloose << endl;
 
+    /*
+    for (unsigned int i = 0; i < n_electrons; ++i) {
+      float elPt = GetP4(electron_4vector,i)->Pt();
+      float elEta = GetP4(electron_4vector,i)->Eta();
+      if (elPt <= 10) continue;
+      if (fabs(elEta) >= 2.5) continue;
+      if (fabs(electron_SCEta[i]) >= 1.4442 && fabs(electron_SCEta[i]) < 1.5660) continue;
+      indsoftel.push_back(i);
+    }
+    */
     for (unsigned int i = 0; i < n_electronsloose; ++i) {
       float elPt = GetP4(electronloose_4vector,i)->Pt();
       float elEta = GetP4(electronloose_4vector,i)->Eta();
@@ -488,7 +498,7 @@ void MyAna::Loop()
 
     _h_isoLept_n->Fill(ngoodmuon, _weight);
     for(unsigned int j = 0; j < ngoodmuon; ++j) {
-      _h_isoLept_pt->Fill(GetP4(muon_4vector,indgoodmu[j])->Phi(), _weight);
+      _h_isoLept_pt->Fill(GetP4(muon_4vector,indgoodmu[j])->Pt(), _weight);
       _h_isoLept_eta->Fill(GetP4(muon_4vector,indgoodmu[j])->Eta(), _weight);
       _h_isoLept_phi->Fill(GetP4(muon_4vector,indgoodmu[j])->Phi(), _weight);
       _h_isoLept_pfiso->Fill(muon_deltaBetaCorrectedRelIsolation[indgoodmu[j]], _weight);

@@ -198,12 +198,12 @@ files:
     order: 0
 
 plots:
-  "NTrueInteractions":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
+  ##"NTrueInteractions":
+    ##show-ratio: true
+    ##fit-ratio: true
+    ##fit-function: "pol1"
+    ##show-errors: true
+    ##save-extensions: ["pdf","C","jpg","eps"]
     ##rebin: 1
     ##show-ratio: false
     ##show-errors: true
@@ -212,46 +212,43 @@ plots:
     ##y-axis-range: [,]
     ##legend-position: [0.7, 0.45, 0.9, 0.9] 
 
-  "NTrueInteractionsReweighted":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
+  ##"NTrueInteractionsReweighted":
+    ##show-ratio: true
+    ##fit-ratio: true
+    ##fit-function: "pol1"
+    ##show-errors: true
+    ##save-extensions: ["pdf","C","jpg","eps"]
 
   "Event-yields":
+    log-y: true
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    y-axis-show-zero: true
+    y-axis-range; [1e4, 1e8]
+    ##y-axis-show-zero: true
 
   "NMuons-cuts":  
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NElectrons-cuts":  
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJets30-cuts":  
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":  
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -274,6 +271,8 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 7000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PfIsoIsoLept":  
@@ -281,6 +280,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    x-axis-range: [0, 0.2]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJets30":  
@@ -289,12 +289,14 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [3, 11]
 
   "PtJets30":  
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    x-axis-range: [0, 300]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "EtaJets30":  
@@ -309,6 +311,8 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 28000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "CsvJets30":  
@@ -330,6 +334,8 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero:true
+    y-axis-range: [0, 7000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NPrimaryVtx":
@@ -405,7 +411,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
 
   "Sum3p-b-jets":
     show-ratio: true
@@ -413,7 +419,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
 
   "Mass3-b-jets":
     show-ratio: true
@@ -463,7 +469,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
 
   "Sum3p-nomu-b-jets":
     show-ratio: true
@@ -471,7 +477,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
 
   "Mass3-nomu-b-jets":
     show-ratio: true
@@ -508,6 +514,9 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0Mass-b-jets":
+    x-axis-range: [0, 5]
+    ##x-axis-range: [1.6, 2.2]
+    ##y-axis-range; [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -537,6 +546,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-show-zero: true
+    y-axis-range: [0, 600]
 
   "BMomentum-nobias-b-jets":
     x-axis-range: [0, 350]
