@@ -903,8 +903,8 @@ void MyAna::Loop()
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
   cout << "At least 2 jets pT>40 GeV/c                               = " << counter[1] << endl;
-  cout << "1 iso electron                                            = " << counter[2] << endl;
-  cout << "muon veto                                                 = " << counter[3] << endl;
+  cout << "1 iso muon                                                = " << counter[2] << endl;
+  cout << "electron veto                                             = " << counter[3] << endl;
   cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[4] << endl;
   cout << "... with chi2 < 5                                         = " << counter[5] << endl;
   cout << "... and ctau > 0.005 cm                                   = " << counter[6] << endl;
