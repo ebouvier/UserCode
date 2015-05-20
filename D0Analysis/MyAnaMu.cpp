@@ -415,11 +415,11 @@ void MyAna::Loop()
       // FIXME
       _h_cuts_electrons_pt->Fill(elPt, _weight);
       _h_cuts_electrons_eta->Fill(elEta, _weight);
-      _h_cuts_electrons_tightid->Fill((float)electron_passTightID[i], _weight);
+      _h_cuts_electrons_tightid->Fill((float)electronloose_passTightID[i], _weight);
       // FIXME
       if (elPt <= 10) continue;
       if (fabs(elEta) >= 2.5) continue;
-      if (fabs(electron_SCEta[i]) >= 1.4442 && fabs(electron_SCEta[i]) < 1.5660) continue;
+      if (fabs(electronloose_SCEta[i]) >= 1.4442 && fabs(electronloose_SCEta[i]) < 1.5660) continue;
       indsoftel.push_back(i);
     }
     unsigned int nsoftelectron = indsoftel.size();
@@ -642,10 +642,14 @@ void MyAna::Loop()
         
         // consider a mu with OS to the kaon
         TLorentzVector p_mu;
-        if (mujet_d0_kaon_pdgid[j] > 0)
-          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,j)->Pt(), GetP4(mujet_nonisomuminus_4vector,j)->Eta(), GetP4(mujet_nonisomuminus_4vector,j)->Phi(), gMassMu);
-        else 
-          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,j)->Pt(), GetP4(mujet_nonisomuplus_4vector,j)->Eta(), GetP4(mujet_nonisomuplus_4vector,j)->Phi(), gMassMu);
+        if (mujet_d0_kaon_pdgid[j] > 0 && fabs(mujet_nonisomuminus_pdgid[i]) > 0) {
+          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,i)->Pt(), GetP4(mujet_nonisomuminus_4vector,i)->Eta(), GetP4(mujet_nonisomuminus_4vector,i)->Phi(), gMassMu);
+        }
+        else {
+          if (mujet_d0_kaon_pdgid[j] > 0 && fabs(mujet_nonisomuplus_pdgid[i]) > 0)
+            p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,i)->Pt(), GetP4(mujet_nonisomuplus_4vector,i)->Eta(), GetP4(mujet_nonisomuplus_4vector,i)->Phi(), gMassMu);
+          p_mu.SetPtEtaPhiM(0., 0., 0., 0.);
+        }
         if (p_mu.P() < 1e-6) continue;
         _Mup = p_mu.P();
         _h_mup_unbiased->Fill(p_mu.P(), _weight);

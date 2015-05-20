@@ -442,13 +442,16 @@ void MyAna::Loop()
           etaj = GetP4(mujet_nonisomuplus_4vector,j)->Eta();
           phij = GetP4(mujet_nonisomuplus_4vector,j)->Phi();
         }
-        else {
-          etaj = GetP4(mujet_nonisomuminus_4vector,j)->Eta();
-          phij = GetP4(mujet_nonisomuminus_4vector,j)->Phi();
-        }
         float deltar_tmp = kinem::delta_R(GetP4(muonloose_4vector,i)->Eta(), GetP4(muonloose_4vector,i)->Phi(), etaj, phij);
         if (deltar_tmp < deltar_min)
           deltar_min = deltar_tmp;
+        if (fabs(mujet_nonisomuminus_pdgid[j]) > 0) {
+          etaj = GetP4(mujet_nonisomuminus_4vector,j)->Eta();
+          phij = GetP4(mujet_nonisomuminus_4vector,j)->Phi();
+        deltar_tmp = kinem::delta_R(GetP4(muonloose_4vector,i)->Eta(), GetP4(muonloose_4vector,i)->Phi(), etaj, phij);
+        if (deltar_tmp < deltar_min)
+          deltar_min = deltar_tmp;
+        }
       }
       _h_cuts_muons_dr->Fill(deltar_min, _weight);
       if (deltar_min < 0.005) continue;
@@ -665,10 +668,14 @@ void MyAna::Loop()
         
         // consider a mu with OS to the kaon
         TLorentzVector p_mu;
-        if (mujet_d0_kaon_pdgid[j] > 0)
-          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,j)->Pt(), GetP4(mujet_nonisomuminus_4vector,j)->Eta(), GetP4(mujet_nonisomuminus_4vector,j)->Phi(), gMassMu);
-        else 
-          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,j)->Pt(), GetP4(mujet_nonisomuplus_4vector,j)->Eta(), GetP4(mujet_nonisomuplus_4vector,j)->Phi(), gMassMu);
+        if (mujet_d0_kaon_pdgid[j] > 0 && fabs(mujet_nonisomuminus_pdgid[i]) > 0) {
+          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,i)->Pt(), GetP4(mujet_nonisomuminus_4vector,i)->Eta(), GetP4(mujet_nonisomuminus_4vector,i)->Phi(), gMassMu);
+        }
+        else {
+          if (mujet_d0_kaon_pdgid[j] > 0 && fabs(mujet_nonisomuplus_pdgid[i]) > 0)
+            p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,i)->Pt(), GetP4(mujet_nonisomuplus_4vector,i)->Eta(), GetP4(mujet_nonisomuplus_4vector,i)->Phi(), gMassMu);
+          p_mu.SetPtEtaPhiM(0., 0., 0., 0.);
+        }
         if (p_mu.P() < 1e-6) continue;
         _Mup = p_mu.P();
         _h_mup_unbiased->Fill(p_mu.P(), _weight);

@@ -430,6 +430,16 @@ void MyAna::Loop()
       if (fabs(electron_SCEta[i]) >= 1.4442 && fabs(electron_SCEta[i]) < 1.5660) continue;
       indsoftel.push_back(i);
     }
+    /*
+    for (unsigned int i = 0; i < n_electronsloose; ++i) {
+      float elPt = GetP4(electronloose_4vector,i)->Pt();
+      float elEta = GetP4(electronloose_4vector,i)->Eta();
+      if (elPt <= 10) continue;
+      if (fabs(elEta) >= 2.5) continue;
+      if (fabs(electronloose_SCEta[i]) >= 1.4442 && fabs(electronloose_SCEta[i]) < 1.5660) continue;
+      indsoftel.push_back(i);
+    }
+    */
     unsigned int nsoftelectron = indsoftel.size();
 
     if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
@@ -447,6 +457,37 @@ void MyAna::Loop()
       if (fabs(muEta) >= 2.5) continue;
       indsoftmu.push_back(i);
     }
+    /*
+    for (unsigned int i = 0; i < n_muonsloose; ++i) {
+      float muPt = GetP4(muonloose_4vector,i)->Pt();
+      float muEta = GetP4(muonloose_4vector,i)->Eta();
+      if (muPt <= 10) continue;
+      if (fabs(muEta) >= 2.5) continue;
+      // check distance to soft muons in jets
+      float deltar_min = 200.;
+      for (int j=0; j < n_mujet; ++j) {
+        float etaj = 0.;
+        float phij = 0.;
+        if (fabs(mujet_nonisomuplus_pdgid[j]) > 0) {
+          etaj = GetP4(mujet_nonisomuplus_4vector,j)->Eta();
+          phij = GetP4(mujet_nonisomuplus_4vector,j)->Phi();
+        }
+        float deltar_tmp = kinem::delta_R(GetP4(muonloose_4vector,i)->Eta(), GetP4(muonloose_4vector,i)->Phi(), etaj, phij);
+        if (deltar_tmp < deltar_min)
+          deltar_min = deltar_tmp;
+        if (fabs(mujet_nonisomuminus_pdgid[j]) > 0) {
+          etaj = GetP4(mujet_nonisomuminus_4vector,j)->Eta();
+          phij = GetP4(mujet_nonisomuminus_4vector,j)->Phi();
+        deltar_tmp = kinem::delta_R(GetP4(muonloose_4vector,i)->Eta(), GetP4(muonloose_4vector,i)->Phi(), etaj, phij);
+        if (deltar_tmp < deltar_min)
+          deltar_min = deltar_tmp;
+        }
+      }
+      _h_cuts_muons_dr->Fill(deltar_min, _weight);
+      if (deltar_min < 0.005) continue;
+      indsoftmu.push_back(i);
+    }
+    */
     unsigned int nsoftmuon = indsoftmu.size();
 
     if (_debug) cout << "Number of soft muons = " << nsoftmuon << endl;
@@ -675,10 +716,14 @@ void MyAna::Loop()
         
         // consider a mu with OS to the kaon
         TLorentzVector p_mu;
-        if (mujet_d0_kaon_pdgid[j] > 0)
-          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,j)->Pt(), GetP4(mujet_nonisomuminus_4vector,j)->Eta(), GetP4(mujet_nonisomuminus_4vector,j)->Phi(), gMassMu);
-        else 
-          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,j)->Pt(), GetP4(mujet_nonisomuplus_4vector,j)->Eta(), GetP4(mujet_nonisomuplus_4vector,j)->Phi(), gMassMu);
+        if (mujet_d0_kaon_pdgid[j] > 0 && fabs(mujet_nonisomuminus_pdgid[i]) > 0) {
+          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,i)->Pt(), GetP4(mujet_nonisomuminus_4vector,i)->Eta(), GetP4(mujet_nonisomuminus_4vector,i)->Phi(), gMassMu);
+        }
+        else {
+          if (mujet_d0_kaon_pdgid[j] > 0 && fabs(mujet_nonisomuplus_pdgid[i]) > 0)
+            p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,i)->Pt(), GetP4(mujet_nonisomuplus_4vector,i)->Eta(), GetP4(mujet_nonisomuplus_4vector,i)->Phi(), gMassMu);
+          p_mu.SetPtEtaPhiM(0., 0., 0., 0.);
+        }
         if (p_mu.P() < 1e-6) continue;
         _Mup = p_mu.P();
         _h_mup_unbiased->Fill(p_mu.P(), _weight);
