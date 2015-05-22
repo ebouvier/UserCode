@@ -27,7 +27,7 @@ tex = open(texFile, 'w')
 
 ## Input ifos
 
-histname = "NPrimaryVtx"
+histname = "NVertices"
 
 Lumi = {"mu": 19.705, "el": 19.690} 
 dirAna = {"mu": os.path.join(dir, "MyAnaMu"), "el": os.path.join(dir, "MyAnaEl")}

@@ -86,27 +86,27 @@ void MyAna::Loop()
   _h_cuts_jpsi_n->SetXTitle("Number of J/#psi (before cut)");
   TH1F* _h_cuts_jpsi_chi2        = new TH1F("Chi2Jpsi-cuts", "Chi2Jpsi-cuts", 32, 0., 16.);
   _h_cuts_jpsi_chi2->SetXTitle("#chi^{2}(J/#psi vertex) (before cut)");
-  TH1F* _h_cuts_jpsi_l           = new TH1F("LJpsi-cuts", "LJpsi-cuts", 50, 0., 1.);
+  TH1F* _h_cuts_jpsi_l           = new TH1F("LJpsi-cuts", "LJpsi-cuts", 25, 0., 0.5);
   _h_cuts_jpsi_l->SetXTitle("c#tau(J/#psi) (cm) (before cut)");
   TH1F* _h_cuts_jpsi_lOverSig    = new TH1F("LOverSigmaJpsi-cuts", "LOverSigmaJpsi-cuts", 42, 0., 7000.);
   _h_cuts_jpsi_lOverSig->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
 
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of isolated e");
-  TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 50, 0., 500.);   
+  TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 30, 0., 300.);   
   _h_isoLept_pt->SetXTitle("p_{T}(isolated e) (GeV/c)");
   TH1F* _h_isoLept_eta            = new TH1F("EtaIsoLept", "EtaIsoLept", 30, -3., 3.); 
   _h_isoLept_eta->SetXTitle("#eta(isolated e)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
   _h_isoLept_phi->SetXTitle("#phi(isolated e)");
-  TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 25, 0., 0.5);  
+  TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 50, 0., 0.5);  
   _h_isoLept_pfiso->SetXTitle("e isolation");
 
   TH1F* _h_jet20_n                = new TH1F("NJets20", "NJets20", 11, 0., 11.); 
   _h_jet20_n->SetXTitle("Number of jets with p_{T}>20 GeV/c");
   TH1F* _h_jet20_pt               = new TH1F("PtJets20", "PtJets20", 25, 0., 500.); 
   _h_jet20_pt->SetXTitle("p_{T}(jets) (GeV/c)");
-  TH1F* _h_jet20_eta              = new TH1F("EtaJets20", "EtaJets20", 25, -5., 5);
+  TH1F* _h_jet20_eta              = new TH1F("EtaJets20", "EtaJets20", 30, -3., 3);
   _h_jet20_eta->SetXTitle("#eta(jets)");
   TH1F* _h_jet20_phi              = new TH1F("PhiJets20", "PhiJets20", 32, -3.2, 3.2);
   _h_jet20_phi->SetXTitle("#phi(jets)");
@@ -148,7 +148,7 @@ void MyAna::Loop()
 
   TH1F* _h_met_met                = new TH1F("MetMet", "MetMet", 35, 0., 350.);
   _h_met_met->SetXTitle("MET (GeV)");
-  TH1F* _h_met_phi                = new TH1F("PhiMet", "PhiMet", 40, -4., 4.);
+  TH1F* _h_met_phi                = new TH1F("PhiMet", "PhiMet", 32, -3.2, 3.2);
   _h_met_phi->SetXTitle("#phi(MET)");
   TH1F* _h_W_mt                   = new TH1F("MtW", "MtW", 30, 0., 300.);
   _h_W_mt->SetXTitle("W transwerse mass (GeV/c^{2})");
@@ -167,7 +167,7 @@ void MyAna::Loop()
   _h_vertex_chi2Norm->SetXTitle("Normalized #chi^{2}(vertices)");
   TH1F* _h_vertex_isFake          = new TH1F("IsFakeVertex","IsFakeVertex", 3, 0., 3.);
   _h_vertex_isFake->SetXTitle("Vertex validity");
-  TH1F* _h_vertex_nTracks         = new TH1F("NTracksVertices","NTracksVertices", 100, 0., 200.);
+  TH1F* _h_vertex_nTracks         = new TH1F("NTracksVertices","NTracksVertices", 70, 0., 140.);
   _h_vertex_nTracks->SetXTitle("Track multiplicity per vertex");
 
   TH1F* _h_leadVertex_x           = new TH1F("XLeadingVertex", "XLeadingVertex", 25, 0., 0.5);
@@ -201,7 +201,7 @@ void MyAna::Loop()
   _h_jpsi_l->SetXTitle("c#tau(J/#psi) (cm)");
   TH1F* _h_jpsi_l_zoom            = new TH1F("LJpsi-zoom", "LJpsi-zoom", 50, 0., 0.05);
   _h_jpsi_l_zoom->SetXTitle("c#tau(J/#psi) (cm)");
-  TH1F* _h_jpsi_sigmaL            = new TH1F("SigmaLJpsi", "SigmaLJpsi", 15, 0., 0.0015);
+  TH1F* _h_jpsi_sigmaL            = new TH1F("SigmaLJpsi", "SigmaLJpsi", 30, 0., 0.0015);
   _h_jpsi_sigmaL->SetXTitle("#Delta(c#tau)(J/#psi) (cm)");
   TH1F* _h_jpsi_lOverSigma        = new TH1F("LOverSigmaJpsi", "LOverSigmaJpsi", 42, 0., 7000.);
   _h_jpsi_lOverSigma->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi)");
@@ -214,20 +214,20 @@ void MyAna::Loop()
   _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-isolated e)");
 
   TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 15, 0., 150.);  
-  _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm} (GeV/c)");
+  _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");
   TH1F* _h_muJpsi_eta             = new TH1F("EtaMuJpsi", "EtaMuJpsi", 30, -3., 3.); 
-  _h_muJpsi_eta->SetXTitle("#eta(#mu^{#pm}");
+  _h_muJpsi_eta->SetXTitle("#eta(#mu^{#pm})");
   TH1F* _h_muJpsi_phi             = new TH1F("PhiMuJpsi", "PhiMuJpsi", 32, -3.2, 3.2);
-  _h_muJpsi_phi->SetXTitle("#phi(#mu^{#pm}");
+  _h_muJpsi_phi->SetXTitle("#phi(#mu^{#pm})");
 
   TH1F* _h_triLept_m              = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
-  _h_triLept_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+  _h_triLept_m->SetXTitle("M(J/#psi+e) (GeV/c^{2})");
   TH1F* _h_triLept_goodPair_m     = new TH1F("MTriLept-goodPair", "MTriLept-goodPair", 25, 0., 250.);
-  _h_triLept_goodPair_m->SetXTitle("M(J/#psi+l, from same top) (GeV/c^{2})");
+  _h_triLept_goodPair_m->SetXTitle("M(J/#psi+e, from same top) (GeV/c^{2})");
   TH1F* _h_triLept_wrongPair_m    = new TH1F("MTriLept-wrongPair", "MTriLept-wrongPair", 25, 0., 250.);
-  _h_triLept_wrongPair_m->SetXTitle("M(J/#psi+l, not from same top) (GeV/c^{2})");
+  _h_triLept_wrongPair_m->SetXTitle("M(J/#psi+e, not from same top) (GeV/c^{2})");
   TH1F* _h_triLept_pt             = new TH1F("PtTriLept", "PtTriLept", 25, 0., 250.); 
-  _h_triLept_pt->SetXTitle("p_{T}(J/#psi+l) (GeV/c)");
+  _h_triLept_pt->SetXTitle("p_{T}(J/#psi+e) (GeV/c)");
   TH1F* _h_jpsi_resR              = new TH1F("ResRJpsi", "ResRJpsi", 200, 0., 0.1); 
   _h_jpsi_resR->SetXTitle("#DeltaR(gen-reco J/#psi)");
   TH1F* _h_jpsi_resPt 	          = new TH1F("ResPtJpsi", "ResPtJpsi", 20,0.,0.2); 
@@ -239,7 +239,7 @@ void MyAna::Loop()
 
   TH1F* _h_bjj_m                  = new TH1F("bjjMass", "bjjMass", 25, 0., 500.);
   _h_bjj_m->SetXTitle("M(bjj) (GeV/c^{2})");
-  TH1F* _h_W_m                    = new TH1F("WMass", "WMass", 10, 0., 200.);
+  TH1F* _h_W_m                    = new TH1F("WMass", "WMass", 20, 0., 200.);
   _h_W_m->SetXTitle("W mass (GeV/c^{2})");
 
   TTree* _t_triLept_m       = new TTree("MTriLept","MTriLept");
@@ -525,8 +525,10 @@ void MyAna::Loop()
       _weight = _weight*(*jet_scaleFactor)[indgoodjet[0]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[indgoodjet[1]][0]; // 0 for central, 1 for up, 2 for down
       // Jpsi scalefactors
+      /*
       _weight = _weight*(*jpsi_mu1_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jpsi_mu2_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
+      */
     }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; 
@@ -854,6 +856,10 @@ void MyAna::Loop()
     }
 
     ++nselected;
+  }
+  if (!_isMC) {
+      _h_PUBefore->Scale((float)nselected/_h_PUBefore->Integral());
+      _h_PUAfter->Scale((float)nselected/_h_PUAfter->Integral());
   }
 
   //================================================================================================

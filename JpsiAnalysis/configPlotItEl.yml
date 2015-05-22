@@ -22,8 +22,35 @@ files:
     type: data
     legend: "Data"
 
-  'TTJets_SemiLeptMGDecays.root':
+  'TTJets_MSDecays_JpsiFilter_166_5.root':
     type: signal
+    cross-section: 245.8
+    generated-events: 2537451 
+    line-color: 12
+    line-type: 2 
+    line-width: 2
+    legend: 't#bar{t}, m_{top}=166.5 GeV/c^{2}'
+
+  'TTJets_MSDecays_JpsiFilter_172_5.root':
+    type: signal
+    cross-section: 245.8
+    generated-events: 4037468
+    line-color: 13
+    line-type: 4 
+    line-width: 2
+    legend: 't#bar{t}, m_{top}=172.5 GeV/c^{2}'
+
+  'TTJets_MSDecays_JpsiFilter_178_5.root':
+    type: signal
+    cross-section: 245.8 
+    generated-events: 1836496
+    line-color: 14
+    line-type: 3
+    line-width: 2
+    legend: 't#bar{t}, m_{top}=178.5 GeV/c^{2}'
+
+  'TTJets_SemiLeptMGDecays.root':
+    type: mc
     cross-section: 107.6722
     generated-events: 31004465
     legend: 't#bar{t} semi-lept.'
@@ -31,7 +58,7 @@ files:
     order: 7
 
   'TTJets_FullLeptMGDecays.root':
-    type: signal
+    type: mc
     cross-section: 25.8031
     generated-events: 12011428
     legend: 't#bar{t} dilept.'
@@ -207,13 +234,6 @@ plots:
     ##x-axis-range: [,]
     ##y-axis-range: [,]
 
-  "PUAfter":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-
   "Event-yields":
     log-y: true
     show-ratio: true
@@ -254,6 +274,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi-cuts":
+    log-y : true
     show-ratio: true
     fit-ratio: false
     show-errors: true
@@ -275,6 +296,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":
+    x-range-axis: [0, 250]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -292,6 +314,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
+    y-axis-range: [0, 30]
     save-extensions: ["pdf","C","jpg","eps"]
   "PfIsoIsoLept":
     show-ratio: true
@@ -325,6 +348,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
+    y-axis-range: [0, 100]
     save-extensions: ["pdf","C","jpg","eps"]
   "CsvJets20":
     show-ratio: true
@@ -357,83 +381,6 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
-  "PtLeadJet1":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet1":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet1":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PtLeadJet2":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet2":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet2":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PtLeadJet3":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet3":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet3":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PtLeadJet4":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet4":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet4":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-
   "MetMet":
     show-ratio: true
     fit-ratio: true
@@ -446,6 +393,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
+    y-axis-range: [0, 30]
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
     show-ratio: true
@@ -460,86 +408,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-  "XVertices":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "YVertices":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "ZVertices":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NdofVertices":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NormChi2Vertices":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "IsFakeVertex":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
   "NTracksVertices":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-
-  "XLeadingVertex":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "YLeadingVertex":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "ZLeadingVertex":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NdofLeadingVertex":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NormChi2LeadingVertex":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "IsFakeLeadingVertex":
-    show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
-    show-errors: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NTracksLeadingVertex":
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -596,6 +465,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "SigmaLJpsi":
+    log-y: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -619,6 +489,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-range: [0, 60]
     save-extensions: ["pdf","C","jpg","eps"]
   "DRJpsiIsoLept":
     show-ratio: true
@@ -645,6 +516,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
+    y-axis-range: [0, 50]
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
@@ -674,7 +546,8 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:
-position: [0.72, 0.55, 0.9, 0.9]
+  ##position: [0.72, 0.55, 0.9, 0.9]
+  position: [0.75, 0.47, 0.9, 0.9]
 
 groups:
   sto:

@@ -50,23 +50,21 @@ plots:
     ##x-axis-range: [,]
     ##y-axis-range: [,]
 
-  "PUAfter":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-
   "Event-yields":
     log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    ##y-axis-range; [1e4, 1e8]
+    y-axis-range: [1e2, 1e3]
     y-axis-show-zero: true
 
   "NMuons-cuts":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "Number of isolated #mu (before cut)"
   "NElectrons-cuts":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "Number of isolated e (before cut)"
   "NJets20-cuts":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
@@ -80,6 +78,7 @@ plots:
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi-cuts":
+    log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-cuts":
@@ -92,20 +91,25 @@ plots:
   "NIsoLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "Number of isolated leptons"
   "PtIsoLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "p_{T}(isolated lepton) (GeV/c)"
   "EtaIsoLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "#eta(isolated lepton)"
   "PhiIsoLept":
     show-ratio: false
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "#phi(isolated lepton)"
   "PfIsoIsoLept":
     show-ratio: false
     x-axis-range: [0, 0.2]
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "lepton isolation"
 
   "NJets20":
     show-ratio: false
@@ -136,47 +140,6 @@ plots:
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
-  "PtLeadJet1":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet1":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet1":
-    show-ratio: false
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PtLeadJet2":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet2":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet2":
-    show-ratio: false
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PtLeadJet3":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet3":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet3":
-    show-ratio: false
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PtLeadJet4":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "EtaLeadJet4":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "PhiLeadJet4":
-    show-ratio: false
-    y-axis-show-zero: true
-    save-extensions: ["pdf","C","jpg","eps"]
-
   "MetMet":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
@@ -191,47 +154,7 @@ plots:
   "NVertices":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-  "XVertices":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "YVertices":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "ZVertices":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NdofVertices":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NormChi2Vertices":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "IsFakeVertex":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
   "NTracksVertices":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-
-  "XLeadingVertex":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "YLeadingVertex":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "ZLeadingVertex":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NdofLeadingVertex":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NormChi2LeadingVertex":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "IsFakeLeadingVertex":
-    show-ratio: false
-    save-extensions: ["pdf","C","jpg","eps"]
-  "NTracksLeadingVertex":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -258,9 +181,11 @@ plots:
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-zoom":
+    y-axis-range: [0, 15]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "SigmaLJpsi":
+    log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi":
@@ -271,11 +196,15 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "DPhiJpsiIsoLept":
+    y-axis-range: [0, 60]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "#Delta#phi (J/#psi-isolated lepton)"
   "DRJpsiIsoLept":
+    y-axis-range: [0, 60]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "#DeltaR (J/#psi-isolated lepton)"
   
   "PtMuJpsi":
     show-ratio: false
@@ -291,9 +220,11 @@ plots:
   "MTriLept-allPair":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "M(J/#psi+l) (GeV/c^{2})"
   "PtTriLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-title: "p_{T}(J/#psi+l) (GeV/c)"
     
   "bjjMass":
     show-ratio: false
@@ -303,7 +234,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:
-    position: [0.6, 0.8, 0.9, 0.9]
+    position: [0.6, 0.82, 0.9, 0.9]
 
 groups:
   sto:
