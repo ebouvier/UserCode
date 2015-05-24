@@ -87,6 +87,14 @@ Using `configPlotItMu.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItMu/
 
+To check the J/psi enriched samples, run:
+
+    ./plotItJpsi.py --date 15AprYY --version X --channel muonic
+
+Using `configPlotItJpsiMu.yml`, stacked histograms will be stored in:
+
+    Date/vX/PlotItJpsiMu/
+
 
 ### Get event yields
 
@@ -97,3 +105,29 @@ You can also get the number of events in:
 after running:
 
     ./getNumberOfEvents.py --date 15AprYY --version X
+
+
+### Add MC background and signal contributions
+
+This can be done in root:
+
+   .L mergeMC.C++
+   mergeMC("date", "version", "electron")
+   mergeMC("date", "version", "muon")
+
+In the `date/version/MyAnaEl` and `date/version/MyAnaMu` folders, rootfiles named `All_mtop.root` are created. They contain the binned and unbinned trilepton mass distributions, each contribution being normalized at the cross section.
+
+
+### Perform a simple calbration
+
+This can be done in root:
+
+   .L calib.C++
+   calib("date", "version", 0)
+   calib("date", "version", 1)
+   calib("date", "version", 2)
+
+Results are stored in the `date/version/CalibEl` and `date/version/CalibMu` folders. Fits can be binned or unbinned.
+
+
+### Perform a combine template fit

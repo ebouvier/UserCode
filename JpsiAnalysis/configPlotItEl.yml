@@ -22,33 +22,6 @@ files:
     type: data
     legend: "Data"
 
-  'TTJets_MSDecays_JpsiFilter_166_5.root':
-    type: signal
-    cross-section: 245.8
-    generated-events: 2537451 
-    line-color: 12
-    line-type: 2 
-    line-width: 2
-    legend: 't#bar{t}, m_{top}=166.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_172_5.root':
-    type: signal
-    cross-section: 245.8
-    generated-events: 4037468
-    line-color: 13
-    line-type: 4 
-    line-width: 2
-    legend: 't#bar{t}, m_{top}=172.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_178_5.root':
-    type: signal
-    cross-section: 245.8 
-    generated-events: 1836496
-    line-color: 14
-    line-type: 3
-    line-width: 2
-    legend: 't#bar{t}, m_{top}=178.5 GeV/c^{2}'
-
   'TTJets_SemiLeptMGDecays.root':
     type: mc
     cross-section: 107.6722
@@ -240,7 +213,7 @@ plots:
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    ##y-axis-range; [1e4, 1e8]
+    y-axis-range: [10, 4e3]
     y-axis-show-zero: true
 
   "NMuons-cuts":
@@ -546,8 +519,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
 legend:
-  ##position: [0.72, 0.55, 0.9, 0.9]
-  position: [0.75, 0.47, 0.9, 0.9]
+  position: [0.72, 0.55, 0.9, 0.9]
 
 groups:
   sto:

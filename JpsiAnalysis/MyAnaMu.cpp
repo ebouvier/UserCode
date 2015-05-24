@@ -67,7 +67,7 @@ void MyAna::Loop()
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
-  TH1F* _h_weight = new TH1F("Weight", "Weight", 100, 0., 2.);
+  TH1F* _h_weight = new TH1F("Weight", "Weight", 2000, 0., 2.);
   _h_weight->SetXTitle("Weight");
 
   float _weight = 1.;

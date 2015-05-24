@@ -150,13 +150,13 @@ int mergeMC(TString date, TString version, TString channel){
     }
     float tot = 0.;
     for (unsigned int i = 0; i < vecsize; i++) {
-      prop[i] = prop[i]/norm;
+      prop[i] = 505.*prop[i]/norm;
+      //prop[i] = prop[i]/norm;
       tot += prop[i];
     }
-    cout << "last coeff = " << prop[vecsize-1] << endl;
 
     TFile *outfi = TFile::Open(dir+"All_"+mtop[itop]+"_5.root","RECREATE");
-    TH1F *outhisto = new TH1F("MTrilept", "MTriLept", 25, 0., 250.);
+    TH1F *outhisto = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
     outhisto->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
     outhisto->SetYTitle("Events / 10");
     TTree *outtree = new TTree("MTriLept","MTriLept");
