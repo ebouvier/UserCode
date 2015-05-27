@@ -111,23 +111,51 @@ after running:
 
 This can be done in root:
 
-   .L mergeMC.C++
-   mergeMC("date", "version", "electron")
-   mergeMC("date", "version", "muon")
+    .L mergeMC.C++
+    mergeMC("date", "version", "electron")
+    mergeMC("date", "version", "muon")
 
 In the `date/version/MyAnaEl` and `date/version/MyAnaMu` folders, rootfiles named `All_mtop.root` are created. They contain the binned and unbinned trilepton mass distributions, each contribution being normalized at the cross section.
+
+
+### Merge both channels
+
+`hadd` commands are executed when running:
+
+    ./mergeChannels.py --date 15AprYY --version X
+
+Rootfiles are stored in `date/version/MyAnaAll`    
 
 
 ### Perform a simple calbration
 
 This can be done in root:
 
-   .L calib.C++
-   calib("date", "version", 0)
-   calib("date", "version", 1)
-   calib("date", "version", 2)
+    .L calib.C++
+    calib("date", "version", 0)
+    calib("date", "version", 1)
+    calib("date", "version", 2)
 
-Results are stored in the `date/version/CalibEl` and `date/version/CalibMu` folders. Fits can be binned or unbinned.
+Results are stored in the `date/version/CalibEl`, `date/version/CalibMu`, and `date/version/CalibAll` folders. Fits can be binned or unbinned.
 
 
 ### Perform a combine template fit
+
+This can be done in root:
+
+    .L simultaneousFit.C++
+    simultaneousFit("date", "version", true)
+    simultaneousFit("date", "version", false)
+
+Results are stored in the `date/version/SimultaneousFitEl`, `date/version/SimultaneousFitMu`, and `date/version/SimultaneousFitAll` folders.  
+
+
+### Perform a simple template fit (as cross-check)
+
+This can be done in root:
+
+    .L simpleFit.C++
+    simpleFit("date", "version", true)
+    simpleFit("date", "version", false)
+
+Results are stored in the `date/version/SimpleFitEl`, `date/version/SimpleFitMu`, and `date/version/SimpleFitAll` folders.  

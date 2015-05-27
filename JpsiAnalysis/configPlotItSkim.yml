@@ -396,8 +396,7 @@ plots:
 
   "NJpsi":
     show-ratio: true
-    fit-ratio: true
-    fit-function: "pol1"
+    fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":

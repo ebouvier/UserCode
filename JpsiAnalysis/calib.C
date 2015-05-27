@@ -315,7 +315,7 @@ double *binnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *chan
   if (mtop < 1e-6)
     leg->SetHeader(TString::Format("#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
   else
-    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.0f GeV/c^{2}}{#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop, mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
@@ -374,7 +374,7 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
   if (mtop < 1e-6)
     leg->SetHeader(TString::Format("#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
   else
-    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.0f GeV/c^{2}}{#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop, mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
@@ -417,6 +417,11 @@ double *treat(TString fileData, double lumi, vector<double> mtop, vector<double>
     outdir += "CalibMu/";
     indir += "MyAnaMu/";
     channel = "#mu"+channel;
+  }
+  if (fileData.Contains("Run2012")) {
+    outdir += "CalibAll/";
+    indir += "MyAnaAll/";
+    channel = "l"+channel;
   }
   gROOT->ProcessLine(".! mkdir "+outdir);
   TLatex* channel_tex = new TLatex(0.22, 0.9, channel);
@@ -614,7 +619,7 @@ double *treat(TString fileData, double lumi, vector<double> mtop, vector<double>
   cout << "y-intercept = " << yinte << " +/- " << errYinte << endl;
   if (binned == 0)
     cout << "\nUnbinned fit:" << endl;
-  if (binned == 0)
+  if (binned == 1)
     cout << "\nMixed fit:" << endl;
   if (binned == 2)
     cout << "\nBinned fit:" << endl;
@@ -668,13 +673,17 @@ int calib(TString date = "", TString version = "", int binned = 0)
     double *mtop_el = treat("ElectronHadASingleElectronBCD.root", 19.7, mtop, xlim, binned, date, version); 
     getchar();
     double *mtop_mu = treat("MuHadASingleMuBCD.root", 19.7, mtop, xlim, binned, date, version); 
+    getchar();
+    double *mtop_all = treat("Run2012ABCD.root", 19.7, mtop, xlim, binned, date, version); 
 
     cout << "\n===================================================\n" <<endl;
 
     double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result = TString::Format("Apres combinaison des canaux muonique et electronique : \n \t \t \t m_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
-    cout << result << endl;
-
+    TString result1 = TString::Format("Combining e + Jets and #mu + Jets channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
+    cout << result1 << endl;
+    TString result2 = TString::Format("Combining e + Jets and #mu + Jets channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
+    cout << result2 << endl;
+   
     return 0;
   }
   else 
