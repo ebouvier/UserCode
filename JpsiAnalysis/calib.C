@@ -313,9 +313,9 @@ double *binnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *chan
   histo->Draw("samehist");
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   if (mtop < 1e-6)
-    leg->SetHeader(TString::Format("#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
   else
-    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
@@ -372,9 +372,9 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
   massframe->Draw();
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   if (mtop < 1e-6)
-    leg->SetHeader(TString::Format("#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
   else
-    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#bar{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
@@ -612,7 +612,7 @@ double *treat(TString fileData, double lumi, vector<double> mtop, vector<double>
 
   cout << "\n=============== " << channel <<" =================\n" <<endl;
   for (unsigned int itop = 0; itop < numberOfPoints; itop++)
-    cout << "M_{top} = "<< x[itop] << " GeV/c^{2}, #bar{M}_{J/#psi+l} = (" << y[itop] << " +/- "<< ey[itop] << ") GeV/c^{2}" << endl;
+    cout << "M_{top} = "<< x[itop] << " GeV/c^{2}, #tilde{M}_{J/#psi+l} = (" << y[itop] << " +/- "<< ey[itop] << ") GeV/c^{2}" << endl;
   cout << "\nCalibration:" << endl;
   cout << "#chi^{2}/Ndof = " << chi2/ndf << endl;
   cout << "slope = " << slope << " +/- " << errSlope << endl;
