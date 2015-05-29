@@ -31,7 +31,6 @@
 #include "RooFormulaVar.h"
 #include "RooConstVar.h"
 #include "RooCategory.h"
-#include "RooSimultaneous.h"
 #include "RooMinuit.h"
 #include "RooFitResult.h"
 #include "RooMCStudy.h"
@@ -47,7 +46,7 @@
 #define BOTTOM_MARGIN 0.13
 
 /*
- * Simultaneous fit with a gaussian+gamma unbinned likelihood fit
+ * Simple fit with a gaussian+gamma unbinned likelihood fit
  */
 
 TStyle* createMyStyle() {
@@ -280,7 +279,7 @@ void cms_myStyle(double lumi = 19.7,bool isData = true){
 }
 
 //---------------------------------------------------------------
-double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtlim, vector<double> mtoys, const unsigned int nsample, TString date, TString version, bool blind) 
+double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, double *mtlim, vector<double> mtoys, const unsigned int nsample, TString date, TString version, bool blind) 
   //---------------------------------------------------------------
 {
 
@@ -296,73 +295,20 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TString outdir = indir;
   TString channel = " + Jets channel";
 
-  //---- simultaneous fit parameters
-  double p0_mean_gaus_i, p0_mean_gaus_c, p0_mean_gaus_s;
-  double p1_mean_gaus_i, p1_mean_gaus_c, p1_mean_gaus_s;
-  double p0_width_gaus_i, p0_width_gaus_c, p0_width_gaus_s;
-  double p1_width_gaus_i, p1_width_gaus_c, p1_width_gaus_s;
-  double p0_ncat_i, p0_ncat_c, p0_ncat_s;
-  double p1_ncat_i, p1_ncat_c, p1_ncat_s;
-  double p0_gamma_gam_i, p0_gamma_gam_c, p0_gamma_gam_s;
-  double p1_gamma_gam_i, p1_gamma_gam_c, p1_gamma_gam_s;
-  double p0_beta_gam_i, p0_beta_gam_c, p0_beta_gam_s;
-  double p1_beta_gam_i, p1_beta_gam_c, p1_beta_gam_s;
-  double p0_mu_gam_i, p0_mu_gam_c, p0_mu_gam_s;
-  double p1_mu_gam_i, p1_mu_gam_c, p1_mu_gam_s;
-
   if (fileData.Contains("ElectronHad")) {
-    outdir += "SimultaneousFitEl/";
+    outdir += "SimpleFitEl/";
     indir += "MyAnaEl/";
     channel = "e"+channel;
-    //---- simultaneous fit parameters
-    p0_mean_gaus_i = -9.; p0_mean_gaus_c = -7; p0_mean_gaus_s = -5.;
-    p1_mean_gaus_i = 0.45; p1_mean_gaus_c = 0.47; p1_mean_gaus_s = 0.49;
-    p0_width_gaus_i = -3.; p0_width_gaus_c = -1.; p0_width_gaus_s = 1.;
-    p1_width_gaus_i = 0.1; p1_width_gaus_c = 0.12; p1_width_gaus_s = 0.14;
-    p0_ncat_i = 0.05; p0_ncat_c = 0.08; p0_ncat_s = 0.11;
-    p1_ncat_i = 0.0015; p1_ncat_c = 0.002; p1_ncat_s = 0.0025;
-    p0_gamma_gam_i = 0.; p0_gamma_gam_c = 1.; p0_gamma_gam_s = 2.;
-    p1_gamma_gam_i = 0.; p1_gamma_gam_c = 0.005; p1_gamma_gam_s = 0.01;
-    p0_beta_gam_i = 20.; p0_beta_gam_c = 25.; p0_beta_gam_s = 30.;
-    p1_beta_gam_i = 0.; p1_beta_gam_c = 0.05; p1_beta_gam_s = 0.10;
-    p0_mu_gam_i = 10.; p0_mu_gam_c = 12.; p0_mu_gam_s = 14.;
-    p1_mu_gam_i = -0.05; p1_mu_gam_c = -0.03; p1_mu_gam_s = -0.01;
   }
   if (fileData.Contains("MuHad")) {
-    outdir += "SimultaneousFitMu/";
+    outdir += "SimpleFitMu/";
     indir += "MyAnaMu/";
     channel = "#mu"+channel;
-    //---- simultaneous fit parameters
-    p0_mean_gaus_i = -4.; p0_mean_gaus_c = 0.; p0_mean_gaus_s = 4.;
-    p1_mean_gaus_i = 0.41; p1_mean_gaus_c = 0.43; p1_mean_gaus_s = 0.45;
-    p0_width_gaus_i = -16; p0_width_gaus_c = -8.; p0_width_gaus_s = 0.;
-    p1_width_gaus_i = 0.1; p1_width_gaus_c = 0.15; p1_width_gaus_s = 0.2;
-    p0_ncat_i = -0.75; p0_ncat_c = -0.25; p0_ncat_s = 0.25;
-    p1_ncat_i = 0.; p1_ncat_c = 0.005; p1_ncat_s = 0.01;
-    p0_gamma_gam_i = 0.; p0_gamma_gam_c = 3.; p0_gamma_gam_s = 6.;
-    p1_gamma_gam_i = -0.05; p1_gamma_gam_c = 0.; p1_gamma_gam_s = 0.05;
-    p0_beta_gam_i = -10.; p0_beta_gam_c = 0.; p0_beta_gam_s = 10.;
-    p1_beta_gam_i = 0.; p1_beta_gam_c = 0.15; p1_beta_gam_s = 0.3;
-    p0_mu_gam_i = -5.; p0_mu_gam_c = 1; p0_mu_gam_s = 7.;
-    p1_mu_gam_i = 0.; p1_mu_gam_c = 0.07; p1_mu_gam_s = 0.14;
   }
   if (fileData.Contains("Run")) {
-    outdir += "SimultaneousFitAll/";
+    outdir += "SimpleFitAll/";
     indir += "MyAnaAll/";
     channel = "l"+channel;
-    //---- simultaneous fit parameters
-    p0_mean_gaus_i = -8.; p0_mean_gaus_c = -2.; p0_mean_gaus_s = 4.;
-    p1_mean_gaus_i = 0.41; p1_mean_gaus_c = 0.44; p1_mean_gaus_s = 0.47;
-    p0_width_gaus_i = -16; p0_width_gaus_c = -8.; p0_width_gaus_s = 0.;
-    p1_width_gaus_i = 0.1; p1_width_gaus_c = 0.15; p1_width_gaus_s = 0.2;
-    p0_ncat_i = -0.75; p0_ncat_c = -0.25; p0_ncat_s = 0.25;
-    p1_ncat_i = 0.; p1_ncat_c = 0.005; p1_ncat_s = 0.01;
-    p0_gamma_gam_i = 0.; p0_gamma_gam_c = 3.; p0_gamma_gam_s = 6.;
-    p1_gamma_gam_i = -0.05; p1_gamma_gam_c = 0.; p1_gamma_gam_s = 0.05;
-    p0_beta_gam_i = -10.; p0_beta_gam_c = 5.; p0_beta_gam_s = 20.;
-    p1_beta_gam_i = 0.; p1_beta_gam_c = 0.15; p1_beta_gam_s = 0.3;
-    p0_mu_gam_i = -5.; p0_mu_gam_c = 2.5; p0_mu_gam_s = 10.;
-    p1_mu_gam_i = -0.05; p1_mu_gam_c = 0.02; p1_mu_gam_s = 0.14;
   }
 
   gROOT->ProcessLine(".! mkdir "+outdir);
@@ -371,6 +317,9 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   channel_tex->SetNDC(true);
   channel_tex->SetTextFont(43);
   channel_tex->SetTextSize(TITLE_FONTSIZE - 6);
+
+  vector<int> color; color.push_back(419); color.push_back(862); color.push_back(602); color.push_back(907); color.push_back(807); color.push_back(800);
+  assert(color.size() == mtop.size());
 
   vector<double> nentries;
 
@@ -383,314 +332,84 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   RooRealVar mtl("mass", "M_{J/#psi+l}", 0., 250., "GeV/c^{2}");
   RooRealVar weight("weight", "weight", 0., 2.);
 
-  //---- Parametrization
-  RooRealVar p0_mean_gaus("p0_mean_gaus","p0_mean_gaus",p0_mean_gaus_c,p0_mean_gaus_i,p0_mean_gaus_s);
-  RooRealVar p1_mean_gaus("p1_mean_gaus","p1_mean_gaus",p1_mean_gaus_c,p1_mean_gaus_i,p1_mean_gaus_s);
-  RooRealVar p0_width_gaus("p0_width_gaus","p0_width_gaus",p0_width_gaus_c,p0_width_gaus_i,p0_width_gaus_s);
-  RooRealVar p1_width_gaus("p1_width_gaus","p1_width_gaus",p1_width_gaus_c,p1_width_gaus_i,p1_width_gaus_s);
-  RooRealVar p0_ncat("p0_ncat","p0_ncat",p0_ncat_c,p0_ncat_i,p0_ncat_s);
-  RooRealVar p1_ncat("p1_ncat","p1_ncat",p1_ncat_c,p1_ncat_i,p1_ncat_s);
-  RooRealVar p0_gamma_gam("p0_gamma_gam","p0_gamma_gam",p0_gamma_gam_c,p0_gamma_gam_i,p0_gamma_gam_s);
-  RooRealVar p1_gamma_gam("p1_gamma_gam","p1_gamma_gam",p1_gamma_gam_c,p1_gamma_gam_i,p1_gamma_gam_s);
-  RooRealVar p0_beta_gam("p0_beta_gam","p0_beta_gam",p0_beta_gam_c,p0_beta_gam_i,p0_beta_gam_s);
-  RooRealVar p1_beta_gam("p1_beta_gam","p1_beta_gam",p1_beta_gam_c,p1_beta_gam_i,p1_beta_gam_s);
-  RooRealVar p0_mu_gam("p0_mu_gam","p0_mu_gam",p0_mu_gam_c,p0_mu_gam_i,p0_mu_gam_s);
-  RooRealVar p1_mu_gam("p1_mu_gam","p1_mu_gam",p1_mu_gam_c,p1_mu_gam_i,p1_mu_gam_s);
-
-  RooCategory mc_sample("mc_sample","mc_sample") ;
-
-
   //=========================
   //    PDF for each mtop
   //=========================
 
-  RooConstVar mt_0("mt_0","mt_0",mtop[0]);
-  TFile *fi_0 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[0])));
-  TTree *tree_0 = (TTree*)fi_0->Get("MTriLept");
-  nentries.push_back(tree_0->GetEntries());
-  RooDataSet *dataset_0 = new RooDataSet("dataset_0", "dataset_0", RooArgSet(mtl, weight), Import(*tree_0), WeightVar(weight));
-  mc_sample.defineType("mt0");
-
-  RooFormulaVar mean_gaus_0("mean_gaus_0","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_0));
-  RooFormulaVar width_gaus_0("width_gaus_0","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_0));
-  RooFormulaVar ncat_0("ncat_0","@0+@1*@2",RooArgList(p0_ncat,p1_ncat,mt_0));
-  RooFormulaVar gamma_gam_0("gamma_gam_0","@0+@1*@2",RooArgList(p0_gamma_gam,p1_gamma_gam,mt_0));
-  RooFormulaVar beta_gam_0("beta_gam_0","@0+@1*@2",RooArgList(p0_beta_gam,p1_beta_gam,mt_0));
-  RooFormulaVar mu_gam_0("mu_gam_0","@0+@1*@2",RooArgList(p0_mu_gam,p1_mu_gam,mt_0));
-
-  RooGaussian pdf_gaus_0("pdf_gaus_0","pdf_gaus_0",mtl,mean_gaus_0,width_gaus_0);
-  RooGamma pdf_gam_0("pdf_gam_0","pdf_gam_0",mtl,gamma_gam_0,beta_gam_0,mu_gam_0);
-  RooAddPdf model_0("model_0","model_0",RooArgList(pdf_gaus_0,pdf_gam_0),RooArgList(ncat_0)) ;
-
-
-  RooConstVar mt_1("mt_1","mt_1",mtop[1]);
-  TFile *fi_1 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[1])));
-  TTree *tree_1 = (TTree*)fi_1->Get("MTriLept");
-  nentries.push_back(tree_1->GetEntries());
-  RooDataSet *dataset_1 = new RooDataSet("dataset_1", "dataset_1", RooArgSet(mtl, weight), Import(*tree_1), WeightVar(weight));
-  mc_sample.defineType("mt0");
-
-  RooFormulaVar mean_gaus_1("mean_gaus_1","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_1));
-  RooFormulaVar width_gaus_1("width_gaus_1","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_1));
-  RooFormulaVar ncat_1("ncat_1","@0+@1*@2",RooArgList(p0_ncat,p1_ncat,mt_1));
-  RooFormulaVar gamma_gam_1("gamma_gam_1","@0+@1*@2",RooArgList(p0_gamma_gam,p1_gamma_gam,mt_1));
-  RooFormulaVar beta_gam_1("beta_gam_1","@0+@1*@2",RooArgList(p0_beta_gam,p1_beta_gam,mt_1));
-  RooFormulaVar mu_gam_1("mu_gam_1","@0+@1*@2",RooArgList(p0_mu_gam,p1_mu_gam,mt_1));
-
-  RooGaussian pdf_gaus_1("pdf_gaus_1","pdf_gaus_1",mtl,mean_gaus_1,width_gaus_1);
-  RooGamma pdf_gam_1("pdf_gam_1","pdf_gam_1",mtl,gamma_gam_1,beta_gam_1,mu_gam_1);
-  RooAddPdf model_1("model_1","model_1",RooArgList(pdf_gaus_1,pdf_gam_1),RooArgList(ncat_1)) ;
-
-
-  RooConstVar mt_2("mt_2","mt_2",mtop[2]);
-  TFile *fi_2 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[2])));
-  TTree *tree_2 = (TTree*)fi_2->Get("MTriLept");
-  nentries.push_back(tree_2->GetEntries());
-  RooDataSet *dataset_2 = new RooDataSet("dataset_2", "dataset_2", RooArgSet(mtl, weight), Import(*tree_2), WeightVar(weight));
-  mc_sample.defineType("mt0");
-
-  RooFormulaVar mean_gaus_2("mean_gaus_2","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_2));
-  RooFormulaVar width_gaus_2("width_gaus_2","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_2));
-  RooFormulaVar ncat_2("ncat_2","@0+@1*@2",RooArgList(p0_ncat,p1_ncat,mt_2));
-  RooFormulaVar gamma_gam_2("gamma_gam_2","@0+@1*@2",RooArgList(p0_gamma_gam,p1_gamma_gam,mt_2));
-  RooFormulaVar beta_gam_2("beta_gam_2","@0+@1*@2",RooArgList(p0_beta_gam,p1_beta_gam,mt_2));
-  RooFormulaVar mu_gam_2("mu_gam_2","@0+@1*@2",RooArgList(p0_mu_gam,p1_mu_gam,mt_2));
-
-  RooGaussian pdf_gaus_2("pdf_gaus_2","pdf_gaus_2",mtl,mean_gaus_2,width_gaus_2);
-  RooGamma pdf_gam_2("pdf_gam_2","pdf_gam_2",mtl,gamma_gam_2,beta_gam_2,mu_gam_2);
-  RooAddPdf model_2("model_2","model_2",RooArgList(pdf_gaus_2,pdf_gam_2),RooArgList(ncat_2)) ;
-
-
-  RooConstVar mt_3("mt_3","mt_3",mtop[3]);
-  TFile *fi_3 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[3])));
-  TTree *tree_3 = (TTree*)fi_3->Get("MTriLept");
-  nentries.push_back(tree_3->GetEntries());
-  RooDataSet *dataset_3 = new RooDataSet("dataset_3", "dataset_3", RooArgSet(mtl, weight), Import(*tree_3), WeightVar(weight));
-  mc_sample.defineType("mt0");
-
-  RooFormulaVar mean_gaus_3("mean_gaus_3","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_3));
-  RooFormulaVar width_gaus_3("width_gaus_3","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_3));
-  RooFormulaVar ncat_3("ncat_3","@0+@1*@2",RooArgList(p0_ncat,p1_ncat,mt_3));
-  RooFormulaVar gamma_gam_3("gamma_gam_3","@0+@1*@2",RooArgList(p0_gamma_gam,p1_gamma_gam,mt_3));
-  RooFormulaVar beta_gam_3("beta_gam_3","@0+@1*@2",RooArgList(p0_beta_gam,p1_beta_gam,mt_3));
-  RooFormulaVar mu_gam_3("mu_gam_3","@0+@1*@2",RooArgList(p0_mu_gam,p1_mu_gam,mt_3));
-
-  RooGaussian pdf_gaus_3("pdf_gaus_3","pdf_gaus_3",mtl,mean_gaus_3,width_gaus_3);
-  RooGamma pdf_gam_3("pdf_gam_3","pdf_gam_3",mtl,gamma_gam_3,beta_gam_3,mu_gam_3);
-  RooAddPdf model_3("model_3","model_3",RooArgList(pdf_gaus_3,pdf_gam_3),RooArgList(ncat_3)) ;
-
-
-  RooConstVar mt_4("mt_4","mt_4",mtop[4]);
-  TFile *fi_4 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[4])));
-  TTree *tree_4 = (TTree*)fi_4->Get("MTriLept");
-  nentries.push_back(tree_4->GetEntries());
-  RooDataSet *dataset_4 = new RooDataSet("dataset_4", "dataset_4", RooArgSet(mtl, weight), Import(*tree_4), WeightVar(weight));
-  mc_sample.defineType("mt0");
-
-  RooFormulaVar mean_gaus_4("mean_gaus_4","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_4));
-  RooFormulaVar width_gaus_4("width_gaus_4","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_4));
-  RooFormulaVar ncat_4("ncat_4","@0+@1*@2",RooArgList(p0_ncat,p1_ncat,mt_4));
-  RooFormulaVar gamma_gam_4("gamma_gam_4","@0+@1*@2",RooArgList(p0_gamma_gam,p1_gamma_gam,mt_4));
-  RooFormulaVar beta_gam_4("beta_gam_4","@0+@1*@2",RooArgList(p0_beta_gam,p1_beta_gam,mt_4));
-  RooFormulaVar mu_gam_4("mu_gam_4","@0+@1*@2",RooArgList(p0_mu_gam,p1_mu_gam,mt_4));
-
-  RooGaussian pdf_gaus_4("pdf_gaus_4","pdf_gaus_4",mtl,mean_gaus_4,width_gaus_4);
-  RooGamma pdf_gam_4("pdf_gam_4","pdf_gam_4",mtl,gamma_gam_4,beta_gam_4,mu_gam_4);
-  RooAddPdf model_4("model_4","model_4",RooArgList(pdf_gaus_4,pdf_gam_4),RooArgList(ncat_4)) ;
-
-
-  RooConstVar mt_5("mt_5","mt_5",mtop[5]);
-  TFile *fi_5 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[5])));
-  TTree *tree_5 = (TTree*)fi_5->Get("MTriLept");
-  nentries.push_back(tree_5->GetEntries());
-  RooDataSet *dataset_5 = new RooDataSet("dataset_5", "dataset_5", RooArgSet(mtl, weight), Import(*tree_5), WeightVar(weight));
-  mc_sample.defineType("mt0");
-
-  RooFormulaVar mean_gaus_5("mean_gaus_5","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_5));
-  RooFormulaVar width_gaus_5("width_gaus_5","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_5));
-  RooFormulaVar ncat_5("ncat_5","@0+@1*@2",RooArgList(p0_ncat,p1_ncat,mt_5));
-  RooFormulaVar gamma_gam_5("gamma_gam_5","@0+@1*@2",RooArgList(p0_gamma_gam,p1_gamma_gam,mt_5));
-  RooFormulaVar beta_gam_5("beta_gam_5","@0+@1*@2",RooArgList(p0_beta_gam,p1_beta_gam,mt_5));
-  RooFormulaVar mu_gam_5("mu_gam_5","@0+@1*@2",RooArgList(p0_mu_gam,p1_mu_gam,mt_5));
-
-  RooGaussian pdf_gaus_5("pdf_gaus_5","pdf_gaus_5",mtl,mean_gaus_5,width_gaus_5);
-  RooGamma pdf_gam_5("pdf_gam_5","pdf_gam_5",mtl,gamma_gam_5,beta_gam_5,mu_gam_5);
-  RooAddPdf model_5("model_5","model_5",RooArgList(pdf_gaus_5,pdf_gam_5),RooArgList(ncat_5)) ;
-
-
-  //=========================
-  //    Simultaneous fit
-  //=========================
-
-  RooDataSet combMC("combMC","combined mc",mtl,Index(mc_sample),Import("m0",*dataset_0),Import("m1",*dataset_1),Import("m2",*dataset_2),Import("m3",*dataset_3),Import("m4",*dataset_4),Import("m5",*dataset_5)) ;
-
-  RooSimultaneous simPdf("simPdf","simultaneous pdf",mc_sample);
-  simPdf.addPdf(model_0,"m0");
-  simPdf.addPdf(model_1,"m1");
-  simPdf.addPdf(model_2,"m2");
-  simPdf.addPdf(model_3,"m3");
-  simPdf.addPdf(model_4,"m4");
-  simPdf.addPdf(model_5,"m5");
-
-  RooFitResult *simRes = simPdf.fitTo(combMC,RooFit::Save());
-
-  double cor_mean_gaus = simRes->correlation("p0_mean_gaus","p1_mean_gaus"); 
-  double cor_width_gaus = simRes->correlation("p0_width_gaus","p1_width_gaus"); 
-  double cor_ncat = simRes->correlation("p0_ncat","p1_ncat"); 
-  double cor_gamma_gam = simRes->correlation("p0_gamma_gam","p1_gamma_gam"); 
-  double cor_beta_gam = simRes->correlation("p0_beta_gam","p1_beta_gam"); 
-  double cor_mu_gam = simRes->correlation("p0_mu_gam","p1_mu_gam"); 
-
-
-  //=========================
-  //    Plot pdf result
-  //=========================
-
-  TCanvas *cn_0 = new TCanvas("cn_pdf_mc_0","cn_pdf_mc_0",800,800);
-  cn_0->cd();
-  RooPlot* frame_0 = mtl.frame() ;
-  combMC.plotOn(frame_0,Cut("mc_sample==mc_sample::m0"),Binning(50)) ;
-  simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
-  simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),ProjWData(mc_sample,combMC),LineColor(9)) ;
-  simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),Components(pdf_gam_0),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
-  simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),Components(pdf_gaus_0),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
-  frame_0->Draw();
-  TLegend *leg_0 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_0->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[0]));
-  leg_myStyle(leg_0);
-  leg_0->Draw("same");
-  channel_tex->Draw("same");
-  cms_myStyle(lumi, false);
-  TString out_0 = outdir+TString::Format("Pdf_%d_5", (int)mtop[0]);
-  cn_0->SaveAs(out_0+".pdf");
-  cn_0->SaveAs(out_0+".C");
-  cn_0->SaveAs(out_0+".jpg");
-  cn_0->SaveAs(out_0+".eps");
-
-  TCanvas *cn_1 = new TCanvas("cn_pdf_mc_1","cn_pdf_mc_1",800,800);
-  cn_1->cd();
-  RooPlot* frame_1 = mtl.frame() ;
-  combMC.plotOn(frame_1,Cut("mc_sample==mc_sample::m1"),Binning(50)) ;
-  simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
-  simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),ProjWData(mc_sample,combMC),LineColor(9)) ;
-  simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),Components(pdf_gam_1),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
-  simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),Components(pdf_gaus_1),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
-  frame_1->Draw();
-  TLegend *leg_1 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_1->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[1]));
-  leg_myStyle(leg_1);
-  leg_1->Draw("same");
-  channel_tex->Draw("same");
-  cms_myStyle(lumi, false);
-  TString out_1 = outdir+TString::Format("Pdf_%d_5", (int)mtop[1]);
-  cn_1->SaveAs(out_1+".pdf");
-  cn_1->SaveAs(out_1+".C");
-  cn_1->SaveAs(out_1+".jpg");
-  cn_1->SaveAs(out_1+".eps");
-
-  TCanvas *cn_2 = new TCanvas("cn_pdf_mc_2","cn_pdf_mc_2",800,800);
-  cn_2->cd();
-  RooPlot* frame_2 = mtl.frame() ;
-  combMC.plotOn(frame_2,Cut("mc_sample==mc_sample::m2"),Binning(50)) ;
-  simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
-  simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),ProjWData(mc_sample,combMC),LineColor(9)) ;
-  simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),Components(pdf_gam_2),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
-  simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),Components(pdf_gaus_2),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
-  frame_2->Draw();
-  TLegend *leg_2 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_2->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[2]));
-  leg_myStyle(leg_2);
-  leg_2->Draw("same");
-  channel_tex->Draw("same");
-  cms_myStyle(lumi, false);
-  TString out_2 = outdir+TString::Format("Pdf_%d_5", (int)mtop[2]);
-  cn_2->SaveAs(out_2+".pdf");
-  cn_2->SaveAs(out_2+".C");
-  cn_2->SaveAs(out_2+".jpg");
-  cn_2->SaveAs(out_2+".eps");
-
-  TCanvas *cn_3 = new TCanvas("cn_pdf_mc_3","cn_pdf_mc_3",800,800);
-  cn_3->cd();
-  RooPlot* frame_3 = mtl.frame() ;
-  combMC.plotOn(frame_3,Cut("mc_sample==mc_sample::m3"),Binning(50)) ;
-  simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
-  simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),ProjWData(mc_sample,combMC),LineColor(9)) ;
-  simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),Components(pdf_gam_3),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
-  simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),Components(pdf_gaus_3),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
-  frame_3->Draw();
-  TLegend *leg_3 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_3->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[3]));
-  leg_myStyle(leg_3);
-  leg_3->Draw("same");
-  channel_tex->Draw("same");
-  cms_myStyle(lumi, false);
-  TString out_3 = outdir+TString::Format("Pdf_%d_5", (int)mtop[3]);
-  cn_3->SaveAs(out_3+".pdf");
-  cn_3->SaveAs(out_3+".C");
-  cn_3->SaveAs(out_3+".jpg");
-  cn_3->SaveAs(out_3+".eps");
-
-  TCanvas *cn_4 = new TCanvas("cn_pdf_mc_4","cn_pdf_mc_4",800,800);
-  cn_4->cd();
-  RooPlot* frame_4 = mtl.frame() ;
-  combMC.plotOn(frame_4,Cut("mc_sample==mc_sample::m4"),Binning(50)) ;
-  simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
-  simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),ProjWData(mc_sample,combMC),LineColor(9)) ;
-  simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),Components(pdf_gam_4),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
-  simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),Components(pdf_gaus_4),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
-  frame_4->Draw();
-  TLegend *leg_4 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_4->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[4]));
-  leg_myStyle(leg_4);
-  leg_4->Draw("same");
-  channel_tex->Draw("same");
-  cms_myStyle(lumi, false);
-  TString out_4 = outdir+TString::Format("Pdf_%d_5", (int)mtop[4]);
-  cn_4->SaveAs(out_4+".pdf");
-  cn_4->SaveAs(out_4+".C");
-  cn_4->SaveAs(out_4+".jpg");
-  cn_4->SaveAs(out_4+".eps");
-
-  TCanvas *cn_5 = new TCanvas("cn_pdf_mc_5","cn_pdf_mc_5",800,800);
-  cn_5->cd();
-  RooPlot* frame_5 = mtl.frame() ;
-  combMC.plotOn(frame_5,Cut("mc_sample==mc_sample::m5"),Binning(50)) ;
-  simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
-  simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),ProjWData(mc_sample,combMC),LineColor(9)) ;
-  simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),Components(pdf_gam_5),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
-  simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),Components(pdf_gaus_5),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
-  frame_5->Draw();
-  TLegend *leg_5 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_5->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[5]));
-  leg_myStyle(leg_5);
-  leg_5->Draw("same");
-  channel_tex->Draw("same");
-  cms_myStyle(lumi, false);
-  TString out_5 = outdir+TString::Format("Pdf_%d_5", (int)mtop[5]);
-  cn_5->SaveAs(out_5+".pdf");
-  cn_5->SaveAs(out_5+".C");
-  cn_5->SaveAs(out_5+".jpg");
-  cn_5->SaveAs(out_5+".eps");
+  const unsigned int numberOfPoints = mtop.size();
+  double x[numberOfPoints];
+  double mean_gaus_val[numberOfPoints]; double width_gaus_val[numberOfPoints]; double ncat_val[numberOfPoints];
+  double gamma_gamma_val[numberOfPoints]; double beta_gamma_val[numberOfPoints]; double mu_gamma_val[numberOfPoints];
+  double mean_gaus_err[numberOfPoints]; double width_gaus_err[numberOfPoints]; double ncat_err[numberOfPoints];
+  double gamma_gamma_err[numberOfPoints]; double beta_gamma_err[numberOfPoints]; double mu_gamma_err[numberOfPoints];
 
   TCanvas *cn_comp = new TCanvas("cn_comp","cn_comp",800,800);
-  cn_comp->cd();
   RooPlot* frame_comp = mtl.frame();
-  model_0.plotOn(frame_comp,LineColor(419),Name("model0"));
-  model_1.plotOn(frame_comp,LineColor(862),Name("model1"));
-  model_2.plotOn(frame_comp,LineColor(602),Name("model2"));
-  model_3.plotOn(frame_comp,LineColor(907),Name("model3"));
-  model_4.plotOn(frame_comp,LineColor(807),Name("model4"));
-  model_5.plotOn(frame_comp,LineColor(800),Name("model5"));
   frame_comp->SetYTitle("P_{sig}");
-  frame_comp->Draw();
   TLegend *leg_comp = new TLegend(0.6,0.5,0.9,0.9,NULL,"brNDC");
   leg_comp->SetTextSize(0.025);
-  leg_comp->AddEntry(frame_comp->findObject("model0"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[0]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model1"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[1]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model2"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[2]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model3"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[3]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model4"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[4]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model5"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[5]), "l");
+
+  for (unsigned int ind = 0; ind < numberOfPoints; ind++) { 
+    x[ind] = mtop[ind];
+
+    //---- Dataset
+    TFile *mc_fi = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[ind])));
+    TTree *mc_tree = (TTree*)mc_fi->Get("MTriLept");
+    nentries.push_back(mc_tree->GetEntries());
+    RooDataSet *mc_dataset = new RooDataSet("mc_dataset", "mc_dataset", RooArgSet(mtl, weight), Import(*mc_tree), WeightVar(weight));
+
+    //---- Gaussian
+    RooRealVar mc_mean_gaus("mc_mean_gaus", "mc_mean_gaus",70.,50.,90.) ;
+    RooRealVar mc_width_gaus("mc_width_gaus", "mc_width_gaus",20.,10.,30.) ;
+    RooGaussian mc_pdf_gaus("mc_pdf_gaus","mc_pdf_gaus",mtl,mc_mean_gaus,mc_width_gaus);
+
+    //---- Gamma
+    RooRealVar mc_gamma_gamma("mc_gamma_gamma","mc_gamma_gamma",3.,1.,5.);
+    RooRealVar mc_beta_gamma("mc_beta_gamma","mc_beta_gamma",30.,20.,40.);
+    RooRealVar mc_mu_gamma("mc_mu_gamma","mc_mu_gamma",5.,0.,17.);
+    RooGamma mc_pdf_gamma("mc_pdf_gamma","mc_pdf_gamma",mtl,mc_gamma_gamma,mc_beta_gamma,mc_mu_gamma);
+
+    //---- Model
+    RooRealVar mc_ncat("mc_ncat","mc_ncat",0.3,0.,1.) ;
+    RooAddPdf mc_model("mc_model","mc_sumpdf",RooArgList(mc_pdf_gaus,mc_pdf_gamma),RooArgList(mc_ncat)) ;
+
+    //--- Fit
+    RooFitResult *mc_res = mc_model.fitTo(*mc_dataset,RooFit::Save());
+    mean_gaus_val[ind] = mc_mean_gaus.getVal(); width_gaus_val[ind] = mc_width_gaus.getVal(); ncat_val[ind] = mc_ncat.getVal();
+    gamma_gamma_val[ind] = mc_gamma_gamma.getVal(); beta_gamma_val[ind] = mc_beta_gamma.getVal(); mu_gamma_val[ind] = mc_mu_gamma.getVal();  
+    mean_gaus_err[ind] = mc_mean_gaus.getError(); width_gaus_err[ind] = mc_width_gaus.getError(); ncat_err[ind] = mc_ncat.getError();
+    gamma_gamma_err[ind] = mc_gamma_gamma.getError(); beta_gamma_err[ind] = mc_beta_gamma.getError(); mu_gamma_err[ind] = mc_mu_gamma.getError();  
+
+    //--- Plot
+    TCanvas *mc_cn = new TCanvas(TString::Format("cn_pdf_mc_%d", ind),TString::Format("cn_pdf_mc_%d",ind),800,800);
+    mc_cn->cd();
+    RooPlot* mc_frame = mtl.frame() ;
+    mc_dataset->plotOn(mc_frame,Binning(50));
+    mc_model.plotOn(mc_frame,FillColor(38),VisualizeError(*mc_res)) ;
+    mc_model.plotOn(mc_frame,LineColor(9));
+    mc_model.plotOn(mc_frame,Components(mc_pdf_gamma),LineStyle(kDashed),LineColor(kBlue));
+    mc_model.plotOn(mc_frame,Components(mc_pdf_gaus),LineStyle(kDashed),LineColor(kRed));
+    mc_frame->Draw();
+    TLegend *mc_leg = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
+    mc_leg->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[ind]));
+    leg_myStyle(mc_leg);
+    mc_leg->Draw("same");
+    channel_tex->Draw("same");
+    cms_myStyle(lumi, false);
+    TString mc_out = outdir+TString::Format("Pdf_%d_5", (int)mtop[ind]);
+    mc_cn->SaveAs(mc_out+".pdf");
+    mc_cn->SaveAs(mc_out+".C");
+    mc_cn->SaveAs(mc_out+".jpg");
+    mc_cn->SaveAs(mc_out+".eps");
+
+    mc_model.plotOn(frame_comp,LineColor(color[ind]),Name(TString::Format("model%d",ind)));
+    leg_comp->AddEntry(frame_comp->findObject(TString::Format("model%d",ind)), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[ind]), "l");
+
+    mc_fi->Close();
+  }
+
+  cn_comp->cd();
+  frame_comp->Draw();
   leg_myStyle(leg_comp);
   leg_comp->Draw("same");
   channel_tex->Draw("same");
@@ -705,39 +424,39 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   //    Parametrization
   //==========================
 
-  const unsigned int npoints = 460;
-  double x[npoints];
-  for (unsigned int i = 0; i < npoints; i++) x[i] = mtlim[0] + (mtlim[1]-mtlim[0])*(double)i/(double)npoints;
+  //---- Linear fits wrt mt
+  TGraphErrors *gr_mean_gaus = new TGraphErrors(numberOfPoints,x,mean_gaus_val,0,mean_gaus_err);
+  TFitResultPtr fitptr_mean_gaus = gr_mean_gaus->Fit("pol1","FS","");
+  TF1 *fit_mean_gaus = gr_mean_gaus->GetFunction("pol1");
+  fit_mean_gaus->SetLineColor(9);
+  Double_t err_mean_gaus_up[numberOfPoints];
+  Double_t err_mean_gaus_down[numberOfPoints];
+  Double_t errval_mean_gaus[numberOfPoints];
+  fitptr_mean_gaus->GetConfidenceIntervals(numberOfPoints,1,1,x,errval_mean_gaus,0.68);
+  for(unsigned int k = 0; k < numberOfPoints; ++k) {
+    double error = errval_mean_gaus[k];
+    err_mean_gaus_up[k] = fit_mean_gaus->Eval(x[k])+error;
+    err_mean_gaus_down[k] = fit_mean_gaus->Eval(x[k])-error;
+  }
+  TGraph *gr_mean_gaus_up = new TGraph(numberOfPoints,x,err_mean_gaus_up);
+  gr_mean_gaus_up->Fit("pol2","Q","");
+  TF1 *fit_mean_gaus_up = gr_mean_gaus_up->GetFunction("pol2");
+  TGraph *gr_mean_gaus_down = new TGraph(numberOfPoints,x,err_mean_gaus_down);
+  gr_mean_gaus_down->Fit("pol2","Q","");
+  TF1 *fit_mean_gaus_down = gr_mean_gaus_down->GetFunction("pol2");  
 
   TCanvas *cn_par_0 = new TCanvas("cn_par_0","cn_par_0",800,800);
   cn_par_0->cd();
-  double y_mean_gaus[npoints]; double yi_mean_gaus[npoints]; double ys_mean_gaus[npoints];
-  for (unsigned int i = 0; i < npoints; i++) {
-    y_mean_gaus[i] = p0_mean_gaus.getVal() + p1_mean_gaus.getVal()*x[i];
-    yi_mean_gaus[i] = y_mean_gaus[i] - sqrt(pow(p0_mean_gaus.getError(),2.)+2.*p0_mean_gaus.getError()*p1_mean_gaus.getError()*cor_mean_gaus*x[i]+pow(p1_mean_gaus.getError()*x[i],2.));
-    ys_mean_gaus[i] = y_mean_gaus[i] + sqrt(pow(p0_mean_gaus.getError(),2.)+2.*p0_mean_gaus.getError()*p1_mean_gaus.getError()*cor_mean_gaus*x[i]+pow(p1_mean_gaus.getError()*x[i],2.));
-  }
-  TGraph *gr_mean_gaus = new TGraph(npoints,x,y_mean_gaus);
-  gr_mean_gaus->Fit("pol1","Q","");
-  TF1 *fit_mean_gaus = gr_mean_gaus->GetFunction("pol1");
-  fit_mean_gaus->SetLineColor(9);
-  TGraph *gr_mean_gaus_i = new TGraph(npoints,x,yi_mean_gaus);
-  gr_mean_gaus_i->Fit("pol2","Q","");
-  TF1 *fit_mean_gaus_i = gr_mean_gaus_i->GetFunction("pol2");
-  TGraph *gr_mean_gaus_s = new TGraph(npoints,x,ys_mean_gaus);
-  gr_mean_gaus_s->Fit("pol2","Q","");
-  TF1 *fit_mean_gaus_s = gr_mean_gaus_s->GetFunction("pol2");
   gr_myStyle(gr_mean_gaus,"gr_mean_gaus",1,9,1,9,1001,40.,110.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#mu (GeV/c^{2})");
   gr_mean_gaus->Draw("AP");
-  fit_mean_gaus_i->SetLineColor(38); fit_mean_gaus_i->SetLineStyle(2); fit_mean_gaus_i->SetLineWidth(2);
-  fit_mean_gaus_i->Draw("same");
-  fit_mean_gaus_s->SetLineColor(38); fit_mean_gaus_s->SetLineStyle(2); fit_mean_gaus_s->SetLineWidth(2);
-  fit_mean_gaus_s->Draw("same");
-  gr_mean_gaus->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
+  fit_mean_gaus_up->SetLineColor(38); fit_mean_gaus_up->SetLineStyle(2); fit_mean_gaus_up->SetLineWidth(2);
+  fit_mean_gaus_up->Draw("same");
+  fit_mean_gaus_down->SetLineColor(38); fit_mean_gaus_down->SetLineStyle(2); fit_mean_gaus_down->SetLineWidth(2);
+  fit_mean_gaus_down->Draw("same");
   TLegend *leg_par_0 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
   leg_par_0->SetTextSize(0.025);
   leg_par_0->SetHeader("Mean of the Gaussian");
-  leg_par_0->AddEntry(gr_mean_gaus, TString::Format("#mu = %2.0f + %2.2f#upointM_{t}",p0_mean_gaus.getVal(),p1_mean_gaus.getVal()), "l");
+  leg_par_0->AddEntry(gr_mean_gaus, TString::Format("#mu = %2.0f + %2.2f#upointM_{t}",fit_mean_gaus->GetParameter(0),fit_mean_gaus->GetParameter(1)), "l");
   leg_myStyle(leg_par_0);
   leg_par_0->Draw("same");
   channel_tex->Draw("same");
@@ -748,35 +467,39 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_0->SaveAs(out_par_0+".jpg");
   cn_par_0->SaveAs(out_par_0+".eps");
 
-  TCanvas *cn_par_1 = new TCanvas("cn_par_1","cn_par_1",800,800);
-  cn_par_1->cd();
-  double y_width_gaus[npoints]; double yi_width_gaus[npoints]; double ys_width_gaus[npoints];
-  for (unsigned int i = 0; i < npoints; i++) {
-    y_width_gaus[i] = p0_width_gaus.getVal() + p1_width_gaus.getVal()*x[i];
-    yi_width_gaus[i] = y_width_gaus[i] - sqrt(pow(p0_width_gaus.getError(),2.)+2.*p0_width_gaus.getError()*p1_width_gaus.getError()*cor_width_gaus*x[i]+pow(p1_width_gaus.getError()*x[i],2.));
-    ys_width_gaus[i] = y_width_gaus[i] + sqrt(pow(p0_width_gaus.getError(),2.)+2.*p0_width_gaus.getError()*p1_width_gaus.getError()*cor_width_gaus*x[i]+pow(p1_width_gaus.getError()*x[i],2.));
-  }
-  TGraph *gr_width_gaus = new TGraph(npoints,x,y_width_gaus);
-  gr_width_gaus->Fit("pol1","Q","");
+
+  TGraphErrors *gr_width_gaus = new TGraphErrors(numberOfPoints,x,width_gaus_val,0,width_gaus_err);
+  TFitResultPtr fitptr_width_gaus = gr_width_gaus->Fit("pol1","FS","");
   TF1 *fit_width_gaus = gr_width_gaus->GetFunction("pol1");
   fit_width_gaus->SetLineColor(9);
-  TGraph *gr_width_gaus_i = new TGraph(npoints,x,yi_width_gaus);
-  gr_width_gaus_i->Fit("pol2","Q","");
-  TF1 *fit_width_gaus_i = gr_width_gaus_i->GetFunction("pol2");
-  TGraph *gr_width_gaus_s = new TGraph(npoints,x,ys_width_gaus);
-  gr_width_gaus_s->Fit("pol2","Q","");
-  TF1 *fit_width_gaus_s = gr_width_gaus_s->GetFunction("pol2");
+  Double_t err_width_gaus_up[numberOfPoints];
+  Double_t err_width_gaus_down[numberOfPoints];
+  Double_t errval_width_gaus[numberOfPoints];
+  fitptr_width_gaus->GetConfidenceIntervals(numberOfPoints,1,1,x,errval_width_gaus,0.68);
+  for(unsigned int k = 0; k < numberOfPoints; ++k) {
+    double error = errval_width_gaus[k];
+    err_width_gaus_up[k] = fit_width_gaus->Eval(x[k])+error;
+    err_width_gaus_down[k] = fit_width_gaus->Eval(x[k])-error;
+  }
+  TGraph *gr_width_gaus_up = new TGraph(numberOfPoints,x,err_width_gaus_up);
+  gr_width_gaus_up->Fit("pol2","Q","");
+  TF1 *fit_width_gaus_up = gr_width_gaus_up->GetFunction("pol2");
+  TGraph *gr_width_gaus_down = new TGraph(numberOfPoints,x,err_width_gaus_down);
+  gr_width_gaus_down->Fit("pol2","Q","");
+  TF1 *fit_width_gaus_down = gr_width_gaus_down->GetFunction("pol2");  
+
+  TCanvas *cn_par_1 = new TCanvas("cn_par_1","cn_par_1",800,800);
+  cn_par_1->cd();
   gr_myStyle(gr_width_gaus,"gr_width_gaus",1,9,1,9,1001,10.,30.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#sigma (GeV/c^{2})");
   gr_width_gaus->Draw("AP");
-  fit_width_gaus_i->SetLineColor(38); fit_width_gaus_i->SetLineStyle(2); fit_width_gaus_i->SetLineWidth(2);
-  fit_width_gaus_i->Draw("same");
-  fit_width_gaus_s->SetLineColor(38); fit_width_gaus_s->SetLineStyle(2); fit_width_gaus_s->SetLineWidth(2);
-  fit_width_gaus_s->Draw("same");
-  gr_width_gaus->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
+  fit_width_gaus_up->SetLineColor(38); fit_width_gaus_up->SetLineStyle(2); fit_width_gaus_up->SetLineWidth(2);
+  fit_width_gaus_up->Draw("same");
+  fit_width_gaus_down->SetLineColor(38); fit_width_gaus_down->SetLineStyle(2); fit_width_gaus_down->SetLineWidth(2);
+  fit_width_gaus_down->Draw("same");
   TLegend *leg_par_1 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
   leg_par_1->SetTextSize(0.025);
   leg_par_1->SetHeader("Width of the Gaussian");
-  leg_par_1->AddEntry(gr_width_gaus, TString::Format("#sigma = %2.0f + %2.2f#upointM_{t}",p0_width_gaus.getVal(),p1_width_gaus.getVal()), "l");
+  leg_par_1->AddEntry(gr_width_gaus, TString::Format("#sigma = %2.0f + %2.2f#upointM_{t}",fit_width_gaus->GetParameter(0),fit_width_gaus->GetParameter(1)), "l");
   leg_myStyle(leg_par_1);
   leg_par_1->Draw("same");
   channel_tex->Draw("same");
@@ -787,35 +510,39 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_1->SaveAs(out_par_1+".jpg");
   cn_par_1->SaveAs(out_par_1+".eps");
 
-  TCanvas *cn_par_2 = new TCanvas("cn_par_2","cn_par_2",800,800);
-  cn_par_2->cd();
-  double y_ncat[npoints]; double yi_ncat[npoints]; double ys_ncat[npoints];
-  for (unsigned int i = 0; i < npoints; i++) {
-    y_ncat[i] = p0_ncat.getVal() + p1_ncat.getVal()*x[i];
-    yi_ncat[i] = y_ncat[i] - sqrt(pow(p0_ncat.getError(),2.)+2.*p0_ncat.getError()*p1_ncat.getError()*cor_ncat*x[i]+pow(p1_ncat.getError()*x[i],2.));
-    ys_ncat[i] = y_ncat[i] + sqrt(pow(p0_ncat.getError(),2.)+2.*p0_ncat.getError()*p1_ncat.getError()*cor_ncat*x[i]+pow(p1_ncat.getError()*x[i],2.));
-  }
-  TGraph *gr_ncat = new TGraph(npoints,x,y_ncat);
-  gr_ncat->Fit("pol1","Q","");
+
+  TGraphErrors *gr_ncat = new TGraphErrors(numberOfPoints,x,ncat_val,0,ncat_err);
+  TFitResultPtr fitptr_ncat = gr_ncat->Fit("pol1","FS","");
   TF1 *fit_ncat = gr_ncat->GetFunction("pol1");
   fit_ncat->SetLineColor(9);
-  TGraph *gr_ncat_i = new TGraph(npoints,x,yi_ncat);
-  gr_ncat_i->Fit("pol2","Q","");
-  TF1 *fit_ncat_i = gr_ncat_i->GetFunction("pol2");
-  TGraph *gr_ncat_s = new TGraph(npoints,x,ys_ncat);
-  gr_ncat_s->Fit("pol2","Q","");
-  TF1 *fit_ncat_s = gr_ncat_s->GetFunction("pol2");
+  Double_t err_ncat_up[numberOfPoints];
+  Double_t err_ncat_down[numberOfPoints];
+  Double_t errval_ncat[numberOfPoints];
+  fitptr_ncat->GetConfidenceIntervals(numberOfPoints,1,1,x,errval_ncat,0.68);
+  for(unsigned int k = 0; k < numberOfPoints; ++k) {
+    double error = errval_ncat[k];
+    err_ncat_up[k] = fit_ncat->Eval(x[k])+error;
+    err_ncat_down[k] = fit_ncat->Eval(x[k])-error;
+  }
+  TGraph *gr_ncat_up = new TGraph(numberOfPoints,x,err_ncat_up);
+  gr_ncat_up->Fit("pol2","Q","");
+  TF1 *fit_ncat_up = gr_ncat_up->GetFunction("pol2");
+  TGraph *gr_ncat_down = new TGraph(numberOfPoints,x,err_ncat_down);
+  gr_ncat_down->Fit("pol2","Q","");
+  TF1 *fit_ncat_down = gr_ncat_down->GetFunction("pol2");  
+
+  TCanvas *cn_par_2 = new TCanvas("cn_par_2","cn_par_2",800,800);
+  cn_par_2->cd();
   gr_myStyle(gr_ncat,"gr_ncat",1,9,1,9,1001,0.,1.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#alpha");
   gr_ncat->Draw("AP");
-  fit_ncat_i->SetLineColor(38); fit_ncat_i->SetLineStyle(2); fit_ncat_i->SetLineWidth(2);
-  fit_ncat_i->Draw("same");
-  fit_ncat_s->SetLineColor(38); fit_ncat_s->SetLineStyle(2); fit_ncat_s->SetLineWidth(2);
-  fit_ncat_s->Draw("same");
-  gr_ncat->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
+  fit_ncat_up->SetLineColor(38); fit_ncat_up->SetLineStyle(2); fit_ncat_up->SetLineWidth(2);
+  fit_ncat_up->Draw("same");
+  fit_ncat_down->SetLineColor(38); fit_ncat_down->SetLineStyle(2); fit_ncat_down->SetLineWidth(2);
+  fit_ncat_down->Draw("same");
   TLegend *leg_par_2 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
   leg_par_2->SetTextSize(0.025);
   leg_par_2->SetHeader("Relative contribution of the Gaussian");
-  leg_par_2->AddEntry(gr_ncat, TString::Format("#alpha = %2.2f + %2.4f#upointM_{t}",p0_ncat.getVal(),p1_ncat.getVal()), "l");
+  leg_par_2->AddEntry(gr_ncat, TString::Format("#alpha = %2.2f + %2.4f#upointM_{t}",fit_ncat->GetParameter(0),fit_ncat->GetParameter(1)), "l");
   leg_myStyle(leg_par_2);
   leg_par_2->Draw("same");
   channel_tex->Draw("same");
@@ -826,35 +553,39 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_2->SaveAs(out_par_2+".jpg");
   cn_par_2->SaveAs(out_par_2+".eps");
 
+
+  TGraphErrors *gr_gamma_gamma = new TGraphErrors(numberOfPoints,x,gamma_gamma_val,0,gamma_gamma_err);
+  TFitResultPtr fitptr_gamma_gamma = gr_gamma_gamma->Fit("pol1","FS","");
+  TF1 *fit_gamma_gamma = gr_gamma_gamma->GetFunction("pol1");
+  fit_gamma_gamma->SetLineColor(9);
+  Double_t err_gamma_gamma_up[numberOfPoints];
+  Double_t err_gamma_gamma_down[numberOfPoints];
+  Double_t errval_gamma_gamma[numberOfPoints];
+  fitptr_gamma_gamma->GetConfidenceIntervals(numberOfPoints,1,1,x,errval_gamma_gamma,0.68);
+  for(unsigned int k = 0; k < numberOfPoints; ++k) {
+    double error = errval_gamma_gamma[k];
+    err_gamma_gamma_up[k] = fit_gamma_gamma->Eval(x[k])+error;
+    err_gamma_gamma_down[k] = fit_gamma_gamma->Eval(x[k])-error;
+  }
+  TGraph *gr_gamma_gamma_up = new TGraph(numberOfPoints,x,err_gamma_gamma_up);
+  gr_gamma_gamma_up->Fit("pol2","Q","");
+  TF1 *fit_gamma_gamma_up = gr_gamma_gamma_up->GetFunction("pol2");
+  TGraph *gr_gamma_gamma_down = new TGraph(numberOfPoints,x,err_gamma_gamma_down);
+  gr_gamma_gamma_down->Fit("pol2","Q","");
+  TF1 *fit_gamma_gamma_down = gr_gamma_gamma_down->GetFunction("pol2");  
+
   TCanvas *cn_par_3 = new TCanvas("cn_par_3","cn_par_3",800,800);
   cn_par_3->cd();
-  double y_gamma_gam[npoints]; double yi_gamma_gam[npoints]; double ys_gamma_gam[npoints];
-  for (unsigned int i = 0; i < npoints; i++) {
-    y_gamma_gam[i] = p0_gamma_gam.getVal() + p1_gamma_gam.getVal()*x[i];
-    yi_gamma_gam[i] = y_gamma_gam[i] - sqrt(pow(p0_gamma_gam.getError(),2.)+2.*p0_gamma_gam.getError()*p1_gamma_gam.getError()*cor_gamma_gam*x[i]+pow(p1_gamma_gam.getError()*x[i],2.));
-    ys_gamma_gam[i] = y_gamma_gam[i] + sqrt(pow(p0_gamma_gam.getError(),2.)+2.*p0_gamma_gam.getError()*p1_gamma_gam.getError()*cor_gamma_gam*x[i]+pow(p1_gamma_gam.getError()*x[i],2.));
-  }
-  TGraph *gr_gamma_gam = new TGraph(npoints,x,y_gamma_gam);
-  gr_gamma_gam->Fit("pol1","Q","");
-  TF1 *fit_gamma_gam = gr_gamma_gam->GetFunction("pol1");
-  fit_gamma_gam->SetLineColor(9);
-  TGraph *gr_gamma_gam_i = new TGraph(npoints,x,yi_gamma_gam);
-  gr_gamma_gam_i->Fit("pol2","Q","");
-  TF1 *fit_gamma_gam_i = gr_gamma_gam_i->GetFunction("pol2");
-  TGraph *gr_gamma_gam_s = new TGraph(npoints,x,ys_gamma_gam);
-  gr_gamma_gam_s->Fit("pol2","Q","");
-  TF1 *fit_gamma_gam_s = gr_gamma_gam_s->GetFunction("pol2");
-  gr_myStyle(gr_gamma_gam,"gr_gamma_gam",1,9,1,9,1001,0.,5.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#gamma");
-  gr_gamma_gam->Draw("AP");
-  fit_gamma_gam_i->SetLineColor(38); fit_gamma_gam_i->SetLineStyle(2); fit_gamma_gam_i->SetLineWidth(2);
-  fit_gamma_gam_i->Draw("same");
-  fit_gamma_gam_s->SetLineColor(38); fit_gamma_gam_s->SetLineStyle(2); fit_gamma_gam_s->SetLineWidth(2);
-  fit_gamma_gam_s->Draw("same");
-  gr_gamma_gam->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
+  gr_myStyle(gr_gamma_gamma,"gr_gamma_gamma",1,9,1,9,1001,0.,5.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#gamma");
+  gr_gamma_gamma->Draw("AP");
+  fit_gamma_gamma_up->SetLineColor(38); fit_gamma_gamma_up->SetLineStyle(2); fit_gamma_gamma_up->SetLineWidth(2);
+  fit_gamma_gamma_up->Draw("same");
+  fit_gamma_gamma_down->SetLineColor(38); fit_gamma_gamma_down->SetLineStyle(2); fit_gamma_gamma_down->SetLineWidth(2);
+  fit_gamma_gamma_down->Draw("same");
   TLegend *leg_par_3 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
   leg_par_3->SetTextSize(0.025);
   leg_par_3->SetHeader("Shape parameter of the gamma distribution");
-  leg_par_3->AddEntry(gr_gamma_gam, TString::Format("#gamma = %2.1f + %2.4f#upointM_{t}",p0_gamma_gam.getVal(),p1_gamma_gam.getVal()), "l");
+  leg_par_3->AddEntry(gr_gamma_gamma, TString::Format("#gamma = %2.0f + %2.4f#upointM_{t}",fit_gamma_gamma->GetParameter(0),fit_gamma_gamma->GetParameter(1)), "l");
   leg_myStyle(leg_par_3);
   leg_par_3->Draw("same");
   channel_tex->Draw("same");
@@ -865,35 +596,39 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_3->SaveAs(out_par_3+".jpg");
   cn_par_3->SaveAs(out_par_3+".eps");
 
+
+  TGraphErrors *gr_beta_gamma = new TGraphErrors(numberOfPoints,x,beta_gamma_val,0,beta_gamma_err);
+  TFitResultPtr fitptr_beta_gamma = gr_beta_gamma->Fit("pol1","FS","");
+  TF1 *fit_beta_gamma = gr_beta_gamma->GetFunction("pol1");
+  fit_beta_gamma->SetLineColor(9);
+  Double_t err_beta_gamma_up[numberOfPoints];
+  Double_t err_beta_gamma_down[numberOfPoints];
+  Double_t errval_beta_gamma[numberOfPoints];
+  fitptr_beta_gamma->GetConfidenceIntervals(numberOfPoints,1,1,x,errval_beta_gamma,0.68);
+  for(unsigned int k = 0; k < numberOfPoints; ++k) {
+    double error = errval_beta_gamma[k];
+    err_beta_gamma_up[k] = fit_beta_gamma->Eval(x[k])+error;
+    err_beta_gamma_down[k] = fit_beta_gamma->Eval(x[k])-error;
+  }
+  TGraph *gr_beta_gamma_up = new TGraph(numberOfPoints,x,err_beta_gamma_up);
+  gr_beta_gamma_up->Fit("pol2","Q","");
+  TF1 *fit_beta_gamma_up = gr_beta_gamma_up->GetFunction("pol2");
+  TGraph *gr_beta_gamma_down = new TGraph(numberOfPoints,x,err_beta_gamma_down);
+  gr_beta_gamma_down->Fit("pol2","Q","");
+  TF1 *fit_beta_gamma_down = gr_beta_gamma_down->GetFunction("pol2");  
+
   TCanvas *cn_par_4 = new TCanvas("cn_par_4","cn_par_4",800,800);
   cn_par_4->cd();
-  double y_beta_gam[npoints]; double yi_beta_gam[npoints]; double ys_beta_gam[npoints];
-  for (unsigned int i = 0; i < npoints; i++) {
-    y_beta_gam[i] = p0_beta_gam.getVal() + p1_beta_gam.getVal()*x[i];
-    yi_beta_gam[i] = y_beta_gam[i] - sqrt(pow(p0_beta_gam.getError(),2.)+2.*p0_beta_gam.getError()*p1_beta_gam.getError()*cor_beta_gam*x[i]+pow(p1_beta_gam.getError()*x[i],2.));
-    ys_beta_gam[i] = y_beta_gam[i] + sqrt(pow(p0_beta_gam.getError(),2.)+2.*p0_beta_gam.getError()*p1_beta_gam.getError()*cor_beta_gam*x[i]+pow(p1_beta_gam.getError()*x[i],2.));
-  }
-  TGraph *gr_beta_gam = new TGraph(npoints,x,y_beta_gam);
-  gr_beta_gam->Fit("pol1","Q","");
-  TF1 *fit_beta_gam = gr_beta_gam->GetFunction("pol1");
-  fit_beta_gam->SetLineColor(9);
-  TGraph *gr_beta_gam_i = new TGraph(npoints,x,yi_beta_gam);
-  gr_beta_gam_i->Fit("pol2","Q","");
-  TF1 *fit_beta_gam_i = gr_beta_gam_i->GetFunction("pol2");
-  TGraph *gr_beta_gam_s = new TGraph(npoints,x,ys_beta_gam);
-  gr_beta_gam_s->Fit("pol2","Q","");
-  TF1 *fit_beta_gam_s = gr_beta_gam_s->GetFunction("pol2");
-  gr_myStyle(gr_beta_gam,"gr_beta_gam",1,9,1,9,1001,0.,60.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#beta (GeV/c^{2})");
-  gr_beta_gam->Draw("AP");
-  fit_beta_gam_i->SetLineColor(38); fit_beta_gam_i->SetLineStyle(2); fit_beta_gam_i->SetLineWidth(2);
-  fit_beta_gam_i->Draw("same");
-  fit_beta_gam_s->SetLineColor(38); fit_beta_gam_s->SetLineStyle(2); fit_beta_gam_s->SetLineWidth(2);
-  fit_beta_gam_s->Draw("same");
-  gr_beta_gam->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
+  gr_myStyle(gr_beta_gamma,"gr_beta_gamma",1,9,1,9,1001,0.,60.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#beta (GeV/c^{2})");
+  gr_beta_gamma->Draw("AP");
+  fit_beta_gamma_up->SetLineColor(38); fit_beta_gamma_up->SetLineStyle(2); fit_beta_gamma_up->SetLineWidth(2);
+  fit_beta_gamma_up->Draw("same");
+  fit_beta_gamma_down->SetLineColor(38); fit_beta_gamma_down->SetLineStyle(2); fit_beta_gamma_down->SetLineWidth(2);
+  fit_beta_gamma_down->Draw("same");
   TLegend *leg_par_4 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
   leg_par_4->SetTextSize(0.025);
   leg_par_4->SetHeader("Scale parameter of the gamma distribution");
-  leg_par_4->AddEntry(gr_beta_gam, TString::Format("#beta = %2.2f + %2.2f#upointM_{t}",p0_beta_gam.getVal(),p1_beta_gam.getVal()), "l");
+  leg_par_4->AddEntry(gr_beta_gamma, TString::Format("#beta = %2.0f + %2.2f#upointM_{t}",fit_beta_gamma->GetParameter(0),fit_beta_gamma->GetParameter(1)), "l");
   leg_myStyle(leg_par_4);
   leg_par_4->Draw("same");
   channel_tex->Draw("same");
@@ -904,35 +639,39 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_4->SaveAs(out_par_4+".jpg");
   cn_par_4->SaveAs(out_par_4+".eps");
 
+
+  TGraphErrors *gr_mu_gamma = new TGraphErrors(numberOfPoints,x,mu_gamma_val,0,mu_gamma_err);
+  TFitResultPtr fitptr_mu_gamma = gr_mu_gamma->Fit("pol1","FS","");
+  TF1 *fit_mu_gamma = gr_mu_gamma->GetFunction("pol1");
+  fit_mu_gamma->SetLineColor(9);
+  Double_t err_mu_gamma_up[numberOfPoints];
+  Double_t err_mu_gamma_down[numberOfPoints];
+  Double_t errval_mu_gamma[numberOfPoints];
+  fitptr_mu_gamma->GetConfidenceIntervals(numberOfPoints,1,1,x,errval_mu_gamma,0.68);
+  for(unsigned int k = 0; k < numberOfPoints; ++k) {
+    double error = errval_mu_gamma[k];
+    err_mu_gamma_up[k] = fit_mu_gamma->Eval(x[k])+error;
+    err_mu_gamma_down[k] = fit_mu_gamma->Eval(x[k])-error;
+  }
+  TGraph *gr_mu_gamma_up = new TGraph(numberOfPoints,x,err_mu_gamma_up);
+  gr_mu_gamma_up->Fit("pol2","Q","");
+  TF1 *fit_mu_gamma_up = gr_mu_gamma_up->GetFunction("pol2");
+  TGraph *gr_mu_gamma_down = new TGraph(numberOfPoints,x,err_mu_gamma_down);
+  gr_mu_gamma_down->Fit("pol2","Q","");
+  TF1 *fit_mu_gamma_down = gr_mu_gamma_down->GetFunction("pol2");  
+
   TCanvas *cn_par_5 = new TCanvas("cn_par_5","cn_par_5",800,800);
   cn_par_5->cd();
-  double y_mu_gam[npoints]; double yi_mu_gam[npoints]; double ys_mu_gam[npoints];
-  for (unsigned int i = 0; i < npoints; i++) {
-    y_mu_gam[i] = p0_mu_gam.getVal() + p1_mu_gam.getVal()*x[i];
-    yi_mu_gam[i] = y_mu_gam[i] - sqrt(pow(p0_mu_gam.getError(),2.)+2.*p0_mu_gam.getError()*p1_mu_gam.getError()*cor_mu_gam*x[i]+pow(p1_mu_gam.getError()*x[i],2.));
-    ys_mu_gam[i] = y_mu_gam[i] + sqrt(pow(p0_mu_gam.getError(),2.)+2.*p0_mu_gam.getError()*p1_mu_gam.getError()*cor_mu_gam*x[i]+pow(p1_mu_gam.getError()*x[i],2.));
-  }
-  TGraph *gr_mu_gam = new TGraph(npoints,x,y_mu_gam);
-  gr_mu_gam->Fit("pol1","Q","");
-  TF1 *fit_mu_gam = gr_mu_gam->GetFunction("pol1");
-  fit_mu_gam->SetLineColor(9);
-  TGraph *gr_mu_gam_i = new TGraph(npoints,x,yi_mu_gam);
-  gr_mu_gam_i->Fit("pol2","Q","");
-  TF1 *fit_mu_gam_i = gr_mu_gam_i->GetFunction("pol2");
-  TGraph *gr_mu_gam_s = new TGraph(npoints,x,ys_mu_gam);
-  gr_mu_gam_s->Fit("pol2","Q","");
-  TF1 *fit_mu_gam_s = gr_mu_gam_s->GetFunction("pol2");
-  gr_myStyle(gr_mu_gam,"gr_mu_gam",1,9,1,9,1001,0.,30.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#mu (GeV/c^{2})");
-  gr_mu_gam->Draw("AP");
-  fit_mu_gam_i->SetLineColor(38); fit_mu_gam_i->SetLineStyle(2); fit_mu_gam_i->SetLineWidth(2);
-  fit_mu_gam_i->Draw("same");
-  fit_mu_gam_s->SetLineColor(38); fit_mu_gam_s->SetLineStyle(2); fit_mu_gam_s->SetLineWidth(2);
-  fit_mu_gam_s->Draw("same");
-  gr_mu_gam->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
+  gr_myStyle(gr_mu_gamma,"gr_mu_gamma",1,9,1,9,1001,0.,30.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#mu (GeV/c^{2})");
+  gr_mu_gamma->Draw("AP");
+  fit_mu_gamma_up->SetLineColor(38); fit_mu_gamma_up->SetLineStyle(2); fit_mu_gamma_up->SetLineWidth(2);
+  fit_mu_gamma_up->Draw("same");
+  fit_mu_gamma_down->SetLineColor(38); fit_mu_gamma_down->SetLineStyle(2); fit_mu_gamma_down->SetLineWidth(2);
+  fit_mu_gamma_down->Draw("same");
   TLegend *leg_par_5 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
   leg_par_5->SetTextSize(0.025);
   leg_par_5->SetHeader("Shift parameter of the gamma distribution");
-  leg_par_5->AddEntry(gr_mu_gam, TString::Format("#mu = %2.0f + %2.2f#upointM_{t}",p0_mu_gam.getVal(),p1_mu_gam.getVal()), "l");
+  leg_par_5->AddEntry(gr_mu_gamma, TString::Format("#mu = %2.0f + %2.2f#upointM_{t}",fit_mu_gamma->GetParameter(0),fit_mu_gamma->GetParameter(1)), "l");
   leg_myStyle(leg_par_5);
   leg_par_5->Draw("same");
   channel_tex->Draw("same");
@@ -960,36 +699,36 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
   //---- Fit des data avec un seul parametre : la masse du top
   mt.setVal(172.5);
-  RooConstVar mean_gaus_p0("mean_gaus_p0","mean_gaus_p0",p0_mean_gaus.getVal());
-  RooConstVar mean_gaus_p1("mean_gaus_p1","mean_gaus_p1",p1_mean_gaus.getVal());
-  RooFormulaVar mean_gaus("mean_gaus","@0+@1*@2",RooArgList(mean_gaus_p0,mean_gaus_p1,mt));
-  RooConstVar width_gaus_p0("width_gaus_p0","width_gaus_p0",p0_width_gaus.getVal());
-  RooConstVar width_gaus_p1("width_gaus_p1","width_gaus_p1",p1_width_gaus.getVal());
-  RooFormulaVar width_gaus("width_gaus","@0+@1*@2",RooArgList(width_gaus_p0,width_gaus_p1,mt));
+  RooConstVar mean_gaus_0("mean_gaus_0","mean_gaus_0",fit_mean_gaus->GetParameter(0));
+  RooConstVar mean_gaus_1("mean_gaus_1","mean_gaus_1",fit_mean_gaus->GetParameter(1));
+  RooFormulaVar mean_gaus("mean_gaus","@0+@1*@2",RooArgList(mean_gaus_0,mean_gaus_1,mt));
+  RooConstVar width_gaus_0("width_gaus_0","width_gaus_0",fit_width_gaus->GetParameter(0));
+  RooConstVar width_gaus_1("width_gaus_1","width_gaus_1",fit_width_gaus->GetParameter(1));
+  RooFormulaVar width_gaus("width_gaus","@0+@1*@2",RooArgList(width_gaus_0,width_gaus_1,mt));
   RooGaussian pdf_gaus("pdf_gaus","pdf_gaus",mtl,mean_gaus,width_gaus);
 
-  RooConstVar gamma_gamma_0("gamma_gamma_0","gamma_gamma_0",p0_gamma_gam.getVal());
-  RooConstVar gamma_gamma_1("gamma_gamma_1","gamma_gamma_1",p1_gamma_gam.getVal());
+  RooConstVar gamma_gamma_0("gamma_gamma_0","gamma_gamma_0",fit_gamma_gamma->GetParameter(0));
+  RooConstVar gamma_gamma_1("gamma_gamma_1","gamma_gamma_1",fit_gamma_gamma->GetParameter(1));
   RooFormulaVar gamma_gamma("gamma_gamma","@0+@1*@2",RooArgList(gamma_gamma_0,gamma_gamma_1,mt));
-  RooConstVar beta_gamma_0("beta_gamma_0","beta_gamma_0",p0_beta_gam.getVal());
-  RooConstVar beta_gamma_1("beta_gamma_1","beta_gamma_1",p1_beta_gam.getVal());
+  RooConstVar beta_gamma_0("beta_gamma_0","beta_gamma_0",fit_beta_gamma->GetParameter(0));
+  RooConstVar beta_gamma_1("beta_gamma_1","beta_gamma_1",fit_beta_gamma->GetParameter(1));
   RooFormulaVar beta_gamma("beta_gamma","@0+@1*@2",RooArgList(beta_gamma_0,beta_gamma_1,mt));
-  RooConstVar mu_gamma_0("mu_gamma_0","mu_gamma_0",p0_mu_gam.getVal());
-  RooConstVar mu_gamma_1("mu_gamma_1","mu_gamma_1",p1_mu_gam.getVal());
+  RooConstVar mu_gamma_0("mu_gamma_0","mu_gamma_0",fit_mu_gamma->GetParameter(0));
+  RooConstVar mu_gamma_1("mu_gamma_1","mu_gamma_1",fit_mu_gamma->GetParameter(1));
   RooFormulaVar mu_gamma("mu_gamma","@0+@1*@2",RooArgList(mu_gamma_0,mu_gamma_1,mt));
   RooGamma pdf_gamma("pdf_gamma","pdf_gamma",mtl,gamma_gamma,beta_gamma,mu_gamma);
 
-  RooConstVar ncat_p0("ncat_p0","ncat_p0",p0_ncat.getVal());
-  RooConstVar ncat_p1("ncat_p1","ncat_p1",p1_ncat.getVal());
-  RooFormulaVar ncat("ncat","@0+@1*@2",RooArgList(ncat_p0,ncat_p1,mt));
-  RooAddPdf model("model","sumpdf",RooArgList(pdf_gaus,pdf_gamma),RooArgList(ncat));
+  RooConstVar ncat_0("ncat_0","ncat_0",fit_ncat->GetParameter(0));
+  RooConstVar ncat_1("ncat_1","ncat_1",fit_ncat->GetParameter(1));
+  RooFormulaVar ncat("ncat","@0+@1*@2",RooArgList(ncat_0,ncat_1,mt));
+  RooAddPdf model("model","sumpdf",RooArgList(pdf_gaus,pdf_gamma),RooArgList(ncat)) ;
 
-  RooFitResult *result_final =  model.fitTo(*data_dataset,RooFit::Save());
-
+  RooFitResult *result_final = model.fitTo(*data_dataset,RooFit::Save());
 
   double *mtop_res = new double[2];
   mtop_res[0] = mt.getVal(); 
   mtop_res[1] = mt.getError(); 
+
 
   //===========================
   //    Results
@@ -1092,7 +831,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   //---- Parameters
   cn_par_0->cd();
   const unsigned int r = 1; double mt_v[r] = {mt.getVal()}; double mt_e[r] = {mt.getError()};
-  double mean_gaus_v[r] = {mean_gaus.getVal()}; double mean_gaus_e[r] = {mt.getError()*p1_mean_gaus.getVal()};
+  double mean_gaus_v[r] = {mean_gaus.getVal()}; double mean_gaus_e[r] = {mt.getError()*fit_mean_gaus->GetParameter(1)};
   TGraphErrors *gr_mean_gaus_res = new TGraphErrors(r,mt_v,mean_gaus_v,mt_e,mean_gaus_e);
   gr_myStyle(gr_mean_gaus_res,"gr_mean_gaus_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_mean_gaus_res->Draw("Psame");
@@ -1107,7 +846,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_0->SaveAs(out_res_0+".eps");
 
   cn_par_1->cd();
-  double width_gaus_v[r] = {width_gaus.getVal()}; double width_gaus_e[r] = {mt.getError()*p1_width_gaus.getVal()};
+  double width_gaus_v[r] = {width_gaus.getVal()}; double width_gaus_e[r] = {mt.getError()*fit_width_gaus->GetParameter(1)};
   TGraphErrors *gr_width_gaus_res = new TGraphErrors(r,mt_v,width_gaus_v,mt_e,width_gaus_e);
   gr_myStyle(gr_width_gaus_res,"gr_width_gaus_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_width_gaus_res->Draw("Psame");
@@ -1122,7 +861,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_1->SaveAs(out_res_1+".eps");
 
   cn_par_2->cd();
-  double ncat_v[r] = {ncat.getVal()}; double ncat_e[r] = {mt.getError()*p1_ncat.getVal()};
+  double ncat_v[r] = {ncat.getVal()}; double ncat_e[r] = {mt.getError()*fit_ncat->GetParameter(1)};
   TGraphErrors *gr_ncat_res = new TGraphErrors(r,mt_v,ncat_v,mt_e,ncat_e);
   gr_myStyle(gr_ncat_res,"gr_ncat_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_ncat_res->Draw("Psame");
@@ -1137,7 +876,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_2->SaveAs(out_res_2+".eps");
 
   cn_par_3->cd();
-  double gamma_gamma_v[r] = {gamma_gamma.getVal()}; double gamma_gamma_e[r] = {mt.getError()*p1_gamma_gam.getVal()};
+  double gamma_gamma_v[r] = {gamma_gamma.getVal()}; double gamma_gamma_e[r] = {mt.getError()*fit_gamma_gamma->GetParameter(1)};
   TGraphErrors *gr_gamma_gamma_res = new TGraphErrors(r,mt_v,gamma_gamma_v,mt_e,gamma_gamma_e);
   gr_myStyle(gr_gamma_gamma_res,"gr_gamma_gamma_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_gamma_gamma_res->Draw("Psame");
@@ -1152,7 +891,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_3->SaveAs(out_res_3+".eps");
 
   cn_par_4->cd();
-  double beta_gamma_v[r] = {beta_gamma.getVal()}; double beta_gamma_e[r] = {mt.getError()*p1_beta_gam.getVal()};
+  double beta_gamma_v[r] = {beta_gamma.getVal()}; double beta_gamma_e[r] = {mt.getError()*fit_beta_gamma->GetParameter(1)};
   TGraphErrors *gr_beta_gamma_res = new TGraphErrors(r,mt_v,beta_gamma_v,mt_e,beta_gamma_e);
   gr_myStyle(gr_beta_gamma_res,"gr_beta_gamma_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_beta_gamma_res->Draw("Psame");
@@ -1167,7 +906,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_par_4->SaveAs(out_res_4+".eps");
 
   cn_par_5->cd();
-  double mu_gamma_v[r] = {mu_gamma.getVal()}; double mu_gamma_e[r] = {mt.getError()*p1_mu_gam.getVal()};
+  double mu_gamma_v[r] = {mu_gamma.getVal()}; double mu_gamma_e[r] = {mt.getError()*fit_mu_gamma->GetParameter(1)};
   TGraphErrors *gr_mu_gamma_res = new TGraphErrors(r,mt_v,mu_gamma_v,mt_e,mu_gamma_e);
   gr_myStyle(gr_mu_gamma_res,"gr_mu_gamma_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_mu_gamma_res->Draw("Psame");
@@ -1584,7 +1323,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_gr_width_res->SaveAs(out_gr_width_res+".jpg");
   cn_gr_width_res->SaveAs(out_gr_width_res+".eps");
 
-  data_fi->Close(); fi_0->Close(); fi_1->Close(); fi_2->Close(); fi_3->Close(); fi_4->Close(); fi_5->Close();
+  data_fi->Close(); 
   return mtop_res;
 }
 
@@ -1602,14 +1341,14 @@ double *combi(double mt1, double dmt1, double mt2, double dmt2)
 }
 
 //---------------------------------------------------------------
-int simultaneousFit(TString date = "", TString version = "", bool blind = true)
+int simpleFit(TString date = "", TString version = "", bool blind = true)
 //---------------------------------------------------------------
 {  
   if (date.Length() > 0 && version.Length() > 0)  {
 
     cout << "/!\\ you should have run mergeMC.C and mergeChannels.py before \n" << endl; 
 
-    double mtop[6] = {166.5, 169.5, 171.5, 173.5, 175.5, 178.5};
+    vector<double> mtop; mtop.push_back(166.5); mtop.push_back(169.5); mtop.push_back(171.5); mtop.push_back(173.5); mtop.push_back(175.5); mtop.push_back(178.5);
     vector<double> mtoys; mtoys.push_back(167.); mtoys.push_back(169.); mtoys.push_back(171.); mtoys.push_back(172.5); mtoys.push_back(174.); mtoys.push_back(176.); mtoys.push_back(178);
     double mtlim[2] = {130, 216};
     const unsigned int nsample = 3000.;
@@ -1619,7 +1358,7 @@ int simultaneousFit(TString date = "", TString version = "", bool blind = true)
       cout << "Running the blinded analysis: \"data\" is the full-stat MC sample generated at 173.5 GeV/c^{2} " << endl; 
     else  
       cout << "Running the unblinded analysis: \"data\" is Run2012ABCD" << endl; 
-    cout << "Performing a simultaneous unbinned likelihood fit (gaussian+gamma function) for M_{t} = "<< mtop[0] << ", " << mtop[1] << ", " << mtop[2] << ", " << mtop[3] << ", " << mtop[4] << ", " << mtop [5] << " GeV/c^{2}" << endl;
+    cout << "Performing a simple unbinned likelihood fit (gaussian+gamma function) for M_{t} = "<< mtop[0] << ", " << mtop[1] << ", " << mtop[2] << ", " << mtop[3] << ", " << mtop[4] << ", " << mtop [5] << " GeV/c^{2}" << endl;
     cout << "Toys in the e + Jets channel: " << nsample << " toys of Poisson(" << nevt[0] << ") events" << endl;
     cout << "Toys in the #mu + Jets channel: " << nsample << " toys of Poisson(" << nevt[1] << ") events" << endl;
     cout << "Toys in the l + Jets channel: " << nsample << " toys of Poisson(" << nevt[0]+nevt[1] << ") events" << endl;
