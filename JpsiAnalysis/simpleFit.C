@@ -837,9 +837,9 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
   gr_mean_gaus_res->Draw("Psame");
   TString out_res_0 = outdir;
   if (blind)
-    out_res_0 += "BlindedParameter_Gaussian_Mean";
+    out_res_0 += "BlindedParameter_gaussian_mean";
   else 
-    out_res_0 += "UnblindedParameter_Gaussian_Mean";
+    out_res_0 += "UnblindedParameter_gaussian_mean";
   cn_par_0->SaveAs(out_res_0+".pdf");
   cn_par_0->SaveAs(out_res_0+".C");
   cn_par_0->SaveAs(out_res_0+".jpg");
@@ -852,9 +852,9 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
   gr_width_gaus_res->Draw("Psame");
   TString out_res_1 = outdir;
   if (blind)
-    out_res_1 += "BlindedParameter_Gaussian_Width";
+    out_res_1 += "BlindedParameter_gaussian_width";
   else
-    out_res_1 += "UnblindedParameter_Gaussian_Width";
+    out_res_1 += "UnblindedParameter_gaussian_width";
   cn_par_1->SaveAs(out_res_1+".pdf");
   cn_par_1->SaveAs(out_res_1+".C");
   cn_par_1->SaveAs(out_res_1+".jpg");
@@ -899,7 +899,7 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
   if (blind)
     out_res_4 += "BlindedParameter_gamma_scale";
   else 
-    out_res_4 += "UnlindedParameter_gamma_scale";
+    out_res_4 += "UnblindedParameter_gamma_scale";
   cn_par_4->SaveAs(out_res_4+".pdf");
   cn_par_4->SaveAs(out_res_4+".C");
   cn_par_4->SaveAs(out_res_4+".jpg");
