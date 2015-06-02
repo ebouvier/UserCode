@@ -45,6 +45,8 @@
 #define TOP_MARGIN 0.05
 #define BOTTOM_MARGIN 0.13
 
+#define NCPU 8 // keep in mind that other people may want to work
+
 /*
  * Simple fit with a gaussian+gamma unbinned likelihood fit
  */
@@ -290,6 +292,8 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
   RooMsgService::instance().getStream(1).removeTopic(ObjectHandling);
   RooMsgService::instance().getStream(1).removeTopic(Eval);
   RooMsgService::instance().getStream(1).removeTopic(Fitting);
+  RooMsgService::instance().setSilentMode(true);
+  RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
 
   TString indir = date+"/v"+version+"/";
   TString outdir = indir;
@@ -374,7 +378,14 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
     RooAddPdf mc_model("mc_model","mc_sumpdf",RooArgList(mc_pdf_gaus,mc_pdf_gamma),RooArgList(mc_ncat)) ;
 
     //--- Fit
-    RooFitResult *mc_res = mc_model.fitTo(*mc_dataset,RooFit::Save());
+    RooAbsReal* mcNll = mc_model.createNLL(*mc_dataset, NumCPU(NCPU));
+    RooMinuit minuit_mc(*mcNll);
+    minuit_mc.setPrintLevel(-1); 
+    minuit_mc.setPrintEvalErrors(-1);
+    minuit_mc.migrad();
+    minuit_mc.hesse();
+    //minuit_mc.minos(); //optional
+    RooFitResult *mc_res = minuit_mc.save();
     mean_gaus_val[ind] = mc_mean_gaus.getVal(); width_gaus_val[ind] = mc_width_gaus.getVal(); ncat_val[ind] = mc_ncat.getVal();
     gamma_gamma_val[ind] = mc_gamma_gamma.getVal(); beta_gamma_val[ind] = mc_beta_gamma.getVal(); mu_gamma_val[ind] = mc_mu_gamma.getVal();  
     mean_gaus_err[ind] = mc_mean_gaus.getError(); width_gaus_err[ind] = mc_width_gaus.getError(); ncat_err[ind] = mc_ncat.getError();
@@ -723,7 +734,14 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
   RooFormulaVar ncat("ncat","@0+@1*@2",RooArgList(ncat_0,ncat_1,mt));
   RooAddPdf model("model","sumpdf",RooArgList(pdf_gaus,pdf_gamma),RooArgList(ncat)) ;
 
-  RooFitResult *result_final = model.fitTo(*data_dataset,RooFit::Save());
+  RooAbsReal* nll_res = model.createNLL(*data_dataset, NumCPU(NCPU));
+  RooMinuit m_res(*nll_res);
+  m_res.setPrintLevel(-1); 
+  m_res.setPrintEvalErrors(-1);
+  m_res.migrad();
+  m_res.hesse();
+  //m_res.minos(); //optional
+  RooFitResult *result_final = m_res.save();
 
   double *mtop_res = new double[2];
   mtop_res[0] = mt.getVal(); 
@@ -766,10 +784,6 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
 
   TCanvas *cn_nll_data = new TCanvas("cn_nll_data","cn_nll_data",800,800);
   cn_nll_data->cd();
-  RooAbsReal* nll_res = model.createNLL(*data_dataset);
-  RooMinuit m_res(*nll_res);
-  m_res.migrad();
-  m_res.hesse();
   RooPlot *likeframe = mt.frame();
   nll_res->plotOn(likeframe,ShiftToZero(),LineColor(9));
   likeframe->SetYTitle("-log(L/L_{max})");
@@ -957,7 +971,7 @@ double *treat(TString fileData, double lumi, int nevt, vector<double> mtop, doub
 
     for(unsigned int isample = 0; isample < nsample; isample++) {
       RooAbsData* gen_dataset = (RooDataSet*)mcs->genData(isample);
-      model.fitTo(*gen_dataset, RooFit::Save());
+      model.fitTo(*gen_dataset, Save(), PrintLevel(-1), PrintEvalErrors(-1));  
 
       //---- fill des histos
       hist_residual->Fill(mt.getVal()-mti_v[0]);

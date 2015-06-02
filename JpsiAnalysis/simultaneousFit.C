@@ -46,6 +46,8 @@
 #define TOP_MARGIN 0.05
 #define BOTTOM_MARGIN 0.13
 
+#define NCPU 8 // keep in mind that other people may want to work
+
 /*
  * Simultaneous fit with a gaussian+gamma unbinned likelihood fit
  */
@@ -291,6 +293,8 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   RooMsgService::instance().getStream(1).removeTopic(ObjectHandling);
   RooMsgService::instance().getStream(1).removeTopic(Eval);
   RooMsgService::instance().getStream(1).removeTopic(Fitting);
+  RooMsgService::instance().setSilentMode(true);
+  RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
 
   TString indir = date+"/v"+version+"/";
   TString outdir = indir;
@@ -428,7 +432,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TTree *tree_1 = (TTree*)fi_1->Get("MTriLept");
   nentries.push_back(tree_1->GetEntries());
   RooDataSet *dataset_1 = new RooDataSet("dataset_1", "dataset_1", RooArgSet(mtl, weight), Import(*tree_1), WeightVar(weight));
-  mc_sample.defineType("mt0");
+  mc_sample.defineType("mt1");
 
   RooFormulaVar mean_gaus_1("mean_gaus_1","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_1));
   RooFormulaVar width_gaus_1("width_gaus_1","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_1));
@@ -447,7 +451,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TTree *tree_2 = (TTree*)fi_2->Get("MTriLept");
   nentries.push_back(tree_2->GetEntries());
   RooDataSet *dataset_2 = new RooDataSet("dataset_2", "dataset_2", RooArgSet(mtl, weight), Import(*tree_2), WeightVar(weight));
-  mc_sample.defineType("mt0");
+  mc_sample.defineType("mt2");
 
   RooFormulaVar mean_gaus_2("mean_gaus_2","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_2));
   RooFormulaVar width_gaus_2("width_gaus_2","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_2));
@@ -466,7 +470,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TTree *tree_3 = (TTree*)fi_3->Get("MTriLept");
   nentries.push_back(tree_3->GetEntries());
   RooDataSet *dataset_3 = new RooDataSet("dataset_3", "dataset_3", RooArgSet(mtl, weight), Import(*tree_3), WeightVar(weight));
-  mc_sample.defineType("mt0");
+  mc_sample.defineType("mt3");
 
   RooFormulaVar mean_gaus_3("mean_gaus_3","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_3));
   RooFormulaVar width_gaus_3("width_gaus_3","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_3));
@@ -485,7 +489,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TTree *tree_4 = (TTree*)fi_4->Get("MTriLept");
   nentries.push_back(tree_4->GetEntries());
   RooDataSet *dataset_4 = new RooDataSet("dataset_4", "dataset_4", RooArgSet(mtl, weight), Import(*tree_4), WeightVar(weight));
-  mc_sample.defineType("mt0");
+  mc_sample.defineType("mt4");
 
   RooFormulaVar mean_gaus_4("mean_gaus_4","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_4));
   RooFormulaVar width_gaus_4("width_gaus_4","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_4));
@@ -504,7 +508,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TTree *tree_5 = (TTree*)fi_5->Get("MTriLept");
   nentries.push_back(tree_5->GetEntries());
   RooDataSet *dataset_5 = new RooDataSet("dataset_5", "dataset_5", RooArgSet(mtl, weight), Import(*tree_5), WeightVar(weight));
-  mc_sample.defineType("mt0");
+  mc_sample.defineType("mt5");
 
   RooFormulaVar mean_gaus_5("mean_gaus_5","@0+@1*@2",RooArgList(p0_mean_gaus,p1_mean_gaus,mt_5));
   RooFormulaVar width_gaus_5("width_gaus_5","@0+@1*@2",RooArgList(p0_width_gaus,p1_width_gaus,mt_5));
@@ -532,7 +536,14 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   simPdf.addPdf(model_4,"m4");
   simPdf.addPdf(model_5,"m5");
 
-  RooFitResult *simRes = simPdf.fitTo(combMC,RooFit::Save());
+  RooAbsReal* simNll = simPdf.createNLL(combMC, NumCPU(NCPU));
+  RooMinuit minuit_mc(*simNll);
+  minuit_mc.setPrintLevel(-1); 
+  minuit_mc.setPrintEvalErrors(-1);
+  minuit_mc.migrad();
+  minuit_mc.hesse();
+  //minuit_mc.minos(); //optional
+  RooFitResult *simRes = minuit_mc.save();
 
   double cor_mean_gaus = simRes->correlation("p0_mean_gaus","p1_mean_gaus"); 
   double cor_width_gaus = simRes->correlation("p0_width_gaus","p1_width_gaus"); 
@@ -984,7 +995,14 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   RooFormulaVar ncat("ncat","@0+@1*@2",RooArgList(ncat_p0,ncat_p1,mt));
   RooAddPdf model("model","sumpdf",RooArgList(pdf_gaus,pdf_gamma),RooArgList(ncat));
 
-  RooFitResult *result_final =  model.fitTo(*data_dataset,RooFit::Save());
+  RooAbsReal* nll_res = model.createNLL(*data_dataset, NumCPU(NCPU));
+  RooMinuit m_res(*nll_res);
+  m_res.setPrintLevel(-1); 
+  m_res.setPrintEvalErrors(-1);
+  m_res.migrad();
+  m_res.hesse();
+  //m_res.minos(); //optional
+  RooFitResult *result_final = m_res.save();
 
 
   double *mtop_res = new double[2];
@@ -1027,10 +1045,6 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
   TCanvas *cn_nll_data = new TCanvas("cn_nll_data","cn_nll_data",800,800);
   cn_nll_data->cd();
-  RooAbsReal* nll_res = model.createNLL(*data_dataset);
-  RooMinuit m_res(*nll_res);
-  m_res.migrad();
-  m_res.hesse();
   RooPlot *likeframe = mt.frame();
   nll_res->plotOn(likeframe,ShiftToZero(),LineColor(9));
   likeframe->SetYTitle("-log(L/L_{max})");
@@ -1098,9 +1112,9 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   gr_mean_gaus_res->Draw("Psame");
   TString out_res_0 = outdir;
   if (blind)
-    out_res_0 += "BlindedParameter_Gaussian_Mean";
+    out_res_0 += "BlindedParameter_gaussian_mean";
   else 
-    out_res_0 += "UnblindedParameter_Gaussian_Mean";
+    out_res_0 += "UnblindedParameter_gaussian_mean";
   cn_par_0->SaveAs(out_res_0+".pdf");
   cn_par_0->SaveAs(out_res_0+".C");
   cn_par_0->SaveAs(out_res_0+".jpg");
@@ -1113,9 +1127,9 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   gr_width_gaus_res->Draw("Psame");
   TString out_res_1 = outdir;
   if (blind)
-    out_res_1 += "BlindedParameter_Gaussian_Width";
+    out_res_1 += "BlindedParameter_gaussian_width";
   else
-    out_res_1 += "UnblindedParameter_Gaussian_Width";
+    out_res_1 += "UnblindedParameter_gaussian_width";
   cn_par_1->SaveAs(out_res_1+".pdf");
   cn_par_1->SaveAs(out_res_1+".C");
   cn_par_1->SaveAs(out_res_1+".jpg");
@@ -1160,7 +1174,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   if (blind)
     out_res_4 += "BlindedParameter_gamma_scale";
   else 
-    out_res_4 += "UnlindedParameter_gamma_scale";
+    out_res_4 += "UnblindedParameter_gamma_scale";
   cn_par_4->SaveAs(out_res_4+".pdf");
   cn_par_4->SaveAs(out_res_4+".C");
   cn_par_4->SaveAs(out_res_4+".jpg");
@@ -1218,7 +1232,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
     for(unsigned int isample = 0; isample < nsample; isample++) {
       RooAbsData* gen_dataset = (RooDataSet*)mcs->genData(isample);
-      model.fitTo(*gen_dataset, RooFit::Save());
+      model.fitTo(*gen_dataset, Save(), PrintLevel(-1), PrintEvalErrors(-1));  
 
       //---- fill des histos
       hist_residual->Fill(mt.getVal()-mti_v[0]);

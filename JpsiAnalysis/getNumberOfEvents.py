@@ -235,7 +235,6 @@ tex.write("Total from simulations & $%.1f \\pm %.1f$ & $%.1f \\pm %.1f$ \\\\ \n"
 tex.write("\\hline\n")
 
 NData = {"mu": 0., "el": 0.}
-ErrNData = {"mu": 0., "el": 0.}
 
 for dataset_name in dataset_names:
     channel = dataset_name[0]
@@ -245,9 +244,8 @@ for dataset_name in dataset_names:
     file = TFile.Open(os.path.join(dirAna[channel], rootFile))
     histo = file.Get(histname)
     NData[channel] = histo.Integral()
-    ErrNData[channel] = math.sqrt(NData[channel])
 
-tex.write("Data & $%d \\pm %d$ & $%d \\pm %d$ \\\\ \n" % (NData["mu"], ErrNData["mu"], NData["el"], ErrNData["el"]))
+tex.write("Data & $%d$ & $%d$ \\\\ \n" % (NData["mu"], NData["el"]))
 tex.write("\\hline\n")
         
 tex.write("\\end{tabular}\n")
