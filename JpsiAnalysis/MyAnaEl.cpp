@@ -63,7 +63,7 @@ void MyAna::Loop()
   }
 
   int counter[20]; for (int i=0; i<20; ++i) counter[i] = 0;
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 8, 0., 8.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 9, 0., 9.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
@@ -78,6 +78,12 @@ void MyAna::Loop()
   _h_cuts_muons_n->SetXTitle("Number of veto #mu (before cut)");
   TH1F* _h_cuts_jet20_n          = new TH1F("NJets20-cuts", "NJets20-cuts", 15, 0., 15.);
   _h_cuts_jet20_n->SetXTitle("Number of jets with p_{T} > 20 GeV/c (before cut)");
+  TH1F* _h_cuts_jet30_n          = new TH1F("NJets30-cuts", "NJets30-cuts", 15, 0., 15.);
+  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV/c (before cut)");
+  TH1F* _h_cuts_jet40_n          = new TH1F("NJets40-cuts", "NJets40-cuts", 15, 0., 15.);
+  _h_cuts_jet40_n->SetXTitle("Number of jets with p_{T} > 40 GeV/c (before cut)");
+  TH1F* _h_cuts_jet50_n          = new TH1F("NJets50-cuts", "NJets50-cuts", 15, 0., 15.);
+  _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV/c (before cut)");
   TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 6, 0., 6.);
   _h_cuts_csvJet20_n->SetXTitle("Number of CSV b-tagged jets (before cut)");
   TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 20, 3., 3.2);
@@ -88,8 +94,14 @@ void MyAna::Loop()
   _h_cuts_jpsi_chi2->SetXTitle("#chi^{2}(J/#psi vertex) (before cut)");
   TH1F* _h_cuts_jpsi_l           = new TH1F("LJpsi-cuts", "LJpsi-cuts", 25, 0., 0.5);
   _h_cuts_jpsi_l->SetXTitle("c#tau(J/#psi) (cm) (before cut)");
+  TH1F* _h_cuts_jpsi_l_zoom      = new TH1F("LJpsi-cuts-zoom", "LJpsi-cuts-zoom", 100, 0., 0.05);
+  _h_cuts_jpsi_l_zoom->SetXTitle("c#tau(J/#psi) (cm)");
   TH1F* _h_cuts_jpsi_lOverSig    = new TH1F("LOverSigmaJpsi-cuts", "LOverSigmaJpsi-cuts", 42, 0., 7000.);
   _h_cuts_jpsi_lOverSig->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
+  TH1F* _h_cuts_jpsi_lOverSig_zoom = new TH1F("LOverSigmaJpsi-cuts-zoom", "LOverSigmaJpsi-cuts-zoom", 200, 0., 1000.);
+  _h_cuts_jpsi_lOverSig_zoom->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
+  TH1F* _h_cuts_jpsi_dRLept      = new TH1F("DRJpsiIsoLept-cuts", "DRJpsiIsoLept-cuts", 100, 0., 5.);
+  _h_cuts_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-isolated #mu)");
 
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of isolated e");
@@ -199,7 +211,7 @@ void MyAna::Loop()
   _h_jpsi_chi2->SetXTitle("#chi^{2}(J/#psi vertex)");
   TH1F* _h_jpsi_l                 = new TH1F("LJpsi", "LJpsi", 25, 0., 0.5);
   _h_jpsi_l->SetXTitle("c#tau(J/#psi) (cm)");
-  TH1F* _h_jpsi_l_zoom            = new TH1F("LJpsi-zoom", "LJpsi-zoom", 50, 0., 0.05);
+  TH1F* _h_jpsi_l_zoom            = new TH1F("LJpsi-zoom", "LJpsi-zoom", 100, 0., 0.05);
   _h_jpsi_l_zoom->SetXTitle("c#tau(J/#psi) (cm)");
   TH1F* _h_jpsi_sigmaL            = new TH1F("SigmaLJpsi", "SigmaLJpsi", 30, 0., 0.0015);
   _h_jpsi_sigmaL->SetXTitle("#Delta(c#tau)(J/#psi) (cm)");
@@ -372,6 +384,9 @@ void MyAna::Loop()
     unsigned int ngoodjet = indgoodjet.size();
 
     _h_cuts_jet20_n->Fill((float)ngoodjet, _weight);
+    _h_cuts_jet30_n->Fill((float)njet30, _weight);
+    _h_cuts_jet40_n->Fill((float)njet40, _weight);
+    _h_cuts_jet50_n->Fill((float)njet50, _weight);
     _h_cuts_csvJet20_n->Fill((float)nbjet, _weight);
 
     if (_debug) cout << "Number of good jets = " << ngoodjet << endl;
@@ -494,22 +509,33 @@ void MyAna::Loop()
 
     // Chi2
     _h_cuts_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
-    if (jpsi_vtxchi2[indgoodjpsi[0]] >= 5.) continue;
+    if (jpsi_vtxchi2[indgoodjpsi[0]] > 5.) continue;
     ++counter[5];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with #chi2<5"; ++iCut; // /!\ no SF 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with #chi2<5");
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with #chi2<5"); 
 
     // ctau
     _h_cuts_jpsi_l->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
-    if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue;
+    _h_cuts_jpsi_l_zoom->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
+    //if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue; 
+    if (jpsi_L3D[indgoodjpsi[0]] <= 0.005)  
     ++counter[6];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut;  // /!\ no SF
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm");
+    //_h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut;  // /!\ no SF 
+    //_h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm"); 
 
     // ctau/sigma
     _h_cuts_jpsi_lOverSig->Fill(jpsi_L3DoverSigmaL3D[indgoodjpsi[0]], _weight);
+    _h_cuts_jpsi_lOverSig_zoom->Fill(jpsi_L3DoverSigmaL3D[indgoodjpsi[0]], _weight);
+
+    if (jpsi_L3DoverSigmaL3D[indgoodjpsi[0]] < 20.) continue;
+
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and #Delta(c#tau)/c#tau>20"; ++iCut;  
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and #Delta(c#tau)/c#tau>20"); 
+
+    // dR with lepton
+    _h_cuts_jpsi_dRLept->Fill(kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(electron_4vector,indgoodel[0])->Eta(),GetP4(electron_4vector,indgoodel[0])->Phi()), _weight);
 
     //======================================================
     // Scale factors
@@ -520,10 +546,14 @@ void MyAna::Loop()
       HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
       _weight = _weight*weight_provider->get_weight_isoel(GetP4(electron_4vector, indgoodel[0])->Pt(), GetP4(electron_4vector, indgoodel[0])->Eta()); 
       // Electron scalefactor
+      /*
       _weight = _weight*(*electron_scaleFactor_tighteff_tightiso)[indgoodel[0]][0]; // 0 for central, 1 for up, 2 for down
+      */
       // Jet scalefactors
+      /*
       _weight = _weight*(*jet_scaleFactor)[indgoodjet[0]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[indgoodjet[1]][0]; // 0 for central, 1 for up, 2 for down
+      */
       // Jpsi scalefactors
       /*
       _weight = _weight*(*jpsi_mu1_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
@@ -870,7 +900,7 @@ void MyAna::Loop()
   cout << "Number of events before cut :                                  = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
-  for (int i = 1; i < 8; i++){
+  for (int i = 1; i < 9; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
   cout << "========================================================================" << endl;

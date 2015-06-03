@@ -282,6 +282,17 @@ plots:
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts-zoom":
+    log-x: true
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":
     show-ratio: true
@@ -289,7 +300,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":
-    x-range-axis: [0, 250]
+    x-axis-range: [0, 250]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"

@@ -78,6 +78,12 @@ void MyAna::Loop()
   _h_cuts_electrons_n->SetXTitle("Number of isolated e(before cut)");
   TH1F* _h_cuts_jet20_n          = new TH1F("NJets20-cuts", "NJets20-cuts", 15, 0., 15.);
   _h_cuts_jet20_n->SetXTitle("Number of jets with p_{T} > 20 GeV/c (before cut)");
+  TH1F* _h_cuts_jet30_n          = new TH1F("NJets30-cuts", "NJets30-cuts", 15, 0., 15.);
+  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV/c (before cut)");
+  TH1F* _h_cuts_jet40_n          = new TH1F("NJets40-cuts", "NJets40-cuts", 15, 0., 15.);
+  _h_cuts_jet40_n->SetXTitle("Number of jets with p_{T} > 40 GeV/c (before cut)");
+  TH1F* _h_cuts_jet50_n          = new TH1F("NJets50-cuts", "NJets50-cuts", 15, 0., 15.);
+  _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV/c (before cut)");
   TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 6, 0., 6.);
   _h_cuts_csvJet20_n->SetXTitle("Number of CSV b-tagged jets (before cut)");
   TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 20, 3., 3.2);
@@ -88,6 +94,8 @@ void MyAna::Loop()
   _h_cuts_jpsi_chi2->SetXTitle("#chi^{2}(J/#psi vertex) (before cut)");
   TH1F* _h_cuts_jpsi_l           = new TH1F("LJpsi-cuts", "LJpsi-cuts", 25, 0., 0.5);
   _h_cuts_jpsi_l->SetXTitle("c#tau(J/#psi) (cm) (before cut)");
+  TH1F* _h_cuts_jpsi_l_zoom      = new TH1F("LJpsi-cuts-zoom", "LJpsi-cuts-zoom", 100, 0., 0.05);
+  _h_cuts_jpsi_l_zoom->SetXTitle("c#tau(J/#psi) (cm)");
   TH1F* _h_cuts_jpsi_lOverSig    = new TH1F("LOverSigmaJpsi-cuts", "LOverSigmaJpsi-cuts", 42, 0., 7000.);
   _h_cuts_jpsi_lOverSig->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
 
@@ -199,7 +207,7 @@ void MyAna::Loop()
   _h_jpsi_chi2->SetXTitle("#chi^{2}(J/#psi vertex)");
   TH1F* _h_jpsi_l                 = new TH1F("LJpsi", "LJpsi", 25, 0., 0.5);
   _h_jpsi_l->SetXTitle("c#tau(J/#psi) (cm)");
-  TH1F* _h_jpsi_l_zoom            = new TH1F("LJpsi-zoom", "LJpsi-zoom", 50, 0., 0.05);
+  TH1F* _h_jpsi_l_zoom            = new TH1F("LJpsi-zoom", "LJpsi-zoom", 100, 0., 0.05);
   _h_jpsi_l_zoom->SetXTitle("c#tau(J/#psi) (cm)");
   TH1F* _h_jpsi_sigmaL            = new TH1F("SigmaLJpsi", "SigmaLJpsi", 30, 0., 0.0015);
   _h_jpsi_sigmaL->SetXTitle("#Delta(c#tau)(J/#psi) (cm)");
@@ -374,6 +382,9 @@ void MyAna::Loop()
     unsigned int ngoodjet = indgoodjet.size();
 
     _h_cuts_jet20_n->Fill((float)ngoodjet, _weight);
+    _h_cuts_jet30_n->Fill((float)njet30, _weight);
+    _h_cuts_jet40_n->Fill((float)njet40, _weight);
+    _h_cuts_jet50_n->Fill((float)njet50, _weight);
     _h_cuts_csvJet20_n->Fill((float)nbjet, _weight);
 
     if (_debug) cout << "Number of good jets = " << ngoodjet << endl;
@@ -566,6 +577,7 @@ void MyAna::Loop()
 
     // ctau
     _h_cuts_jpsi_l->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
+    _h_cuts_jpsi_l_zoom->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
     if (jpsi_L3D[indgoodjpsi[0]] > 0.005)
       ++counter[10];
 
