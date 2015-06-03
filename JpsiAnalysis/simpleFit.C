@@ -1366,7 +1366,7 @@ int simpleFit(TString date = "", TString version = "", bool blind = true)
     vector<double> mtoys; mtoys.push_back(167.); mtoys.push_back(169.); mtoys.push_back(171.); mtoys.push_back(172.5); mtoys.push_back(174.); mtoys.push_back(176.); mtoys.push_back(178);
     double mtlim[2] = {130, 216};
     const unsigned int nsample = 3000.;
-    int nevt[2] = {274, 311};
+    int nevt[2] = {296, 352};
 
     if (blind)
       cout << "Running the blinded analysis: \"data\" is the full-stat MC sample generated at 173.5 GeV/c^{2} " << endl; 

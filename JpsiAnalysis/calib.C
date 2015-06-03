@@ -290,6 +290,14 @@ double *binnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *chan
 //---------------------------------------------------------------
 {
   using namespace RooFit;
+  // reduce RooFit's verbosity on the INFO level
+  RooMsgService::instance().getStream(1).removeTopic(Minimization);
+  RooMsgService::instance().getStream(1).removeTopic(Plotting);
+  RooMsgService::instance().getStream(1).removeTopic(ObjectHandling);
+  RooMsgService::instance().getStream(1).removeTopic(Eval);
+  RooMsgService::instance().getStream(1).removeTopic(Fitting);
+  RooMsgService::instance().setSilentMode(true);
+  RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
 
   TFile *res = TFile::Open(fiName);
 
@@ -302,7 +310,7 @@ double *binnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *chan
   h_myStyle(histo,38,38,3002,histo->GetMinimum(),1.2*histo->GetMaximum(),510,510,20,38,1.,0.);
   RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mtl), histo, 1.);
   RooGaussian pdf("gaus", "gaus", mtl, mean, width);
-  pdf.fitTo(*datahist, Range(xlim[0], xlim[1]));
+  pdf.fitTo(*datahist, Range(xlim[0], xlim[1]), PrintLevel(-1), PrintEvalErrors(-1));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
@@ -347,6 +355,14 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
 //---------------------------------------------------------------
 {
   using namespace RooFit;
+  // reduce RooFit's verbosity on the INFO level
+  RooMsgService::instance().getStream(1).removeTopic(Minimization);
+  RooMsgService::instance().getStream(1).removeTopic(Plotting);
+  RooMsgService::instance().getStream(1).removeTopic(ObjectHandling);
+  RooMsgService::instance().getStream(1).removeTopic(Eval);
+  RooMsgService::instance().getStream(1).removeTopic(Fitting);
+  RooMsgService::instance().setSilentMode(true);
+  RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
 
   TFile *res = TFile::Open(fiName);
 
@@ -359,7 +375,7 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
   TTree *tree = (TTree*)res->Get("MTriLept");
   RooDataSet *dataset = new RooDataSet("dataset", "dataset", RooArgSet(mtl, weight), Import(*tree), WeightVar(weight));
   RooGaussian pdf("gaus", "gaus", mtl, mean, width);
-  pdf.fitTo(*dataset, Range(xlim[0], xlim[1]));
+  pdf.fitTo(*dataset, Range(xlim[0], xlim[1]), PrintLevel(-1), PrintEvalErrors(-1));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
@@ -449,7 +465,7 @@ double *treat(TString fileData, double lumi, vector<double> mtop, vector<double>
 
   TGraphErrors *gr = new TGraphErrors(numberOfPoints, x, y, ex, ey);
 
-  TFitResultPtr fitptr = gr->Fit("pol1", "FS", "");
+  TFitResultPtr fitptr = gr->Fit("pol1", "FSQ", "");
   TF1 *fit = gr->GetFunction("pol1");
   double yinte = fitptr->Parameter(0);
   double errYinte = fitptr->ParError(0);

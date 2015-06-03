@@ -5,7 +5,7 @@ import os, copy, datetime, pwd, re
 from optparse import OptionParser
 parser = OptionParser()
 parser.add_option("-d", "--date", dest="date", type="string", default=False, help="date when MyAna was run")
-parser.add_option("-c", "--channel", dest="channel", type="string", default=False, help="electronic, muonic, or skim")
+parser.add_option("-c", "--channel", dest="channel", type="string", default=False, help="electronic, muonic, all, or skim")
 parser.add_option("-v", "--version", dest="version", type="string", default=False, help="version of the day")
 (options, args) = parser.parse_args()
 
@@ -18,7 +18,7 @@ if not os.path.isdir(dir):
 dir = os.path.join(dir, "v"+options.version)
 if not os.path.isdir(dir):
     parser.error("you must specify a valid version")
-if (not options.channel.lower().count("mu") and not options.channel.lower().count("el") and not options.channel.lower().count("skim")) or (not os.path.isdir(os.path.join(dir, "MyAnaMu")) and not os.path.isdir(os.path.join(dir, "MyAnaEl")) and not os.path.isdir(os.path.join(dir, "MyAnaSkim"))):
+if (not options.channel.lower().count("mu") and not options.channel.lower().count("el") and not options.channel.lower().count("all") and not options.channel.lower().count("skim")) or (not os.path.isdir(os.path.join(dir, "MyAnaMu")) and not os.path.isdir(os.path.join(dir, "MyAnaEl")) and not os.path.isdir(os.path.join(dir, "MyAnaAll")) and not os.path.isdir(os.path.join(dir, "MyAnaSkim"))):
     parser.error("you must specify a valid channel")
 
 os.chdir(dir)
@@ -29,6 +29,9 @@ if options.channel.lower().count("mu"):
 if options.channel.lower().count("el"):
     outPlot = "PlotItEl"
     ymlFile = "../../configPlotItEl.yml"
+if options.channel.lower().count("all"):
+    outPlot = "PlotItAll"
+    ymlFile = "../../configPlotItAll.yml"
 if options.channel.lower().count("skim"):
     outPlot = "PlotItSkim"
     ymlFile = "../../configPlotItSkim.yml"

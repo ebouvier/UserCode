@@ -1442,7 +1442,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_gr_mean_res->cd();
   TGraphErrors *gr_mean_res = new TGraphErrors(nttbar,mttbar,mean_residual,0,mean_residual_e);
   gr_myStyle(gr_mean_res,"gr_mean_res",1,9,1,9,1001,-3.,3.,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","residual mean (GeV/c^{2})");
-  TFitResultPtr fitptr_mean_res = gr_mean_res->Fit("pol1","FS","");
+  TFitResultPtr fitptr_mean_res = gr_mean_res->Fit("pol1","FSQ","");
   TF1 *fit_mean_res = gr_mean_res->GetFunction("pol1");
   double err_up_mean_res[nttbar];
   double err_down_mean_res[nttbar];
@@ -1482,7 +1482,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_gr_width_pull->cd();
   TGraphErrors *gr_width_pull = new TGraphErrors(nttbar,mttbar,width_pull,0,width_pull_e);
   gr_myStyle(gr_width_pull,"gr_width_pull",1,9,1,9,1001,0.7,1.3,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","pull width");
-  TFitResultPtr fitptr_width_pull = gr_width_pull->Fit("pol1","FS","");
+  TFitResultPtr fitptr_width_pull = gr_width_pull->Fit("pol1","FSQ","");
   TF1 *fit_width_pull = gr_width_pull->GetFunction("pol1");
   double err_up_width_pull[nttbar];
   double err_down_width_pull[nttbar];
@@ -1522,7 +1522,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_gr_mean_pull->cd();
   TGraphErrors *gr_mean_pull = new TGraphErrors(nttbar,mttbar,mean_pull,0,mean_pull_e);
   gr_myStyle(gr_mean_pull,"gr_mean_pull",1,9,1,9,1001,-1.,1.,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","pull mean");
-  TFitResultPtr fitptr_mean_pull = gr_mean_pull->Fit("pol1","FS","");
+  TFitResultPtr fitptr_mean_pull = gr_mean_pull->Fit("pol1","FSQ","");
   TF1 *fit_mean_pull = gr_mean_pull->GetFunction("pol1");
   double err_up_mean_pull[nttbar];
   double err_down_mean_pull[nttbar];
@@ -1562,7 +1562,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   cn_gr_width_res->cd();
   TGraphErrors *gr_width_res = new TGraphErrors(nttbar,mttbar,width_residual,0,width_residual_e);
   gr_myStyle(gr_width_res,"gr_width_res",1,9,1,9,1001,1.,8.,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","residual width (GeV/c^{2})");
-  TFitResultPtr fitptr_width_res = gr_width_res->Fit("pol1","FS","");
+  TFitResultPtr fitptr_width_res = gr_width_res->Fit("pol1","FSQ","");
   TF1 *fit_width_res = gr_width_res->GetFunction("pol1");
   double err_up_width_res[nttbar];
   double err_down_width_res[nttbar];
@@ -1627,7 +1627,7 @@ int simultaneousFit(TString date = "", TString version = "", bool blind = true)
     vector<double> mtoys; mtoys.push_back(167.); mtoys.push_back(169.); mtoys.push_back(171.); mtoys.push_back(172.5); mtoys.push_back(174.); mtoys.push_back(176.); mtoys.push_back(178);
     double mtlim[2] = {130, 216};
     const unsigned int nsample = 3000.;
-    int nevt[2] = {274, 311};
+    int nevt[2] = {296, 352};
 
     if (blind)
       cout << "Running the blinded analysis: \"data\" is the full-stat MC sample generated at 173.5 GeV/c^{2} " << endl; 
