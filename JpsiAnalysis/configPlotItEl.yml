@@ -231,6 +231,21 @@ plots:
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
   "NCsvJets20-cuts":
     show-ratio: true
     fit-ratio: false
