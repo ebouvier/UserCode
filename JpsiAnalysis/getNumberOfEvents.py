@@ -22,8 +22,8 @@ if not os.path.isdir(dir):
 if (not os.path.isdir(os.path.join(dir, "MyAnaMu")) or not os.path.isdir(os.path.join(dir, "MyAnaEl"))):
     parser.error("you must have run the analysis for both channels")
 
-texFile = os.path.join(dir, "NumberOfEvents.tex")
-tex = open(texFile, 'w')
+texFile = "NumberOfEvents.tex"
+tex = open(os.path.join(dir,texFile), 'w')
 
 ## Input ifos
 
@@ -258,5 +258,11 @@ tex.write("\n\\end{document}")
     
 tex.close()
 
-print texFile+" has been created."
+os.chdir(dir)
+cmd = "pdflatex " + texFile
+os.system(cmd)
+cmd = "rm -f *.aux *.log"
+os.system(cmd)
+os.chdir("../..")
+print "\n"+os.path.join(dir,texFile)+" has been created and compiled."
 
