@@ -118,7 +118,7 @@ void MyAna::Loop()
   _h_jet20_eta->SetXTitle("#eta(jets)");
   TH1F* _h_jet20_phi              = new TH1F("PhiJets20", "PhiJets20", 32, -3.2, 3.2);
   _h_jet20_phi->SetXTitle("#phi(jets)");
-  TH1F* _h_jet20_csv              = new TH1F("CsvJets20", "CsvJets20", 25, 0.5, 1.);
+  TH1F* _h_jet20_csv              = new TH1F("CsvJets20", "CsvJets20", 50, 0., 1.);
   _h_jet20_csv->SetXTitle("CSV discriminant");
   TH1F* _h_csvJet20_n             = new TH1F("NCsvJets20", "NCsvJets20", 5, 0., 5.); 
   _h_csvJet20_n->SetXTitle("Number of CSV b-tagged jets with p_{T}>20 GeV/c");
