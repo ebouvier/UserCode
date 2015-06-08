@@ -33,3 +33,6 @@
 *.log
 *.root
 *.swp
+
+# Failing tests
+*.bad*

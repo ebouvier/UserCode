@@ -282,7 +282,8 @@ void cms_myStyle(double lumi = 19.7,bool isData = true){
 }
 
 //---------------------------------------------------------------
-double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtlim, vector<double> mtoys, const unsigned int nsample, TString date, TString version, bool blind) 
+double *treat(TString inDir, TString fileData, double lumi, int nevt, double *mtop, 
+    double *mtlim, vector<double> mtoys, const unsigned int nsample, bool blind) 
   //---------------------------------------------------------------
 {
 
@@ -296,8 +297,8 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   RooMsgService::instance().setSilentMode(true);
   RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
 
-  TString indir = date+"/v"+version+"/";
-  TString outdir = indir;
+  TString outDir = inDir;
+  outDir.Remove(12,outDir.Length());
   TString channel = " + Jets channel";
 
   //---- simultaneous fit parameters
@@ -315,8 +316,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   double p1_mu_gam_i, p1_mu_gam_c, p1_mu_gam_s;
 
   if (fileData.Contains("ElectronHad")) {
-    outdir += "SimultaneousFitEl/";
-    indir += "MyAnaEl/";
+    outDir += "SimultaneousFitEl/";
     channel = "e"+channel;
     //---- simultaneous fit parameters
     p0_mean_gaus_i = -9.; p0_mean_gaus_c = -7; p0_mean_gaus_s = -5.;
@@ -333,8 +333,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
     p1_mu_gam_i = -0.05; p1_mu_gam_c = -0.03; p1_mu_gam_s = -0.01;
   }
   if (fileData.Contains("MuHad")) {
-    outdir += "SimultaneousFitMu/";
-    indir += "MyAnaMu/";
+    outDir += "SimultaneousFitMu/";
     channel = "#mu"+channel;
     //---- simultaneous fit parameters
     p0_mean_gaus_i = -4.; p0_mean_gaus_c = 0.; p0_mean_gaus_s = 4.;
@@ -351,8 +350,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
     p1_mu_gam_i = 0.; p1_mu_gam_c = 0.07; p1_mu_gam_s = 0.14;
   }
   if (fileData.Contains("Run")) {
-    outdir += "SimultaneousFitAll/";
-    indir += "MyAnaAll/";
+    outDir += "SimultaneousFitAll/";
     channel = "l"+channel;
     //---- simultaneous fit parameters
     p0_mean_gaus_i = -8.; p0_mean_gaus_c = -2.; p0_mean_gaus_s = 4.;
@@ -369,7 +367,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
     p1_mu_gam_i = -0.05; p1_mu_gam_c = 0.02; p1_mu_gam_s = 0.14;
   }
 
-  gROOT->ProcessLine(".! mkdir "+outdir);
+  gROOT->ProcessLine(".! mkdir "+outDir);
 
   TLatex* channel_tex = new TLatex(0.22, 0.9, channel);
   channel_tex->SetNDC(true);
@@ -409,7 +407,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   //=========================
 
   RooConstVar mt_0("mt_0","mt_0",mtop[0]);
-  TFile *fi_0 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[0])));
+  TFile *fi_0 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[0])));
   TTree *tree_0 = (TTree*)fi_0->Get("MTriLept");
   nentries.push_back(tree_0->GetEntries());
   RooDataSet *dataset_0 = new RooDataSet("dataset_0", "dataset_0", RooArgSet(mtl, weight), Import(*tree_0), WeightVar(weight));
@@ -428,7 +426,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
 
   RooConstVar mt_1("mt_1","mt_1",mtop[1]);
-  TFile *fi_1 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[1])));
+  TFile *fi_1 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[1])));
   TTree *tree_1 = (TTree*)fi_1->Get("MTriLept");
   nentries.push_back(tree_1->GetEntries());
   RooDataSet *dataset_1 = new RooDataSet("dataset_1", "dataset_1", RooArgSet(mtl, weight), Import(*tree_1), WeightVar(weight));
@@ -447,7 +445,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
 
   RooConstVar mt_2("mt_2","mt_2",mtop[2]);
-  TFile *fi_2 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[2])));
+  TFile *fi_2 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[2])));
   TTree *tree_2 = (TTree*)fi_2->Get("MTriLept");
   nentries.push_back(tree_2->GetEntries());
   RooDataSet *dataset_2 = new RooDataSet("dataset_2", "dataset_2", RooArgSet(mtl, weight), Import(*tree_2), WeightVar(weight));
@@ -466,7 +464,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
 
   RooConstVar mt_3("mt_3","mt_3",mtop[3]);
-  TFile *fi_3 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[3])));
+  TFile *fi_3 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[3])));
   TTree *tree_3 = (TTree*)fi_3->Get("MTriLept");
   nentries.push_back(tree_3->GetEntries());
   RooDataSet *dataset_3 = new RooDataSet("dataset_3", "dataset_3", RooArgSet(mtl, weight), Import(*tree_3), WeightVar(weight));
@@ -485,7 +483,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
 
   RooConstVar mt_4("mt_4","mt_4",mtop[4]);
-  TFile *fi_4 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[4])));
+  TFile *fi_4 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[4])));
   TTree *tree_4 = (TTree*)fi_4->Get("MTriLept");
   nentries.push_back(tree_4->GetEntries());
   RooDataSet *dataset_4 = new RooDataSet("dataset_4", "dataset_4", RooArgSet(mtl, weight), Import(*tree_4), WeightVar(weight));
@@ -504,7 +502,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
 
 
   RooConstVar mt_5("mt_5","mt_5",mtop[5]);
-  TFile *fi_5 = TFile::Open(indir+TString::Format("All_%d_5.root",(int)floor(mtop[5])));
+  TFile *fi_5 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[5])));
   TTree *tree_5 = (TTree*)fi_5->Get("MTriLept");
   nentries.push_back(tree_5->GetEntries());
   RooDataSet *dataset_5 = new RooDataSet("dataset_5", "dataset_5", RooArgSet(mtl, weight), Import(*tree_5), WeightVar(weight));
@@ -572,7 +570,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_0->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_0 = outdir+TString::Format("Pdf_%d_5", (int)mtop[0]);
+  TString out_0 = outDir+TString::Format("Pdf_%d_5", (int)mtop[0]);
   cn_0->SaveAs(out_0+".pdf");
   cn_0->SaveAs(out_0+".C");
   cn_0->SaveAs(out_0+".jpg");
@@ -593,7 +591,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_1->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_1 = outdir+TString::Format("Pdf_%d_5", (int)mtop[1]);
+  TString out_1 = outDir+TString::Format("Pdf_%d_5", (int)mtop[1]);
   cn_1->SaveAs(out_1+".pdf");
   cn_1->SaveAs(out_1+".C");
   cn_1->SaveAs(out_1+".jpg");
@@ -614,7 +612,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_2->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_2 = outdir+TString::Format("Pdf_%d_5", (int)mtop[2]);
+  TString out_2 = outDir+TString::Format("Pdf_%d_5", (int)mtop[2]);
   cn_2->SaveAs(out_2+".pdf");
   cn_2->SaveAs(out_2+".C");
   cn_2->SaveAs(out_2+".jpg");
@@ -635,7 +633,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_3->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_3 = outdir+TString::Format("Pdf_%d_5", (int)mtop[3]);
+  TString out_3 = outDir+TString::Format("Pdf_%d_5", (int)mtop[3]);
   cn_3->SaveAs(out_3+".pdf");
   cn_3->SaveAs(out_3+".C");
   cn_3->SaveAs(out_3+".jpg");
@@ -656,7 +654,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_4->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_4 = outdir+TString::Format("Pdf_%d_5", (int)mtop[4]);
+  TString out_4 = outDir+TString::Format("Pdf_%d_5", (int)mtop[4]);
   cn_4->SaveAs(out_4+".pdf");
   cn_4->SaveAs(out_4+".C");
   cn_4->SaveAs(out_4+".jpg");
@@ -677,7 +675,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_5->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_5 = outdir+TString::Format("Pdf_%d_5", (int)mtop[5]);
+  TString out_5 = outDir+TString::Format("Pdf_%d_5", (int)mtop[5]);
   cn_5->SaveAs(out_5+".pdf");
   cn_5->SaveAs(out_5+".C");
   cn_5->SaveAs(out_5+".jpg");
@@ -706,7 +704,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_comp->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_comp = outdir+"Pdf_All";
+  TString out_comp = outDir+"Pdf_All";
   cn_comp->SaveAs(out_comp+".pdf");
   cn_comp->SaveAs(out_comp+".C");
   cn_comp->SaveAs(out_comp+".jpg");
@@ -753,7 +751,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_par_0->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_par_0 = outdir+"Parameter_gaussian_mean";
+  TString out_par_0 = outDir+"Parameter_gaussian_mean";
   cn_par_0->SaveAs(out_par_0+".pdf");
   cn_par_0->SaveAs(out_par_0+".C");
   cn_par_0->SaveAs(out_par_0+".jpg");
@@ -792,7 +790,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_par_1->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_par_1 = outdir+"Parameter_gaussian_width";
+  TString out_par_1 = outDir+"Parameter_gaussian_width";
   cn_par_1->SaveAs(out_par_1+".pdf");
   cn_par_1->SaveAs(out_par_1+".C");
   cn_par_1->SaveAs(out_par_1+".jpg");
@@ -831,7 +829,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_par_2->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_par_2 = outdir+"Parameter_gaussian_relcont";
+  TString out_par_2 = outDir+"Parameter_gaussian_relcont";
   cn_par_2->SaveAs(out_par_2+".pdf");
   cn_par_2->SaveAs(out_par_2+".C");
   cn_par_2->SaveAs(out_par_2+".jpg");
@@ -870,7 +868,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_par_3->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_par_3 = outdir+"Parameter_gamma_shape";
+  TString out_par_3 = outDir+"Parameter_gamma_shape";
   cn_par_3->SaveAs(out_par_3+".pdf");
   cn_par_3->SaveAs(out_par_3+".C");
   cn_par_3->SaveAs(out_par_3+".jpg");
@@ -909,7 +907,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_par_4->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_par_4 = outdir+"Parameter_gamma_scale";
+  TString out_par_4 = outDir+"Parameter_gamma_scale";
   cn_par_4->SaveAs(out_par_4+".pdf");
   cn_par_4->SaveAs(out_par_4+".C");
   cn_par_4->SaveAs(out_par_4+".jpg");
@@ -948,7 +946,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_par_5->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_par_5 = outdir+"Parameter_gamma_shift";
+  TString out_par_5 = outDir+"Parameter_gamma_shift";
   cn_par_5->SaveAs(out_par_5+".pdf");
   cn_par_5->SaveAs(out_par_5+".C");
   cn_par_5->SaveAs(out_par_5+".jpg");
@@ -960,7 +958,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   //===========================
 
   //---- Dataset
-  TString dataName = indir;
+  TString dataName = inDir;
   if (blind)
     dataName += "All_172_5.root";
   else 
@@ -1029,7 +1027,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_myStyle(leg_fit_data);
   leg_fit_data->Draw("same");
   channel_tex->Draw("same");
-  TString out_fit_data = outdir;
+  TString out_fit_data = outDir;
   if (blind) {
     out_fit_data += "Fit_BlindedData";
     cms_myStyle(lumi,false);
@@ -1054,7 +1052,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_myStyle(leg_nll_data);
   leg_nll_data->Draw("same");
   channel_tex->Draw("same");
-  TString out_nll_data = outdir;
+  TString out_nll_data = outDir;
   if (blind) {
     out_nll_data += "Nll_BlindedData";
     cms_myStyle(lumi,false);
@@ -1086,12 +1084,16 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   inset_pad->Draw();
   inset_pad->cd();
   inset_pad->SetMargin(1.5*LEFT_MARGIN, 0.1*RIGHT_MARGIN, 1.5*BOTTOM_MARGIN, 0.1*TOP_MARGIN);
-  likeframe->SetTitleOffset(3.,"X");
-  likeframe->SetTitleOffset(4.,"Y");
-  likeframe->SetTitleSize(LABEL_FONTSIZE,"XY");
-  likeframe->GetXaxis()->SetNdivisions(506);
-  likeframe->Draw();
-  TString out_res_data = outdir;
+  RooPlot *likeframe_zoom = mt.frame(mt.getVal()-3.*mt.getError(), mt.getVal()+3.*mt.getError());
+  nll_res->plotOn(likeframe_zoom,ShiftToZero(),LineColor(9));
+  likeframe_zoom->SetYTitle("-log(L/L_{max})");
+  likeframe_zoom->SetTitleOffset(3.,"X");
+  likeframe_zoom->SetTitleOffset(3.,"Y");
+  likeframe_zoom->SetTitleSize(LABEL_FONTSIZE,"XY");
+  likeframe_zoom->GetXaxis()->SetNdivisions(503);
+  likeframe_zoom->GetYaxis()->SetNdivisions(506);
+  likeframe_zoom->Draw();
+  TString out_res_data = outDir;
   if (blind) {
     out_res_data += "FitNll_BlindedData";
   }
@@ -1110,7 +1112,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TGraphErrors *gr_mean_gaus_res = new TGraphErrors(r,mt_v,mean_gaus_v,mt_e,mean_gaus_e);
   gr_myStyle(gr_mean_gaus_res,"gr_mean_gaus_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_mean_gaus_res->Draw("Psame");
-  TString out_res_0 = outdir;
+  TString out_res_0 = outDir;
   if (blind)
     out_res_0 += "BlindedParameter_gaussian_mean";
   else 
@@ -1125,7 +1127,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TGraphErrors *gr_width_gaus_res = new TGraphErrors(r,mt_v,width_gaus_v,mt_e,width_gaus_e);
   gr_myStyle(gr_width_gaus_res,"gr_width_gaus_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_width_gaus_res->Draw("Psame");
-  TString out_res_1 = outdir;
+  TString out_res_1 = outDir;
   if (blind)
     out_res_1 += "BlindedParameter_gaussian_width";
   else
@@ -1140,7 +1142,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TGraphErrors *gr_ncat_res = new TGraphErrors(r,mt_v,ncat_v,mt_e,ncat_e);
   gr_myStyle(gr_ncat_res,"gr_ncat_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_ncat_res->Draw("Psame");
-  TString out_res_2 = outdir;
+  TString out_res_2 = outDir;
   if (blind)
     out_res_2 += "BlindedParameter_gaussian_relcont";
   else 
@@ -1155,7 +1157,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TGraphErrors *gr_gamma_gamma_res = new TGraphErrors(r,mt_v,gamma_gamma_v,mt_e,gamma_gamma_e);
   gr_myStyle(gr_gamma_gamma_res,"gr_gamma_gamma_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_gamma_gamma_res->Draw("Psame");
-  TString out_res_3 = outdir;
+  TString out_res_3 = outDir;
   if (blind)
     out_res_3 += "BlindedParameter_gamma_shape";
   else 
@@ -1170,7 +1172,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TGraphErrors *gr_beta_gamma_res = new TGraphErrors(r,mt_v,beta_gamma_v,mt_e,beta_gamma_e);
   gr_myStyle(gr_beta_gamma_res,"gr_beta_gamma_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_beta_gamma_res->Draw("Psame");
-  TString out_res_4 = outdir;
+  TString out_res_4 = outDir;
   if (blind)
     out_res_4 += "BlindedParameter_gamma_scale";
   else 
@@ -1185,7 +1187,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   TGraphErrors *gr_mu_gamma_res = new TGraphErrors(r,mt_v,mu_gamma_v,mt_e,mu_gamma_e);
   gr_myStyle(gr_mu_gamma_res,"gr_mu_gamma_res",1,46,1,46,1001,-1111.,-1111.,510,510,20,46,1.1,"","");
   gr_mu_gamma_res->Draw("Psame");
-  TString out_res_5 = outdir;
+  TString out_res_5 = outDir;
   if (blind)
     out_res_5 += "BlindedParameter_gamma_shift";
   else 
@@ -1253,7 +1255,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
     leg_myStyle(leg_mean);
     leg_mean->Draw("same");
     channel_tex->Draw("same");
-    TString out_mean = outdir;
+    TString out_mean = outDir;
     if (ittbar > 0) {
       if (fabs(floor(TTbar[ittbar]) - TTbar[ittbar]) < 1e-6) {
         out_mean += TString::Format("Toys_%d_Mean", (int)TTbar[ittbar]);
@@ -1301,7 +1303,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
     leg_myStyle(leg_err);
     leg_err->Draw("same");
     channel_tex->Draw("same");
-    TString out_err = outdir;
+    TString out_err = outDir;
     if (ittbar > 0) {
       if (fabs(floor(TTbar[ittbar]) - TTbar[ittbar]) < 1e-6) {
         out_err += TString::Format("Toys_%d_Error", (int)TTbar[ittbar]);
@@ -1355,7 +1357,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
     leg_myStyle(leg_pull);
     leg_pull->Draw("same");
     channel_tex->Draw("same");
-    TString out_pull = outdir;
+    TString out_pull = outDir;
     if (ittbar > 0) {
       if (fabs(floor(TTbar[ittbar]) - TTbar[ittbar]) < 1e-6) {
         out_pull += TString::Format("Toys_%d_Pull", (int)TTbar[ittbar]);
@@ -1397,7 +1399,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
     leg_myStyle(leg_residual);
     leg_residual->Draw("same");
     channel_tex->Draw("same");
-    TString out_residual = outdir;
+    TString out_residual = outDir;
     if (ittbar > 0) {
       if (fabs(floor(TTbar[ittbar]) - TTbar[ittbar]) < 1e-6) {
         out_residual += TString::Format("Toys_%d_Residual", (int)TTbar[ittbar]);
@@ -1472,7 +1474,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_mean_res->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_gr_mean_res =outdir+"Mean_Residual";
+  TString out_gr_mean_res =outDir+"Mean_Residual";
   cn_gr_mean_res->SaveAs(out_gr_mean_res+".pdf");
   cn_gr_mean_res->SaveAs(out_gr_mean_res+".C");
   cn_gr_mean_res->SaveAs(out_gr_mean_res+".jpg");
@@ -1512,7 +1514,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_width_pull->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_gr_width_pull =outdir+"Width_Pull";
+  TString out_gr_width_pull =outDir+"Width_Pull";
   cn_gr_width_pull->SaveAs(out_gr_width_pull+".pdf");
   cn_gr_width_pull->SaveAs(out_gr_width_pull+".C");
   cn_gr_width_pull->SaveAs(out_gr_width_pull+".jpg");
@@ -1552,7 +1554,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_mean_pull->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_gr_mean_pull =outdir+"Mean_Pull";
+  TString out_gr_mean_pull =outDir+"Mean_Pull";
   cn_gr_mean_pull->SaveAs(out_gr_mean_pull+".pdf");
   cn_gr_mean_pull->SaveAs(out_gr_mean_pull+".C");
   cn_gr_mean_pull->SaveAs(out_gr_mean_pull+".jpg");
@@ -1592,7 +1594,7 @@ double *treat(TString fileData, double lumi, int nevt, double *mtop, double *mtl
   leg_width_res->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_gr_width_res =outdir+"Width_Residual";
+  TString out_gr_width_res =outDir+"Width_Residual";
   cn_gr_width_res->SaveAs(out_gr_width_res+".pdf");
   cn_gr_width_res->SaveAs(out_gr_width_res+".C");
   cn_gr_width_res->SaveAs(out_gr_width_res+".jpg");
@@ -1616,7 +1618,8 @@ double *combi(double mt1, double dmt1, double mt2, double dmt2)
 }
 
 //---------------------------------------------------------------
-int simultaneousFit(TString date = "", TString version = "", bool blind = true)
+int simultaneousFit(TString date = "", TString version = "", bool blind = true, 
+    int nEvtEl = -1, int nEvtMu = -1)
 //---------------------------------------------------------------
 {  
   if (date.Length() > 0 && version.Length() > 0)  {
@@ -1627,7 +1630,27 @@ int simultaneousFit(TString date = "", TString version = "", bool blind = true)
     vector<double> mtoys; mtoys.push_back(167.); mtoys.push_back(169.); mtoys.push_back(171.); mtoys.push_back(172.5); mtoys.push_back(174.); mtoys.push_back(176.); mtoys.push_back(178);
     double mtlim[2] = {130, 216};
     const unsigned int nsample = 3000.;
-    int nevt[2] = {296, 352};
+    int nevt[3] = {0, 0, 0};
+
+    vector<TString> fileData; fileData.push_back("ElectronHadASingleElectronBCD.root"); fileData.push_back("MuHadASingleMuBCD.root"); fileData.push_back("Run2012ABCD.root");
+    vector<TString> inDir(3, date+"/v"+version+"/"); inDir[0] += "MyAnaEl/"; inDir[1] += "MyAnaMu/"; inDir[2] += "MyAnaAll/";
+    TString histName = "NJets20";
+
+    if (nEvtEl > 0 && nEvtMu > 0) {
+      nevt[0] = nEvtEl;
+      nevt[1] = nEvtMu;
+      nevt[2] = nEvtEl + nEvtMu;
+    }
+    else {
+      for (unsigned int iCh = 0; iCh < fileData.size()-1; iCh++) {
+        TFile *file = TFile::Open(inDir[iCh]+fileData[iCh]);
+        TH1D* hist = (TH1D*)file->Get(histName);
+        nevt[iCh] = floor(hist->Integral());
+        delete hist;
+        file->Close(); delete file;
+      }
+      nevt[2] = nevt[0] + nevt[1];
+    }
 
     if (blind)
       cout << "Running the blinded analysis: \"data\" is the full-stat MC sample generated at 173.5 GeV/c^{2} " << endl; 
@@ -1636,7 +1659,7 @@ int simultaneousFit(TString date = "", TString version = "", bool blind = true)
     cout << "Performing a simultaneous unbinned likelihood fit (gaussian+gamma function) for M_{t} = "<< mtop[0] << ", " << mtop[1] << ", " << mtop[2] << ", " << mtop[3] << ", " << mtop[4] << ", " << mtop [5] << " GeV/c^{2}" << endl;
     cout << "Toys in the e + Jets channel: " << nsample << " toys of Poisson(" << nevt[0] << ") events" << endl;
     cout << "Toys in the #mu + Jets channel: " << nsample << " toys of Poisson(" << nevt[1] << ") events" << endl;
-    cout << "Toys in the l + Jets channel: " << nsample << " toys of Poisson(" << nevt[0]+nevt[1] << ") events" << endl;
+    cout << "Toys in the l + Jets channel: " << nsample << " toys of Poisson(" << nevt[2] << ") events" << endl;
     cout << "for M_{t} = " << mtoys[0] << ", " << mtoys[1] << ", " << mtoys[2] << ", " << mtoys[3] << ", " << mtoys[4] << ", " << mtoys[5] << ", " << mtoys[6] << " GeV/c^{2}" << endl;
 
     cout << "\n===================================================\n" <<endl;
@@ -1647,9 +1670,9 @@ int simultaneousFit(TString date = "", TString version = "", bool blind = true)
     my_style->cd();
     gROOT->SetBatch(true);
 
-    double *mtop_el = treat("ElectronHadASingleElectronBCD.root", 19.7, nevt[0], mtop, mtlim, mtoys, nsample, date, version, blind); 
-    double *mtop_mu = treat("MuHadASingleMuBCD.root", 19.7, nevt[1], mtop, mtlim, mtoys, nsample, date, version, blind); 
-    double *mtop_all = treat("Run2012ABCD.root", 19.7, nevt[0]+nevt[1], mtop, mtlim, mtoys, nsample, date, version, blind); 
+    double *mtop_el = treat(inDir[0], fileData[0], 19.7, nevt[0], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_mu = treat(inDir[1], fileData[1], 19.7, nevt[1], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_all = treat(inDir[2], fileData[2], 19.7, nevt[2], mtop, mtlim, mtoys, nsample, blind); 
 
     cout << "\n===================================================\n" <<endl;
 
