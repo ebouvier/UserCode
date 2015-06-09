@@ -679,6 +679,61 @@ plots:
     y-axis-show-zero: true
     y-axis-range: [0, 110]
     save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "CsvJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChMuEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChEMEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChHadEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NEMEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NHadEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
     show-ratio: true

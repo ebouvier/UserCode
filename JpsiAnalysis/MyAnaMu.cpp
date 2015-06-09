@@ -63,7 +63,7 @@ void MyAna::Loop()
   }
 
   int counter[20]; for (int i=0; i<20; ++i) counter[i] = 0;
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 9, 0., 9.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 10, 0., 10.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
@@ -232,6 +232,25 @@ void MyAna::Loop()
   TH1F* _h_muJpsi_phi             = new TH1F("PhiMuJpsi", "PhiMuJpsi", 32, -3.2, 3.2);
   _h_muJpsi_phi->SetXTitle("#phi(#mu^{#pm})");
 
+  TH1F* _h_jetJpsi_pt               = new TH1F("PtJetJpsi", "PtJetJpsi", 25, 0., 500.); 
+  _h_jetJpsi_pt->SetXTitle("p_{T}(jets with a J/#psi) (GeV/c)");
+  TH1F* _h_jetJpsi_csv              = new TH1F("CsvJetJpsi", "CsvJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_csv->SetXTitle("CSV discriminant (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chMuEFrac        = new TH1F("ChMuEFracJetJpsi", "ChMuEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chMuEFrac->SetXTitle("#mu^{#pm} energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chEMEFrac        = new TH1F("ChEMEFracJetJpsi", "ChEMEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chEMEFrac->SetXTitle("e^{#pm} energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chHadEFrac       = new TH1F("ChHadEFracJetJpsi", "ChHadEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chHadEFrac->SetXTitle("Charged hadron energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chEFrac          = new TH1F("ChEFracJetJpsi", "ChEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chEFrac->SetXTitle("Charged energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_nEMEFrac        = new TH1F("NEMEFracJetJpsi", "NEMEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_nEMEFrac->SetXTitle("#gamma energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_nHadEFrac       = new TH1F("NHadEFracJetJpsi", "NHadEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_nHadEFrac->SetXTitle("Neutral hadron energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_nEFrac          = new TH1F("NEFracJetJpsi", "NEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_nEFrac->SetXTitle("Neutral energy fraction (jets with a J/#psi)");
+
   TH1F* _h_triLept_m              = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
   _h_triLept_m->SetXTitle("M(J/#psi+#mu) (GeV/c^{2})");
   TH1F* _h_triLept_goodPair_m     = new TH1F("MTriLept-goodPair", "MTriLept-goodPair", 25, 0., 250.);
@@ -353,6 +372,7 @@ void MyAna::Loop()
 
     vector<int> indgoodmu;
     vector<int> indsoftel;
+    vector<int> indsoftmu;
     vector<int> indgoodjet;
     vector<int> indgoodver;
     vector<int> indgoodjpsi;
@@ -401,24 +421,24 @@ void MyAna::Loop()
     // Good muons selection
     //======================================================
 
-    if (_debug) cout <<" -> muons size "<< n_muons << endl;
+    if (_debug) cout <<" -> loose muons size "<< n_muonsloose << endl;
 
-    for (unsigned int i = 0; i < n_muons; ++i) {
+    for (unsigned int i = 0; i < n_muonsloose; ++i) {
 
-      float muPt = GetP4(muon_4vector,i)->Pt();
-      float muEta = GetP4(muon_4vector,i)->Eta();
+      float muPt = GetP4(muonloose_4vector,i)->Pt();
+      float muEta = GetP4(muonloose_4vector,i)->Eta();
 
-      if (!muon_isGlobal[i]) continue;
+      if (!muonloose_isGlobal[i]) continue;
       if (muPt <= 26) continue;
       if (fabs(muEta) >= 2.1) continue;
-      if (muon_normChi2[i] >= 10) continue;
-      if (muon_trackerLayersWithMeasurement[i] <= 5) continue;
-      if (muon_globalTrackNumberOfValidHits[i] <= 0) continue;
-      if (muon_nMatchedStations[i] <= 1) continue;
-      if (muon_dB[i] >= 0.2) continue;
-      if (muon_dZ[i] >= 0.5) continue;
-      if (muon_nValPixelHits[i] <= 0) continue; 
-      if (muon_deltaBetaCorrectedRelIsolation[i] >= 0.12) continue;
+      if (muonloose_normChi2[i] >= 10) continue;
+      if (muonloose_trackerLayersWithMeasurement[i] <= 5) continue;
+      if (muonloose_globalTrackNumberOfValidHits[i] <= 0) continue;
+      if (muonloose_nMatchedStations[i] <= 1) continue;
+      if (muonloose_dB[i] >= 0.2) continue;
+      if (muonloose_dZ[i] >= 0.5) continue;
+      if (muonloose_nValPixelHits[i] <= 0) continue; 
+      if (muonloose_deltaBetaCorrectedRelIsolation[i] >= 0.12) continue;
 
       indgoodmu.push_back(i);
     }
@@ -460,6 +480,34 @@ void MyAna::Loop()
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e veto"; ++iCut; // no SF 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "e veto");
+
+    //======================================================
+    // Soft muons selection
+    //======================================================
+
+    if (_debug) cout << " -> loose muons size " << n_muonsloose << endl;
+
+    for (unsigned int i = 0; i < n_muonsloose; ++i) {
+      if (i == indgoodmu[0]) continue;
+      float muPt = GetP4(muonloose_4vector,i)->Pt();
+      float muEta = GetP4(muonloose_4vector,i)->Eta();
+      if (!muonloose_isGlobal[i] && !muonloose_isTracker[i]) continue;
+      if (muPt <= 10) continue;
+      if (fabs(muEta) >= 2.5) continue;
+      if (muonloose_deltaBetaCorrectedRelIsolation[i] >= 0.2) continue;
+      indsoftmu.push_back(i);
+    }
+    unsigned int nsoftmuon = indsoftmu.size();
+
+    _h_cuts_muons_n->Fill((float)nsoftmuon, _weight);
+
+    if (_debug) cout << "Number of soft muons = " << nsoftmuon << endl;
+
+    if (nsoftmuon != 0) continue;
+    ++counter[4];
+
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "#mu veto"; ++iCut; // no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "#mu veto");
 
     //======================================================
     // Vertices
@@ -508,7 +556,7 @@ void MyAna::Loop()
     _h_cuts_jpsi_n->Fill((float)njpsi, _weight);
 
     if (njpsi != 1) continue;
-    ++counter[4];
+    ++counter[5];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Exactly 1 J/psi"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Exactly 1 J/psi");
@@ -516,7 +564,7 @@ void MyAna::Loop()
     // Chi2
     _h_cuts_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
     if (jpsi_vtxchi2[indgoodjpsi[0]] > 5.) continue;
-    ++counter[5];
+    ++counter[6];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with #chi2<5"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with #chi2<5");
@@ -524,51 +572,49 @@ void MyAna::Loop()
     // ctau
     _h_cuts_jpsi_l->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
     _h_cuts_jpsi_l_zoom->Fill(jpsi_L3D[indgoodjpsi[0]], _weight);
-    //if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue; 
-    if (jpsi_L3D[indgoodjpsi[0]] > 0.005) ; 
-    ++counter[6];
+    /*
+    if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue; 
+    ++counter[7];
 
-    //_h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut;  
-    //_h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm"); 
-
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut;  
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm"); 
+    */
     // ctau/sigma
     _h_cuts_jpsi_lOverSig->Fill(jpsi_L3DoverSigmaL3D[indgoodjpsi[0]], _weight);
     _h_cuts_jpsi_lOverSig_zoom->Fill(jpsi_L3DoverSigmaL3D[indgoodjpsi[0]], _weight);
 
     if (jpsi_L3DoverSigmaL3D[indgoodjpsi[0]] < 20.) continue;
+    ++counter[7];
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and #Delta(c#tau)/c#tau>20"; ++iCut;  
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and #Delta(c#tau)/c#tau>20"); 
 
     // dR with lepton
-    _h_cuts_jpsi_dRLept->Fill(kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muon_4vector,indgoodmu[0])->Eta(),GetP4(muon_4vector,indgoodmu[0])->Phi()), _weight);
+    _h_cuts_jpsi_dRLept->Fill(kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muonloose_4vector,indgoodmu[0])->Eta(),GetP4(muonloose_4vector,indgoodmu[0])->Phi()), _weight);
 
     //======================================================
     //Isolation from muons
     //======================================================
-
+    // not meaningfull as we reconstruct J/psi within jets now
+    /*
     float dR1 = kinem::delta_R(GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Eta(), GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Phi(), 
-        GetP4(muon_4vector,indgoodmu[0])->Eta(), GetP4(muon_4vector,indgoodmu[0])->Phi());
+        GetP4(muonloose_4vector,indgoodmu[0])->Eta(), GetP4(muonloose_4vector,indgoodmu[0])->Phi());
     float dR2 = kinem::delta_R(GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Eta(), GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Phi(), 
-        GetP4(muon_4vector,indgoodmu[0])->Eta(), GetP4(muon_4vector,indgoodmu[0])->Phi());
+        GetP4(muonloose_4vector,indgoodmu[0])->Eta(), GetP4(muonloose_4vector,indgoodmu[0])->Phi());
     if (dR1 < 0.005 || dR2 < 0.005) continue;
 
     float isolike = 0;
     if (dR1 < 0.4 || dR2 < 0.4) {
-      isolike = (muon_deltaBetaCorrectedRelIsolation[indgoodmu[0]]*GetP4(muon_4vector, indgoodmu[0])->Pt() 
-          + GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Pt() + GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Pt()) / GetP4(muon_4vector, indgoodmu[0])->Pt();
-      cout << "isolike calculation... before = " << muon_deltaBetaCorrectedRelIsolation[indgoodmu[0]] << " after = " << isolike << endl;
+      isolike = (muonloose_deltaBetaCorrectedRelIsolation[indgoodmu[0]]*GetP4(muonloose_4vector, indgoodmu[0])->Pt() 
+          + GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Pt() + GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Pt()) / GetP4(muonloose_4vector, indgoodmu[0])->Pt();
+      cout << "isolike calculation... before = " << muonloose_deltaBetaCorrectedRelIsolation[indgoodmu[0]] << " after = " << isolike << endl;
     } 
     else 
-      isolike = muon_deltaBetaCorrectedRelIsolation[indgoodmu[0]];
+      isolike = muonloose_deltaBetaCorrectedRelIsolation[indgoodmu[0]];
 
-    // if (isolike > 0.12) continue; FIXME
     if (isolike <= 0.12) 
-    ++counter[7];
-
-    // _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Tighter isolated muon"; ++iCut; // noSF FIXME
-    // _h_iCut->GetXaxis()->SetBinLabel(iCut, "Tighter isolated muon"); FIXME
-
+    ++counter[8];
+    */
     //======================================================
     // Scale factors
     //======================================================
@@ -576,10 +622,10 @@ void MyAna::Loop()
     if (_isMC) {
       // Trigger scalefactors
       HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
-      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muon_4vector, indgoodmu[0])->Pt(), GetP4(muon_4vector, indgoodmu[0])->Eta()); 
+      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muonloose_4vector, indgoodmu[0])->Pt(), GetP4(muonloose_4vector, indgoodmu[0])->Eta()); 
       // Muon scalefactor
       /*
-      _weight = _weight*(*muon_scaleFactor_tighteff_tightiso)[indgoodmu[0]][0]; // 0 for central, 1 for up, 2 for down
+      _weight = _weight*(*muonloose_scaleFactor_tighteff_tightiso)[indgoodmu[0]][0]; // 0 for central, 1 for up, 2 for down
       */
       // Jet scalefactors
       /*
@@ -644,9 +690,9 @@ void MyAna::Loop()
     //--------
 
     for(unsigned int j = 0; j < ngoodmuon; ++j) {
-      _h_isoLept_pt->Fill(GetP4(muon_4vector,indgoodmu[j])->Pt(), _weight);
-      _h_isoLept_eta->Fill(GetP4(muon_4vector,indgoodmu[j])->Eta(), _weight);
-      _h_isoLept_phi->Fill(GetP4(muon_4vector,indgoodmu[j])->Phi(), _weight);
+      _h_isoLept_pt->Fill(GetP4(muonloose_4vector,indgoodmu[j])->Pt(), _weight);
+      _h_isoLept_eta->Fill(GetP4(muonloose_4vector,indgoodmu[j])->Eta(), _weight);
+      _h_isoLept_phi->Fill(GetP4(muonloose_4vector,indgoodmu[j])->Phi(), _weight);
       _h_isoLept_pfiso->Fill(isolike, _weight);
     }    
     _h_isoLept_n->Fill((float)ngoodmuon, _weight);
@@ -657,8 +703,8 @@ void MyAna::Loop()
     _h_met_met->Fill(MET_Pt, _weight);
     _h_met_phi->Fill(MET_Phi, _weight);
 
-    float Delta_Phi_mu_met = kinem::delta_phi(GetP4(muon_4vector,indgoodmu[0])->Phi(), MET_Phi);     
-    float wmt = sqrt(2. * MET_Pt * GetP4(muon_4vector,indgoodmu[0])->Pt() * (1.-cos(Delta_Phi_mu_met)));
+    float Delta_Phi_mu_met = kinem::delta_phi(GetP4(muonloose_4vector,indgoodmu[0])->Phi(), MET_Phi);     
+    float wmt = sqrt(2. * MET_Pt * GetP4(muonloose_4vector,indgoodmu[0])->Pt() * (1.-cos(Delta_Phi_mu_met)));
     _h_W_mt->Fill(wmt, _weight);    
 
     // Vertices :
@@ -709,6 +755,28 @@ void MyAna::Loop()
     _h_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
     _h_jpsi_jetPtFrac->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Pt()/GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
 
+    // min_ijet == jpsi_indjet[indgoodjpsi[0]]
+    /*
+    double min_dRjet = 200.;
+    unsigned int min_ijet = 0;
+    for (unsigned int ijet = 0; ijet < n_jets; ijet++) {
+      double tmp_dRjet = kinem::delta_R(GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Eta(), GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Phi(), GetP4(jet_4vector,ijet)->Eta(), GetP4(jet_4vector,ijet)->Phi());
+      if (tmp_dRjet < min_dRjet) {
+        min_dRjet = tmp_dRjet;
+        min_ijet = ijet;
+      }
+    }
+    */
+    _h_jetJpsi_pt->Fill(GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
+    _h_jetJpsi_csv->Fill(jpsi_jet_btag_CSV[indgoodjpsi[0]], _weight);
+    _h_jetJpsi_chMuEFrac->Fill(jet_chmuEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+    _h_jetJpsi_chEMEFrac->Fill(jet_chemEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+    _h_jetJpsi_chHadEFrac->Fill(jet_chhadEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+    _h_jetJpsi_chEFrac->Fill((jet_chmuEfrac[jpsi_indjet[indgoodjpsi[0]]]+jet_chemEfrac[jpsi_indjet[indgoodjpsi[0]]]+jet_chhadEfrac[jpsi_indjet[indgoodjpsi[0]]])/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+    _h_jetJpsi_nEMEFrac->Fill(jet_nemEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+    _h_jetJpsi_nHadEFrac->Fill(jet_nhadEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+    _h_jetJpsi_nEFrac->Fill((jet_nemEfrac[jpsi_indjet[indgoodjpsi[0]]]+jet_nhadEfrac[jpsi_indjet[indgoodjpsi[0]]])/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+
     // Jpsi - iso mu association :
     //----------------------------
 
@@ -717,10 +785,10 @@ void MyAna::Loop()
     float pz_reco = 0.;
     float e_reco = 0.;
 
-    px_reco = GetP4(jpsi_4vector,indgoodjpsi[0])->Px() + GetP4(muon_4vector,indgoodmu[0])->Px();
-    py_reco = GetP4(jpsi_4vector,indgoodjpsi[0])->Py() + GetP4(muon_4vector,indgoodmu[0])->Py();
-    pz_reco = GetP4(jpsi_4vector,indgoodjpsi[0])->Pz() + GetP4(muon_4vector,indgoodmu[0])->Pz();
-    e_reco  = GetP4(jpsi_4vector,indgoodjpsi[0])->E()  + GetP4(muon_4vector,indgoodmu[0])->E();
+    px_reco = GetP4(jpsi_4vector,indgoodjpsi[0])->Px() + GetP4(muonloose_4vector,indgoodmu[0])->Px();
+    py_reco = GetP4(jpsi_4vector,indgoodjpsi[0])->Py() + GetP4(muonloose_4vector,indgoodmu[0])->Py();
+    pz_reco = GetP4(jpsi_4vector,indgoodjpsi[0])->Pz() + GetP4(muonloose_4vector,indgoodmu[0])->Pz();
+    e_reco  = GetP4(jpsi_4vector,indgoodjpsi[0])->E()  + GetP4(muonloose_4vector,indgoodmu[0])->E();
 
     float p_reco  = sqrt(pow(px_reco, 2.) + pow(py_reco, 2.) + pow(pz_reco, 2.));
     float pt_reco = sqrt(pow(px_reco, 2.) + pow(py_reco, 2.));
@@ -760,9 +828,9 @@ void MyAna::Loop()
       float dpt_l = 100.;
       for ( int i = 0; i < n_MCs; ++i) {
         if(fabs(MC_type[i]) == 13){
-          float dr_l_tmp = kinem::delta_R(GetP4(muon_4vector,indgoodmu[0])->Eta(),GetP4(muon_4vector,indgoodmu[0])->Phi(),MC_eta[i],MC_phi[i]);
+          float dr_l_tmp = kinem::delta_R(GetP4(muonloose_4vector,indgoodmu[0])->Eta(),GetP4(muonloose_4vector,indgoodmu[0])->Phi(),MC_eta[i],MC_phi[i]);
           float MC_pt = sqrt( MC_px[i] * MC_px[i] + MC_py[i] * MC_py[i] );
-          float dpt_l_tmp = fabs(GetP4(muon_4vector,indgoodmu[0])->Pt()-MC_pt)/fabs(MC_pt);
+          float dpt_l_tmp = fabs(GetP4(muonloose_4vector,indgoodmu[0])->Pt()-MC_pt)/fabs(MC_pt);
           if (dpt_l_tmp < dpt_l && dr_l_tmp < dr_l) {
             dr_l = dr_l_tmp;
             dpt_l = dpt_l_tmp;
@@ -789,13 +857,13 @@ void MyAna::Loop()
       if (_debug) cout << "good paired : " << goodpaired << endl;
 
       if (JPsiMatched && LeptonMatched) {
-        ++counter[8];
+        ++counter[9];
         if (goodpaired) {
           _h_triLept_goodPair_m->Fill(m_reco, _weight);
-          ++counter[9];
+          ++counter[10];
         } else {
           _h_triLept_wrongPair_m->Fill(m_reco, _weight);
-          ++counter[10];
+          ++counter[11];
         }
       }  
     }
@@ -810,9 +878,9 @@ void MyAna::Loop()
 
     float dR = 0.;
     float dPhi = 0.;
-    dR = kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muon_4vector,indgoodmu[0])->Eta(),GetP4(muon_4vector,indgoodmu[0])->Phi());
+    dR = kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muonloose_4vector,indgoodmu[0])->Eta(),GetP4(muonloose_4vector,indgoodmu[0])->Phi());
     _h_jpsi_dRLept->Fill(dR, _weight);
-    dPhi = kinem::delta_phi(GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muon_4vector,indgoodmu[0])->Phi());
+    dPhi = kinem::delta_phi(GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muonloose_4vector,indgoodmu[0])->Phi());
     _h_jpsi_dPhiLept->Fill(dPhi, _weight);
 
     // Top mass reconstruction :
@@ -932,7 +1000,7 @@ void MyAna::Loop()
   cout << "Number of events before cut :                                  = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
-  for (int i = 1; i < 9; i++){
+  for (int i = 1; i < 10; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
   cout << "========================================================================" << endl;
@@ -942,15 +1010,16 @@ void MyAna::Loop()
   cout << "At least 2 jets pT>40 GeV/c                               = " << counter[1] << endl;
   cout << "1 iso muon                                                = " << counter[2] << endl;
   cout << "electron veto                                             = " << counter[3] << endl;
-  cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[4] << endl;
-  cout << "... with chi2 < 5                                         = " << counter[5] << endl;
-  cout << "... and ctau > 0.005 cm                                   = " << counter[6] << endl;
-  cout << "Tighter isolated lepton                                   = " << counter[7] << endl;
+  cout << "muon veto                                                 = " << counter[4] << endl;
+  cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
+  cout << "... with chi2 < 5                                         = " << counter[6] << endl;
+  cout << "... and Delta(c.tau) / c.tau > 20                         = " << counter[7] << endl;
+//  cout << "Tighter isolated lepton                                   = " << counter[8] << endl;
   if (_isMC && _isSIG) {
     cout << "========================================================================" << endl;
-    cout << "Events matched to MC truth (DeltaR<0.05 for J/psi and lepton)   = " << counter[8] << endl;
-    cout << "... good pairing                                                = " << counter[9] << endl;
-    cout << "... wrong pairing                                               = " << counter[10] << endl;
+    cout << "Events matched to MC truth (DeltaR<0.05 for J/psi and lepton)   = " << counter[9] << endl;
+    cout << "... good pairing                                                = " << counter[10] << endl;
+    cout << "... wrong pairing                                               = " << counter[11] << endl;
   }
   cout << "========================================================================" << endl;
   cout << "Total Number of events skimmed                            = "  << nwrite	 << endl;

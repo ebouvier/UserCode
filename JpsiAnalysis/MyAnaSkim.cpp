@@ -228,6 +228,25 @@ void MyAna::Loop()
   TH1F* _h_muJpsi_phi             = new TH1F("PhiMuJpsi", "PhiMuJpsi", 32, -3.2, 3.2);
   _h_muJpsi_phi->SetXTitle("#phi(#mu^{#pm})");
 
+  TH1F* _h_jetJpsi_pt               = new TH1F("PtJetJpsi", "PtJetJpsi", 25, 0., 500.); 
+  _h_jetJpsi_pt->SetXTitle("p_{T}(jets with a J/#psi) (GeV/c)");
+  TH1F* _h_jetJpsi_csv              = new TH1F("CsvJetJpsi", "CsvJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_csv->SetXTitle("CSV discriminant (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chMuEFrac        = new TH1F("ChMuEFracJetJpsi", "ChMuEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chMuEFrac->SetXTitle("#mu^{#pm} energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chEMEFrac        = new TH1F("ChEMEFracJetJpsi", "ChEMEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chEMEFrac->SetXTitle("e^{#pm} energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chHadEFrac       = new TH1F("ChHadEFracJetJpsi", "ChHadEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chHadEFrac->SetXTitle("Charged hadron energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chEFrac          = new TH1F("ChEFracJetJpsi", "ChEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_chEFrac->SetXTitle("Charged energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_nEMEFrac        = new TH1F("NEMEFracJetJpsi", "NEMEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_nEMEFrac->SetXTitle("#gamma energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_nHadEFrac       = new TH1F("NHadEFracJetJpsi", "NHadEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_nHadEFrac->SetXTitle("Neutral hadron energy fraction (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_nEFrac          = new TH1F("NEFracJetJpsi", "NEFracJetJpsi", 50, 0., 1.);
+  _h_jetJpsi_nEFrac->SetXTitle("Neutral energy fraction (jets with a J/#psi)");
+
   TH1F* _h_triLept_m              = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
   _h_triLept_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
   TH1F* _h_triLept_goodPair_m     = new TH1F("MTriLept-goodPair", "MTriLept-goodPair", 25, 0., 250.);
@@ -593,15 +612,21 @@ void MyAna::Loop()
       HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
       if (ngoodmuon == 1) {
         _weight = _weight*weight_provider->get_weight_isomu(GetP4(muon_4vector, indgoodmu[0])->Pt(), GetP4(muon_4vector, indgoodmu[0])->Eta());
+        /*
         _weight = _weight*(*muon_scaleFactor_tighteff_tightiso)[indgoodmu[0]][0]; // 0 for central, 1 for up, 2 for down
+        */
       }
       if (ngoodelectron == 1) {
         _weight = _weight*weight_provider->get_weight_isoel(GetP4(electron_4vector, indgoodel[0])->Pt(), GetP4(electron_4vector, indgoodel[0])->Eta()); 
+        /*
         _weight = _weight*(*electron_scaleFactor_tighteff_tightiso)[indgoodel[0]][0]; // 0 for central, 1 for up, 2 for down
+        */
       }
       // Jet scalefactors
+      /*
       _weight = _weight*(*jet_scaleFactor)[indgoodjet[0]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jet_scaleFactor)[indgoodjet[1]][0]; // 0 for central, 1 for up, 2 for down
+      */
     }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; // /!\ no scalefactors yet
@@ -734,6 +759,25 @@ void MyAna::Loop()
     _h_jpsi_lOverSigma->Fill(jpsi_L3DoverSigmaL3D[indgoodjpsi[0]], _weight);
     _h_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
     _h_jpsi_jetPtFrac->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Pt()/GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
+
+    double min_dRjet = 200.;
+    unsigned int min_ijet = 0;
+    for (unsigned int ijet = 0; ijet < n_jets; ijet++) {
+      double tmp_dRjet = kinem::delta_R(GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Eta(), GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Phi(), GetP4(jet_4vector,ijet)->Eta(), GetP4(jet_4vector,ijet)->Phi());
+      if (tmp_dRjet < min_dRjet) {
+        min_dRjet = tmp_dRjet;
+        min_ijet = ijet;
+      }
+    }
+    _h_jetJpsi_pt->Fill(GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
+    _h_jetJpsi_csv->Fill(jpsi_jet_btag_CSV[indgoodjpsi[0]], _weight);
+    _h_jetJpsi_chMuEFrac->Fill(jet_chmuEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_chEMEFrac->Fill(jet_chemEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_chHadEFrac->Fill(jet_chhadEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_chEFrac->Fill((jet_chmuEfrac[min_ijet]+jet_chemEfrac[min_ijet]+jet_chhadEfrac[min_ijet])/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_nEMEFrac->Fill(jet_nemEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_nHadEFrac->Fill(jet_nhadEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_nEFrac->Fill((jet_nemEfrac[min_ijet]+jet_nhadEfrac[min_ijet])/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
 
     // Jpsi - iso lepton association :
     //----------------------------
