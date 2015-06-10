@@ -63,7 +63,7 @@ void MyAna::Loop()
   }
 
   int counter[20]; for (int i=0; i<20; ++i) counter[i] = 0;
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 10, 0., 10.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 9, 0., 9.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetBarWidth(0.75);
   _h_iCut->SetBarOffset(0.125);
@@ -278,6 +278,41 @@ void MyAna::Loop()
   _t_triLept_m->Branch("mass", &triLept_mass, "mass/F");  
   _t_triLept_m->Branch("weight", &triLept_weight, "weight/F");  
 
+  TTree* _t_pairingStudies_m       = new TTree("PairingStudies","PairingStudies");
+  float weight_m, jpsi_m_m, jpsi_pt_m, jpsi_eta_m, jpsi_phi_m, jpsi_chi2_m, jpsi_l_m, jpsi_lOverSig_m,
+        jpsi_sigmaL_m, jpsi_jetPtFrac_m, jetJpsi_pt_m, jetJpsi_csv_m, jetJpsi_chMuEFrac_m, jetJpsi_chEMEFrac_m, 
+        jetJpsi_chHadEFrac_m, jetJpsi_chEFrac_m, jetJpsi_nEMEFrac_m, jetJpsi_nHadEFrac_m, jetJpsi_nEFrac_m,
+        isoLept_pt_m, isoLept_eta_m, isoLept_phi_m, jpsi_dPhiLept_m, jpsi_dRLept_m, triLept_m_m, triLept_pt_m,
+        jet20_n_m, pairing_m; // -1 if wrong, +1 if good
+  _t_pairingStudies_m->Branch("Weight", &weight_m, "Weight/F");
+  _t_pairingStudies_m->Branch("Pairing", &pairing_m, "Pairing/F");
+  _t_pairingStudies_m->Branch("NJets20", &jet20_n_m, "NJets20/F");
+  _t_pairingStudies_m->Branch("MJpsi", &jpsi_m_m, "MJpsi/F");
+  _t_pairingStudies_m->Branch("PtJpsi", &jpsi_pt_m, "PtJpsi/F");
+  _t_pairingStudies_m->Branch("EtaJpsi", &jpsi_eta_m, "EtaJpsi/F");
+  _t_pairingStudies_m->Branch("PhiJpsi", &jpsi_phi_m, "PhiJpsi/F");
+  _t_pairingStudies_m->Branch("Chi2Jpsi", &jpsi_chi2_m, "Chi2Jpsi/F");
+  _t_pairingStudies_m->Branch("LJpsi", &jpsi_l_m, "LJpsi/F");
+  _t_pairingStudies_m->Branch("SigmaLJpsi", &jpsi_sigmaL_m, "SigmaLJpsi/F");
+  _t_pairingStudies_m->Branch("LOverSigmaJpsi", &jpsi_lOverSig_m, "LOverSigmaJpsi/F");
+  _t_pairingStudies_m->Branch("PtFracJpsiJet", &jpsi_jetPtFrac_m, "PtFracJpsiJet/F");
+  _t_pairingStudies_m->Branch("PtJetJpsi", &jetJpsi_pt_m, "PtJetJpsi/F");
+  _t_pairingStudies_m->Branch("CsvJetJpsi", &jetJpsi_csv_m, "CsvJetJpsi/F");
+  _t_pairingStudies_m->Branch("ChMuEFracJetJpsi", &jetJpsi_chMuEFrac_m, "ChMuEFracJetJpsi/F");
+  _t_pairingStudies_m->Branch("ChEMEFracJetJpsi", &jetJpsi_chEMEFrac_m, "ChEMEFracJetJpsi/F");
+  _t_pairingStudies_m->Branch("ChHadEFracJetJpsi", &jetJpsi_chHadEFrac_m, "ChHadEFracJetJpsi/F");
+  _t_pairingStudies_m->Branch("ChEFracJetJpsi", &jetJpsi_chEFrac_m, "ChEFracJetJpsi/F");
+  _t_pairingStudies_m->Branch("NEMEFracJetJpsi", &jetJpsi_nEMEFrac_m, "NEMEFracJetJpsi/F");
+  _t_pairingStudies_m->Branch("NHadEFracJetJpsi", &jetJpsi_nHadEFrac_m, "NHadEFracJetJpsi/F");
+  _t_pairingStudies_m->Branch("NEFracJetJpsi", &jetJpsi_nEFrac_m, "NEFracJetJpsi/F");
+  _t_pairingStudies_m->Branch("PtIsoLept", &isoLept_pt_m, "PtIsoLept/F");
+  _t_pairingStudies_m->Branch("EtaIsoLept", &isoLept_eta_m, "EtaIsoLept/F");
+  _t_pairingStudies_m->Branch("PhiIsoLept", &isoLept_phi_m, "PhiIsoLept/F");
+  _t_pairingStudies_m->Branch("DPhiJpsiIsoLept", &jpsi_dPhiLept_m, "DPhiJpsiIsoLept/F");
+  _t_pairingStudies_m->Branch("DRJpsiIsoLept", &jpsi_dRLept_m, "DRJpsiIsoLept/F");
+  _t_pairingStudies_m->Branch("MTriLept", &triLept_m_m, "MTriLept/F");
+  _t_pairingStudies_m->Branch("PtTriLept", &triLept_pt_m, "PtTriLept/F");
+
   //================================================================================================
   // Clone the tree
   //================================================================================================
@@ -370,12 +405,12 @@ void MyAna::Loop()
     // Objects selection 
     //================================================================================================
 
-    vector<int> indgoodmu;
-    vector<int> indsoftel;
-    vector<int> indsoftmu;
-    vector<int> indgoodjet;
-    vector<int> indgoodver;
-    vector<int> indgoodjpsi;
+    vector<unsigned int> indgoodmu;
+    vector<unsigned int> indsoftel;
+    vector<unsigned int> indsoftmu;
+    vector<unsigned int> indgoodjet;
+    vector<unsigned int> indgoodver;
+    vector<unsigned int> indgoodjpsi;
 
     //======================================================
     // Good jet selection
@@ -448,11 +483,11 @@ void MyAna::Loop()
 
     if (_debug) cout << "Number of good muons = " << ngoodmuon << endl;
 
-    if (ngoodmuon != 1) continue;
+    if (ngoodmuon < 1) continue;
     ++counter[2];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "1 isolated #mu"; ++iCut; // no SF 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "1 isolated #mu");
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=1 isolated #mu"; ++iCut; // no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=1 isolated #mu");
 
     //======================================================
     // Soft electrons selection
@@ -475,12 +510,6 @@ void MyAna::Loop()
 
     if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
 
-    if (nsoftelectron != 0) continue;
-    ++counter[3];
-
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e veto"; ++iCut; // no SF 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "e veto");
-
     //======================================================
     // Soft muons selection
     //======================================================
@@ -502,12 +531,6 @@ void MyAna::Loop()
     _h_cuts_muons_n->Fill((float)nsoftmuon, _weight);
 
     if (_debug) cout << "Number of soft muons = " << nsoftmuon << endl;
-
-    if (nsoftmuon != 0) continue;
-    ++counter[4];
-
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "#mu veto"; ++iCut; // no SF 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "#mu veto");
 
     //======================================================
     // Vertices
@@ -537,6 +560,60 @@ void MyAna::Loop()
       MET_Pt= GetP4(met_4vector,0)->Pt();
       MET_Phi= GetP4(met_4vector,0)->Phi();
     }
+
+    //======================================================
+    // Apply veto
+    //======================================================
+    
+    bool isSemiLept = false;
+    bool isDiLept = false;
+
+    if (ngoodmuon == 1 && nsoftmuon == 0 && nsoftelectron == 0) {
+      isSemiLept = true;
+      ++counter[3];
+    }
+    else if (MET_Pt > 40) {
+      for (unsigned int imu = 0; imu < nsoftmuon; imu++) {
+        float muPt = GetP4(muonloose_4vector,indsoftmu[imu])->Pt();
+        float muEta = GetP4(muonloose_4vector,indsoftmu[imu])->Eta();
+        if (!muonloose_isGlobal[indsoftmu[imu]] && !muonloose_isTracker[indsoftmu[imu]]) continue;
+        if (muPt <= 20) continue;
+        if (fabs(muEta) >= 2.4) continue;
+        if (muonloose_deltaBetaCorrectedRelIsolation[indsoftmu[imu]] >= 0.2) continue;
+        if (muonloose_charge[indgoodmu[0]]*muonloose_charge[indsoftmu[imu]] >= 0) continue;
+        TLorentzVector *sum1 = GetP4(muonloose_4vector,indgoodmu[0]); 
+        TLorentzVector *sum2 = GetP4(muonloose_4vector,indsoftmu[imu]);
+        TLorentzVector sum = *sum1 + *sum2;
+        if (sum.M() > 20 && (sum.M() <= 76 || sum.M() > 106)) {
+          isDiLept = true;
+          break;
+        }
+      }
+      for (unsigned int iel = 0; iel < nsoftelectron; iel++) {
+        float elPt = GetP4(electronloose_4vector,indsoftel[iel])->Pt();
+        float elEta = GetP4(electronloose_4vector,indsoftel[iel])->Eta();
+        if (elPt <= 20) continue;
+        if (fabs(elEta) >= 2.5) continue;
+        if (!electronloose_passTightID[indsoftel[iel]]) continue;
+        if (electronloose_rhoCorrectedRelIsolation[indsoftel[iel]] >= 0.15) continue;
+        if (muonloose_charge[indgoodmu[0]]*electronloose_charge[indsoftel[iel]] >= 0) continue;
+        TLorentzVector *sum1 = GetP4(muonloose_4vector,indgoodmu[0]);
+        TLorentzVector *sum2 = GetP4(electronloose_4vector,indsoftel[iel]);
+        TLorentzVector sum = *sum1 + *sum2;
+        if (sum.M() > 20) {
+          isDiLept = true;
+          break;
+        }
+      }
+      if (isDiLept) ++counter[4];
+    }
+
+    // if (!isSemiLept) continue;
+    // if (!isDiLept) continue;
+    if (!isSemiLept && !isDiLept) continue;
+
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e/#mu veto"; ++iCut; // no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, "e/#mu veto");
 
     //======================================================
     // J/psi
@@ -693,7 +770,7 @@ void MyAna::Loop()
       _h_isoLept_pt->Fill(GetP4(muonloose_4vector,indgoodmu[j])->Pt(), _weight);
       _h_isoLept_eta->Fill(GetP4(muonloose_4vector,indgoodmu[j])->Eta(), _weight);
       _h_isoLept_phi->Fill(GetP4(muonloose_4vector,indgoodmu[j])->Phi(), _weight);
-      _h_isoLept_pfiso->Fill(isolike, _weight);
+      _h_isoLept_pfiso->Fill(muonloose_deltaBetaCorrectedRelIsolation[indgoodmu[0]], _weight);
     }    
     _h_isoLept_n->Fill((float)ngoodmuon, _weight);
 
@@ -756,7 +833,6 @@ void MyAna::Loop()
     _h_jpsi_jetPtFrac->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Pt()/GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
 
     // min_ijet == jpsi_indjet[indgoodjpsi[0]]
-    /*
     double min_dRjet = 200.;
     unsigned int min_ijet = 0;
     for (unsigned int ijet = 0; ijet < n_jets; ijet++) {
@@ -766,16 +842,25 @@ void MyAna::Loop()
         min_ijet = ijet;
       }
     }
-    */
     _h_jetJpsi_pt->Fill(GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
     _h_jetJpsi_csv->Fill(jpsi_jet_btag_CSV[indgoodjpsi[0]], _weight);
-    _h_jetJpsi_chMuEFrac->Fill(jet_chmuEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
-    _h_jetJpsi_chEMEFrac->Fill(jet_chemEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
-    _h_jetJpsi_chHadEFrac->Fill(jet_chhadEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
-    _h_jetJpsi_chEFrac->Fill((jet_chmuEfrac[jpsi_indjet[indgoodjpsi[0]]]+jet_chemEfrac[jpsi_indjet[indgoodjpsi[0]]]+jet_chhadEfrac[jpsi_indjet[indgoodjpsi[0]]])/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
-    _h_jetJpsi_nEMEFrac->Fill(jet_nemEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
-    _h_jetJpsi_nHadEFrac->Fill(jet_nhadEfrac[jpsi_indjet[indgoodjpsi[0]]]/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
-    _h_jetJpsi_nEFrac->Fill((jet_nemEfrac[jpsi_indjet[indgoodjpsi[0]]]+jet_nhadEfrac[jpsi_indjet[indgoodjpsi[0]]])/GetP4(rawjet_4vector,jpsi_indjet[indgoodjpsi[0]])->E()*GetP4(jet_4vector,jpsi_indjet[indgoodjpsi[0]])->E(), _weight);
+    _h_jetJpsi_chMuEFrac->Fill(jet_chmuEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_chEMEFrac->Fill(jet_chemEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_chHadEFrac->Fill(jet_chhadEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_chEFrac->Fill((jet_chmuEfrac[min_ijet]+jet_chemEfrac[min_ijet]+jet_chhadEfrac[min_ijet])/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_nEMEFrac->Fill(jet_nemEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_nHadEFrac->Fill(jet_nhadEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    _h_jetJpsi_nEFrac->Fill((jet_nemEfrac[min_ijet]+jet_nhadEfrac[min_ijet])/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
+    
+    // Angular analysis :
+    //-------------------
+
+    float dR = 0.;
+    float dPhi = 0.;
+    dR = kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muonloose_4vector,indgoodmu[0])->Eta(),GetP4(muonloose_4vector,indgoodmu[0])->Phi());
+    _h_jpsi_dRLept->Fill(dR, _weight);
+    dPhi = kinem::delta_phi(GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muonloose_4vector,indgoodmu[0])->Phi());
+    _h_jpsi_dPhiLept->Fill(dPhi, _weight);
 
     // Jpsi - iso mu association :
     //----------------------------
@@ -859,12 +944,43 @@ void MyAna::Loop()
       if (JPsiMatched && LeptonMatched) {
         ++counter[9];
         if (goodpaired) {
+          pairing_m = 1.; // PairingStudies
           _h_triLept_goodPair_m->Fill(m_reco, _weight);
           ++counter[10];
         } else {
+          pairing_m = -1.; // PairingStudies
           _h_triLept_wrongPair_m->Fill(m_reco, _weight);
           ++counter[11];
         }
+        // PairingStudies
+        weight_m = _weight; 
+        jet20_n_m = (float)ngoodjet;
+        jpsi_m_m = GetP4(jpsi_4vector,indgoodjpsi[0])->M(); 
+        jpsi_pt_m = GetP4(jpsi_4vector,indgoodjpsi[0])->Pt(); 
+        jpsi_eta_m = GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(); 
+        jpsi_phi_m = GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(); 
+        jpsi_chi2_m = jpsi_vtxchi2[indgoodjpsi[0]]; 
+        jpsi_l_m = jpsi_L3D[indgoodjpsi[0]]; 
+        jpsi_sigmaL_m = jpsi_sigmaL3D[indgoodjpsi[0]]; 
+        jpsi_lOverSig_m = jpsi_L3DoverSigmaL3D[indgoodjpsi[0]]; 
+        jpsi_jetPtFrac_m = GetP4(jpsi_4vector,indgoodjpsi[0])->Pt()/GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(); 
+        jetJpsi_pt_m = GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(); 
+        jetJpsi_csv_m = jpsi_jet_btag_CSV[indgoodjpsi[0]]; 
+        jetJpsi_chMuEFrac_m = jet_chmuEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(); 
+        jetJpsi_chEMEFrac_m = jet_chemEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(); 
+        jetJpsi_chHadEFrac_m = jet_chhadEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(); 
+        jetJpsi_chEFrac_m = (jet_chmuEfrac[min_ijet]+jet_chemEfrac[min_ijet]+jet_chhadEfrac[min_ijet])/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(); 
+        jetJpsi_nEMEFrac_m = jet_nemEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(); 
+        jetJpsi_nHadEFrac_m = jet_nhadEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(); 
+        jetJpsi_nEFrac_m = (jet_nemEfrac[min_ijet]+jet_nhadEfrac[min_ijet])/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(); 
+        isoLept_pt_m = GetP4(muonloose_4vector,indgoodmu[0])->Pt(); 
+        isoLept_eta_m = GetP4(muonloose_4vector,indgoodmu[0])->Eta(); 
+        isoLept_phi_m = GetP4(muonloose_4vector,indgoodmu[0])->Phi(); 
+        jpsi_dPhiLept_m = dPhi; 
+        jpsi_dRLept_m = dR; 
+        triLept_m_m = m_reco; 
+        triLept_pt_m = pt_reco; 
+        _t_pairingStudies_m->Fill();
       }  
     }
 
@@ -872,16 +988,6 @@ void MyAna::Loop()
     triLept_mass = m_reco;
     triLept_weight = _weight;
     _t_triLept_m->Fill();
-
-    // Angular analysis :
-    //-------------------
-
-    float dR = 0.;
-    float dPhi = 0.;
-    dR = kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muonloose_4vector,indgoodmu[0])->Eta(),GetP4(muonloose_4vector,indgoodmu[0])->Phi());
-    _h_jpsi_dRLept->Fill(dR, _weight);
-    dPhi = kinem::delta_phi(GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(muonloose_4vector,indgoodmu[0])->Phi());
-    _h_jpsi_dPhiLept->Fill(dPhi, _weight);
 
     // Top mass reconstruction :
     //--------------------------
@@ -1000,7 +1106,7 @@ void MyAna::Loop()
   cout << "Number of events before cut :                                  = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
-  for (int i = 1; i < 10; i++){
+  for (int i = 1; i < 9; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
   cout << "========================================================================" << endl;
@@ -1008,9 +1114,9 @@ void MyAna::Loop()
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
   cout << "At least 2 jets pT>40 GeV/c                               = " << counter[1] << endl;
-  cout << "1 iso muon                                                = " << counter[2] << endl;
-  cout << "electron veto                                             = " << counter[3] << endl;
-  cout << "muon veto                                                 = " << counter[4] << endl;
+  cout << "1 or 2 iso muon                                           = " << counter[2] << endl;
+  cout << "semi-leptonic                                             = " << counter[3] << endl;
+  cout << "dileptonic                                                = " << counter[4] << endl;
   cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
   cout << "... with chi2 < 5                                         = " << counter[6] << endl;
   cout << "... and Delta(c.tau) / c.tau > 20                         = " << counter[7] << endl;

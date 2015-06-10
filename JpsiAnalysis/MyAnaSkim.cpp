@@ -476,11 +476,11 @@ void MyAna::Loop()
     // Good leptons selection
     //======================================================
 
-    if (ngoodmuon != 1 && ngoodelectron != 1) continue;
+    if (ngoodmuon < 1 && ngoodelectron < 1) continue;
     ++counter[2];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "1 isolated lepton"; ++iCut; // no SF 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, "1 isolated lepton");
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=1 isolated leptons"; ++iCut; // no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=1 isolated leptons");
 
     //======================================================
     // Soft electrons selection
@@ -760,6 +760,7 @@ void MyAna::Loop()
     _h_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
     _h_jpsi_jetPtFrac->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Pt()/GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
 
+    // min_ijet == jpsi_indjet[indgoodjpsi[0]] ?
     double min_dRjet = 200.;
     unsigned int min_ijet = 0;
     for (unsigned int ijet = 0; ijet < n_jets; ijet++) {
@@ -1112,7 +1113,7 @@ void MyAna::Loop()
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
   cout << "At least 2 jets pT>40 GeV/c                               = " << counter[1] << endl;
-  cout << "Only 1 iso lepton                                         = " << counter[2] << endl;
+  cout << "At least 1 iso lepton                                     = " << counter[2] << endl;
   cout << "-> 1 iso muon                                             = " << counter[3] << endl;
   cout << "-> 1 iso electron                                         = " << counter[4] << endl;
   cout << "Lepton veto                                               = " << counter[5] << endl;

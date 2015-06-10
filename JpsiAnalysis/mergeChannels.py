@@ -30,6 +30,11 @@ if (os.path.isfile(dirEl+"/ElectronHadASingleElectronBCD.root") and os.path.isfi
     cmd = "hadd "+dirAll+"/Run2012ABCD.root "+dirEl+"/ElectronHadASingleElectronBCD.root "+dirMu+"/MuHadASingleMuBCD.root"
     os.system(cmd)
 
+# Merging central mass point
+if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root")):
+    cmd = "hadd "+dirAll+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root"
+    os.system(cmd)
+
 # Merging MC
 files = [name for name in os.listdir(dirEl) if name.startswith("All_") and name.endswith("_5.root")]
 for file in files:
