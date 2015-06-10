@@ -159,3 +159,13 @@ This can be done in root:
     simpleFit("date", "version", false)
 
 Results are stored in the `date/version/SimpleFitEl`, `date/version/SimpleFitMu`, and `date/version/SimpleFitAll` folders.  
+
+
+### Pairing studies
+
+After merging channels, in root:
+
+    .L pairingStudies.C++
+    pairingStudies("date","version")
+
+Several properties are considered according to their pairing (only matched events) for the central MSDecays sample. Results are stored in the `date/version/PairingStudies` folder.
