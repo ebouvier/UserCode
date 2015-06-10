@@ -353,13 +353,13 @@ int pairingStudies(TString date = "", TString version = "")
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "NEMEFracJetJpsi", "#gamma energy fraction (jets with a J/#psi)", 50, 0., 1.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "NHadEFracJetJpsi", "Neutral hadron energy fraction (jets with a J/#psi)", 50, 0., 1.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "NEFracJetJpsi", "Neutral energy fraction (jets with a J/#psi)", 50, 0., 1.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtIsoLept", "p_{T}(isolated #mu) (GeV/c)", 30, 0., 300.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "EtaIsoLept", "#eta(isolated #mu)", 30, -3., 3.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PhiIsoLept", "#phi(isolated #mu)", 32, -3.2, 3.2);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "DPhiJpsiIsoLept", "#Delta#phi (J/#psi-isolated #mu)", 16, 0., 4.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "DRJpsiIsoLept", "#DeltaR (J/#psi-isolated #mu)", 20, 0., 5.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "MTriLept", "M(J/#psi+#mu) (GeV/c^{2})", 25, 0., 250.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtTriLept", "p_{T}(J/#psi+#mu) (GeV/c)", 25, 0., 250.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtIsoLept", "p_{T}(isolated lepton) (GeV/c)", 30, 0., 300.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "EtaIsoLept", "#eta(isolated lepton)", 30, -3., 3.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PhiIsoLept", "#phi(isolated lepton)", 32, -3.2, 3.2);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "DPhiJpsiIsoLept", "#Delta#phi (J/#psi-isolated lepton)", 16, 0., 4.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "DRJpsiIsoLept", "#DeltaR (J/#psi-isolated lepton)", 20, 0., 5.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "MTriLept", "M(J/#psi+l) (GeV/c^{2})", 25, 0., 250.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtTriLept", "p_{T}(J/#psi+l) (GeV/c)", 25, 0., 250.);
 
     delete tree;
     res->Close(); 
