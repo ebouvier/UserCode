@@ -87,7 +87,7 @@ Using `configPlotItMu.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItMu/
 
-To check the J/psi enriched samples, run:
+To check the J/\03C8 enriched samples, run:
 
     ./plotItJpsi.py --date 15AprYY --version X --channel muonic
 
@@ -161,6 +161,18 @@ This can be done in root:
 Results are stored in the `date/version/SimpleFitEl`, `date/version/SimpleFitMu`, and `date/version/SimpleFitAll` folders.  
 
 
+### Gaussian fit of the J/\u03C8 peak in data
+
+In root:
+    
+    .L fitMJpsi.C++
+    fitMJpsi("date","version","muon")
+    fitMJpsi("date","version","electron")
+    fitMJpsi("date","version","all")
+
+Results are store in the `date/version/MJpsi` directory.
+
+
 ### Pairing studies
 
 After merging channels, in root:
@@ -168,4 +180,4 @@ After merging channels, in root:
     .L pairingStudies.C++
     pairingStudies("date","version")
 
-Several properties are considered according to their pairing (only matched events) for the central MSDecays sample. Results are stored in the `date/version/PairingStudies` folder.
+Several J/\u03C8 properties are considered according to their pairing (only matched events) for the central MSDecays sample. Results are stored in the `date/version/PairingStudies` folder.
