@@ -66,34 +66,45 @@ In `root`:
 
 ### Run the analysis
 
-Modify `MyAnaEl.cpp` or `MyAnaMu.cpp` and copy it into `MyAna.cc`
-
-Run the analysis with:
+Run, for instance, the analysis with:
 
     ./run_ALL_MyAna.py --filelist filelists_date --version 1 --channel muonic --descr test
 
-It will run the analysis for all the files in the filelists repository and create rootfiles in:
+It will copy `MyAnaMu.cpp` as `MyAna.cc`, run the analysis for all the files in the filelists repository, and create rootfiles in:
 
     Date/vX/MyAnaMu/
+
+A log file names `date_version_channel_description.log` is stored in the `LogMyAna` repository.
 
 
 ### Get the stacked distributions 
 
 Then, you can run:
 
-    ./plotIt.py --date 15AprYY --version X --channel muonic
+    ./plotIt.py --date 15AprYY --version X --channel muonic --decay semi
 
-Using `configPlotItMu.yml`, stacked histograms will be stored in:
+Using `configPlotIt.template.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItMu/
 
 To check the J/#968; enriched samples, run:
 
-    ./plotItJpsi.py --date 15AprYY --version X --channel muonic
+    ./plotItJpsi.py --date 15AprYY --version X --channel muonic --decay semi
 
-Using `configPlotItJpsiMu.yml`, stacked histograms will be stored in:
+Using `configPlotItJpsi.template.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItJpsiMu/
+
+
+### Data comparison between both channels 
+
+If you have run the analysis for both semi-e and semi-mu channels, you can compare data with:
+
+    ./xcheckElMu.py --date 15AprYY --version X --decay semi
+
+Using `configXcheckElMu.template.yml`, distributions will be stored in:
+
+    Date/vX/XcheckElMu
 
 
 ### Get event yields
@@ -104,7 +115,7 @@ You can also get the number of events in:
 
 after running:
 
-    ./getNumberOfEvents.py --date 15AprYY --version X
+    ./getNumberOfEvents.py --date 15AprYY --version X --decay semi
 
 
 ### Add MC background and signal contributions
@@ -132,11 +143,9 @@ Rootfiles are stored in `date/version/MyAnaAll`
 This can be done in root:
 
     .L calib.C++
-    calib("date", "version", 0)
-    calib("date", "version", 1)
-    calib("date", "version", 2)
+    calib("date", "version", "decay", binning)
 
-Results are stored in the `date/version/CalibEl`, `date/version/CalibMu`, and `date/version/CalibAll` folders. Fits can be binned or unbinned.
+Binning can be 0 for an unbinned fit, 2 for a binned fit, and 1 in between. Results are stored in the `date/version/CalibEl`, `date/version/CalibMu`, and `date/version/CalibAll` folders. Fits can be binned or unbinned.
 
 
 ### Perform a combine template fit
@@ -144,9 +153,10 @@ Results are stored in the `date/version/CalibEl`, `date/version/CalibMu`, and `d
 This can be done in root:
 
     .L simultaneousFit.C++
-    simultaneousFit("date", "version", true)
-    simultaneousFit("date", "version", false)
+    simultaneousFit("date", "version", "decay", blind, nEvtEl, nEvtMu)
 
+If the `blind` parameter is set to `false`, the full stat central sample is used instead of data.
+If `nEvtEl` or `nEvtEl` is not provided, the number of events in the data samples are automatically used for the toys generation.
 Results are stored in the `date/version/SimultaneousFitEl`, `date/version/SimultaneousFitMu`, and `date/version/SimultaneousFitAll` folders.  
 
 
@@ -155,9 +165,10 @@ Results are stored in the `date/version/SimultaneousFitEl`, `date/version/Simult
 This can be done in root:
 
     .L simpleFit.C++
-    simpleFit("date", "version", true)
-    simpleFit("date", "version", false)
+    simpleFit("date", "version", "decay", blind, nEvtEl, nEvtMu)
 
+If the `blind` parameter is set to `false`, the full stat central sample is used instead of data.
+If `nEvtEl` or `nEvtEl` is not provided, the number of events in the data samples are automatically used for the toys generation.
 Results are stored in the `date/version/SimpleFitEl`, `date/version/SimpleFitMu`, and `date/version/SimpleFitAll` folders.  
 
 
@@ -166,9 +177,7 @@ Results are stored in the `date/version/SimpleFitEl`, `date/version/SimpleFitMu`
 In root:
     
     .L fitMJpsi.C++
-    fitMJpsi("date","version","muon")
-    fitMJpsi("date","version","electron")
-    fitMJpsi("date","version","all")
+    fitMJpsi("date","version","channel","decay")
 
 Results are store in the `date/version/MJpsi` directory.
 
@@ -178,6 +187,6 @@ Results are store in the `date/version/MJpsi` directory.
 After merging channels, in root:
 
     .L pairingStudies.C++
-    pairingStudies("date","version")
+    pairingStudies("date","version","decay")
 
 Several J/&#968; properties are considered according to their pairing (only matched events) for the central MSDecays sample. Results are stored in the `date/version/PairingStudies` folder.

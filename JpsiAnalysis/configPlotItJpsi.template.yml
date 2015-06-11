@@ -4,8 +4,8 @@ configuration:
   luminosity-label: '%lumi% fb^{-1} (8 TeV)'
   experiment: "CMS"
   extra-label: "Simulation preliminary"
-  root: 'MyAnaEl'
-  luminosity: 19690 
+  root: '@root@'
+  luminosity: @lumi@ 
   luminosity-error: 0.026
   error-fill-style: 3154
   error-fill-color: "#ee556270"
@@ -13,7 +13,7 @@ configuration:
   ratio-fit-error-fill-color: "#aa556270"
   ratio-fit-line-color: "#0B486B"  
   labels:
-    - text: 'e + Jets channel'
+    - text: '@text@'
       position: [0.22, 0.9]
       size: 24
 
@@ -156,7 +156,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi-cuts":
-    log-y : true
+    log-y: true
     show-ratio: true
     fit-ratio: false
     show-errors: true

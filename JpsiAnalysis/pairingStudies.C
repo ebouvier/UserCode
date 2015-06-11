@@ -284,13 +284,19 @@ int treatHisto(TTree* tree, TString outdir, TLatex* channel_tex,
 }
 
 //---------------------------------------------------------------
-int pairingStudies(TString date = "", TString version = "")
+int pairingStudies(TString date = "", TString version = "", TString decay = "")
 //---------------------------------------------------------------
 {  
-  if (date.Length() > 0 && version.Length() > 0)  {
+  if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     double lumi = 19.7;
-    TString channel = "l + Jets channel";
+    TString channel = " + Jets channel";
+    if (decay.Contains("semi", TString::kIgnoreCase))
+      channel = "e/#mu" + channel;
+    if (decay.Contains("di", TString::kIgnoreCase))
+      channel = "ee/#mu#mu/e#mu" + channel;
+    if (decay.Contains("all", TString::kIgnoreCase))
+      channel = "e/#mu/ee/#mu#mu/e#mu" + channel;
     TLatex* channel_tex = new TLatex(0.22, 0.9, channel);
     channel_tex->SetNDC(true);
     channel_tex->SetTextFont(43);

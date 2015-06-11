@@ -418,7 +418,7 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
 }
 
 //---------------------------------------------------------------
-double *treat(TString fileData, double lumi, vector<double> mtop, vector<double> xlim, int binned, TString date, TString version) 
+double *treat(TString fileData, double lumi, TString decay, vector<double> mtop, vector<double> xlim, int binned, TString date, TString version) 
 //---------------------------------------------------------------
 {
   TString indir = date+"/v"+version+"/";
@@ -427,17 +427,32 @@ double *treat(TString fileData, double lumi, vector<double> mtop, vector<double>
   if (fileData.Contains("ElectronHad")) {
     outdir += "CalibEl/";
     indir += "MyAnaEl/";
-    channel = "e"+channel;
+    if (decay.Contains("semi", TString::kIgnoreCase))
+      channel = "e"+channel;
+    if (decay.Contains("di", TString::kIgnoreCase))
+      channel = "ee/e#mu"+channel;
+    if (decay.Contains("all", TString::kIgnoreCase))
+      channel = "e/ee/e#mu"+channel;
   }
   if (fileData.Contains("MuHad")) {
     outdir += "CalibMu/";
     indir += "MyAnaMu/";
-    channel = "#mu"+channel;
+    if (decay.Contains("semi", TString::kIgnoreCase))
+      channel = "#mu"+channel;
+    if (decay.Contains("di", TString::kIgnoreCase))
+      channel = "#mu#mu/#mue"+channel;
+    if (decay.Contains("all", TString::kIgnoreCase))
+      channel = "#mu/#mu#mu/#mue"+channel;
   }
   if (fileData.Contains("Run2012")) {
     outdir += "CalibAll/";
     indir += "MyAnaAll/";
-    channel = "l"+channel;
+    if (decay.Contains("semi", TString::kIgnoreCase))
+      channel = "e/#mu"+channel;
+    if (decay.Contains("di", TString::kIgnoreCase))
+      channel = "ee/#mu#mu/e#mu"+channel;
+    if (decay.Contains("all", TString::kIgnoreCase))
+      channel = "e/#mu/ee/#mu#mu/e#mu"+channel;
   }
   gROOT->ProcessLine(".! mkdir "+outdir);
   TLatex* channel_tex = new TLatex(0.22, 0.9, channel);
@@ -660,10 +675,10 @@ double *combi(double mt1, double dmt1, double mt2, double dmt2)
 }
 
 //---------------------------------------------------------------
-int calib(TString date = "", TString version = "", int binned = 0)
+int calib(TString date = "", TString version = "", TString decay = "", int binned = 0)
 //---------------------------------------------------------------
 {  
-  if (date.Length() > 0 && version.Length() > 0)  {
+  if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     cout << "/!\\ you should have run mergeMC.C before \n" << endl;
 
@@ -686,18 +701,18 @@ int calib(TString date = "", TString version = "", int binned = 0)
     my_style->cd();
     gROOT->SetBatch(true);
 
-    double *mtop_el = treat("ElectronHadASingleElectronBCD.root", 19.7, mtop, xlim, binned, date, version); 
+    double *mtop_el = treat("ElectronHadASingleElectronBCD.root", 19.7, decay, mtop, xlim, binned, date, version); 
     getchar();
-    double *mtop_mu = treat("MuHadASingleMuBCD.root", 19.7, mtop, xlim, binned, date, version); 
+    double *mtop_mu = treat("MuHadASingleMuBCD.root", 19.7, decay, mtop, xlim, binned, date, version); 
     getchar();
-    double *mtop_all = treat("Run2012ABCD.root", 19.7, mtop, xlim, binned, date, version); 
+    double *mtop_all = treat("Run2012ABCD.root", 19.7, decay, mtop, xlim, binned, date, version); 
 
     cout << "\n===================================================\n" <<endl;
 
     double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result1 = TString::Format("Combining e + Jets and #mu + Jets channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
+    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
     cout << result1 << endl;
-    TString result2 = TString::Format("Combining e + Jets and #mu + Jets channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
+    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
     cout << result2 << endl;
    
     return 0;

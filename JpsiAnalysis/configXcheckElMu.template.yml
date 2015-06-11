@@ -20,7 +20,7 @@ configuration:
 files:
   'MuHadASingleMuBCD.root':
     type: data
-    legend: "#mu + Jets channel"
+    legend: "@muChannel@"
     marker-color: 46
     line-color: 46
     line-width: 3
@@ -29,7 +29,7 @@ files:
     type: signal
     cross-section: 1
     generated-events: 19690 
-    legend: "e + Jets channel"
+    legend: "@elChannel@"
     marker-type: 20
     marker-color: 38
     marker-size: 1
@@ -60,11 +60,11 @@ plots:
   "NMuons-cuts":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "Number of isolated #mu (before cut)"
+    x-axis: "Number of isolated #mu (before cut)"
   "NElectrons-cuts":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "Number of isolated e (before cut)"
+    x-axis: "Number of isolated e (before cut)"
   "NJets20-cuts":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
@@ -91,25 +91,25 @@ plots:
   "NIsoLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "Number of isolated leptons"
+    x-axis: "Number of leading leptons"
   "PtIsoLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "p_{T}(isolated lepton) (GeV/c)"
+    x-axis: "p_{T}(leading lepton) (GeV/c)"
   "EtaIsoLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "#eta(isolated lepton)"
+    x-axis: "#eta(leading lepton)"
   "PhiIsoLept":
     show-ratio: false
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "#phi(isolated lepton)"
+    x-axis: "#phi(leading lepton)"
   "PfIsoIsoLept":
     show-ratio: false
     x-axis-range: [0, 0.2]
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "lepton isolation"
+    x-axis: "lepton isolation"
 
   "NJets20":
     show-ratio: false
@@ -199,12 +199,12 @@ plots:
     y-axis-range: [0, 60]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "#Delta#phi (J/#psi-isolated lepton)"
+    x-axis: "#Delta#phi (J/#psi-leading lepton)"
   "DRJpsiIsoLept":
     y-axis-range: [0, 60]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "#DeltaR (J/#psi-isolated lepton)"
+    x-axis: "#DeltaR (J/#psi-leading lepton)"
   
   "PtMuJpsi":
     show-ratio: false
@@ -275,11 +275,11 @@ plots:
   "MTriLept-allPair":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "M(J/#psi+l) (GeV/c^{2})"
+    x-axis: "M(J/#psi+l) (GeV/c^{2})"
   "PtTriLept":
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis-title: "p_{T}(J/#psi+l) (GeV/c)"
+    x-axis: "p_{T}(J/#psi+l) (GeV/c)"
     
   "bjjMass":
     show-ratio: false

@@ -285,10 +285,10 @@ void cms_myStyle(double lumi = 19.7,bool isData = true){
 }
 
 //---------------------------------------------------------------
-int fitMJpsi(TString date = "", TString version = "", TString fileData = "")
+int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TString decay = "")
 //---------------------------------------------------------------
 {  
-  if (date.Length() > 0 && version.Length() > 0)  {
+  if (date.Length() > 0 && version.Length() > 0 && fileData.Length() > 0 && decay.Length() > 0)  {
 
     vector<double> xlim; xlim.push_back(3.02); xlim.push_back(3.16);
     double lumi = 19.7;
@@ -304,20 +304,35 @@ int fitMJpsi(TString date = "", TString version = "", TString fileData = "")
     if (fileData.Contains("el", TString::kIgnoreCase)) {
       indir += "MyAnaEl/";
       fileData = indir+"ElectronHadASingleElectronBCD.root";
-      channel = "e"+channel;
       outFile += "GaussianBinnedFit_MuChannel";
+      if (decay.Contains("semi", TString::kIgnoreCase))
+          channel = "e"+channel;
+      if (decay.Contains("di", TString::kIgnoreCase))
+          channel = "ee/e#mu"+channel;
+      if (decay.Contains("all", TString::kIgnoreCase))
+          channel = "e/ee/e#mu"+channel;
     }
     if (fileData.Contains("mu", TString::kIgnoreCase)) {
       indir += "MyAnaMu/";
       fileData = indir+"MuHadASingleMuBCD.root";
-      channel = "#mu"+channel;
       outFile += "GaussianBinnedFit_ElChannel";
+      if (decay.Contains("semi", TString::kIgnoreCase))
+        channel = "#mu"+channel;
+      if (decay.Contains("di", TString::kIgnoreCase))
+        channel = "#mu#mu/#mue"+channel;
+      if (decay.Contains("all", TString::kIgnoreCase))
+        channel = "#mu/#mu#mu/#mue"+channel;
     }
     if (fileData.Contains("all", TString::kIgnoreCase)) {
       indir += "MyAnaAll/";
-      channel = "l"+channel;
       fileData = indir+"Run2012ABCD.root";
       outFile += "GaussianBinnedFit_AllChannel";
+      if (decay.Contains("semi", TString::kIgnoreCase))
+        channel = "e/#mu"+channel;
+      if (decay.Contains("di", TString::kIgnoreCase))
+        channel = "ee/#mu#mu/e#mu"+channel;
+      if (decay.Contains("all", TString::kIgnoreCase))
+        channel = "e/#mu/ee/#mu#mu/e#mu"+channel;
     }
     gROOT->ProcessLine(".! mkdir "+outdir);
     TLatex* channel_tex = new TLatex(0.22, 0.9, channel);

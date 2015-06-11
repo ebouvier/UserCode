@@ -6,12 +6,13 @@ from optparse import OptionParser
 parser = OptionParser()
 parser.add_option("-d", "--date", dest="date", type="string", default=False, help="date when MyAna was run")
 parser.add_option("-v", "--version", dest="version", type="string", default=False, help="version of the day")
+parser.add_option("-t", "--decay", dest="decay", type="string", default=False, help="semi, di, or all leptonic")
 (options, args) = parser.parse_args()
 
 from ROOT import *
 
-if not options.date or not options.version:
-    parser.error("you must specify a date and a version")
+if not options.date or not options.version or not options.decay:
+    parser.error("you must specify a date, a version, and a decay type")
 
 dir = options.date
 if not os.path.isdir(dir):
@@ -191,7 +192,12 @@ tex.write("\\begin{tabular}{|l||c|c|} \n")
 tex.write("\\hline\n")
 tex.write("\multirow{2}{*}{Process} & \\multicolumn{2}{c|}{Number of events} \\\\ \n")
 tex.write("\\cline{2-3}\n")
-tex.write(" & $\\mu+\\text{jets}$ channel & $\\text{e}+\\text{jets}$ channel \\\\ \n")
+if options.decay.lower().count("semi"):
+    tex.write(" & $\\mu+\\text{jets}$ channel & $\\text{e}+\\text{jets}$ channel \\\\ \n")
+if options.decay.lower().count("di"):
+    tex.write(" & $\\mu\\mu/\\mu\\text{e}+\\text{jets}$ channel & $\\text{ee}/\\text{e}\\mu+\\text{jets}$ channel \\\\ \n")
+if options.decay.lower().count("all"):
+    tex.write(" & $\\mu/\\mu\\mu/\\mu\\text{e}+\\text{jets}$ channel & $\\text{e}/\\text{ee}/\\text{e}\\mu+\\text{jets}$ channel \\\\ \n")
 tex.write("\\hline\\hline\n")
 
 NSim = {"mu": 0., "el": 0.}

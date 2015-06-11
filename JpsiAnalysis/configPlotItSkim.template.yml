@@ -13,7 +13,7 @@ configuration:
   ratio-fit-error-fill-color: "#aa556270"
   ratio-fit-line-color: "#0B486B"  
   labels:
-    - text: 'l + Jets channel'
+    - text: '@text@'
       position: [0.22, 0.9]
       size: 24
 
@@ -554,14 +554,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
-    x-title: "M(J/#psi+l) (GeV/c^{2})"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtTriLept":
-    x-title: "p_{T}(J/#psi+l) (GeV/c)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"

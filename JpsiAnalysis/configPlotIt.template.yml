@@ -4,8 +4,8 @@ configuration:
   luminosity-label: '%lumi% fb^{-1} (8 TeV)'
   experiment: "CMS"
   extra-label: "Simulation preliminary"
-  root: 'MyAnaMu'
-  luminosity: 19705 
+  root: '@root@'
+  luminosity: @lumi@ 
   luminosity-error: 0.026
   error-fill-style: 3154
   error-fill-color: "#ee556270"
@@ -13,74 +13,14 @@ configuration:
   ratio-fit-error-fill-color: "#aa556270"
   ratio-fit-line-color: "#0B486B"  
   labels:
-    - text: '#mu + Jets channel'
+    - text: '@text@'
       position: [0.22, 0.9]
       size: 24
 
 files:
-
-  'TTJets_MSDecays_JpsiFilter_166_5.root':
-    type: signal
-    cross-section: 245.8
-    generated-events: 2537451 
-    line-color: 419
-    line-type: 1 
-    line-width: 3
-    legend: 'm_{top}=166.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_169_5.root':
-    type: signal
-    cross-section: 245.8
-    generated-events: 1909822
-    line-color: 862
-    line-type: 1 
-    line-width: 3
-    legend: 'm_{top}=169.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_171_5.root':
-    type: signal
-    cross-section: 245.8
-    generated-events: 1803768
-    line-color: 602
-    line-type: 1 
-    line-width: 3
-    legend: 'm_{top}=171.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_172_5.root':
-    type: signal
-    cross-section: 245.8
-    generated-events: 4037468
-    line-color: 877
-    line-type: 1 
-    line-width: 3
-    legend: 'm_{top}=172.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_173_5.root':
-    type: signal
-    cross-section: 245.8
-    generated-events: 1775180
-    line-color: 907
-    line-type: 1 
-    line-width: 3
-    legend: 'm_{top}=173.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_175_5.root':
-    type: signal
-    cross-section: 245.8 
-    generated-events: 2878798
-    line-color: 807
-    line-type: 1
-    line-width: 3
-    legend: 'm_{top}=175.5 GeV/c^{2}'
-
-  'TTJets_MSDecays_JpsiFilter_178_5.root':
-    type: signal
-    cross-section: 245.8 
-    generated-events: 1836496
-    line-color: 800
-    line-type: 1
-    line-width: 3
-    legend: 'm_{top}=178.5 GeV/c^{2}'
+  '@dataFile@':
+    type: data
+    legend: "Data"
 
   'TTJets_SemiLeptMGDecays.root':
     type: mc
@@ -88,7 +28,7 @@ files:
     generated-events: 31004465
     legend: 't#bar{t} semi-lept.'
     fill-color: 2 
-    order: 2
+    order: 7
 
   'TTJets_FullLeptMGDecays.root':
     type: mc
@@ -96,7 +36,7 @@ files:
     generated-events: 12011428
     legend: 't#bar{t} dilept.'
     fill-color: 3 
-    order: 1
+    order: 6
 
   'TTJets_HadronicMGDecays.root':
     type: mc
@@ -104,6 +44,157 @@ files:
     generated-events: 31223821
     legend: 't#bar{t} hadronic'
     fill-color: 4 
+    order: 5
+
+  'T_s-channel.root':
+    type: mc
+    cross-section: 3.79
+    generated-events: 259961
+    group: sto
+    order: 4
+
+  'T_t-channel.root':
+    type: mc
+    cross-section: 56.4
+    generated-events: 3758227
+    group: sto
+    order: 4
+
+  'T_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 497658
+    group: sto
+    order: 4
+
+  'Tbar_s-channel.root':
+    type: mc
+    cross-section: 1.76
+    generated-events: 139974
+    group: sto
+    order: 4
+
+  'Tbar_t-channel.root':
+    type: mc
+    cross-section: 30.7
+    generated-events: 1935072
+    group: sto
+    order: 4
+
+  'Tbar_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 493460
+    group: sto
+    order: 4
+
+  'TTWJets.root':
+    type: mc
+    cross-section: 0.2149
+    generated-events: 196046
+    group: tto
+    order: 3
+
+  'TTWWJets.root':
+    type: mc
+    cross-section: 0.002037
+    generated-events: 217820
+    group: tto
+    order: 3
+
+  'TTZJets.root':
+    type: mc
+    cross-section: 0.172
+    generated-events: 210160
+    group: tto
+    order: 3
+
+  'WW-incl.root':
+    type: mc
+    cross-section: 56.0
+##cross-section: 54.838
+    generated-events: 10000431
+    group: dib
+    order: 2
+
+  'WZ-incl.root':
+    type: mc
+    cross-section: 33.6
+##cross-section: 33.21
+    generated-events: 10000283
+    group: dib
+    order: 2
+
+  'ZZ-incl.root':
+    type: mc
+    cross-section: 7.6
+##cross-section: 17.654
+    generated-events: 9799908
+    group: dib
+    order: 2
+
+  'DY1JetsToLL_M-50.root':
+    type: mc
+    cross-section: 666.3
+##cross-section: 561.0
+    generated-events: 24045248
+    group: zll
+    order: 1
+
+  'DY2JetsToLL_M-50.root':
+    type: mc
+    cross-section: 215.0
+##cross-section: 181.0
+    generated-events: 21852156
+    group: zll
+    order: 1
+
+  'DY3JetsToLL_M-50.root':
+    type: mc
+    cross-section: 60.7
+##cross-section: 51.1
+    generated-events: 11015445
+    group: zll
+    order: 1
+
+  'DY4JetsToLL_M-50.root':
+    type: mc
+    cross-section: 27.3
+##cross-section: 23.04
+    generated-events: 6402827
+    group: zll
+    order: 1
+
+  'W1JetsToLNu.root':
+    type: mc
+    cross-section: 6662.8 
+##cross-section: 5562.36 
+    generated-events: 23141598
+    group: wln
+    order: 0
+
+  'W2JetsToLNu.root':
+    type: mc
+    cross-section: 2159.2
+##cross-section: 1802.62
+    generated-events: 34044921
+    group: wln
+    order: 0
+
+  'W3JetsToLNu.root':
+    type: mc
+    cross-section: 640.4
+##cross-section: 534.604
+    generated-events: 15539503
+    group: wln
+    order: 0
+
+  'W4JetsToLNu.root':
+    type: mc
+    cross-section: 264.0
+##cross-section: 220.434
+    generated-events: 13382803
+    group: wln
     order: 0
 
 plots:
@@ -124,6 +215,13 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-range: [10, 4e3]
     y-axis-show-zero: true
+  "Decay":
+    log-y: true
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-show-zero: true
 
   "NMuons-cuts":
     show-ratio: true
@@ -136,6 +234,21 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets20-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50-cuts":
     show-ratio: true
     fit-ratio: false
     show-errors: true
@@ -166,7 +279,23 @@ plots:
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-cuts-zoom":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts-zoom":
+    log-x: true
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept-cuts":
     show-ratio: true
     fit-ratio: false
     show-errors: true
@@ -178,7 +307,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":
-    x-range-axis: [0, 250]
+    x-axis-range: [0, 250]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -483,3 +612,24 @@ plots:
 
 legend:
   position: [0.72, 0.55, 0.9, 0.9]
+
+groups:
+  sto:
+    legend: 'single top'
+    fill-color: 28
+
+  tto:
+    legend: 't#bar{t} other'
+    fill-color: 625
+
+  dib:
+    legend: 'WW, WZ, ZZ'
+    fill-color: 5
+
+  zll:
+    legend: 'Z + jets'
+    fill-color: 870
+
+  wln:
+    legend: 'W #rightarrow l#nu + jets'
+    fill-color: 33

@@ -13,7 +13,7 @@ configuration:
   ratio-fit-error-fill-color: "#aa556270"
   ratio-fit-line-color: "#0B486B"  
   labels:
-    - text: 'l + Jets channel'
+    - text: '@text@'
       position: [0.22, 0.9]
       size: 24
 
@@ -487,3 +487,4 @@ plots:
 
 legend:
   position: [0.72, 0.55, 0.9, 0.9]
+

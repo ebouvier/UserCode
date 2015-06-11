@@ -282,8 +282,8 @@ void cms_myStyle(double lumi = 19.7,bool isData = true){
 }
 
 //---------------------------------------------------------------
-double *treat(TString inDir, TString fileData, double lumi, int nevt, double *mtop, 
-    double *mtlim, vector<double> mtoys, const unsigned int nsample, bool blind) 
+double *treat(TString inDir, TString fileData, double lumi, TString decay,
+    int nevt, double *mtop, double *mtlim, vector<double> mtoys, const unsigned int nsample, bool blind) 
   //---------------------------------------------------------------
 {
 
@@ -317,7 +317,12 @@ double *treat(TString inDir, TString fileData, double lumi, int nevt, double *mt
 
   if (fileData.Contains("ElectronHad")) {
     outDir += "SimultaneousFitEl/";
-    channel = "e"+channel;
+    if (decay.Contains("semi", TString::kIgnoreCase))
+      channel = "e"+channel;
+    if (decay.Contains("di", TString::kIgnoreCase))
+      channel = "ee/e#mu"+channel;
+    if (decay.Contains("all", TString::kIgnoreCase))
+      channel = "e/ee/e#mu"+channel;
     //---- simultaneous fit parameters
     p0_mean_gaus_i = -9.; p0_mean_gaus_c = -7; p0_mean_gaus_s = -5.;
     p1_mean_gaus_i = 0.45; p1_mean_gaus_c = 0.47; p1_mean_gaus_s = 0.49;
@@ -334,7 +339,12 @@ double *treat(TString inDir, TString fileData, double lumi, int nevt, double *mt
   }
   if (fileData.Contains("MuHad")) {
     outDir += "SimultaneousFitMu/";
-    channel = "#mu"+channel;
+    if (decay.Contains("semi", TString::kIgnoreCase))
+      channel = "#mu"+channel;
+    if (decay.Contains("di", TString::kIgnoreCase))
+      channel = "#mu#mu/#mue"+channel;
+    if (decay.Contains("all", TString::kIgnoreCase))
+      channel = "#mu/#mu#mu/#mue"+channel;
     //---- simultaneous fit parameters
     p0_mean_gaus_i = -4.; p0_mean_gaus_c = 0.; p0_mean_gaus_s = 4.;
     p1_mean_gaus_i = 0.41; p1_mean_gaus_c = 0.43; p1_mean_gaus_s = 0.45;
@@ -351,7 +361,12 @@ double *treat(TString inDir, TString fileData, double lumi, int nevt, double *mt
   }
   if (fileData.Contains("Run")) {
     outDir += "SimultaneousFitAll/";
-    channel = "l"+channel;
+    if (decay.Contains("semi", TString::kIgnoreCase))
+      channel = "e/#mu"+channel;
+    if (decay.Contains("di", TString::kIgnoreCase))
+      channel = "ee/#mu#mu/e#mu"+channel;
+    if (decay.Contains("all", TString::kIgnoreCase))
+      channel = "e/#mu/ee/#mu#mu/e#mu"+channel;
     //---- simultaneous fit parameters
     p0_mean_gaus_i = -8.; p0_mean_gaus_c = -2.; p0_mean_gaus_s = 4.;
     p1_mean_gaus_i = 0.41; p1_mean_gaus_c = 0.44; p1_mean_gaus_s = 0.47;
@@ -1618,11 +1633,11 @@ double *combi(double mt1, double dmt1, double mt2, double dmt2)
 }
 
 //---------------------------------------------------------------
-int simultaneousFit(TString date = "", TString version = "", bool blind = true, 
-    int nEvtEl = -1, int nEvtMu = -1)
+int simultaneousFit(TString date = "", TString version = "", TString decay = "",
+    bool blind = true, int nEvtEl = -1, int nEvtMu = -1)
 //---------------------------------------------------------------
 {  
-  if (date.Length() > 0 && version.Length() > 0)  {
+  if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     cout << "/!\\ you should have run mergeMC.C and mergeChannels.py before \n" << endl; 
 
@@ -1657,9 +1672,9 @@ int simultaneousFit(TString date = "", TString version = "", bool blind = true,
     else  
       cout << "Running the unblinded analysis: \"data\" is Run2012ABCD" << endl; 
     cout << "Performing a simultaneous unbinned likelihood fit (gaussian+gamma function) for M_{t} = "<< mtop[0] << ", " << mtop[1] << ", " << mtop[2] << ", " << mtop[3] << ", " << mtop[4] << ", " << mtop [5] << " GeV/c^{2}" << endl;
-    cout << "Toys in the e + Jets channel: " << nsample << " toys of Poisson(" << nevt[0] << ") events" << endl;
-    cout << "Toys in the #mu + Jets channel: " << nsample << " toys of Poisson(" << nevt[1] << ") events" << endl;
-    cout << "Toys in the l + Jets channel: " << nsample << " toys of Poisson(" << nevt[2] << ") events" << endl;
+    cout << "Toys for leading e type: " << nsample << " toys of Poisson(" << nevt[0] << ") events" << endl;
+    cout << "Toys for leading #mu type: " << nsample << " toys of Poisson(" << nevt[1] << ") events" << endl;
+    cout << "Toys both types: " << nsample << " toys of Poisson(" << nevt[2] << ") events" << endl;
     cout << "for M_{t} = " << mtoys[0] << ", " << mtoys[1] << ", " << mtoys[2] << ", " << mtoys[3] << ", " << mtoys[4] << ", " << mtoys[5] << ", " << mtoys[6] << " GeV/c^{2}" << endl;
 
     cout << "\n===================================================\n" <<endl;
@@ -1670,16 +1685,16 @@ int simultaneousFit(TString date = "", TString version = "", bool blind = true,
     my_style->cd();
     gROOT->SetBatch(true);
 
-    double *mtop_el = treat(inDir[0], fileData[0], 19.7, nevt[0], mtop, mtlim, mtoys, nsample, blind); 
-    double *mtop_mu = treat(inDir[1], fileData[1], 19.7, nevt[1], mtop, mtlim, mtoys, nsample, blind); 
-    double *mtop_all = treat(inDir[2], fileData[2], 19.7, nevt[2], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_el = treat(inDir[0], fileData[0], 19.7, decay, nevt[0], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_mu = treat(inDir[1], fileData[1], 19.7, decay, nevt[1], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_all = treat(inDir[2], fileData[2], 19.7, decay, nevt[2], mtop, mtlim, mtoys, nsample, blind); 
 
     cout << "\n===================================================\n" <<endl;
 
     double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result1 = TString::Format("Combining e + Jets and #mu + Jets channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
+    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
     cout << result1 << endl;
-    TString result2 = TString::Format("Combining e + Jets and #mu + Jets channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
+    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
     cout << result2 << endl;
 
     return 0;

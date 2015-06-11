@@ -100,13 +100,13 @@ void MyAna::Loop()
   _h_cuts_jpsi_lOverSig->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
 
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
-  _h_isoLept_n->SetXTitle("Number of isolated lepton");
+  _h_isoLept_n->SetXTitle("Number of leading leptons");
   TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 30, 0., 300.);   
-  _h_isoLept_pt->SetXTitle("p_{T}(isolated lepton) (GeV/c)");
+  _h_isoLept_pt->SetXTitle("p_{T}(leading lepton) (GeV/c)");
   TH1F* _h_isoLept_eta            = new TH1F("EtaIsoLept", "EtaIsoLept", 30, -3., 3.); 
-  _h_isoLept_eta->SetXTitle("#eta(isolated lepton)");
+  _h_isoLept_eta->SetXTitle("#eta(leading lepton)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
-  _h_isoLept_phi->SetXTitle("#phi(isolated lepton)");
+  _h_isoLept_phi->SetXTitle("#phi(leading lepton)");
   TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 50, 0., 0.5);  
   _h_isoLept_pfiso->SetXTitle("lepton isolation");
 
@@ -217,9 +217,9 @@ void MyAna::Loop()
   _h_jpsi_jetPtFrac->SetXTitle("p_{T}(J/#psi)/p_{T}(jet)");
 
   TH1F* _h_jpsi_dPhiLept          = new TH1F("DPhiJpsiIsoLept", "DPhiJpsiIsoLept", 16, 0., 4.);
-  _h_jpsi_dPhiLept->SetXTitle("#Delta#phi (J/#psi-isolated lepton)");
+  _h_jpsi_dPhiLept->SetXTitle("#Delta#phi (J/#psi-leading lepton)");
   TH1F* _h_jpsi_dRLept            = new TH1F("DRJpsiIsoLept", "DRJpsiIsoLept", 20, 0., 5.);
-  _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-isolated lepton)");
+  _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading lepton)");
 
   TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 15, 0., 150.);  
   _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");

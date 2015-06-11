@@ -69,6 +69,13 @@ void MyAna::Loop()
   _h_iCut->SetBarOffset(0.125);
   TH1F* _h_weight = new TH1F("Weight", "Weight", 2000, 0., 2.);
   _h_weight->SetXTitle("Weight");
+  TH1F* _h_decay = new TH1F("Decay","Decay", 3, 0., 3.);
+  _h_decay->SetOption("bar");
+  _h_decay->SetBarWidth(0.75);
+  _h_decay->SetBarOffset(0.125);
+  _h_decay->GetXaxis()->SetBinLabel(1, "#mu + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(2, "#mu#mu + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(3, "#mue + Jets");
 
   float _weight = 1.;
 
@@ -101,16 +108,16 @@ void MyAna::Loop()
   TH1F* _h_cuts_jpsi_lOverSig_zoom = new TH1F("LOverSigmaJpsi-cuts-zoom", "LOverSigmaJpsi-cuts-zoom", 200, 0., 1000.);
   _h_cuts_jpsi_lOverSig_zoom->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
   TH1F* _h_cuts_jpsi_dRLept      = new TH1F("DRJpsiIsoLept-cuts", "DRJpsiIsoLept-cuts", 100, 0., 5.);
-  _h_cuts_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-isolated #mu)");
+  _h_cuts_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading #mu) (before cut)");
 
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
-  _h_isoLept_n->SetXTitle("Number of isolated #mu");
+  _h_isoLept_n->SetXTitle("Number of leading #mu");
   TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 30, 0., 300.);   
-  _h_isoLept_pt->SetXTitle("p_{T}(isolated #mu) (GeV/c)");
+  _h_isoLept_pt->SetXTitle("p_{T}(leading #mu) (GeV/c)");
   TH1F* _h_isoLept_eta            = new TH1F("EtaIsoLept", "EtaIsoLept", 30, -3., 3.); 
-  _h_isoLept_eta->SetXTitle("#eta(isolated #mu)");
+  _h_isoLept_eta->SetXTitle("#eta(leading #mu)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
-  _h_isoLept_phi->SetXTitle("#phi(isolated #mu)");
+  _h_isoLept_phi->SetXTitle("#phi(leading #mu)");
   TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 50, 0., 0.5);  
   _h_isoLept_pfiso->SetXTitle("#mu isolation");
 
@@ -221,9 +228,9 @@ void MyAna::Loop()
   _h_jpsi_jetPtFrac->SetXTitle("p_{T}(J/#psi)/p_{T}(jet)");
 
   TH1F* _h_jpsi_dPhiLept          = new TH1F("DPhiJpsiIsoLept", "DPhiJpsiIsoLept", 16, 0., 4.);
-  _h_jpsi_dPhiLept->SetXTitle("#Delta#phi (J/#psi-isolated #mu)");
+  _h_jpsi_dPhiLept->SetXTitle("#Delta#phi (J/#psi-leading #mu)");
   TH1F* _h_jpsi_dRLept            = new TH1F("DRJpsiIsoLept", "DRJpsiIsoLept", 20, 0., 5.);
-  _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-isolated #mu)");
+  _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading #mu)");
 
   TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 15, 0., 150.);  
   _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");
@@ -567,6 +574,7 @@ void MyAna::Loop()
     
     bool isSemiLept = false;
     bool isDiLept = false;
+    bool isDiLept_same = false;
 
     if (ngoodmuon == 1 && nsoftmuon == 0 && nsoftelectron == 0) {
       isSemiLept = true;
@@ -586,6 +594,7 @@ void MyAna::Loop()
         TLorentzVector sum = *sum1 + *sum2;
         if (sum.M() > 20 && (sum.M() <= 76 || sum.M() > 106)) {
           isDiLept = true;
+          isDiLept_same = true;
           break;
         }
       }
@@ -609,8 +618,8 @@ void MyAna::Loop()
     }
 
     // if (!isSemiLept) continue;
-    // if (!isDiLept) continue;
-    if (!isSemiLept && !isDiLept) continue;
+    if (!isDiLept) continue;
+    // if (!isSemiLept && !isDiLept) continue;
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e/#mu veto"; ++iCut; // no SF 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "e/#mu veto");
@@ -722,6 +731,15 @@ void MyAna::Loop()
     //======================================================
     // Plots
     //======================================================
+
+    if (isSemiLept)
+      _h_decay->Fill(0.5, _weight);
+    if (isDiLept) {
+      if (isDiLept_same)
+        _h_decay->Fill(1.5, _weight);
+      else
+        _h_decay->Fill(2.5, _weight);
+    }
 
     if (_isMC)
       _h_weight->Fill(_weight);
