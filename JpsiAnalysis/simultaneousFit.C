@@ -282,7 +282,7 @@ void cms_myStyle(double lumi = 19.7,bool isData = true){
 }
 
 //---------------------------------------------------------------
-double *treat(TString inDir, TString fileData, double lumi, TString decay,
+double *treat(TString version, TString inDir, TString fileData, double lumi, TString decay,
     int nevt, double *mtop, double *mtlim, vector<double> mtoys, const unsigned int nsample, bool blind) 
   //---------------------------------------------------------------
 {
@@ -298,7 +298,10 @@ double *treat(TString inDir, TString fileData, double lumi, TString decay,
   RooMsgService::instance().setGlobalKillBelow(RooFit::FATAL);
 
   TString outDir = inDir;
-  outDir.Remove(12,outDir.Length());
+  if (version.Length() < 2)
+    outDir.Remove(11,outDir.Length());
+  else
+    outDir.Remove(12,outDir.Length());
   TString channel = " + Jets channel";
 
   //---- simultaneous fit parameters
@@ -1685,9 +1688,9 @@ int simultaneousFit(TString date = "", TString version = "", TString decay = "",
     my_style->cd();
     gROOT->SetBatch(true);
 
-    double *mtop_el = treat(inDir[0], fileData[0], 19.7, decay, nevt[0], mtop, mtlim, mtoys, nsample, blind); 
-    double *mtop_mu = treat(inDir[1], fileData[1], 19.7, decay, nevt[1], mtop, mtlim, mtoys, nsample, blind); 
-    double *mtop_all = treat(inDir[2], fileData[2], 19.7, decay, nevt[2], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_el = treat(version, inDir[0], fileData[0], 19.7, decay, nevt[0], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_mu = treat(version, inDir[1], fileData[1], 19.7, decay, nevt[1], mtop, mtlim, mtoys, nsample, blind); 
+    double *mtop_all = treat(version, inDir[2], fileData[2], 19.7, decay, nevt[2], mtop, mtlim, mtoys, nsample, blind); 
 
     cout << "\n===================================================\n" <<endl;
 

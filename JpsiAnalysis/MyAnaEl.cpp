@@ -574,7 +574,7 @@ void MyAna::Loop()
       isSemiLept = true;
       ++counter[3];
     }
-    else if (MET_Pt > 40) {
+    else { // if (MET_Pt > 40) {
       for (unsigned int iel = 0; iel < nsoftelectron; iel++) {
         float elPt = GetP4(electronloose_4vector,indsoftel[iel])->Pt();
         float elEta = GetP4(electronloose_4vector,indsoftel[iel])->Eta();
@@ -612,8 +612,8 @@ void MyAna::Loop()
     }
 
     // if (!isSemiLept) continue;
-    if (!isDiLept) continue;
-    // if (!isSemiLept && !isDiLept) continue;
+    // if (!isDiLept) continue;
+    if (!isSemiLept && !isDiLept) continue;
 
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e/#mu veto"; ++iCut; // no SF 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "e/#mu veto");
@@ -755,12 +755,10 @@ void MyAna::Loop()
     // iso lepton :
     //--------
 
-    for(unsigned int j = 0; j < ngoodelectron; ++j) {
-      _h_isoLept_pt->Fill(GetP4(electronloose_4vector,indgoodel[j])->Pt(), _weight);
-      _h_isoLept_eta->Fill(GetP4(electronloose_4vector,indgoodel[j])->Eta(), _weight);
-      _h_isoLept_phi->Fill(GetP4(electronloose_4vector,indgoodel[j])->Phi(), _weight);
-      _h_isoLept_pfiso->Fill(electronloose_rhoCorrectedRelIsolation[indgoodel[j]], _weight); 
-    }    
+    _h_isoLept_pt->Fill(GetP4(electronloose_4vector,indgoodel[0])->Pt(), _weight);
+    _h_isoLept_eta->Fill(GetP4(electronloose_4vector,indgoodel[0])->Eta(), _weight);
+    _h_isoLept_phi->Fill(GetP4(electronloose_4vector,indgoodel[0])->Phi(), _weight);
+    _h_isoLept_pfiso->Fill(electronloose_rhoCorrectedRelIsolation[indgoodel[0]], _weight); 
     _h_isoLept_n->Fill((float)ngoodelectron, _weight);
 
     // MET :

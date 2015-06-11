@@ -87,7 +87,7 @@ Using `configPlotIt.template.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItMu/
 
-To check the J/#968; enriched samples, run:
+To check the J/&#968; enriched samples, run:
 
     ./plotItJpsi.py --date 15AprYY --version X --channel muonic --decay semi
 
@@ -138,7 +138,7 @@ In the `date/version/MyAnaEl` and `date/version/MyAnaMu` folders, rootfiles name
 Rootfiles are stored in `date/version/MyAnaAll`    
 
 
-### Perform a simple calbration
+### Perform a simple calibration
 
 This can be done in root:
 
