@@ -770,32 +770,32 @@ legend:
 groups:
   tts:
     legend: 't#bar{t} semi-lept.'
-    fill-color: 2 
+    fill-color: 633 
 
   ttd:
     legend: 't#bar{t} dilept.'
-    fill-color: 3 
+    fill-color: 625 
 
   tth:
     legend: 't#bar{t} hadronic'
-    fill-color: 4
+    fill-color: 616
 
   sto:
     legend: 'single top'
-    fill-color: 28
+    fill-color: 618
 
   tto:
     legend: 't#bar{t} other'
-    fill-color: 625
+    fill-color: 797
 
   dib:
     legend: 'WW, WZ, ZZ'
-    fill-color: 5
+    fill-color: 400
 
   zll:
     legend: 'Z + jets'
-    fill-color: 870
+    fill-color: 868
 
   wln:
     legend: 'W #rightarrow l#nu + jets'
-    fill-color: 33
+    fill-color: 858

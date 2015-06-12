@@ -606,6 +606,7 @@ void MyAna::Loop()
         if (!electronloose_passTightID[indsoftel[iel]]) continue;
         if (electronloose_rhoCorrectedRelIsolation[indsoftel[iel]] >= 0.15) continue;
         if (muonloose_charge[indgoodmu[0]]*electronloose_charge[indsoftel[iel]] >= 0) continue;
+        if (elPt > GetP4(muonloose_4vector, indgoodmu[0])->Pt()) continue;
         TLorentzVector *sum1 = GetP4(muonloose_4vector,indgoodmu[0]);
         TLorentzVector *sum2 = GetP4(electronloose_4vector,indsoftel[iel]);
         TLorentzVector sum = *sum1 + *sum2;

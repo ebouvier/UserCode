@@ -87,7 +87,7 @@ files:
     cross-section: 107.6722
     generated-events: 31004465
     legend: 't#bar{t} semi-lept.'
-    fill-color: 2 
+    fill-color: 633 
     order: 2
 
   'TTJets_FullLeptMGDecays.root':
@@ -95,7 +95,7 @@ files:
     cross-section: 25.8031
     generated-events: 12011428
     legend: 't#bar{t} dilept.'
-    fill-color: 3 
+    fill-color: 625 
     order: 1
 
   'TTJets_HadronicMGDecays.root':
@@ -103,7 +103,7 @@ files:
     cross-section: 112.325
     generated-events: 31223821
     legend: 't#bar{t} hadronic'
-    fill-color: 4 
+    fill-color: 616 
     order: 0
 
 plots:

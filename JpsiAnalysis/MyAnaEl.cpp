@@ -600,6 +600,7 @@ void MyAna::Loop()
         if (fabs(muEta) >= 2.4) continue;
         if (muonloose_deltaBetaCorrectedRelIsolation[indsoftmu[imu]] >= 0.2) continue;
         if (electronloose_charge[indgoodel[0]]*muonloose_charge[indsoftmu[imu]] >= 0) continue;
+        if (muPt > GetP4(electronloose_4vector, indgoodel[0])->Pt()) continue;
         TLorentzVector *sum1 = GetP4(electronloose_4vector,indgoodel[0]);
         TLorentzVector *sum2 = GetP4(muonloose_4vector,indsoftmu[imu]);
         TLorentzVector sum = *sum1 + *sum2;
