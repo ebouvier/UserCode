@@ -250,7 +250,7 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
     variables.add(*var[iVar]);
   }
   RooRealVar genId("GenId", "True jets flavour", 0., 22.);
-  if (!name.Contains("El_merged") && !name.Contains("Mu_merged")) 
+  if (!name.Contains("El_merged") && !name.Contains("Mu_merged") && !name.Contains("All_merged")) 
     variables.add(genId);
   RooDataSet *data = new RooDataSet("data", "data", variables, Import(*tree), WeightVar(weight));
 
@@ -286,7 +286,7 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
   TLegend *leg_discvar = new TLegend(0.69,0.74,0.94,0.92);
   leg_style(leg_discvar, 12);
   leg_discvar->SetHeader("Discriminating variable");
-  if (name.Contains("El_merged") || name.Contains("Mu_merged"))
+  if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged"))
     leg_discvar->AddEntry("Data","Data - Run 2012 A,B,C,D","P");
   else if (name.Contains("Semi"))
     leg_discvar->AddEntry("Data","MG+PY6 Z2* Semilept. t#bar{t}","P");
@@ -296,7 +296,7 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
   leg_discvar->AddEntry("bck fit",TString::Format("#splitline{Background:}{N_{bck} = %.0f #pm %.0f}", nbckVal, nbckErr),"F");
   leg_discvar->Draw();
   channel_tex_l->Draw("same");  
-  if (name.Contains("El_merged") || name.Contains("Mu_merged"))
+  if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged"))
     cms_style_bis(lumi);
   else 
     cms_style_bis(lumi, false);
@@ -347,7 +347,7 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
       channel_tex_r->Draw("same");  
     else
       channel_tex_l->Draw("same");  
-    if (name.Contains("El_merged") || name.Contains("Mu_merged"))
+    if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged"))
       cms_style_bis(lumi);
     else 
       cms_style_bis(lumi, false);
@@ -360,13 +360,13 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
 
     gr_all[iVar] = (TGraphAsymmErrors*)cn[iVar]->GetPrimitive("sigData_"+varName[iVar]); 
     gr_all[iVar]->GetXaxis()->SetRangeUser(varMin[iVar],varMax[iVar]);
-    if (name.Contains("El_merged") || name.Contains("Mu_merged"))
+    if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged"))
       graphasymerror_mystyle(gr_all[iVar], "Data_Sig_"+varName[iVar], 2, 1, 1, 0, 0, -1111., -1111., 510, 510, 20, 1, 1.2);  
     else 
       graphasymerror_mystyle(gr_all[iVar], "MC_Sig_"+varName[iVar], 2, 862, 1, 862, 1001, -1111., -1111., 510, 510, 1, 862, 1.2);
   }
 
-  if (!name.Contains("El_merged") && !name.Contains("Mu_merged")) {
+  if (!name.Contains("El_merged") && !name.Contains("Mu_merged") && !name.Contains("All_merged")) {
     RooPlot* fr_GenId = genId.frame();
     sigData->plotOn(fr_GenId, Name("sigData_GenId"), Binning(22), DataError(RooAbsData::SumW2), LineColor(kRed), LineWidth(2), MarkerColor(kRed), MarkerStyle(20));
     bckData->plotOn(fr_GenId, Name("bckData_GenId"), Binning(22), DataError(RooAbsData::SumW2), LineColor(kBlue), LineWidth(2), MarkerColor(kBlue), MarkerStyle(24));
@@ -381,7 +381,7 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
     leg_GenId->SetHeader(leg_header);
     leg_GenId->Draw();  
     channel_tex_r->Draw("same");  
-    if (name.Contains("El_merged") || name.Contains("Mu_merged")) 
+    if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged")) 
       cms_style_bis(lumi);
     else 
       cms_style_bis(lumi, false);
@@ -440,7 +440,7 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
       rep_name = rep_name + "/sPlotAll/";
       fi_data_name = fi_data_name + "/MyAnaAll/Run2012ABCD.root";
       fi_sl_name = fi_sl_name + "/MyAnaAll/TTJets_SemiLeptMGDecays.root";
-      fi_dl_name = fi_dl_name + "/MyAnaALl/TTJets_FullLeptMGDecays.root";
+      fi_dl_name = fi_dl_name + "/MyAnaAll/TTJets_FullLeptMGDecays.root";
       data_name = "All_merged";
     }
   }
@@ -644,6 +644,7 @@ int sPlot(TString date = "", TString version = "", bool inBatch = true)
   if (date.Length() > 0 && version.Length() > 0)  {
     gROOT->ProcessLine(".! mkdir "+date+"/v"+version+"/sPlotEl");
     gROOT->ProcessLine(".! mkdir "+date+"/v"+version+"/sPlotMu");
+    gROOT->ProcessLine(".! mkdir "+date+"/v"+version+"/sPlotAll");
 
     sPlot_file(inBatch, date, version, 1, 19.690);
     sPlot_file(inBatch, date, version, 2, 19.705);
