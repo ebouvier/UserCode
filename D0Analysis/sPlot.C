@@ -411,7 +411,7 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
   my_style->cd();
   if (inBatch) gROOT->SetBatch(true);
 
-  TString channel_s = "+Jets channel";
+  TString channel_s = " + Jets channel";
   TString rep_name = date+"/v"+version;
   TString fi_data_name = rep_name;
   TString fi_sl_name = rep_name;

@@ -18,6 +18,14 @@ It will copy `MyAnaMu.cpp` as `MyAna.cc`, run the analysis for all the files in 
 
 A log file names `date_version_channel_description.log` is stored in the `LogMyAna` repository.
 
+If you wish to skim the extracted files, run:
+
+    ./run_ALL_MyAna.py --filelist filelists_date --version X --channel skim --descr test
+
+and then:    
+
+    ./createSkimFilelists.py --date 15AprYY --version X
+
 
 ### Get the stacked distributions 
 
@@ -28,6 +36,8 @@ Then, you can run:
 Using `configPlotIt.template.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItMu/
+
+This also work for the skimmed files.
 
 
 ### Data comparison between both channels 
@@ -85,6 +95,14 @@ It will copy `MyAnaMu.cpp` as `MyAna.cc`, run the analysis for all the files in 
 
 A log file names `date_version_channel_description.log` is stored in the `LogMyAna` repository.
 
+If you wish to skim the extracted files, run:
+
+    ./run_ALL_MyAna.py --filelist filelists_date --version X --channel skim --descr test
+
+and then:    
+
+    ./createSkimFilelists.py --date 15AprYY --version X
+
 
 ### Get the stacked distributions 
 
@@ -103,6 +121,8 @@ To check the J/&#968; enriched samples, run:
 Using `configPlotItJpsi.template.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItJpsiMu/
+
+This also work for the skimmed files.
 
 
 ### Data comparison between both channels 
