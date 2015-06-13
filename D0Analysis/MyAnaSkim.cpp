@@ -440,7 +440,7 @@ void MyAna::Loop()
     }
     unsigned int nsoftelectron = indsoftel.size();
 
-    if (ngoodmuon == 1 && nsoftelectrion == 0) ++counter[6];
+    if (ngoodmuon == 1 && nsoftelectron == 0) ++counter[6];
 
     if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
 
@@ -506,6 +506,8 @@ void MyAna::Loop()
       MET_Pt= GetP4(met_4vector,0)->Pt();
       MET_Phi= GetP4(met_4vector,0)->Phi();
     }
+
+    // has muon here + Z veto + SF FIXME
 
     //======================================================
     // Scale factors
@@ -748,6 +750,10 @@ void MyAna::Loop()
     }
 
     ++nselected;
+  }
+  if (!_isMC) {
+      _h_nPUBefore->Scale((float)nselected/_h_nPUBefore->Integral());
+      _h_nPUAfter->Scale((float)nselected/_h_nPUAfter->Integral());
   }
 
   //================================================================================================

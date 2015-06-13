@@ -22,8 +22,8 @@ if not os.path.isdir(dir):
 if (not os.path.isdir(os.path.join(dir, "MyAnaMu")) or not os.path.isdir(os.path.join(dir, "MyAnaEl"))):
     parser.error("you must have run the analysis for both channels")
 
-texFile = os.path.join(dir, "NumberOfEvents.tex")
-tex = open(texFile, 'w')
+texFile = "NumberOfEvents.tex"
+tex = open(os.path.join(dir,texFile), 'w')
 
 ## Input ifos
 
@@ -235,7 +235,6 @@ tex.write("Total from simulations & $%.1f \\pm %.1f$ & $%.1f \\pm %.1f$ \\\\ \n"
 tex.write("\\hline\n")
 
 NData = {"mu": 0., "el": 0.}
-ErrNData = {"mu": 0., "el": 0.}
 
 for dataset_name in dataset_names:
     channel = dataset_name[0]
@@ -245,9 +244,8 @@ for dataset_name in dataset_names:
     file = TFile.Open(os.path.join(dirAna[channel], rootFile))
     histo = file.Get(histname)
     NData[channel] = histo.Integral()
-    ErrNData[channel] = math.sqrt(NData[channel])
 
-tex.write("Data & $%d \\pm %d$ & $%d \\pm %d$ \\\\ \n" % (NData["mu"], ErrNData["mu"], NData["el"], ErrNData["el"]))
+tex.write("Data & $%d$ & $%d$ \\\\ \n" % (NData["mu"], NData["el"]))
 tex.write("\\hline\n")
         
 tex.write("\\end{tabular}\n")
@@ -260,5 +258,11 @@ tex.write("\n\\end{document}")
     
 tex.close()
 
-print texFile+" has been created."
+os.chdir(dir)
+cmd = "pdflatex " + texFile
+os.system(cmd)
+cmd = "rm -f *.aux *.log"
+os.system(cmd)
+os.chdir("../..")
+print "\n"+os.path.join(dir,texFile)+" has been created and compiled."
 

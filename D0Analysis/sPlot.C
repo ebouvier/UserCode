@@ -426,19 +426,33 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
     fi_dl_name = fi_dl_name + "/MyAnaEl/TTJets_FullLeptMGDecays.root";
     data_name = "El_merged";
   }
-  else if (type == 2)  {
-    channel_s = "#mu"+channel_s;
-    rep_name = rep_name + "/sPlotMu/";
-    fi_data_name = fi_data_name + "/MyAnaMu/MuHadASingleMuBCD.root";
-    fi_sl_name = fi_sl_name + "/MyAnaMu/TTJets_SemiLeptMGDecays.root";
-    fi_dl_name = fi_dl_name + "/MyAnaMu/TTJets_FullLeptMGDecays.root";
-    data_name = "Mu_merged";
+  else {
+    if (type == 2)  {
+      channel_s = "#mu"+channel_s;
+      rep_name = rep_name + "/sPlotMu/";
+      fi_data_name = fi_data_name + "/MyAnaMu/MuHadASingleMuBCD.root";
+      fi_sl_name = fi_sl_name + "/MyAnaMu/TTJets_SemiLeptMGDecays.root";
+      fi_dl_name = fi_dl_name + "/MyAnaMu/TTJets_FullLeptMGDecays.root";
+      data_name = "Mu_merged";
+    }
+    else if (type == 3) {
+      channel_s = "e/#mu"+channel_s;
+      rep_name = rep_name + "/sPlotAll/";
+      fi_data_name = fi_data_name + "/MyAnaAll/Run2012ABCD.root";
+      fi_sl_name = fi_sl_name + "/MyAnaAll/TTJets_SemiLeptMGDecays.root";
+      fi_dl_name = fi_dl_name + "/MyAnaALl/TTJets_FullLeptMGDecays.root";
+      data_name = "All_merged";
+    }
   }
 
   if (type == 1)
     fi_out_name = rep_name + "sPlot_El.root";
-  else if (type ==2)
-    fi_out_name = rep_name + "sPlot_Mu.root";
+  else {
+    if (type == 2)
+      fi_out_name = rep_name + "sPlot_Mu.root";
+    else if (type == 3)
+      fi_out_name = rep_name + "sPlot_All.root";
+  }
 
   TFile* fi_data = TFile::Open(fi_data_name);
   TFile* fi_sl = TFile::Open(fi_sl_name);
@@ -633,6 +647,7 @@ int sPlot(TString date = "", TString version = "", bool inBatch = true)
 
     sPlot_file(inBatch, date, version, 1, 19.690);
     sPlot_file(inBatch, date, version, 2, 19.705);
+    sPlot_file(inBatch, date, version, 3, 19.698);
 
     return 0;
   }

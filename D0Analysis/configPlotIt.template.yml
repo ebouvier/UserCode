@@ -4,8 +4,8 @@ configuration:
   luminosity-label: '%lumi% fb^{-1} (8 TeV)'
   experiment: "CMS"
   extra-label: "Simulation preliminary"
-  root: 'MyAnaSkim'
-  luminosity: 19697 
+  root: '@root@'
+  luminosity: @lumi@ 
   luminosity-error: 0.026
   error-fill-style: 3154
   error-fill-color: "#ee556270"
@@ -13,24 +13,21 @@ configuration:
   ratio-fit-error-fill-color: "#aa556270"
   ratio-fit-line-color: "#0B486B"  
   labels:
-    - text: 'l + Jets channel'
+    - text: '@text@'
       position: [0.22, 0.9]
       size: 24
 
 files:
-  'ElectronHadASingleElectronBCD.root':
+  '@dataFile@':
     type: data
     legend: "Data"
-  
-  'MuHadASingleMuBCD.root':
-    type: data
 
   'TTJets_SemiLeptMGDecays.root':
     type: mc
     cross-section: 107.6722
     generated-events: 31004465
     legend: 't#bar{t} semi-lept.'
-    fill-color: 2 
+    fill-color: 633 
     order: 7
 
   'TTJets_FullLeptMGDecays.root':
@@ -38,7 +35,7 @@ files:
     cross-section: 25.8031
     generated-events: 12011428
     legend: 't#bar{t} dilept.'
-    fill-color: 3 
+    fill-color: 625 
     order: 6
 
   'TTJets_HadronicMGDecays.root':
@@ -46,7 +43,7 @@ files:
     cross-section: 112.325
     generated-events: 31223821
     legend: 't#bar{t} hadronic'
-    fill-color: 4 
+    fill-color: 616 
     order: 5
 
   'T_s-channel.root':
@@ -244,7 +241,6 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJets30-cuts":  
-    log-y: true
     show-ratio: true
     fit-ratio: false
     show-errors: true
@@ -276,7 +272,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
-    y-axis-range: [0, 13000]
+    y-axis-range: [0, 7000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PfIsoIsoLept":  
@@ -316,7 +312,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
-    y-axis-range: [0, 55000]
+    y-axis-range: [0, 28000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "CsvJets30":  
@@ -324,6 +320,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "MetMet":  
@@ -338,7 +335,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
-    y-axis-range: [0, 13000]
+    y-axis-range: [0, 7000]
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -468,7 +465,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sum2p-nomu-b-jets":
-    x-axis-range: [0, 250]
+    x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -520,7 +517,7 @@ plots:
   "D0Mass-b-jets":
     x-axis-range: [0, 5]
     ##x-axis-range: [1.6, 2.2]
-    ##y-axis-range: [0, 600]
+    ##y-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -549,7 +546,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-show-zero: true
-    y-axis-range: [0, 1100]
+    y-axis-range: [0, 600]
 
   "BMomentum-nobias-b-jets":
     x-axis-range: [0, 350]
@@ -595,20 +592,20 @@ legend:
 groups:
   sto:
     legend: 'single top'
-    fill-color: 28
+    fill-color: 618
 
   tto:
     legend: 't#bar{t} other'
-    fill-color: 625
+    fill-color: 797
 
   dib:
     legend: 'WW, WZ, ZZ'
-    fill-color: 5
+    fill-color: 400
 
   zll:
     legend: 'Z + jets'
-    fill-color: 870
+    fill-color: 868
 
   wln:
     legend: 'W #rightarrow l#nu + jets'
-    fill-color: 33
+    fill-color: 858

@@ -5,7 +5,7 @@ configuration:
   experiment: "CMS"
   extra-label: "Simulation preliminary"
   root: 'MyAnaMu'
-  luminosity: 19705 
+  luminosity: 19690 
   luminosity-error: 0.026
   error-fill-style: 3154
   error-fill-color: "#ee556270"
@@ -13,7 +13,7 @@ configuration:
   ratio-fit-error-fill-color: "#aa556270"
   ratio-fit-line-color: "#0B486B"  
   labels:
-    - text: '#mu + Jets channel'
+    - text: '@text@'
       position: [0.22, 0.9]
       size: 24
 
@@ -21,32 +21,55 @@ files:
   'MuHadASingleMuBCD.root':
     type: data
     legend: "Data"
+  '../MyAnaEl/ElectronHadASingleElectronBCD.root':
+    type: data
 
   'TTJets_SemiLeptMGDecays.root':
     type: mc
     cross-section: 107.6722
     generated-events: 31004465
-    legend: 't#bar{t} semi-lept.'
-    fill-color: 2 
+    group: tts
+    order: 7
+  '../MyAnaEl/TTJets_SemiLeptMGDecays.root':
+    type: mc
+    cross-section: 107.6722
+    generated-events: 31004465
+    group: tts
     order: 7
 
   'TTJets_FullLeptMGDecays.root':
     type: mc
     cross-section: 25.8031
     generated-events: 12011428
-    legend: 't#bar{t} dilept.'
-    fill-color: 3 
+    group: ttd
+    order: 6
+  '../MyAnaEl/TTJets_FullLeptMGDecays.root':
+    type: mc
+    cross-section: 25.8031
+    generated-events: 12011428
+    group: ttd
     order: 6
 
   'TTJets_HadronicMGDecays.root':
     type: mc
     cross-section: 112.325
     generated-events: 31223821
-    legend: 't#bar{t} hadronic'
-    fill-color: 4 
+    group: tth
+    order: 5
+  '../MyAnaEl/TTJets_HadronicMGDecays.root':
+    type: mc
+    cross-section: 112.325
+    generated-events: 31223821
+    group: tth
     order: 5
 
   'T_s-channel.root':
+    type: mc
+    cross-section: 3.79
+    generated-events: 259961
+    group: sto
+    order: 4
+  '../MyAnaEl/T_s-channel.root':
     type: mc
     cross-section: 3.79
     generated-events: 259961
@@ -59,8 +82,20 @@ files:
     generated-events: 3758227
     group: sto
     order: 4
+  '../MyAnaEl/T_t-channel.root':
+    type: mc
+    cross-section: 56.4
+    generated-events: 3758227
+    group: sto
+    order: 4
 
   'T_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 497658
+    group: sto
+    order: 4
+  '../MyAnaEl/T_tW-channel.root':
     type: mc
     cross-section: 11.1
     generated-events: 497658
@@ -73,8 +108,20 @@ files:
     generated-events: 139974
     group: sto
     order: 4
+  '../MyAnaEl/Tbar_s-channel.root':
+    type: mc
+    cross-section: 1.76
+    generated-events: 139974
+    group: sto
+    order: 4
 
   'Tbar_t-channel.root':
+    type: mc
+    cross-section: 30.7
+    generated-events: 1935072
+    group: sto
+    order: 4
+  '../MyAnaEl/Tbar_t-channel.root':
     type: mc
     cross-section: 30.7
     generated-events: 1935072
@@ -87,8 +134,20 @@ files:
     generated-events: 493460
     group: sto
     order: 4
+  '../MyAnaEl/Tbar_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 493460
+    group: sto
+    order: 4
 
   'TTWJets.root':
+    type: mc
+    cross-section: 0.2149
+    generated-events: 196046
+    group: tto
+    order: 3
+  '../MyAnaEl/TTWJets.root':
     type: mc
     cross-section: 0.2149
     generated-events: 196046
@@ -101,8 +160,20 @@ files:
     generated-events: 217820
     group: tto
     order: 3
+  '../MyAnaEl/TTWWJets.root':
+    type: mc
+    cross-section: 0.002037
+    generated-events: 217820
+    group: tto
+    order: 3
 
   'TTZJets.root':
+    type: mc
+    cross-section: 0.172
+    generated-events: 210160
+    group: tto
+    order: 3
+  '../MyAnaEl/TTZJets.root':
     type: mc
     cross-section: 0.172
     generated-events: 210160
@@ -111,88 +182,165 @@ files:
 
   'WW-incl.root':
     type: mc
-##    cross-section: 56.0
-    cross-section: 54.838
+    cross-section: 56.0
+##cross-section: 54.838
+    generated-events: 10000431
+    group: dib
+    order: 2
+  '../MyAnaEl/WW-incl.root':
+    type: mc
+    cross-section: 56.0
+##cross-section: 54.838
     generated-events: 10000431
     group: dib
     order: 2
 
   'WZ-incl.root':
     type: mc
-##    cross-section: 33.6
-    cross-section: 33.21
+    cross-section: 33.6
+##cross-section: 33.21
+    generated-events: 10000283
+    group: dib
+    order: 2
+  '../MyAnaEl/WZ-incl.root':
+    type: mc
+    cross-section: 33.6
+##cross-section: 33.21
     generated-events: 10000283
     group: dib
     order: 2
 
   'ZZ-incl.root':
     type: mc
-##    cross-section: 7.6
-    cross-section: 17.654
+    cross-section: 7.6
+##cross-section: 17.654
+    generated-events: 9799908
+    group: dib
+    order: 2
+  '../MyAnaEl/ZZ-incl.root':
+    type: mc
+    cross-section: 7.6
+##cross-section: 17.654
     generated-events: 9799908
     group: dib
     order: 2
 
   'DY1JetsToLL_M-50.root':
     type: mc
-##    cross-section: 666.3
-    cross-section: 561.0
+    cross-section: 666.3
+##cross-section: 561.0
+    generated-events: 24045248
+    group: zll
+    order: 1
+  '../MyAnaEl/DY1JetsToLL_M-50.root':
+    type: mc
+    cross-section: 666.3
+##cross-section: 561.0
     generated-events: 24045248
     group: zll
     order: 1
 
   'DY2JetsToLL_M-50.root':
     type: mc
-##    cross-section: 215.0
-    cross-section: 181.0
+    cross-section: 215.0
+##cross-section: 181.0
+    generated-events: 21852156
+    group: zll
+    order: 1
+  '../MyAnaEl/DY2JetsToLL_M-50.root':
+    type: mc
+    cross-section: 215.0
+##cross-section: 181.0
     generated-events: 21852156
     group: zll
     order: 1
 
   'DY3JetsToLL_M-50.root':
     type: mc
-##    cross-section: 60.7
-    cross-section: 51.1
+    cross-section: 60.7
+##cross-section: 51.1
+    generated-events: 11015445
+    group: zll
+    order: 1
+  '../MyAnaEl/DY3JetsToLL_M-50.root':
+    type: mc
+    cross-section: 60.7
+##cross-section: 51.1
     generated-events: 11015445
     group: zll
     order: 1
 
   'DY4JetsToLL_M-50.root':
     type: mc
-##    cross-section: 27.3
-    cross-section: 23.04
+    cross-section: 27.3
+##cross-section: 23.04
+    generated-events: 6402827
+    group: zll
+    order: 1
+  '../MyAnaEl/DY4JetsToLL_M-50.root':
+    type: mc
+    cross-section: 27.3
+##cross-section: 23.04
     generated-events: 6402827
     group: zll
     order: 1
 
   'W1JetsToLNu.root':
     type: mc
-##    cross-section: 6662.8
-    cross-section: 5562.36 
+    cross-section: 6662.8 
+##cross-section: 5562.36 
+    generated-events: 23141598
+    group: wln
+    order: 0
+  '../MyAnaEl/W1JetsToLNu.root':
+    type: mc
+    cross-section: 6662.8 
+##cross-section: 5562.36 
     generated-events: 23141598
     group: wln
     order: 0
 
   'W2JetsToLNu.root':
     type: mc
-##    cross-section: 2159.2
-    cross-section: 1802.62
+    cross-section: 2159.2
+##cross-section: 1802.62
+    generated-events: 34044921
+    group: wln
+    order: 0
+  '../MyAnaEl/W2JetsToLNu.root':
+    type: mc
+    cross-section: 2159.2
+##cross-section: 1802.62
     generated-events: 34044921
     group: wln
     order: 0
 
   'W3JetsToLNu.root':
     type: mc
-##    cross-section: 640.4
-    cross-section: 534.604
+    cross-section: 640.4
+##cross-section: 534.604
+    generated-events: 15539503
+    group: wln
+    order: 0
+  '../MyAnaEl/W3JetsToLNu.root':
+    type: mc
+    cross-section: 640.4
+##cross-section: 534.604
     generated-events: 15539503
     group: wln
     order: 0
 
   'W4JetsToLNu.root':
     type: mc
-##    cross-section: 264.0
-    cross-section: 220.434
+    cross-section: 264.0
+##cross-section: 220.434
+    generated-events: 13382803
+    group: wln
+    order: 0
+  '../MyAnaEl/W4JetsToLNu.root':
+    type: mc
+    cross-section: 264.0
+##cross-section: 220.434
     generated-events: 13382803
     group: wln
     order: 0
@@ -272,7 +420,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
-    y-axis-range: [0, 7000]
+    y-axis-range: [0, 13000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PfIsoIsoLept":  
@@ -312,7 +460,7 @@ plots:
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
-    y-axis-range: [0, 28000]
+    y-axis-range: [0, 55000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "CsvJets30":  
@@ -320,6 +468,7 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
+    y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "MetMet":  
@@ -334,8 +483,8 @@ plots:
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
-    y-axis-range: [0, 7000]
     y-axis-show-zero: true
+    y-axis-range: [0, 13000]
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NPrimaryVtx":
@@ -360,12 +509,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "TransverseMomentum-b-jets":
-    x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 300]
 
   "Eta-b-jets":
     show-ratio: true
@@ -382,44 +531,44 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Sump-b-jets":
-    x-axis-range: [0, 400]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 400]
 
   "VectorialSump-b-jets":
-    x-axis-range: [0, 400]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 400]
 
   "Highestp-b-jets":
-    x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 200]
 
   "Sum2p-b-jets":
-    x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 300]
 
   "Sum3p-b-jets":
-    x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 300]
 
   "Mass3-b-jets":
     show-ratio: true
@@ -456,28 +605,28 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Highestp-nomu-b-jets":
-    x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 200]
 
   "Sum2p-nomu-b-jets":
-    x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 300]
 
   "Sum3p-nomu-b-jets":
-    x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 300]
 
   "Mass3-nomu-b-jets":
     show-ratio: true
@@ -516,12 +665,13 @@ plots:
   "D0Mass-b-jets":
     x-axis-range: [0, 5]
     ##x-axis-range: [1.6, 2.2]
-    ##y-axis-range: [0, 300]
+    ##y-axis-range; [0, 300]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 5]
 
   "D0p-b-jets":
     show-ratio: true
@@ -531,12 +681,12 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0pT-b-jets":
-    x-axis-range: [0, 150]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 150]
 
   "D0eta-b-jets":
     show-ratio: true
@@ -545,7 +695,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-show-zero: true
-    y-axis-range: [0, 600]
+    y-axis-range: [0, 1100]
 
   "BMomentum-nobias-b-jets":
     x-axis-range: [0, 350]
@@ -578,33 +728,46 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Muonp-nobias-b-jets":
-    x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+    x-axis-range: [0, 200]
 
 legend:
     position: [0.72, 0.55, 0.9, 0.9]
 
 groups:
+  tts:
+    legend: 't#bar{t} semi-lept.'
+    fill-color: 633 
+
+  ttd:
+    legend: 't#bar{t} dilept.'
+    fill-color: 625 
+
+  tth:
+    legend: 't#bar{t} hadronic'
+    fill-color: 616
+
   sto:
     legend: 'single top'
-    fill-color: 28
+    fill-color: 618
 
   tto:
     legend: 't#bar{t} other'
-    fill-color: 625
+    fill-color: 797
 
   dib:
     legend: 'WW, WZ, ZZ'
-    fill-color: 5
+    fill-color: 400
 
   zll:
     legend: 'Z + jets'
-    fill-color: 870
+    fill-color: 868
 
   wln:
     legend: 'W #rightarrow l#nu + jets'
-    fill-color: 33
+    fill-color: 858
+

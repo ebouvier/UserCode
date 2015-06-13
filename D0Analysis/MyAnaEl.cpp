@@ -78,15 +78,15 @@ void MyAna::Loop()
   _h_cuts_electrons_n->SetXTitle("Number of isolated e (before cut)");
 
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
-  _h_isoLept_n->SetXTitle("Number of isolated lepton");
+  _h_isoLept_n->SetXTitle("Number of isolated e");
   TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 50, 0., 500.);   
-  _h_isoLept_pt->SetXTitle("p_{T}(isolated lepton) (GeV/c)");
+  _h_isoLept_pt->SetXTitle("p_{T}(isolated e) (GeV/c)");
   TH1F* _h_isoLept_eta            = new TH1F("EtaIsoLept", "EtaIsoLept", 30, -3., 3.); 
-  _h_isoLept_eta->SetXTitle("#eta(isolated lepton)");
+  _h_isoLept_eta->SetXTitle("#eta(isolated e)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
-  _h_isoLept_phi->SetXTitle("#phi(isolated lepton)");
+  _h_isoLept_phi->SetXTitle("#phi(isolated e)");
   TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 25, 0., 0.5);  
-  _h_isoLept_pfiso->SetXTitle("lepton isolation");
+  _h_isoLept_pfiso->SetXTitle("e isolation");
 
   TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 11, 0., 11.); 
   _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
@@ -444,6 +444,8 @@ void MyAna::Loop()
       MET_Phi= GetP4(met_4vector,0)->Phi();
     }
 
+    // has muon here + SF FIXME
+
     //======================================================
     // Scale factors
     //======================================================
@@ -669,6 +671,10 @@ void MyAna::Loop()
     }
 
     ++nselected;
+  }
+  if (!_isMC) {
+      _h_nPUBefore->Scale((float)nselected/_h_nPUBefore->Integral());
+      _h_nPUAfter->Scale((float)nselected/_h_nPUAfter->Integral());
   }
 
   //================================================================================================

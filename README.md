@@ -8,15 +8,15 @@ This folder contains the following up-to-date analysis codes (to run after the l
 
 ### Run the analysis
 
-Modify `MyAnaEl.cpp` or `MyAnaMu.cpp` and copy it into `MyAna.cc`
-
-Run the analysis with:
+Run, for instance, the analysis with:
 
     ./run_ALL_MyAna.py --filelist filelists_date --version 1 --channel muonic --descr test
 
-It will run the analysis for all the files in the filelists repository and create rootfiles in:
+It will copy `MyAnaMu.cpp` as `MyAna.cc`, run the analysis for all the files in the filelists repository, and create rootfiles in:
 
     Date/vX/MyAnaMu/
+
+A log file names `date_version_channel_description.log` is stored in the `LogMyAna` repository.
 
 
 ### Get the stacked distributions 
@@ -25,7 +25,7 @@ Then, you can run:
 
     ./plotIt.py --date 15AprYY --version X --channel muonic
 
-Using `configPlotItMu.yml`, stacked histograms will be stored in:
+Using `configPlotIt.template.yml`, stacked histograms will be stored in:
 
     Date/vX/PlotItMu/
 
@@ -52,12 +52,21 @@ after running:
     ./getNumberOfEvents.py --date 15AprYY --version X
 
 
+### Merge both channels
+
+`hadd` commands (for data, and TTJets* files) are executed when running:
+
+    ./mergeChannels.py --date 15AprYY --version X
+
+Rootfiles are stored in `date/version/MyAnaAll`    
+
+
 ### Apply the sPlot technique
 
 In `root`:
 
     .L sPlot.C++
-    sPlot("date", "type", inBatch)
+    sPlot("date", "version", inBatch)
 
 
 
@@ -131,7 +140,7 @@ In the `date/version/MyAnaEl` and `date/version/MyAnaMu` folders, rootfiles name
 
 ### Merge both channels
 
-`hadd` commands are executed when running:
+`hadd` commands (for data, central J/&#968; enriched, and All* files) are executed when running:
 
     ./mergeChannels.py --date 15AprYY --version X
 
