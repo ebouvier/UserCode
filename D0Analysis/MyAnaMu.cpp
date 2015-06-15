@@ -646,18 +646,17 @@ void MyAna::Loop()
         if (abs(mujet_tr_pdgid[j]) != 13 || GetP4(mujet_tr_4vector,indtr[0])->Pt() < 4.) indtrnomu.push_back(j);
       }
       if (indtr.size() > 0) {
-        TLorentzVector p_sum;
-        p_sum.SetPtEtaPhiM(GetP4(mujet_tr_4vector,indtr[0])->Pt(), GetP4(mujet_tr_4vector,indtr[0])->Eta(), GetP4(mujet_tr_4vector,indtr[0])->Phi(), GetP4(mujet_tr_4vector,indtr[0])->M());
+        TLorentzVector p_sum(GetP4(mujet_tr_4vector,indtr[0])->Px(), GetP4(mujet_tr_4vector,indtr[0])->Py(), GetP4(mujet_tr_4vector,indtr[0])->Pz(), GetP4(mujet_tr_4vector,indtr[0])->E());
         _h_sum1p->Fill(p_sum.P(), _weight);
         _R1 = p_sum.P()/mujet_sump[indmujet[i]];
         _h_R1->Fill(p_sum.P()/mujet_sump[indmujet[i]], _weight);
         if (indtr.size() > 1) {
-          p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtr[1])->Pt(), GetP4(mujet_tr_4vector,indtr[1])->Eta(), GetP4(mujet_tr_4vector,indtr[1])->Phi(), GetP4(mujet_tr_4vector,indtr[1])->M());
+          p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtr[1])->Px(), GetP4(mujet_tr_4vector,indtr[1])->Py(), GetP4(mujet_tr_4vector,indtr[1])->Pz(), GetP4(mujet_tr_4vector,indtr[1])->E());
           _h_sum2p->Fill(p_sum.P(), _weight);
           _R2 = p_sum.P()/mujet_sump[indmujet[i]];
           _h_R2->Fill(p_sum.P()/mujet_sump[indmujet[i]], _weight);
           if (indtr.size() > 2) {
-            p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtr[2])->Pt(), GetP4(mujet_tr_4vector,indtr[2])->Eta(), GetP4(mujet_tr_4vector,indtr[2])->Phi(), GetP4(mujet_tr_4vector,indtr[2])->M());
+            p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtr[2])->Px(), GetP4(mujet_tr_4vector,indtr[2])->Py(), GetP4(mujet_tr_4vector,indtr[2])->Pz(), GetP4(mujet_tr_4vector,indtr[2])->E());
             _h_sum3p->Fill(p_sum.P(), _weight);
             _h_mass3->Fill(p_sum.M(), _weight);
             _R3 = p_sum.P()/mujet_sump[indmujet[i]];
@@ -666,18 +665,17 @@ void MyAna::Loop()
         } // at least 2 tracks
       } // at least 1 track
       if (indtrnomu.size() > 0) {
-        TLorentzVector p_sum;
-        p_sum.SetPtEtaPhiM(GetP4(mujet_tr_4vector,indtrnomu[0])->Pt(), GetP4(mujet_tr_4vector,indtrnomu[0])->Eta(), GetP4(mujet_tr_4vector,indtrnomu[0])->Phi(), GetP4(mujet_tr_4vector,indtrnomu[0])->M());
+        TLorentzVector p_sum(GetP4(mujet_tr_4vector,indtrnomu[0])->Px(), GetP4(mujet_tr_4vector,indtrnomu[0])->Py(), GetP4(mujet_tr_4vector,indtrnomu[0])->Pz(), GetP4(mujet_tr_4vector,indtrnomu[0])->E());
         _h_sum1p_nomu->Fill(p_sum.P(), _weight);
         _R1_nomu = p_sum.P()/mujet_sump[indmujet[i]];
         _h_R1_nomu->Fill(p_sum.P()/mujet_sump[indmujet[i]], _weight);
         if (indtrnomu.size() > 1) {
-          p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtrnomu[1])->Pt(), GetP4(mujet_tr_4vector,indtrnomu[1])->Eta(), GetP4(mujet_tr_4vector,indtrnomu[1])->Phi(), GetP4(mujet_tr_4vector,indtrnomu[1])->M());
+          p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtrnomu[1])->Px(), GetP4(mujet_tr_4vector,indtrnomu[1])->Py(), GetP4(mujet_tr_4vector,indtrnomu[1])->Pz(), GetP4(mujet_tr_4vector,indtrnomu[1])->E());
           _h_sum2p_nomu->Fill(p_sum.P(), _weight);
           _R2_nomu = p_sum.P()/mujet_sump[indmujet[i]];
           _h_R2_nomu->Fill(p_sum.P()/mujet_sump[indmujet[i]], _weight);
           if (indtrnomu.size() > 2) {
-            p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtrnomu[2])->Pt(), GetP4(mujet_tr_4vector,indtrnomu[2])->Eta(), GetP4(mujet_tr_4vector,indtrnomu[2])->Phi(), GetP4(mujet_tr_4vector,indtrnomu[2])->M());
+            p_sum = p_sum + TLorentzVector(GetP4(mujet_tr_4vector,indtrnomu[2])->Px(), GetP4(mujet_tr_4vector,indtrnomu[2])->Py(), GetP4(mujet_tr_4vector,indtrnomu[2])->Pz(), GetP4(mujet_tr_4vector,indtrnomu[2])->E());
             _h_sum3p_nomu->Fill(p_sum.P(), _weight);
             _h_mass3_nomu->Fill(p_sum.M(), _weight);
             _R3_nomu = p_sum.P()/mujet_sump[indmujet[i]];
