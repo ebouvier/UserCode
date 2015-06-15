@@ -64,7 +64,7 @@ void MyAna::Loop()
   }
 
   int counter[20]; for (int i=0; i<20; ++i) counter[i] = 0;
-  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 8, 0., 8.);
+  TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 9, 0., 9.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetFillStyle(3008);
   _h_iCut->SetBarWidth(0.75);
@@ -490,24 +490,38 @@ void MyAna::Loop()
 
     if (_debug) cout << " -> mutagged jets size " << n_mujet << endl;
 
+    bool hasZ = false;
+
+    for (int i = 0; i < n_mujet; ++i) {
+      if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
+      // Z veto in semi_mu channel 
+      int idIsoLep = muonloose_charge[indgoodmu[0]];
+      TLorentzVector p_IsoLep;
+      p_IsoLep.SetPtEtaPhiM(GetP4(muonloose_4vector,indgoodmu[0])->Pt(), GetP4(muonloose_4vector,indgoodmu[0])->Eta(), GetP4(muonloose_4vector,indgoodmu[0])->Phi(), gMassMu);
+      TLorentzVector p_MuCand(0., 0., 0., 0.);
+      if (idIsoLep < 0) {
+        if (mujet_nonisomuplus_pdgid[i] < 1) continue;
+        p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,i)->Pt(), GetP4(mujet_nonisomuplus_4vector,i)->Eta(), GetP4(mujet_nonisomuplus_4vector,i)->Phi(), gMassMu);
+      }
+      else {
+        if (mujet_nonisomuminus_pdgid[i] > 1) continue;
+        p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,i)->Pt(), GetP4(mujet_nonisomuminus_4vector,i)->Eta(), GetP4(mujet_nonisomuminus_4vector,i)->Phi(), gMassMu);
+      }
+      if (p_MuCand.Pt() < 1e-6) continue;
+      if ((p_MuCand+p_IsoLep).M() >= 106. || (p_MuCand+p_IsoLep).M() < 76) continue; 
+      hasZ = true;
+    }
+
+    if (hasZ) continue;
+    ++counter[5];
+
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Z veto"; ++iCut; // /!\ no scalefactors yet 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"Z veto");
+
     for (int i = 0; i < n_mujet; ++i) {
       if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
       // Look for good soft muon
-      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4.) continue;
-      // Z veto in semi_mu channel 
-      int idIsoLep = muonloose_charge[indgoodmu[0]];
-      int idMuCand = 0; 
-      TLorentzVector p_MuCand, p_IsoLep;
-      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() > GetP4(mujet_nonisomuplus_4vector,i)->Pt()) {
-        p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,i)->Pt(), GetP4(mujet_nonisomuplus_4vector,i)->Eta(), GetP4(mujet_nonisomuplus_4vector,i)->Phi(), gMassMu);
-        idMuCand = mujet_nonisomuplus_pdgid[i];
-      }
-      else {
-        p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,i)->Pt(), GetP4(mujet_nonisomuminus_4vector,i)->Eta(), GetP4(mujet_nonisomuminus_4vector,i)->Phi(), gMassMu);
-        idMuCand = mujet_nonisomuminus_pdgid[i];
-      }
-      p_IsoLep.SetPtEtaPhiM(GetP4(muonloose_4vector,indgoodmu[0])->Pt(), GetP4(muonloose_4vector,indgoodmu[0])->Eta(), GetP4(muonloose_4vector,indgoodmu[0])->Phi(), gMassMu);
-      if (idIsoLep*idMuCand > 0 && (p_MuCand+p_IsoLep).M() < 106. && (p_MuCand+p_IsoLep).M() >= 76) continue; 
+      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuminus_4vector,i)->Pt() <= 4.) continue;
       indmujet.push_back(i);
     }
     int nmujet = indmujet.size();
@@ -517,7 +531,7 @@ void MyAna::Loop()
     if (_debug) cout << "Number of mutagged jets = " << nmujet << endl;
 
     if (nmujet < 1) continue;
-    ++counter[5];
+    ++counter[6];
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "#geq1 #mu-tagged jet"; ++iCut; // /!\ no scalefactors yet 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"#geq1 #mu-tagged jet");
@@ -544,7 +558,7 @@ void MyAna::Loop()
       // Apply scale factor for soft muon and jet
       /*
       _weight = _weight*(*mujet_jet_scaleFactor)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
-      if (GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt() > GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt())
+      if (GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt() > GetP4(mujet_nonisomuminus_4vector,indmujet[0])->Pt())
       _weight = _weight*(*mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
       else
       _weight = _weight*(*mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
@@ -754,7 +768,7 @@ void MyAna::Loop()
   cout << "Number of events before cuts                              = " << _h_iCut->GetBinContent(1) << endl;
   cout << "------------------------------------------------------------------------" << endl;
   cout << "Number of events after cut : " << endl;
-  for (int i = 1; i < 8; i++){
+  for (int i = 1; i < 9; i++){
     cout << "..." << cutName[i] << " = " << _h_iCut->GetBinContent(i+1) << endl;
   }
   cout << "========================================================================" << endl;
@@ -762,10 +776,11 @@ void MyAna::Loop()
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
   cout << "At least 4 jets pT>30 GeV/c                               = " << counter[1] << endl;
-  cout << "1 iso mun                                                 = " << counter[2] << endl;
+  cout << "1 iso muon                                                = " << counter[2] << endl;
   cout << "electron veto                                             = " << counter[3] << endl;
   cout << "muon veto                                                 = " << counter[4] << endl;
-  cout << "At least 1 mu-tagged jet                                  = " << counter[5] << endl;
+  cout << "Z veto                                                    = " << counter[5] << endl;
+  cout << "At least 1 mu-tagged jet                                  = " << counter[6] << endl;
   cout << "========================================================================" << endl;
   cout << "Total Number of events skimmed                            = "  << nwrite			   << endl;
   cout << "========================================================================" << endl;

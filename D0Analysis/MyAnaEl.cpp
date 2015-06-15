@@ -485,7 +485,7 @@ void MyAna::Loop()
     for (int i = 0; i < n_mujet; ++i) {
       if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
       // Look for good soft muon
-      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4.) continue;
+      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuminus_4vector,i)->Pt() <= 4.) continue;
       // no Z veto in semi_e channel
       indmujet.push_back(i);
     }
@@ -523,7 +523,7 @@ void MyAna::Loop()
       // Apply scale factor for soft muon and jet
       /*
       _weight = _weight*(*mujet_jet_scaleFactor)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
-      if (GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt() > GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt())
+      if (GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt() > GetP4(mujet_nonisomuminus_4vector,indmujet[0])->Pt())
       _weight = _weight*(*mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
       else
       _weight = _weight*(*mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
@@ -615,6 +615,8 @@ void MyAna::Loop()
       if (indtr.size() > 0) {
         TLorentzVector p_sum;
         p_sum.SetPtEtaPhiM(GetP4(mujet_tr_4vector,indtr[0])->Pt(), GetP4(mujet_tr_4vector,indtr[0])->Eta(), GetP4(mujet_tr_4vector,indtr[0])->Phi(), GetP4(mujet_tr_4vector,indtr[0])->M());  // FIXME should check what is in M...
+        if (fabs(GetP4(mujet_tr_4vector,indtr[0])->M() - gMassMu)/gMassMu > 1.2) 
+          cout << "m = " << GetP4(mujet_tr_4vector,indtr[0])->M() << endl;
         _h_sum1p->Fill(p_sum.P(), _weight);
         _R1 = p_sum.P()/mujet_sump[indmujet[i]];
         _h_R1->Fill(p_sum.P()/mujet_sump[indmujet[i]], _weight);

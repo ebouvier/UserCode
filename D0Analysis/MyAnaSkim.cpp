@@ -519,7 +519,7 @@ void MyAna::Loop()
     for (int i = 0; i < n_mujet; ++i) {
       if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
       // Look for good soft muon
-      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4.) continue;
+      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuminus_4vector,i)->Pt() <= 4.) continue;
       // no Z veto in skim
       indmujet.push_back(i);
     }
@@ -564,7 +564,7 @@ void MyAna::Loop()
       // Apply scale factor for soft muon and jet
       /*
       _weight = _weight*(*mujet_jet_scaleFactor)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
-      if (GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt() > GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt())
+      if (GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt() > GetP4(mujet_nonisomuminus_4vector,indmujet[0])->Pt())
       _weight = _weight*(*mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
       else
       _weight = _weight*(*mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
