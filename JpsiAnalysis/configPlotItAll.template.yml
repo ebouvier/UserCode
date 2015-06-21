@@ -613,6 +613,8 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi":
+    log-y: true
+    y-axis-show-zero: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"

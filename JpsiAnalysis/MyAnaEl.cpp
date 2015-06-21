@@ -234,6 +234,8 @@ void MyAna::Loop()
 
   TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 15, 0., 150.);  
   _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");
+  TH1F* _h_muJpsi_pt_zoom         = new TH1F("PtMuJpsi-zoom", "PtMuJpsi-zoom", 20, 0., 10.);  
+  _h_muJpsi_pt_zoom->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");
   TH1F* _h_muJpsi_eta             = new TH1F("EtaMuJpsi", "EtaMuJpsi", 30, -3., 3.); 
   _h_muJpsi_eta->SetXTitle("#eta(#mu^{#pm})");
   TH1F* _h_muJpsi_phi             = new TH1F("PhiMuJpsi", "PhiMuJpsi", 32, -3.2, 3.2);
@@ -806,10 +808,12 @@ void MyAna::Loop()
     _h_jpsi_phi->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(), _weight);
 
     _h_muJpsi_pt->Fill(GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Pt(), _weight);
+    _h_muJpsi_pt_zoom->Fill(GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Pt(), _weight);
     _h_muJpsi_eta->Fill(GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Eta(), _weight);
     _h_muJpsi_phi->Fill(GetP4(jpsi_mu1_4vector,indgoodjpsi[0])->Phi(), _weight);
 
     _h_muJpsi_pt->Fill(GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Pt(), _weight);
+    _h_muJpsi_pt_zoom->Fill(GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Pt(), _weight);
     _h_muJpsi_eta->Fill(GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Eta(), _weight);
     _h_muJpsi_phi->Fill(GetP4(jpsi_mu2_4vector,indgoodjpsi[0])->Phi(), _weight);
 

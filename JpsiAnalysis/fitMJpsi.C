@@ -22,6 +22,7 @@
 #include "RooDataSet.h"
 #include "RooDataHist.h"
 #include "RooGaussian.h"
+#include "RooCBShape.h"
 #include "RooPlot.h"
 #include "RooArgSet.h"
 
@@ -148,7 +149,8 @@ TStyle* createMyStyle() {
 void leg_myStyle(TLegend *leg,
     //int text_size = 0.035,
     //int text_font = 43,
-    int text_align = 22,
+    //int text_align = 22,
+    int text_align = 12,
     int fill_style = 1,
     int fill_color = 10,
     int line_color = 0,
@@ -290,7 +292,7 @@ int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TSt
 {  
   if (date.Length() > 0 && version.Length() > 0 && fileData.Length() > 0 && decay.Length() > 0)  {
 
-    vector<double> xlim; xlim.push_back(3.02); xlim.push_back(3.16);
+    vector<double> xlim; xlim.push_back(3.02); xlim.push_back(3.2);
     double lumi = 19.7;
 
     TStyle* my_style = createMyStyle();
@@ -304,7 +306,7 @@ int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TSt
     if (fileData.Contains("el", TString::kIgnoreCase)) {
       indir += "MyAnaEl/";
       fileData = indir+"ElectronHadASingleElectronBCD.root";
-      outFile += "GaussianBinnedFit_MuChannel";
+      outFile += "GaussianBinnedFit_ElChannel";
       if (decay.Contains("semi", TString::kIgnoreCase))
           channel = "e"+channel;
       if (decay.Contains("di", TString::kIgnoreCase))
@@ -315,7 +317,7 @@ int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TSt
     if (fileData.Contains("mu", TString::kIgnoreCase)) {
       indir += "MyAnaMu/";
       fileData = indir+"MuHadASingleMuBCD.root";
-      outFile += "GaussianBinnedFit_ElChannel";
+      outFile += "GaussianBinnedFit_MuChannel";
       if (decay.Contains("semi", TString::kIgnoreCase))
         channel = "#mu"+channel;
       if (decay.Contains("di", TString::kIgnoreCase))
@@ -345,28 +347,43 @@ int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TSt
     TFile *res = TFile::Open(fileData);
 
     RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV/c^{2}");
-    RooRealVar mean("mean", "mass", 3.09, 3.04, 3.14);
-    RooRealVar width("width", "width", 0.05, 0.01, 0.08);
+    RooRealVar mean_gaus("mean_gaus", "mass_gaus", 3.09, 3.07, 3.11);
+    RooRealVar width_gaus("width_gaus", "width_gaus", 0.04, 0.02, 0.06);
+    RooRealVar mean_cball("mean_cball", "mass_cball", 3.09, 3.07, 3.11);
+    RooRealVar width_cball("width_cball", "width_cball", 0.04, 0.02, 0.06);
+    RooRealVar alpha_cball("alpha_cball", "alpha_cball", 1.8);
+    RooRealVar n_cball("n_cball", "n_cball", 2.5);
 
     TH1F *histo = (TH1F*)res->Get("MJpsi");
     h_myStyle(histo,38,38,3002,histo->GetMinimum(),1.2*histo->GetMaximum(),510,510,20,38,1.,0.);
     RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mjpsi), histo, 1.);
-    RooGaussian pdf("gaus", "gaus", mjpsi, mean, width);
+    RooGaussian pdf("gaus", "gaus", mjpsi, mean_gaus, width_gaus);
     pdf.fitTo(*datahist, Range(xlim[0], xlim[1]));
+    RooCBShape pdf2("CBall", "CBall", mjpsi, mean_cball, width_cball, alpha_cball, n_cball);
+    pdf2.fitTo(*datahist, Range(3., xlim[1]));
 
     TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
     cn->cd();
     RooPlot *massframe = mjpsi.frame();
     datahist->plotOn(massframe); //, MarkerColor(38), LineColor(38));
-    pdf.plotOn(massframe, LineColor(38), Range(xlim[0], xlim[1]));
+    pdf.plotOn(massframe, LineColor(38), Range(xlim[0], xlim[1]), Name("bleu"));
+    pdf2.plotOn(massframe, LineColor(50), Range(3., xlim[1]), Name("rouge"));
     massframe->Draw();
     TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
     leg->SetTextSize(0.025);
     leg->SetHeader("Gaussian fit parameters:");
-    leg->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",mean.getVal(),mean.getError()), "");
-    leg->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",width.getVal(),width.getError()), "");
+    leg->AddEntry(massframe->findObject("bleu"), TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",mean_gaus.getVal(),mean_gaus.getError()), "l");
+    leg->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",width_gaus.getVal(),width_gaus.getError()), "");
+    TLegend *leg2 = new TLegend(0.58,0.72,0.93,0.82,NULL,"brNDC");
+    leg2->SetTextSize(0.025);
+    leg2->SetHeader("Crystal Ball fit parameters:");
+    leg2->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",mean_cball.getVal(),mean_cball.getError()), "");
+    leg2->AddEntry(massframe->findObject("rouge"), TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",width_cball.getVal(),width_cball.getError()), "l");
+    leg2->AddEntry((TObject*)0, TString::Format("#alpha = %2.1f, n = %2.1f",alpha_cball.getVal(),n_cball.getVal()), "");
     leg_myStyle(leg);
+    leg_myStyle(leg2);
     leg->Draw("same");
+    leg2->Draw("same");
     channel_tex->Draw("same");
     cms_myStyle(lumi, true);
     cn->SaveAs(outFile+".pdf");
