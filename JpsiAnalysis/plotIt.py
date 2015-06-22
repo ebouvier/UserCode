@@ -16,7 +16,8 @@ if not options.date or not options.channel or not options.version or not options
 dir = options.date
 if not os.path.isdir(dir):
     parser.error("you must specify a valid date")
-dir = os.path.join(dir, "v"+options.version)
+#dir = os.path.join(dir, "v"+options.version)
+dir = os.path.join(dir, options.version)
 if not os.path.isdir(dir):
     parser.error("you must specify a valid version")
 if (not options.channel.lower().count("mu") and not options.channel.lower().count("el") and not options.channel.lower().count("all") and not options.channel.lower().count("skim")) or (not os.path.isdir(os.path.join(dir, "MyAnaMu")) and not os.path.isdir(os.path.join(dir, "MyAnaEl")) and not os.path.isdir(os.path.join(dir, "MyAnaAll")) and not os.path.isdir(os.path.join(dir, "MyAnaSkim"))):

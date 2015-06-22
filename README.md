@@ -187,6 +187,7 @@ This can be done in root:
 If the `blind` parameter is set to `false`, the full stat central sample is used instead of data.
 If `nEvtEl` or `nEvtEl` is not provided, the number of events in the data samples are automatically used for the toys generation.
 Results are stored in the `date/version/SimultaneousFitEl`, `date/version/SimultaneousFitMu`, and `date/version/SimultaneousFitAll` folders.  
+The systematic uncertainty that is related to the fit calibration is computed. To compute other systematic uncertainties, run the analysis, `mergeMCforSys.C`, `mergeChannels.py`, and `computeSys.C`.
 
 
 ### Perform a simple template fit (as cross-check)
@@ -209,6 +210,8 @@ In root:
     fitMJpsi("date","version","channel","decay")
 
 Results are store in the `date/version/MJpsi` directory.
+
+To compare data and MC peak, use `fitJpsiPeaks.C`.
 
 
 ### Pairing studies

@@ -15,7 +15,8 @@ if not options.date or not options.version or not options.decay:
 dir = options.date
 if not os.path.isdir(dir):
     parser.error("you must specify a valid date")
-dir = os.path.join(dir, "v"+options.version)
+#dir = os.path.join(dir, "v"+options.version)
+dir = os.path.join(dir, options.version)
 if not os.path.isdir(dir):
     parser.error("you must specify a valid version")
 

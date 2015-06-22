@@ -19,12 +19,14 @@ if not options.version:
 if not options.filelist or not os.path.isdir(options.filelist):
     parser.error("you must specify a file list directory")
 
-date = datetime.datetime.now().strftime("%y%b%d")
+#date = datetime.datetime.now().strftime("%y%b%d")
+date = "15Jun22"
 
 outRoot = date
 if not os.path.isdir(outRoot):
     os.mkdir(outRoot)
-outRoot = os.path.join(outRoot, "v"+options.version)   
+#outRoot = os.path.join(outRoot, "v"+options.version)   
+outRoot = os.path.join(outRoot, options.version)   
 if not os.path.isdir(outRoot):
     os.mkdir(outRoot)
 if options.channel.lower().count("mu"):
@@ -41,7 +43,8 @@ except OSError:
 if not os.path.isdir("LogMyAna"):
     os.mkdir("LogMyAna/")
 logFile = os.path.join("LogMyAna", date)    
-logFile += "_v"+options.version     
+#logFile += "_v"+options.version     
+logFile += "_"+options.version     
 if options.channel.lower().count("mu"):
     logFile += "_Mu"
 if options.channel.lower().count("el"):
@@ -80,7 +83,7 @@ for aFile in filelist:
     if aFile.count("SingleElectron") != 1 and aFile.count("SingleMu") != 1 and aFile.count("MuHad") != 1 and aFile.count("ElectronHad") != 1 :
         option = option+" -mc"
 
-    if aFile.count("TTJets") == 1 :
+    if aFile.count("TTJets") == 1 or aFile.count("t-channel_mass") == 1:
         option = option+" -sig"    
         
     if aFile.count("TTJets") == 1 or aFile.count("TTWJets") == 1 or aFile.count("TTWWJets") == 1 or aFile.count("TTZJets") ==1 :
