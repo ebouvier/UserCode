@@ -434,6 +434,8 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi-cuts-zoom":
     log-x: true
+    log-y: true
+    y-axis-range: [2, 3e3]
     show-ratio: true
     fit-ratio: false
     show-errors: true

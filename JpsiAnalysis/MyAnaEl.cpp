@@ -105,7 +105,8 @@ void MyAna::Loop()
   _h_cuts_jpsi_l_zoom->SetXTitle("c#tau(J/#psi) (cm)");
   TH1F* _h_cuts_jpsi_lOverSig    = new TH1F("LOverSigmaJpsi-cuts", "LOverSigmaJpsi-cuts", 42, 0., 7000.);
   _h_cuts_jpsi_lOverSig->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
-  TH1F* _h_cuts_jpsi_lOverSig_zoom = new TH1F("LOverSigmaJpsi-cuts-zoom", "LOverSigmaJpsi-cuts-zoom", 200, 0., 1000.);
+  double xbins[15] = {0., 5., 10., 15., 20., 25., 35., 50., 70., 100., 150., 250., 400., 600., 1000.};
+  TH1F* _h_cuts_jpsi_lOverSig_zoom = new TH1F("LOverSigmaJpsi-cuts-zoom", "LOverSigmaJpsi-cuts-zoom", 14, xbins);
   _h_cuts_jpsi_lOverSig_zoom->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
   TH1F* _h_cuts_jpsi_dRLept      = new TH1F("DRJpsiIsoLept-cuts", "DRJpsiIsoLept-cuts", 100, 0., 5.);
   _h_cuts_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading e) (before cut)");

@@ -426,7 +426,8 @@ void MyAna::Loop()
       float muEta = GetP4(muon_4vector,i)->Eta();
 
       if (!muon_isGlobal[i]) continue;
-      if (muPt <= 26) continue;
+      // if (muPt <= 26) continue; FIXME
+      if (muPt <= 20) continue;
       if (fabs(muEta) >= 2.1) continue;
       if (muon_normChi2[i] >= 10) continue;
       if (muon_trackerLayersWithMeasurement[i] <= 5) continue;
@@ -457,7 +458,8 @@ void MyAna::Loop()
       float elPt = GetP4(electron_4vector,i)->Pt();
       float elEta = GetP4(electron_4vector,i)->Eta();
 
-      if (elPt <= 30) continue;
+      // if (elPt <= 30) continue; FIXME
+      if (elPt <= 20) continue;
       if (fabs(elEta) >= 2.5) continue;
       if (!electron_passTightID[i]) continue;
       if (fabs(electron_SCEta[i]) >= 1.4442 && fabs(electron_SCEta[i]) < 1.5660) continue;

@@ -37,7 +37,7 @@
 #define BOTTOM_MARGIN 0.13
 
 /*
- * Performing a gaussian unbinned likelihood fit for data
+ * Performing a gaussian binned likelihood fit for data
  */
 
 TStyle* createMyStyle() {

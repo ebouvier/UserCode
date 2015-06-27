@@ -1690,9 +1690,9 @@ int simultaneousFit(TString date = "", TString version = "", TString decay = "",
     cout << "\n===================================================\n" <<endl;
 
     double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
+    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
     cout << result1 << endl;
-    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
+    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
     cout << result2 << endl;
 
     return 0;

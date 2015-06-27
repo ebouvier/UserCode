@@ -106,6 +106,8 @@ and then:
 
 ### Get the stacked distributions 
 
+#### With statistical uncertainties only
+
 Then, you can run:
 
     ./plotIt.py --date 15AprYY --version X --channel muonic --decay semi
@@ -123,6 +125,14 @@ Using `configPlotItJpsi.template.yml`, stacked histograms will be stored in:
     Date/vX/PlotItJpsiMu/
 
 This also work for the skimmed files.
+
+#### With also systematics uncertainties
+
+First, create the rootfiles that contain histograms with the systematic errors as bin errors (and no bin content):
+
+    ./fillSysForPlotIt.py --date 15AprYY --inf PUdown --sup PUup --out PU
+
+Those files will be stored in `date/SysForPlotIt/PU`.
 
 
 ### Data comparison between both channels 
@@ -187,7 +197,7 @@ This can be done in root:
 If the `blind` parameter is set to `false`, the full stat central sample is used instead of data.
 If `nEvtEl` or `nEvtEl` is not provided, the number of events in the data samples are automatically used for the toys generation.
 Results are stored in the `date/version/SimultaneousFitEl`, `date/version/SimultaneousFitMu`, and `date/version/SimultaneousFitAll` folders.  
-The systematic uncertainty that is related to the fit calibration is computed. To compute other systematic uncertainties, run the analysis, `mergeMCforSys.C`, `mergeChannels.py`, and `computeSys.C`.
+The systematic uncertainty that is related to the fit calibration is computed. To compute other systematic uncertainties, run the analysis, `mergeMCforSys.C`, `mergeChannels.py`, and `computeSys.C`. Then add manually the uncertainty into `sumErr.py` and run it!
 
 
 ### Perform a simple template fit (as cross-check)
@@ -222,3 +232,4 @@ After merging channels, in root:
     pairingStudies("date","version","decay")
 
 Several J/&#968; properties are considered according to their pairing (only matched events) for the central MSDecays sample. Results are stored in the `date/version/PairingStudies` folder.
+

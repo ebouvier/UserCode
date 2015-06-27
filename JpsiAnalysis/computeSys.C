@@ -49,7 +49,10 @@
 #define NCPU 8 // keep in mind that other people may want to work
 
 /*
- * Simultaneous fit with a gaussian+gamma unbinned likelihood fit
+ * Compute systematic uncertainties by generating toys from
+ * a gaussian+gamma unbinned likelihood fit from the systematics
+ * variation and fitting them by the nominal PDF (obtained with a 
+ * simultaneous fit with a gaussian+gamma unbinned likelihood fit)
  */
 
 TStyle* createMyStyle() {
@@ -1022,7 +1025,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   RooFitResult *result_final = m_res.save();
 
 
-  double *mtop_res = new double[2];
+  double *mtop_res = new double[4];
   mtop_res[0] = mt.getVal(); 
   mtop_res[1] = mt.getError(); 
 
@@ -1223,6 +1226,8 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   cn_mean->SaveAs(out_mean+".C");
   cn_mean->SaveAs(out_mean+".jpg");
   cn_mean->SaveAs(out_mean+".eps");
+  mtop_res[2] = hist_mean->GetMean(); 
+  mtop_res[3] = hist_mean->GetMeanError(); 
 
   TCanvas *cn_err = new TCanvas("cn_err","cn_err",800,800);
   cn_err->cd();
@@ -1360,9 +1365,10 @@ int computeSys(TString date = "", TString version = "", TString decay = "",
     cout << "\n===================================================\n" <<endl;
 
     double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
+    double *mtoy_combi = combi(mtop_el[2], mtop_el[3], mtop_mu[2], mtop_mu[3]); 
+    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2} \n \t \t \t Mean toys = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_combi[0], mtop_combi[1], mtoy_combi[0], mtoy_combi[1]);
     cout << result1 << endl;
-    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
+    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2} \n \t \t \t Mean toys = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_all[0], mtop_all[1], mtop_all[2], mtop_all[3]);
     cout << result2 << endl;
 
     return 0;

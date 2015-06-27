@@ -37,7 +37,8 @@
 #define BOTTOM_MARGIN 0.13
 
 /*
- * Performing a gaussian unbinned likelihood fit for data
+ * Performing a gaussian binned likelihood fit for data
+ * and a CB binned likelihood fit for MC
  */
 
 TStyle* createMyStyle() {
@@ -325,7 +326,8 @@ double *cbPeak(TString inFile, TString outFile, TString channel, double lumi)
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
-  cms_myStyle(lumi, true);
+  cms_myStyle(lumi, true); 
+  // cms_myStyle(lumi, false);
   cn->SaveAs(outFile+".pdf");
   cn->SaveAs(outFile+".C");
   cn->SaveAs(outFile+".jpg");
@@ -360,12 +362,14 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
   RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mjpsi), histo, 1.);
   RooGaussian pdf("Gall", "Gall", mjpsi, mean_gaus, width_gaus);
   pdf.fitTo(*datahist, Range(3.06, 3.14), SumW2Error(kTRUE));
+  // pdf.fitTo(*datahist, Range(3.04, 3.13), SumW2Error(kTRUE));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
   RooPlot *massframe = mjpsi.frame();
   datahist->plotOn(massframe); //, MarkerColor(38), LineColor(38));
   pdf.plotOn(massframe, LineColor(38), Range(3.06, 3.14), Name("bleu"));
+  /// pdf.plotOn(massframe, LineColor(38), Range(3.04, 3.13), Name("bleu"));
   massframe->Draw();
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   leg->SetTextSize(0.025);
@@ -375,7 +379,7 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
-  cms_myStyle(lumi, true);
+  cms_myStyle(lumi, false);
   cn->SaveAs(outFile+".pdf");
   cn->SaveAs(outFile+".C");
   cn->SaveAs(outFile+".jpg");
@@ -452,6 +456,7 @@ int fitJpsiPeaks(TString date = "", TString version = "", TString decay = "", TS
     cout << "\n===================================================\n" <<endl;
 
     double *mjpsi_data = cbPeak(fileData, outFileData, channel, lumi); 
+    // double *mjpsi_mc = cbPeak(fileMC, outFileMC, channel, lumi); 
     double *mjpsi_mc = gPeak(fileMC, outFileMC, channel, lumi); 
 
     cout << "\n===================================================\n" <<endl;

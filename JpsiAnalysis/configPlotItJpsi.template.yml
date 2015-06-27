@@ -22,7 +22,8 @@ files:
   'TTJets_MSDecays_JpsiFilter_166_5.root':
     type: signal
     cross-section: 245.8
-    generated-events: 2537451 
+#    generated-events: 2537451 
+    generated-events: 3387481 
     line-color: 419
     line-type: 1 
     line-width: 3
@@ -31,7 +32,8 @@ files:
   'TTJets_MSDecays_JpsiFilter_169_5.root':
     type: signal
     cross-section: 245.8
-    generated-events: 1909822
+#    generated-events: 1909822
+    generated-events: 2549600 
     line-color: 862
     line-type: 1 
     line-width: 3
@@ -40,7 +42,8 @@ files:
   'TTJets_MSDecays_JpsiFilter_171_5.root':
     type: signal
     cross-section: 245.8
-    generated-events: 1803768
+#    generated-events: 1803768
+    generated-events: 2405277 
     line-color: 602
     line-type: 1 
     line-width: 3
@@ -49,7 +52,8 @@ files:
   'TTJets_MSDecays_JpsiFilter_172_5.root':
     type: signal
     cross-section: 245.8
-    generated-events: 4037468
+#    generated-events: 4037468
+    generated-events: 5380767 
     line-color: 877
     line-type: 1 
     line-width: 3
@@ -58,7 +62,8 @@ files:
   'TTJets_MSDecays_JpsiFilter_173_5.root':
     type: signal
     cross-section: 245.8
-    generated-events: 1775180
+#    generated-events: 1775180
+    generated-events: 2365831 
     line-color: 907
     line-type: 1 
     line-width: 3
@@ -67,7 +72,8 @@ files:
   'TTJets_MSDecays_JpsiFilter_175_5.root':
     type: signal
     cross-section: 245.8 
-    generated-events: 2878798
+#    generated-events: 2878798
+    generated-events: 3834254 
     line-color: 807
     line-type: 1
     line-width: 3
@@ -76,7 +82,8 @@ files:
   'TTJets_MSDecays_JpsiFilter_178_5.root':
     type: signal
     cross-section: 245.8 
-    generated-events: 1836496
+#    generated-events: 1836496
+    generated-events: 2451711
     line-color: 800
     line-type: 1
     line-width: 3

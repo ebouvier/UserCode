@@ -30,7 +30,8 @@
 #define BOTTOM_MARGIN 0.13
 
 /*
- * Performing a gaussian unbinned likelihood fit for data
+ * Comparing several distributions whether the
+ * isolated is well matched to the J/psi or not
  */
 
 TStyle* createMyStyle() {
@@ -306,8 +307,10 @@ int pairingStudies(TString date = "", TString version = "", TString decay = "")
     my_style->cd();
     gROOT->SetBatch(true);
 
-    TString fileData = date+"/v"+version+"/MyAnaAll/TTJets_MSDecays_JpsiFilter_172_5.root";
-    TString outdir   = date+"/v"+version+"/PairingStudies/";
+    // TString fileData = date+"/v"+version+"/MyAnaAll/TTJets_MSDecays_JpsiFilter_172_5.root";
+    // TString outdir   = date+"/v"+version+"/PairingStudies/";
+    TString fileData = date+"/"+version+"/MyAnaAll/TTJets_MSDecays_JpsiFilter_172_5.root";
+    TString outdir   = date+"/"+version+"/PairingStudies/";
 
     gROOT->ProcessLine(".! mkdir "+outdir);
 

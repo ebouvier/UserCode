@@ -16,15 +16,26 @@
 int mergeMC(TString date, TString version, TString channel){
 
   float lumi;
-  TString dir = date+"/v"+version+"/";
+  // TString dir = date+"/v"+version+"/";
+  TString dir = date+"/"+version+"/";
+  TString fileData = "";
   if (channel.Contains("mu", TString::kIgnoreCase)) {
     lumi = 19705.;
     dir += "MyAnaMu/";
+    fileData = dir+"MuHadASingleMuBCD.root";
   }
   if (channel.Contains("el", TString::kIgnoreCase)) {
     lumi = 19690.;
     dir += "MyAnaEl/";
+    fileData = dir+"ElectronHadASingleElectronBCD.root";
   }
+
+  TFile *file = TFile::Open(fileData);
+  TH1D* h = (TH1D*)file->Get("NJets20");
+  double nEvt = h->Integral();
+  delete h;
+  file->Close(); 
+  delete file;
 
   vector<TString> mtop; mtop.push_back("166"); mtop.push_back("169"); mtop.push_back("171"); mtop.push_back("172"); mtop.push_back("173"); mtop.push_back("175"); mtop.push_back("178"); 
 
@@ -78,37 +89,37 @@ int mergeMC(TString date, TString version, TString channel){
     nevts.push_back(15539503);
     nevts.push_back(13382803);
     if (mtop[itop].Contains("166")) {
-      nevts.push_back(2537451);
+      nevts.push_back(3387481); 
       nevts.push_back(1944483);
       nevts.push_back(891031);
     }
     if (mtop[itop].Contains("169")) {
-      nevts.push_back(1909822);
+      nevts.push_back(2549600);
       nevts.push_back(2894632);
       nevts.push_back(1460416);
     }
     if (mtop[itop].Contains("171")) {
-      nevts.push_back(1803768);
+      nevts.push_back(2405277);
       nevts.push_back(2932796);
       nevts.push_back(1468594);
     }
     if (mtop[itop].Contains("172")) {
-      nevts.push_back(4037468);
+      nevts.push_back(5380767);
       nevts.push_back(3758227);
       nevts.push_back(1935072);
     }
     if (mtop[itop].Contains("173")) {
-      nevts.push_back(1775180);
+      nevts.push_back(2365831);
       nevts.push_back(2937681);
       nevts.push_back(1469318);
     }
     if (mtop[itop].Contains("175")) {
-      nevts.push_back(2878798);
+      nevts.push_back(3834254);
       nevts.push_back(2918026);
       nevts.push_back(1469507);
     }
     if (mtop[itop].Contains("178")) {
-      nevts.push_back(1836496);
+      nevts.push_back(2451711); 
       nevts.push_back(1891106);
       nevts.push_back(967539);
     }
@@ -150,7 +161,7 @@ int mergeMC(TString date, TString version, TString channel){
     }
     float tot = 0.;
     for (unsigned int i = 0; i < vecsize; i++) {
-      prop[i] = 505.*prop[i]/norm;
+      prop[i] = nEvt*prop[i]/norm;
       //prop[i] = prop[i]/norm;
       tot += prop[i];
     }

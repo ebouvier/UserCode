@@ -129,12 +129,10 @@ for dataset_name in dataset_names:
     
     LumiTot = Lumi[channel] 
     
-    tex.write("\\begin{tabular}{|p{10cm}|r|}\n")
-    tex.write("\\hline\n")
-    tex.write("\\multicolumn{2}{|c|}{"+title+"} \\\\ \n")
-    tex.write("\\hline\\hline\n")
+    tex.write("\\begin{tabular}{p{10cm}r}\n")
+    tex.write("\\multicolumn{2}{c}{\\bf "+title+"} \\\\ \n")
     tex.write("Dataset & Luminosity ($\\text{fb}^{-1}$) \\\\ \n")
-    tex.write("\\hline\\hline\n")
+    tex.write("\\hline\n")
     
     for dataset in datasets:
         
@@ -146,11 +144,10 @@ for dataset_name in dataset_names:
             tex.write(dataset_path+" & %.3f \\\\ \n" % dataset_lumi)
 
     tex.write("\\hline\n")
-    tex.write("\\multicolumn{2}{|r|}{%.3f} \\\\ \n" % LumiTot)
-    tex.write("\\hline\n")
+    tex.write("\\multicolumn{2}{r}{%.3f} \\\\ \n" % LumiTot)
     tex.write("\\end{tabular}\n")
     if nchannel < 1:
-        tex.write("\\vspace{0.5cm} \n")
+        tex.write("\\vspace{1cm} \n")
     nchannel += 1
         
 tex.write("\\end{center}\n")
@@ -163,17 +160,15 @@ tex.write("\\begin{center}\n")
 tex.write("\\caption{\label{datasim:tab2}\n")
 tex.write("Monte Carlo datasets and their corresponding cross section (pb).\n")
 tex.write("}\n")
-tex.write("\\begin{tabular}{|p{12cm}|c|}\n")
-tex.write("\\hline\n")
+tex.write("\\begin{tabular}{m{12cm}r}\n")
 tex.write("Dataset & Cross section (pb) \\\\ \n")
-tex.write("\\hline\\hline\n")
+tex.write("\\hline\n")
 
 for aodsim in aodsims:
     aodsim_path = aodsim[0]
     aodsim_xsection = aodsim[3]
 
     tex.write(aodsim_path+" & %.3f \\\\ \n" % aodsim_xsection)
-    tex.write("\\hline\n")
         
 tex.write("\\end{tabular}\n")
 tex.write("\\end{center}\n")
@@ -189,17 +184,15 @@ tex.write("\\caption{\label{results:tab1} \n")
 tex.write("Final number of events from MC simulations and observed in data for the electron and muon channels; \n")
 tex.write("quoted uncertainties are statistical only. \n")
 tex.write("} \n")
-tex.write("\\begin{tabular}{|l||c|c|} \n")
-tex.write("\\hline\n")
-tex.write("\multirow{2}{*}{Process} & \\multicolumn{2}{c|}{Number of events} \\\\ \n")
-tex.write("\\cline{2-3}\n")
+tex.write("\\begin{tabular}{lcc} \n")
+tex.write("\multirow{2}{*}{Process} & \\multicolumn{2}{c}{Number of events} \\\\ \n")
 if options.decay.lower().count("semi"):
     tex.write(" & $\\mu+\\text{jets}$ channel & $\\text{e}+\\text{jets}$ channel \\\\ \n")
 if options.decay.lower().count("di"):
     tex.write(" & $\\mu\\mu/\\mu\\text{e}+\\text{jets}$ channel & $\\text{ee}/\\text{e}\\mu+\\text{jets}$ channel \\\\ \n")
 if options.decay.lower().count("all"):
     tex.write(" & $\\mu/\\mu\\mu/\\mu\\text{e}+\\text{jets}$ channel & $\\text{e}/\\text{ee}/\\text{e}\\mu+\\text{jets}$ channel \\\\ \n")
-tex.write("\\hline\\hline\n")
+tex.write("\\hline\n")
 
 NSim = {"mu": 0., "el": 0.}
 ErrNSim = {"mu": 0., "el": 0.}
@@ -232,14 +225,12 @@ for aodsim_name in aodsim_names:
         ErrNTot[key] = math.sqrt(ErrNTot[key])
 
     tex.write(text+" & $%.1f \\pm %.1f$ & $%.1f \\pm %.1f$ \\\\ \n" % (NTot["mu"], ErrNTot["mu"], NTot["el"], ErrNTot["el"]))
-    tex.write("\\hline\n")
 
 ErrNSim["mu"] = math.sqrt(ErrNSim["mu"])
 ErrNSim["el"] = math.sqrt(ErrNSim["el"])
 
 tex.write("\\hline\n")
 tex.write("Total from simulations & $%.1f \\pm %.1f$ & $%.1f \\pm %.1f$ \\\\ \n" % (NSim["mu"], ErrNSim["mu"], NSim["el"], ErrNSim["el"]))
-tex.write("\\hline\n")
 
 NData = {"mu": 0., "el": 0.}
 
@@ -253,7 +244,6 @@ for dataset_name in dataset_names:
     NData[channel] = histo.Integral()
 
 tex.write("Data & $%d$ & $%d$ \\\\ \n" % (NData["mu"], NData["el"]))
-tex.write("\\hline\n")
         
 tex.write("\\end{tabular}\n")
 tex.write("\\end{center}\n")
