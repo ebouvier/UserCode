@@ -1,0 +1,813 @@
+configuration:
+  width: 800
+  height: 800
+  luminosity-label: '%lumi% fb^{-1} (8 TeV)'
+  experiment: "CMS"
+  extra-label: "Simulation preliminary"
+  root: 'MyAnaMu'
+  luminosity: 19697 
+  luminosity-error: 0.026
+  error-fill-style: 3154
+  error-fill-color: "#ee556270"
+  ratio-fit-error-fill-style: 1001
+  ratio-fit-error-fill-color: "#aa556270"
+  ratio-fit-line-color: "#0B486B"  
+  labels:
+    - text: '@text@'
+      position: [0.22, 0.9]
+      size: 24
+
+files:
+  'MuHadASingleMuBCD.root':
+    type: data
+    legend: "Data"
+  '../MyAnaEl/ElectronHadASingleElectronBCD.root':
+    type: data
+
+  'TTJets_MSDecays_JpsiFilter_172_5.root':
+    type: mc
+    cross-section: 245.8
+    generated-events: 5380767
+    group: tta
+    order: 5
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JES/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JER/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/PU/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonRes/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecRes/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Matching/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Scale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5.root']
+  '../MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root':
+    type: mc
+    cross-section: 245.8
+    generated-events: 5380767
+    group: tta
+    order: 5
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JES/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JER/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/PU/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonRes/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecRes/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Matching/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Scale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root']
+
+  'T_s-channel.root':
+    type: mc
+    cross-section: 3.79
+    generated-events: 259961
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_s-channel.root', '../../SysForPlotIt/JES/MyAnaMu/T_s-channel.root', '../../SysForPlotIt/JER/MyAnaMu/T_s-channel.root', '../../SysForPlotIt/PU/MyAnaMu/T_s-channel.root', '../../SysForPlotIt/MuonRes/MyAnaMu/T_s-channel.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_s-channel.root', '../../SysForPlotIt/ElecRes/MyAnaMu/T_s-channel.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_s-channel.root']
+  '../MyAnaEl/T_s-channel.root':
+    type: mc
+    cross-section: 3.79
+    generated-events: 259961
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_s-channel.root', '../../SysForPlotIt/JES/MyAnaEl/T_s-channel.root', '../../SysForPlotIt/JER/MyAnaEl/T_s-channel.root', '../../SysForPlotIt/PU/MyAnaEl/T_s-channel.root', '../../SysForPlotIt/MuonRes/MyAnaEl/T_s-channel.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_s-channel.root', '../../SysForPlotIt/ElecRes/MyAnaEl/T_s-channel.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_s-channel.root']
+
+  'T_t-channel.root':
+    type: mc
+    cross-section: 56.4
+    generated-events: 3758227
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_t-channel.root', '../../SysForPlotIt/JES/MyAnaMu/T_t-channel.root', '../../SysForPlotIt/JER/MyAnaMu/T_t-channel.root', '../../SysForPlotIt/PU/MyAnaMu/T_t-channel.root', '../../SysForPlotIt/MuonRes/MyAnaMu/T_t-channel.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_t-channel.root', '../../SysForPlotIt/ElecRes/MyAnaMu/T_t-channel.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_t-channel.root']
+  '../MyAnaEl/T_t-channel.root':
+    type: mc
+    cross-section: 56.4
+    generated-events: 3758227
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_t-channel.root', '../../SysForPlotIt/JES/MyAnaEl/T_t-channel.root', '../../SysForPlotIt/JER/MyAnaEl/T_t-channel.root', '../../SysForPlotIt/PU/MyAnaEl/T_t-channel.root', '../../SysForPlotIt/MuonRes/MyAnaEl/T_t-channel.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_t-channel.root', '../../SysForPlotIt/ElecRes/MyAnaEl/T_t-channel.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_t-channel.root']
+
+  'T_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 497658
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_tW-channel.root', '../../SysForPlotIt/JES/MyAnaMu/T_tW-channel.root', '../../SysForPlotIt/JER/MyAnaMu/T_tW-channel.root', '../../SysForPlotIt/PU/MyAnaMu/T_tW-channel.root', '../../SysForPlotIt/MuonRes/MyAnaMu/T_tW-channel.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_tW-channel.root', '../../SysForPlotIt/ElecRes/MyAnaMu/T_tW-channel.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_tW-channel.root']
+  '../MyAnaEl/T_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 497658
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_tW-channel.root', '../../SysForPlotIt/JES/MyAnaEl/T_tW-channel.root', '../../SysForPlotIt/JER/MyAnaEl/T_tW-channel.root', '../../SysForPlotIt/PU/MyAnaEl/T_tW-channel.root', '../../SysForPlotIt/MuonRes/MyAnaEl/T_tW-channel.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_tW-channel.root', '../../SysForPlotIt/ElecRes/MyAnaEl/T_tW-channel.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_tW-channel.root']
+
+  'Tbar_s-channel.root':
+    type: mc
+    cross-section: 1.76
+    generated-events: 139974
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_s-channel.root', '../../SysForPlotIt/JES/MyAnaMu/Tbar_s-channel.root', '../../SysForPlotIt/JER/MyAnaMu/Tbar_s-channel.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_s-channel.root', '../../SysForPlotIt/MuonRes/MyAnaMu/Tbar_s-channel.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_s-channel.root', '../../SysForPlotIt/ElecRes/MyAnaMu/Tbar_s-channel.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_s-channel.root']
+  '../MyAnaEl/Tbar_s-channel.root':
+    type: mc
+    cross-section: 1.76
+    generated-events: 139974
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_s-channel.root', '../../SysForPlotIt/JES/MyAnaEl/Tbar_s-channel.root', '../../SysForPlotIt/JER/MyAnaEl/Tbar_s-channel.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_s-channel.root', '../../SysForPlotIt/MuonRes/MyAnaEl/Tbar_s-channel.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_s-channel.root', '../../SysForPlotIt/ElecRes/MyAnaEl/Tbar_s-channel.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_s-channel.root']
+
+  'Tbar_t-channel.root':
+    type: mc
+    cross-section: 30.7
+    generated-events: 1935072
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_t-channel.root', '../../SysForPlotIt/JES/MyAnaMu/Tbar_t-channel.root', '../../SysForPlotIt/JER/MyAnaMu/Tbar_t-channel.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_t-channel.root', '../../SysForPlotIt/MuonRes/MyAnaMu/Tbar_t-channel.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_t-channel.root', '../../SysForPlotIt/ElecRes/MyAnaMu/Tbar_t-channel.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_t-channel.root']
+  '../MyAnaEl/Tbar_t-channel.root':
+    type: mc
+    cross-section: 30.7
+    generated-events: 1935072
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_t-channel.root', '../../SysForPlotIt/JES/MyAnaEl/Tbar_t-channel.root', '../../SysForPlotIt/JER/MyAnaEl/Tbar_t-channel.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_t-channel.root', '../../SysForPlotIt/MuonRes/MyAnaEl/Tbar_t-channel.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_t-channel.root', '../../SysForPlotIt/ElecRes/MyAnaEl/Tbar_t-channel.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_t-channel.root']
+
+  'Tbar_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 493460
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_tW-channel.root', '../../SysForPlotIt/JES/MyAnaMu/Tbar_tW-channel.root', '../../SysForPlotIt/JER/MyAnaMu/Tbar_tW-channel.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_tW-channel.root', '../../SysForPlotIt/MuonRes/MyAnaMu/Tbar_tW-channel.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_tW-channel.root', '../../SysForPlotIt/ElecRes/MyAnaMu/Tbar_tW-channel.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_tW-channel.root']
+  '../MyAnaEl/Tbar_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 493460
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_tW-channel.root', '../../SysForPlotIt/JES/MyAnaEl/Tbar_tW-channel.root', '../../SysForPlotIt/JER/MyAnaEl/Tbar_tW-channel.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_tW-channel.root', '../../SysForPlotIt/MuonRes/MyAnaEl/Tbar_tW-channel.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_tW-channel.root', '../../SysForPlotIt/ElecRes/MyAnaEl/Tbar_tW-channel.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_tW-channel.root']
+
+  'TTWJets.root':
+    type: mc
+    cross-section: 0.2149
+    generated-events: 196046
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTWJets.root', '../../SysForPlotIt/JES/MyAnaMu/TTWJets.root', '../../SysForPlotIt/JER/MyAnaMu/TTWJets.root', '../../SysForPlotIt/PU/MyAnaMu/TTWJets.root', '../../SysForPlotIt/MuonRes/MyAnaMu/TTWJets.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTWJets.root', '../../SysForPlotIt/ElecRes/MyAnaMu/TTWJets.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTWJets.root']
+  '../MyAnaEl/TTWJets.root':
+    type: mc
+    cross-section: 0.2149
+    generated-events: 196046
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTWJets.root', '../../SysForPlotIt/JES/MyAnaEl/TTWJets.root', '../../SysForPlotIt/JER/MyAnaEl/TTWJets.root', '../../SysForPlotIt/PU/MyAnaEl/TTWJets.root', '../../SysForPlotIt/MuonRes/MyAnaEl/TTWJets.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTWJets.root', '../../SysForPlotIt/ElecRes/MyAnaEl/TTWJets.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTWJets.root']
+
+  'TTWWJets.root':
+    type: mc
+    cross-section: 0.002037
+    generated-events: 217820
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTWWJets.root', '../../SysForPlotIt/JES/MyAnaMu/TTWWJets.root', '../../SysForPlotIt/JER/MyAnaMu/TTWWJets.root', '../../SysForPlotIt/PU/MyAnaMu/TTWWJets.root', '../../SysForPlotIt/MuonRes/MyAnaMu/TTWWJets.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTWWJets.root', '../../SysForPlotIt/ElecRes/MyAnaMu/TTWWJets.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTWWJets.root']
+  '../MyAnaEl/TTWWJets.root':
+    type: mc
+    cross-section: 0.002037
+    generated-events: 217820
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTWWJets.root', '../../SysForPlotIt/JES/MyAnaEl/TTWWJets.root', '../../SysForPlotIt/JER/MyAnaEl/TTWWJets.root', '../../SysForPlotIt/PU/MyAnaEl/TTWWJets.root', '../../SysForPlotIt/MuonRes/MyAnaEl/TTWWJets.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTWWJets.root', '../../SysForPlotIt/ElecRes/MyAnaEl/TTWWJets.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTWWJets.root']
+
+  'TTZJets.root':
+    type: mc
+    cross-section: 0.172
+    generated-events: 210160
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTZJets.root', '../../SysForPlotIt/JES/MyAnaMu/TTZJets.root', '../../SysForPlotIt/JER/MyAnaMu/TTZJets.root', '../../SysForPlotIt/PU/MyAnaMu/TTZJets.root', '../../SysForPlotIt/MuonRes/MyAnaMu/TTZJets.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTZJets.root', '../../SysForPlotIt/ElecRes/MyAnaMu/TTZJets.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTZJets.root']
+  '../MyAnaEl/TTZJets.root':
+    type: mc
+    cross-section: 0.172
+    generated-events: 210160
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTZJets.root', '../../SysForPlotIt/JES/MyAnaEl/TTZJets.root', '../../SysForPlotIt/JER/MyAnaEl/TTZJets.root', '../../SysForPlotIt/PU/MyAnaEl/TTZJets.root', '../../SysForPlotIt/MuonRes/MyAnaEl/TTZJets.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTZJets.root', '../../SysForPlotIt/ElecRes/MyAnaEl/TTZJets.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTZJets.root']
+
+  'WW-incl.root':
+    type: mc
+    cross-section: 56.0
+##cross-section: 54.838
+    generated-events: 10000431
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/WW-incl.root', '../../SysForPlotIt/JES/MyAnaMu/WW-incl.root', '../../SysForPlotIt/JER/MyAnaMu/WW-incl.root', '../../SysForPlotIt/PU/MyAnaMu/WW-incl.root', '../../SysForPlotIt/MuonRes/MyAnaMu/WW-incl.root', '../../SysForPlotIt/MuonScale/MyAnaMu/WW-incl.root', '../../SysForPlotIt/ElecRes/MyAnaMu/WW-incl.root', '../../SysForPlotIt/ElecScale/MyAnaMu/WW-incl.root']
+  '../MyAnaEl/WW-incl.root':
+    type: mc
+    cross-section: 56.0
+##cross-section: 54.838
+    generated-events: 10000431
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/WW-incl.root', '../../SysForPlotIt/JES/MyAnaEl/WW-incl.root', '../../SysForPlotIt/JER/MyAnaEl/WW-incl.root', '../../SysForPlotIt/PU/MyAnaEl/WW-incl.root', '../../SysForPlotIt/MuonRes/MyAnaEl/WW-incl.root', '../../SysForPlotIt/MuonScale/MyAnaEl/WW-incl.root', '../../SysForPlotIt/ElecRes/MyAnaEl/WW-incl.root', '../../SysForPlotIt/ElecScale/MyAnaEl/WW-incl.root']
+
+  'WZ-incl.root':
+    type: mc
+    cross-section: 33.6
+##cross-section: 33.21
+    generated-events: 10000283
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/WZ-incl.root', '../../SysForPlotIt/JES/MyAnaMu/WZ-incl.root', '../../SysForPlotIt/JER/MyAnaMu/WZ-incl.root', '../../SysForPlotIt/PU/MyAnaMu/WZ-incl.root', '../../SysForPlotIt/MuonRes/MyAnaMu/WZ-incl.root', '../../SysForPlotIt/MuonScale/MyAnaMu/WZ-incl.root', '../../SysForPlotIt/ElecRes/MyAnaMu/WZ-incl.root', '../../SysForPlotIt/ElecScale/MyAnaMu/WZ-incl.root']
+  '../MyAnaEl/WZ-incl.root':
+    type: mc
+    cross-section: 33.6
+##cross-section: 33.21
+    generated-events: 10000283
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/WZ-incl.root', '../../SysForPlotIt/JES/MyAnaEl/WZ-incl.root', '../../SysForPlotIt/JER/MyAnaEl/WZ-incl.root', '../../SysForPlotIt/PU/MyAnaEl/WZ-incl.root', '../../SysForPlotIt/MuonRes/MyAnaEl/WZ-incl.root', '../../SysForPlotIt/MuonScale/MyAnaEl/WZ-incl.root', '../../SysForPlotIt/ElecRes/MyAnaEl/WZ-incl.root', '../../SysForPlotIt/ElecScale/MyAnaEl/WZ-incl.root']
+
+  'ZZ-incl.root':
+    type: mc
+    cross-section: 7.6
+##cross-section: 17.654
+    generated-events: 9799908
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/ZZ-incl.root', '../../SysForPlotIt/JES/MyAnaMu/ZZ-incl.root', '../../SysForPlotIt/JER/MyAnaMu/ZZ-incl.root', '../../SysForPlotIt/PU/MyAnaMu/ZZ-incl.root', '../../SysForPlotIt/MuonRes/MyAnaMu/ZZ-incl.root', '../../SysForPlotIt/MuonScale/MyAnaMu/ZZ-incl.root', '../../SysForPlotIt/ElecRes/MyAnaMu/ZZ-incl.root', '../../SysForPlotIt/ElecScale/MyAnaMu/ZZ-incl.root']
+  '../MyAnaEl/ZZ-incl.root':
+    type: mc
+    cross-section: 7.6
+##cross-section: 17.654
+    generated-events: 9799908
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/ZZ-incl.root', '../../SysForPlotIt/JES/MyAnaEl/ZZ-incl.root', '../../SysForPlotIt/JER/MyAnaEl/ZZ-incl.root', '../../SysForPlotIt/PU/MyAnaEl/ZZ-incl.root', '../../SysForPlotIt/MuonRes/MyAnaEl/ZZ-incl.root', '../../SysForPlotIt/MuonScale/MyAnaEl/ZZ-incl.root', '../../SysForPlotIt/ElecRes/MyAnaEl/ZZ-incl.root', '../../SysForPlotIt/ElecScale/MyAnaEl/ZZ-incl.root']
+
+  'DY1JetsToLL_M-50.root':
+    type: mc
+    cross-section: 666.3
+##cross-section: 561.0
+    generated-events: 24045248
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY1JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaMu/DY1JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaMu/DY1JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaMu/DY1JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaMu/DY1JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY1JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaMu/DY1JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY1JetsToLL_M-50.root']
+  '../MyAnaEl/DY1JetsToLL_M-50.root':
+    type: mc
+    cross-section: 666.3
+##cross-section: 561.0
+    generated-events: 24045248
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY1JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaEl/DY1JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaEl/DY1JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaEl/DY1JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaEl/DY1JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY1JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaEl/DY1JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY1JetsToLL_M-50.root']
+
+  'DY2JetsToLL_M-50.root':
+    type: mc
+    cross-section: 215.0
+##cross-section: 181.0
+    generated-events: 21852156
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY2JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaMu/DY2JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaMu/DY2JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaMu/DY2JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaMu/DY2JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY2JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaMu/DY2JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY2JetsToLL_M-50.root']
+  '../MyAnaEl/DY2JetsToLL_M-50.root':
+    type: mc
+    cross-section: 215.0
+##cross-section: 181.0
+    generated-events: 21852156
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY2JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaEl/DY2JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaEl/DY2JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaEl/DY2JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaEl/DY2JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY2JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaEl/DY2JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY2JetsToLL_M-50.root']
+
+  'DY3JetsToLL_M-50.root':
+    type: mc
+    cross-section: 60.7
+##cross-section: 51.1
+    generated-events: 11015445
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY3JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaMu/DY3JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaMu/DY3JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaMu/DY3JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaMu/DY3JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY3JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaMu/DY3JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY3JetsToLL_M-50.root']
+  '../MyAnaEl/DY3JetsToLL_M-50.root':
+    type: mc
+    cross-section: 60.7
+##cross-section: 51.1
+    generated-events: 11015445
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY3JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaEl/DY3JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaEl/DY3JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaEl/DY3JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaEl/DY3JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY3JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaEl/DY3JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY3JetsToLL_M-50.root']
+
+  'DY4JetsToLL_M-50.root':
+    type: mc
+    cross-section: 27.3
+##cross-section: 23.04
+    generated-events: 6402827
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY4JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaMu/DY4JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaMu/DY4JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaMu/DY4JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaMu/DY4JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY4JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaMu/DY4JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY4JetsToLL_M-50.root']
+  '../MyAnaEl/DY4JetsToLL_M-50.root':
+    type: mc
+    cross-section: 27.3
+##cross-section: 23.04
+    generated-events: 6402827
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY4JetsToLL_M-50.root', '../../SysForPlotIt/JES/MyAnaEl/DY4JetsToLL_M-50.root', '../../SysForPlotIt/JER/MyAnaEl/DY4JetsToLL_M-50.root', '../../SysForPlotIt/PU/MyAnaEl/DY4JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/MyAnaEl/DY4JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY4JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/MyAnaEl/DY4JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY4JetsToLL_M-50.root']
+
+  'W1JetsToLNu.root':
+    type: mc
+    cross-section: 6662.8 
+##cross-section: 5562.36 
+    generated-events: 23141598
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W1JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaMu/W1JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaMu/W1JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaMu/W1JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaMu/W1JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W1JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaMu/W1JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W1JetsToLNu.root']
+  '../MyAnaEl/W1JetsToLNu.root':
+    type: mc
+    cross-section: 6662.8 
+##cross-section: 5562.36 
+    generated-events: 23141598
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W1JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaEl/W1JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaEl/W1JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaEl/W1JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaEl/W1JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W1JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaEl/W1JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W1JetsToLNu.root']
+
+  'W2JetsToLNu.root':
+    type: mc
+    cross-section: 2159.2
+##cross-section: 1802.62
+    generated-events: 34044921
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W2JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaMu/W2JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaMu/W2JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaMu/W2JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaMu/W2JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W2JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaMu/W2JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W2JetsToLNu.root']
+  '../MyAnaEl/W2JetsToLNu.root':
+    type: mc
+    cross-section: 2159.2
+##cross-section: 1802.62
+    generated-events: 34044921
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W2JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaEl/W2JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaEl/W2JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaEl/W2JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaEl/W2JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W2JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaEl/W2JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W2JetsToLNu.root']
+
+  'W3JetsToLNu.root':
+    type: mc
+    cross-section: 640.4
+##cross-section: 534.604
+    generated-events: 15539503
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W3JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaMu/W3JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaMu/W3JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaMu/W3JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaMu/W3JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W3JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaMu/W3JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W3JetsToLNu.root']
+  '../MyAnaEl/W3JetsToLNu.root':
+    type: mc
+    cross-section: 640.4
+##cross-section: 534.604
+    generated-events: 15539503
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W3JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaEl/W3JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaEl/W3JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaEl/W3JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaEl/W3JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W3JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaEl/W3JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W3JetsToLNu.root']
+
+  'W4JetsToLNu.root':
+    type: mc
+    cross-section: 264.0
+##cross-section: 220.434
+    generated-events: 13382803
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W4JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaMu/W4JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaMu/W4JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaMu/W4JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaMu/W4JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W4JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaMu/W4JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W4JetsToLNu.root']
+  '../MyAnaEl/W4JetsToLNu.root':
+    type: mc
+    cross-section: 264.0
+##cross-section: 220.434
+    generated-events: 13382803
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W4JetsToLNu.root', '../../SysForPlotIt/JES/MyAnaEl/W4JetsToLNu.root', '../../SysForPlotIt/JER/MyAnaEl/W4JetsToLNu.root', '../../SysForPlotIt/PU/MyAnaEl/W4JetsToLNu.root', '../../SysForPlotIt/MuonRes/MyAnaEl/W4JetsToLNu.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W4JetsToLNu.root', '../../SysForPlotIt/ElecRes/MyAnaEl/W4JetsToLNu.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W4JetsToLNu.root']
+
+plots:
+  ##"Histo":
+    ##save-extensions: ["pdf","C","jpg","eps"]
+    ##rebin: 1
+    ##show-ratio: false
+    ##show-errors: true
+    ##log-y: true
+    ##x-axis-range: [,]
+    ##y-axis-range: [,]
+
+  "Event-yields":
+    log-y: true
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-range: [20, 9e3]
+    y-axis-show-zero: true
+
+  "NMuons-cuts":
+    x-axis: "Number of isolated #mu (before cuts)"
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NElectrons-cuts":
+    x-axis: "Number of isolated e (before cuts)"
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets20-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi-cuts":
+    log-y: true
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-cuts-zoom":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts-zoom":
+    log-x: true
+    log-y: true
+    y-axis-range: [2, 3e3]
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept-cuts":
+    x-axis: "#DeltaR (J/#psi-leading lepton) (before cut)"
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NIsoLept":
+    x-axis: "Number of leading leptons"
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtIsoLept":
+    x-axis: "p_{T}(leading lepton) (GeV/c)"
+    x-axis-range: [0, 250]
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaIsoLept":
+    x-axis: "#eta(leading lepton)"
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiIsoLept":
+    x-axis: "#phi(leading lepton)"
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 80]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PfIsoIsoLept":
+    x-axis: "lepton isolation"
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    x-axis-range: [0, 0.2]
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 200]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "CsvJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "MetMet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 70]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MtW":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NTracksVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJpsi":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 80]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi":
+    log-y: true
+    y-axis-show-zero: true
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-zoom":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "SigmaLJpsi":
+    log-y: true
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtFracJpsiJet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "DPhiJpsiIsoLept":
+    x-axis: "#Delta#phi (J/#psi-leading lepton)"
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-range: [0, 200]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept":
+    x-axis: "#DeltaR (J/#psi-leading lepton)"
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "PtMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 110]
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "CsvJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChMuEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChEMEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChHadEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NEMEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NHadEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "MTriLept-allPair":
+    x-axis: "M(J/#psi+l) (GeV/c^{2})"
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtTriLept":
+    x-axis: "p_{T}(J/#psi+l) (GeV/c)"
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+    
+  "bjjMass":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "WMass":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+legend:
+  position: [0.72, 0.55, 0.9, 0.9]
+
+groups:
+  tta:
+    legend: 't#bar{t}'
+    fill-color: 633 
+
+  sto:
+    legend: 'single top'
+    fill-color: 618
+
+  tto:
+    legend: 't#bar{t} other'
+    fill-color: 797
+
+  dib:
+    legend: 'WW, WZ, ZZ'
+    fill-color: 400
+
+  zll:
+    legend: 'Z + jets'
+    fill-color: 868
+
+  wln:
+    legend: 'W #rightarrow l#nu + jets'
+    fill-color: 858

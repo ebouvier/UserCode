@@ -1,0 +1,645 @@
+configuration:
+  width: 800
+  height: 800
+  luminosity-label: '%lumi% fb^{-1} (8 TeV)'
+  experiment: "CMS"
+  extra-label: "Simulation preliminary"
+  root: '@root@'
+  luminosity: @lumi@ 
+  luminosity-error: 0.026
+  error-fill-style: 3154
+  error-fill-color: "#ee556270"
+  ratio-fit-error-fill-style: 1001
+  ratio-fit-error-fill-color: "#aa556270"
+  ratio-fit-line-color: "#0B486B"  
+  labels:
+    - text: '@text@'
+      position: [0.22, 0.9]
+      size: 24
+
+files:
+  '@dataFile@':
+    type: data
+    legend: "Data"
+
+  'TTJets_MSDecays_JpsiFilter_172_5.root':
+    type: mc
+    cross-section: 245.8
+    generated-events: 5380767
+    legend: 't#bar{t}'
+    fill-color: 633 
+    order: 5
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JES/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JER/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/PU/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonRes/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonScale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecRes/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecScale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Matching/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Scale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root']
+
+  'T_s-channel.root':
+    type: mc
+    cross-section: 3.79
+    generated-events: 259961
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/T_s-channel.root', '../../SysForPlotIt/JES/@root@/T_s-channel.root', '../../SysForPlotIt/JER/@root@/T_s-channel.root', '../../SysForPlotIt/PU/@root@/T_s-channel.root', '../../SysForPlotIt/MuonRes/@root@/T_s-channel.root', '../../SysForPlotIt/MuonScale/@root@/T_s-channel.root', '../../SysForPlotIt/ElecRes/@root@/T_s-channel.root', '../../SysForPlotIt/ElecScale/@root@/T_s-channel.root']
+
+  'T_t-channel.root':
+    type: mc
+    cross-section: 56.4
+    generated-events: 3758227
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/T_t-channel.root', '../../SysForPlotIt/JES/@root@/T_t-channel.root', '../../SysForPlotIt/JER/@root@/T_t-channel.root', '../../SysForPlotIt/PU/@root@/T_t-channel.root', '../../SysForPlotIt/MuonRes/@root@/T_t-channel.root', '../../SysForPlotIt/MuonScale/@root@/T_t-channel.root', '../../SysForPlotIt/ElecRes/@root@/T_t-channel.root', '../../SysForPlotIt/ElecScale/@root@/T_t-channel.root']
+
+  'T_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 497658
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/T_tW-channel.root', '../../SysForPlotIt/JES/@root@/T_tW-channel.root', '../../SysForPlotIt/JER/@root@/T_tW-channel.root', '../../SysForPlotIt/PU/@root@/T_tW-channel.root', '../../SysForPlotIt/MuonRes/@root@/T_tW-channel.root', '../../SysForPlotIt/MuonScale/@root@/T_tW-channel.root', '../../SysForPlotIt/ElecRes/@root@/T_tW-channel.root', '../../SysForPlotIt/ElecScale/@root@/T_tW-channel.root']
+
+  'Tbar_s-channel.root':
+    type: mc
+    cross-section: 1.76
+    generated-events: 139974
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/Tbar_s-channel.root', '../../SysForPlotIt/JES/@root@/Tbar_s-channel.root', '../../SysForPlotIt/JER/@root@/Tbar_s-channel.root', '../../SysForPlotIt/PU/@root@/Tbar_s-channel.root', '../../SysForPlotIt/MuonRes/@root@/Tbar_s-channel.root', '../../SysForPlotIt/MuonScale/@root@/Tbar_s-channel.root', '../../SysForPlotIt/ElecRes/@root@/Tbar_s-channel.root', '../../SysForPlotIt/ElecScale/@root@/Tbar_s-channel.root']
+
+  'Tbar_t-channel.root':
+    type: mc
+    cross-section: 30.7
+    generated-events: 1935072
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/Tbar_t-channel.root', '../../SysForPlotIt/JES/@root@/Tbar_t-channel.root', '../../SysForPlotIt/JER/@root@/Tbar_t-channel.root', '../../SysForPlotIt/PU/@root@/Tbar_t-channel.root', '../../SysForPlotIt/MuonRes/@root@/Tbar_t-channel.root', '../../SysForPlotIt/MuonScale/@root@/Tbar_t-channel.root', '../../SysForPlotIt/ElecRes/@root@/Tbar_t-channel.root', '../../SysForPlotIt/ElecScale/@root@/Tbar_t-channel.root']
+
+  'Tbar_tW-channel.root':
+    type: mc
+    cross-section: 11.1
+    generated-events: 493460
+    group: sto
+    order: 4
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/Tbar_tW-channel.root', '../../SysForPlotIt/JES/@root@/Tbar_tW-channel.root', '../../SysForPlotIt/JER/@root@/Tbar_tW-channel.root', '../../SysForPlotIt/PU/@root@/Tbar_tW-channel.root', '../../SysForPlotIt/MuonRes/@root@/Tbar_tW-channel.root', '../../SysForPlotIt/MuonScale/@root@/Tbar_tW-channel.root', '../../SysForPlotIt/ElecRes/@root@/Tbar_tW-channel.root', '../../SysForPlotIt/ElecScale/@root@/Tbar_tW-channel.root']
+
+  'TTWJets.root':
+    type: mc
+    cross-section: 0.2149
+    generated-events: 196046
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/TTWJets.root', '../../SysForPlotIt/JES/@root@/TTWJets.root', '../../SysForPlotIt/JER/@root@/TTWJets.root', '../../SysForPlotIt/PU/@root@/TTWJets.root', '../../SysForPlotIt/MuonRes/@root@/TTWJets.root', '../../SysForPlotIt/MuonScale/@root@/TTWJets.root', '../../SysForPlotIt/ElecRes/@root@/TTWJets.root', '../../SysForPlotIt/ElecScale/@root@/TTWJets.root']
+
+  'TTWWJets.root':
+    type: mc
+    cross-section: 0.002037
+    generated-events: 217820
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/TTWWJets.root', '../../SysForPlotIt/JES/@root@/TTWWJets.root', '../../SysForPlotIt/JER/@root@/TTWWJets.root', '../../SysForPlotIt/PU/@root@/TTWWJets.root', '../../SysForPlotIt/MuonRes/@root@/TTWWJets.root', '../../SysForPlotIt/MuonScale/@root@/TTWWJets.root', '../../SysForPlotIt/ElecRes/@root@/TTWWJets.root', '../../SysForPlotIt/ElecScale/@root@/TTWWJets.root']
+
+  'TTZJets.root':
+    type: mc
+    cross-section: 0.172
+    generated-events: 210160
+    group: tto
+    order: 3
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/TTZJets.root', '../../SysForPlotIt/JES/@root@/TTZJets.root', '../../SysForPlotIt/JER/@root@/TTZJets.root', '../../SysForPlotIt/PU/@root@/TTZJets.root', '../../SysForPlotIt/MuonRes/@root@/TTZJets.root', '../../SysForPlotIt/MuonScale/@root@/TTZJets.root', '../../SysForPlotIt/ElecRes/@root@/TTZJets.root', '../../SysForPlotIt/ElecScale/@root@/TTZJets.root']
+
+  'WW-incl.root':
+    type: mc
+    cross-section: 56.0
+##cross-section: 54.838
+    generated-events: 10000431
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/WW-incl.root', '../../SysForPlotIt/JES/@root@/WW-incl.root', '../../SysForPlotIt/JER/@root@/WW-incl.root', '../../SysForPlotIt/PU/@root@/WW-incl.root', '../../SysForPlotIt/MuonRes/@root@/WW-incl.root', '../../SysForPlotIt/MuonScale/@root@/WW-incl.root', '../../SysForPlotIt/ElecRes/@root@/WW-incl.root', '../../SysForPlotIt/ElecScale/@root@/WW-incl.root']
+
+  'WZ-incl.root':
+    type: mc
+    cross-section: 33.6
+##cross-section: 33.21
+    generated-events: 10000283
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/WZ-incl.root', '../../SysForPlotIt/JES/@root@/WZ-incl.root', '../../SysForPlotIt/JER/@root@/WZ-incl.root', '../../SysForPlotIt/PU/@root@/WZ-incl.root', '../../SysForPlotIt/MuonRes/@root@/WZ-incl.root', '../../SysForPlotIt/MuonScale/@root@/WZ-incl.root', '../../SysForPlotIt/ElecRes/@root@/WZ-incl.root', '../../SysForPlotIt/ElecScale/@root@/WZ-incl.root']
+
+  'ZZ-incl.root':
+    type: mc
+    cross-section: 7.6
+##cross-section: 17.654
+    generated-events: 9799908
+    group: dib
+    order: 2
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/ZZ-incl.root', '../../SysForPlotIt/JES/@root@/ZZ-incl.root', '../../SysForPlotIt/JER/@root@/ZZ-incl.root', '../../SysForPlotIt/PU/@root@/ZZ-incl.root', '../../SysForPlotIt/MuonRes/@root@/ZZ-incl.root', '../../SysForPlotIt/MuonScale/@root@/ZZ-incl.root', '../../SysForPlotIt/ElecRes/@root@/ZZ-incl.root', '../../SysForPlotIt/ElecScale/@root@/ZZ-incl.root']
+
+  'DY1JetsToLL_M-50.root':
+    type: mc
+    cross-section: 666.3
+##cross-section: 561.0
+    generated-events: 24045248
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/DY1JetsToLL_M-50.root', '../../SysForPlotIt/JES/@root@/DY1JetsToLL_M-50.root', '../../SysForPlotIt/JER/@root@/DY1JetsToLL_M-50.root', '../../SysForPlotIt/PU/@root@/DY1JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/@root@/DY1JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/@root@/DY1JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/@root@/DY1JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/@root@/DY1JetsToLL_M-50.root']
+
+  'DY2JetsToLL_M-50.root':
+    type: mc
+    cross-section: 215.0
+##cross-section: 181.0
+    generated-events: 21852156
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/DY2JetsToLL_M-50.root', '../../SysForPlotIt/JES/@root@/DY2JetsToLL_M-50.root', '../../SysForPlotIt/JER/@root@/DY2JetsToLL_M-50.root', '../../SysForPlotIt/PU/@root@/DY2JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/@root@/DY2JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/@root@/DY2JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/@root@/DY2JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/@root@/DY2JetsToLL_M-50.root']
+
+  'DY3JetsToLL_M-50.root':
+    type: mc
+    cross-section: 60.7
+##cross-section: 51.1
+    generated-events: 11015445
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/DY3JetsToLL_M-50.root', '../../SysForPlotIt/JES/@root@/DY3JetsToLL_M-50.root', '../../SysForPlotIt/JER/@root@/DY3JetsToLL_M-50.root', '../../SysForPlotIt/PU/@root@/DY3JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/@root@/DY3JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/@root@/DY3JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/@root@/DY3JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/@root@/DY3JetsToLL_M-50.root']
+
+  'DY4JetsToLL_M-50.root':
+    type: mc
+    cross-section: 27.3
+##cross-section: 23.04
+    generated-events: 6402827
+    group: zll
+    order: 1
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/DY4JetsToLL_M-50.root', '../../SysForPlotIt/JES/@root@/DY4JetsToLL_M-50.root', '../../SysForPlotIt/JER/@root@/DY4JetsToLL_M-50.root', '../../SysForPlotIt/PU/@root@/DY4JetsToLL_M-50.root', '../../SysForPlotIt/MuonRes/@root@/DY4JetsToLL_M-50.root', '../../SysForPlotIt/MuonScale/@root@/DY4JetsToLL_M-50.root', '../../SysForPlotIt/ElecRes/@root@/DY4JetsToLL_M-50.root', '../../SysForPlotIt/ElecScale/@root@/DY4JetsToLL_M-50.root']
+
+  'W1JetsToLNu.root':
+    type: mc
+    cross-section: 6662.8 
+##cross-section: 5562.36 
+    generated-events: 23141598
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/W1JetsToLNu.root', '../../SysForPlotIt/JES/@root@/W1JetsToLNu.root', '../../SysForPlotIt/JER/@root@/W1JetsToLNu.root', '../../SysForPlotIt/PU/@root@/W1JetsToLNu.root', '../../SysForPlotIt/MuonRes/@root@/W1JetsToLNu.root', '../../SysForPlotIt/MuonScale/@root@/W1JetsToLNu.root', '../../SysForPlotIt/ElecRes/@root@/W1JetsToLNu.root', '../../SysForPlotIt/ElecScale/@root@/W1JetsToLNu.root']
+
+  'W2JetsToLNu.root':
+    type: mc
+    cross-section: 2159.2
+##cross-section: 1802.62
+    generated-events: 34044921
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/W2JetsToLNu.root', '../../SysForPlotIt/JES/@root@/W2JetsToLNu.root', '../../SysForPlotIt/JER/@root@/W2JetsToLNu.root', '../../SysForPlotIt/PU/@root@/W2JetsToLNu.root', '../../SysForPlotIt/MuonRes/@root@/W2JetsToLNu.root', '../../SysForPlotIt/MuonScale/@root@/W2JetsToLNu.root', '../../SysForPlotIt/ElecRes/@root@/W2JetsToLNu.root', '../../SysForPlotIt/ElecScale/@root@/W2JetsToLNu.root']
+
+  'W3JetsToLNu.root':
+    type: mc
+    cross-section: 640.4
+##cross-section: 534.604
+    generated-events: 15539503
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/W3JetsToLNu.root', '../../SysForPlotIt/JES/@root@/W3JetsToLNu.root', '../../SysForPlotIt/JER/@root@/W3JetsToLNu.root', '../../SysForPlotIt/PU/@root@/W3JetsToLNu.root', '../../SysForPlotIt/MuonRes/@root@/W3JetsToLNu.root', '../../SysForPlotIt/MuonScale/@root@/W3JetsToLNu.root', '../../SysForPlotIt/ElecRes/@root@/W3JetsToLNu.root', '../../SysForPlotIt/ElecScale/@root@/W3JetsToLNu.root']
+
+  'W4JetsToLNu.root':
+    type: mc
+    cross-section: 264.0
+##cross-section: 220.434
+    generated-events: 13382803
+    group: wln
+    order: 0
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/W4JetsToLNu.root', '../../SysForPlotIt/JES/@root@/W4JetsToLNu.root', '../../SysForPlotIt/JER/@root@/W4JetsToLNu.root', '../../SysForPlotIt/PU/@root@/W4JetsToLNu.root', '../../SysForPlotIt/MuonRes/@root@/W4JetsToLNu.root', '../../SysForPlotIt/MuonScale/@root@/W4JetsToLNu.root', '../../SysForPlotIt/ElecRes/@root@/W4JetsToLNu.root', '../../SysForPlotIt/ElecScale/@root@/W4JetsToLNu.root']
+
+plots:
+  ##"Histo":
+    ##save-extensions: ["pdf","C","jpg","eps"]
+    ##rebin: 1
+    ##show-ratio: false
+    ##show-errors: true
+    ##log-y: true
+    ##x-axis-range: [,]
+    ##y-axis-range: [,]
+
+  "Event-yields":
+    log-y: true
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-range: [10, 4e3]
+    y-axis-show-zero: true
+  "Decay":
+    log-y: true
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+    y-axis-show-zero: true
+
+  "NMuons-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NElectrons-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets20-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi-cuts":
+    log-y: true
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-cuts-zoom":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi-cuts-zoom":
+    log-x: true
+    log-y: true
+    y-axis-range: [1, 2e3]
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept-cuts":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NIsoLept":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtIsoLept":
+    x-axis-range: [0, 250]
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 30]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PfIsoIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    x-axis-range: [0, 0.2]
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 100]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "CsvJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NCsvJets20":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets30":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets40":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NJets50":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "MetMet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 30]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MtW":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NTracksVertices":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "NJpsi":
+    show-ratio: true
+    fit-ratio: false
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "Chi2Jpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi":
+    log-y: true
+    y-axis-show-zero: true
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LJpsi-zoom":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "SigmaLJpsi":
+    log-y: true
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "LOverSigmaJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtFracJpsiJet":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "DPhiJpsiIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-range: [0, 60]
+    save-extensions: ["pdf","C","jpg","eps"]
+  "DRJpsiIsoLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "PtMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "EtaMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PhiMuJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    y-axis-show-zero: true
+    y-axis-range: [0, 50]
+    save-extensions: ["pdf","C","jpg","eps"]
+
+  "PtJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "CsvJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChMuEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChEMEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChHadEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "ChEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NEMEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NHadEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "NEFracJetJpsi":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  
+  "MTriLept-allPair":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "PtTriLept":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+    
+  "bjjMass":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+  "WMass":
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
+
+legend:
+  position: [0.72, 0.55, 0.9, 0.9]
+
+groups:
+  sto:
+    legend: 'single top'
+    fill-color: 618
+
+  tto:
+    legend: 't#bar{t} other'
+    fill-color: 797
+
+  dib:
+    legend: 'WW, WZ, ZZ'
+    fill-color: 400
+
+  zll:
+    legend: 'Z + jets'
+    fill-color: 868
+
+  wln:
+    legend: 'W #rightarrow l#nu + jets'
+    fill-color: 858
