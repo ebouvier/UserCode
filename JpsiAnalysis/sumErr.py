@@ -7,20 +7,34 @@ statErr = [
         ]
 nEvts = 664
 systErr = [
-        ["Fit calibration", -0.204, 0.204],
-        ["FSR of $\\text{J}/\\psi$ daughters", 2*172.650-172.527, 172.527],
-        ["Jet energy scale (JES)", 172.658, 172.667],
-        ["Jet energy resolution (JER)", 172.644, 172.656],
-        ["Pile up", 172.554, 172.685],
-        ["Muon momentum scale", 173.208, 172.092],
-        ["Muon momentum resolution", 172.620, 172.662],
-        ["Electron momentum scale", 173.353, 172.001],
-        ["Electron momentum resolution", 172.979, 172.988],
-        #["Trigger scale factors", FIXME, FIXME],
-        ["Factorization (matching)", 173.122, 172.912],
-        ["Hadronization (scale)", 172.953, 172.517],
-        #["Parton density functions", FIXME, FIXME]
-        #["b fragmentation", FIXME, FIXME]
+        ["Experimental uncertainties", [
+            ["Fit calibration", -0.204, 0.204],
+            ["FSR of $\\text{J}/\\psi$ daughters", 2*172.650-172.527, 172.527],
+            ["Jet energy scale (JES)", 172.658, 172.667],
+            ["Jet energy resolution (JER)", 172.644, 172.656],
+            ["Pile up", 172.554, 172.685],
+            ["Muon momentum scale", 173.208, 172.092],
+            ["Muon momentum resolution", 172.620, 172.662],
+            ["Electron momentum scale", 173.353, 172.001],
+            ["Electron momentum resolution", 172.979, 172.988],
+            #["Trigger scale factors", FIXME, FIXME],
+            #["Luminosity", 172.650, 172.650]
+            ]],
+        ["Modeling of perturbative QCD", [
+            ["Renormalization (matching)", 173.122, 172.912],
+            ["Factorization (scale)", 172.953, 172.517],
+            #["Parton density functions", FIXME, FIXME],
+            #[["ME-PS matching threshold", FIXME, FIXME],
+            #["ME generator", FIXME, FIXME],
+            #["top-quark transverse momentum", FIXME, FIXME]
+            ]],
+        #["Modeling of soft QCD", [
+            #["Underlying event", FIXME, FIXME],
+            #["Color reconnection modeling", FIXME, FIXME]
+            #]],
+        #["Modeling of hadronization", [
+            #["b fragmentation", FIXME, FIXME]
+            #]]
         ]
 dir = os.path.join("15Jun22", "Results")
 if not os.path.isdir(dir):
@@ -55,12 +69,17 @@ tex.write("\\hline\n")
 # Erreurs syst
 systTot = 0.
 for sourceSys in systErr:
-    name = sourceSys[0]
-    value = abs(sourceSys[2] - sourceSys[1])/2.
-    tex.write(name + " & %.3f \\\\ \n" % value)
-    systTot += pow(value, 2.)
+    cat =sourceSys[0]
+    subcat = sourceSys[1]
+    tex.write("\\hline\n")
+    tex.write("\\multicolumn{2}{c}{\\it " + cat + "} \\\\ \n")
+    for source in subcat:
+        name = source[0]
+        value = abs(source[2] - source[1])/2.
+        tex.write(name + " & %.3f \\\\ \n" % value)
+        systTot += pow(value, 2.)
 
-tex.write("\\hline\n")
+tex.write("\\hline\\hline\n")
 
 # Somme des erreurs syst
 systTot = pow(systTot, 0.5)
@@ -70,7 +89,7 @@ tex.write("Systematic uncertainty & %.3f \\\\ \n" % systTot)
 statTot = abs(statErr[2]-statErr[1])/2.
 tex.write("Statistical uncertainty & %.3f \\\\ \n" % statTot)
 
-tex.write("\\hline\n")
+tex.write("\\hline\\hline\n")
 
 # Erreur tot
 Tot = pow(pow(statTot, 2.)+pow(systTot, 2.), 0.5)
