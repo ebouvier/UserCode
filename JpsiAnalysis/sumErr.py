@@ -17,8 +17,8 @@ systErr = [
         ["Electron momentum scale", 173.353, 172.001],
         ["Electron momentum resolution", 172.979, 172.988],
         #["Trigger scale factors", FIXME, FIXME],
-        ["Factorization (matching)", 173.182, 172.892],
-        ["Hadronization (scale)", 172.874, 172.626],
+        ["Factorization (matching)", 173.122, 172.912],
+        ["Hadronization (scale)", 172.953, 172.517],
         #["Parton density functions", FIXME, FIXME]
         #["b fragmentation", FIXME, FIXME]
         ]

@@ -48,11 +48,28 @@ for ch in ['MyAnaEl', 'MyAnaMu']:
             if key.GetClassName() == 'TH1F':
                 in1H = key.ReadObj()
                 in2H = in2F.Get(in1H.GetName())
+                if options.out.lower().count("matchingdown"):
+                    in1H.Scale(4037468./2247788.)
+                    in2H.Scale(4037468./2247788.)
+                if options.out.lower().count("matchingup"):
+                    in1H.Scale(4037468./2741192.)
+                    in2H.Scale(4037468./2741192.)
+                if options.out.lower().count("scaledown"):
+                    in1H.Scale(4037468./1700060.)
+                    in2H.Scale(4037468./1700060.)
+                if options.out.lower().count("scaleup"):
+                    in1H.Scale(4037468./2669713.)
+                    in2H.Scale(4037468./2669713.)
                 outH = ROOT.TH1F(in1H.GetName(),in1H.GetTitle(),in1H.GetNbinsX(),in1H.GetXaxis().GetXmin(),in1H.GetXaxis().GetXmax())
                 outH.GetXaxis().SetTitle(in1H.GetXaxis().GetTitle())
                 for ibin in range(1, outH.GetNbinsX()+1):
                     outH.SetBinContent(ibin, 0.)
-                    outH.SetBinError(ibin, abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin))/2.)
+                    if in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin) != 0 and abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin)) < 0.4*(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)):
+                        outH.SetBinError(ibin, abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin))/(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)))
+                    else:
+                        outH.SetBinError(ibin, 0.)
+                    if options.out.lower().count("jpsi"):    
+                        outH.SetBinError(ibin, 2.*outH.GetBinError(ibin))
                 outF.cd()
                 outH.Write()
         outF.Close()

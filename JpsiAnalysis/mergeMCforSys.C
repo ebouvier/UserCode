@@ -78,7 +78,16 @@ int mergeMCforSys(TString date, TString version, TString channel){
   nevts.push_back(34044921);
   nevts.push_back(15539503);
   nevts.push_back(13382803);
-  nevts.push_back(5380767);
+  if (version.Contains("MatchingDown", TString::kIgnoreCase))
+    nevts.push_back(2995645);
+  else if (version.Contains("MatchingUp", TString::kIgnoreCase))
+    nevts.push_back(3653209);
+  else if (version.Contains("ScaleDown", TString::kIgnoreCase))
+    nevts.push_back(2265684);
+  else if (version.Contains("ScaleUp", TString::kIgnoreCase))
+    nevts.push_back(7170992);
+  else
+    nevts.push_back(5380767);
   nevts.push_back(3758227);
   nevts.push_back(1935072);
   vector<float> xsections;
