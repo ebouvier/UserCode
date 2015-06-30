@@ -17,8 +17,8 @@ systErr = [
             ["Muon momentum resolution", 172.620, 172.662],
             ["Electron momentum scale", 173.353, 172.001],
             ["Electron momentum resolution", 172.979, 172.988],
-            #["Trigger scale factors", FIXME, FIXME],
-            #["Luminosity", 172.650, 172.650]
+            ["Trigger scale factors", 172.650, 172.095],
+            ["Non-$\\text{t}\\bar{\\text{t}}$ background", 172.669, 172.648]
             ]],
         ["Modeling of perturbative QCD", [
             ["Renormalization (matching)", 173.122, 172.912],
@@ -26,7 +26,7 @@ systErr = [
             #["Parton density functions", FIXME, FIXME],
             #[["ME-PS matching threshold", FIXME, FIXME],
             #["ME generator", FIXME, FIXME],
-            #["top-quark transverse momentum", FIXME, FIXME]
+            ["top-quark transverse momentum", 172.650, 171.918]
             ]],
         #["Modeling of soft QCD", [
             #["Underlying event", FIXME, FIXME],

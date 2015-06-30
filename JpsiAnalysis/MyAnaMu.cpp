@@ -727,6 +727,18 @@ void MyAna::Loop()
       _weight = _weight*(*jpsi_mu1_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jpsi_mu2_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
       */
+      // Top-pt 
+      /*
+      if (_isTTbar) {
+        float topPtWeight = 1.;
+        for (int iMC = 0; iMC < n_MCs; iMC++) {
+          if (abs(MC_type[iMC]) != 6) continue;
+          if (GetP4(MC_4vector, iMC)->Pt() > 400.) continue;
+          topPtWeight = topPtWeight*std::exp(0.159-0.00141*GetP4(MC_4vector, iMC)->Pt());
+        }
+        _weight = _weight*sqrt(topPtWeight);
+      }
+      */
     }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; 

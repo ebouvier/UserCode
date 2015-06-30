@@ -98,17 +98,45 @@ int mergeMCforSys(TString date, TString version, TString channel){
   xsections.push_back(0.2149);
   xsections.push_back(0.0020370);
   xsections.push_back(0.172); 
-  xsections.push_back(56.0);
-  xsections.push_back(33.6);
-  xsections.push_back(7.6); 
-  xsections.push_back(66.3);
-  xsections.push_back(215.);
-  xsections.push_back(60.7);
-  xsections.push_back(27.3);
-  xsections.push_back(6662.8);
-  xsections.push_back(2159.2);
-  xsections.push_back(640.4); 
-  xsections.push_back(264.0); 
+  if (version.Contains("BgDown", TString::kIgnoreCase)) { 
+    xsections.push_back(0.95*56.0);
+    xsections.push_back(0.95*33.6);
+    xsections.push_back(0.95*7.6); 
+    xsections.push_back(0.8*66.3);
+    xsections.push_back(0.8*215.);
+    xsections.push_back(0.8*60.7);
+    xsections.push_back(0.8*27.3);
+    xsections.push_back(0.8*6662.8);
+    xsections.push_back(0.8*2159.2);
+    xsections.push_back(0.8*640.4); 
+    xsections.push_back(0.8*264.0); 
+  }
+  else if (version.Contains("BgUp", TString::kIgnoreCase)) { 
+    xsections.push_back(1.05*56.0);
+    xsections.push_back(1.05*33.6);
+    xsections.push_back(1.05*7.6); 
+    xsections.push_back(1.2*66.3);
+    xsections.push_back(1.2*215.);
+    xsections.push_back(1.2*60.7);
+    xsections.push_back(1.2*27.3);
+    xsections.push_back(1.2*6662.8);
+    xsections.push_back(1.2*2159.2);
+    xsections.push_back(1.2*640.4); 
+    xsections.push_back(1.2*264.0); 
+  }
+  else {
+    xsections.push_back(56.0);
+    xsections.push_back(33.6);
+    xsections.push_back(7.6); 
+    xsections.push_back(66.3);
+    xsections.push_back(215.);
+    xsections.push_back(60.7);
+    xsections.push_back(27.3);
+    xsections.push_back(6662.8);
+    xsections.push_back(2159.2);
+    xsections.push_back(640.4); 
+    xsections.push_back(264.0); 
+  }
   xsections.push_back(245.8);
   xsections.push_back(56.4);
   xsections.push_back(30.7);
