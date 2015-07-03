@@ -21,10 +21,9 @@ systErr = [
             ["Non-$\\text{t}\\bar{\\text{t}}$ background", 172.669, 172.648]
             ]],
         ["Modeling of perturbative QCD", [
-            ["Renormalization (matching)", 173.122, 172.912],
-            ["Factorization (scale)", 172.953, 172.517],
+            ["Renormalization scale", 173.122, 172.912],
+            ["ME-PS matching threshold", 172.953, 172.517],
             #["Parton density functions", FIXME, FIXME],
-            #[["ME-PS matching threshold", FIXME, FIXME],
             #["ME generator", FIXME, FIXME],
             ["top-quark transverse momentum", 172.650, 171.918]
             ]],
