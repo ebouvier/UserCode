@@ -29,7 +29,7 @@ files:
     legend: 't#bar{t}'
     fill-color: 633 
     order: 5
-    systematics: ['../../SysForPlotIt/Jpsi/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JES/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JER/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/PU/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonRes/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonScale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecRes/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecScale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Matching/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Scale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Trigger/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/TopPt/@root@/TTJets_MSDecays_JpsiFilter_172_5.root']
+    systematics: ['../../SysForPlotIt/Jpsi/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JES/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/JER/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/PU/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonRes/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/MuonScale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecRes/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/ElecScale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Matching/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Scale/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/Trigger/@root@/TTJets_MSDecays_JpsiFilter_172_5.root', '../../SysForPlotIt/TopPt/@root@/TTJets_MSDecays_JpsiFilter_172_5.root','../../SysForPlotIt/TopPt/@root@/TTJets_Powheg.root','../../SysForPlotIt/TopPt/@root@/TTJets_SemiLeptMGDecays_CR.root','../../SysForPlotIt/TopPt/@root@/TTJets_FullLeptMGDecays_CR.root','../../SysForPlotIt/TopPt/@root@/TTJets_HadronicMGDecays_CR.root','../../SysForPlotIt/TopPt/@root@/TTJets_SemiLeptMGDecays_UE.root','../../SysForPlotIt/TopPt/@root@/TTJets_FullLeptMGDecays_UE.root','../../SysForPlotIt/TopPt/@root@/TTJets_HadronicMGDecays_UE.root']
 
   'T_s-channel.root':
     type: mc
@@ -415,6 +415,7 @@ plots:
     y-axis-range: [0, 30]
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
+    x-axis: "W transverse mass (GeV/c^{2})"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"

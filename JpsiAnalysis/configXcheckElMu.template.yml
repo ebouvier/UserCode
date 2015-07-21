@@ -148,6 +148,7 @@ plots:
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
+    x-axis: "W transverse mass (GeV/c^{2})"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 

@@ -285,6 +285,7 @@ plots:
     y-axis-range: [0, 30]
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
+    x-axis: "W transverse mass (GeV/c^{2})"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"

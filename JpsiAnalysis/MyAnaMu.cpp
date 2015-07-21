@@ -171,7 +171,7 @@ void MyAna::Loop()
   TH1F* _h_met_phi                = new TH1F("PhiMet", "PhiMet", 32, -3.2, 3.2);
   _h_met_phi->SetXTitle("#phi(MET)");
   TH1F* _h_W_mt                   = new TH1F("MtW", "MtW", 30, 0., 300.);
-  _h_W_mt->SetXTitle("W transwerse mass (GeV/c^{2})");
+  _h_W_mt->SetXTitle("W transverse mass (GeV/c^{2})");
 
   TH1F* _h_vertex_n               = new TH1F("NVertices", "NVertices", 20, 0., 40.);
   _h_vertex_n->SetXTitle("Number of vertices");
