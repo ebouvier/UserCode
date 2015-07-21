@@ -423,46 +423,6 @@ void MyAna::Loop()
     vector<unsigned int> indgoodjpsi;
 
     //======================================================
-    // Good jet selection
-    //======================================================
-
-    int njet30 = 0;
-    int njet40 = 0;
-    int njet50 = 0;
-    int nbjet  = 0;
-
-    if (_debug) cout << " -> jets size " << n_jets << endl;
-
-    for (unsigned int i = 0; i < n_jets; ++i) {
-      float jetPt = GetP4(jet_4vector,i)->Pt();
-      float jetEta = GetP4(jet_4vector,i)->Eta();
-      if (jetPt <= 20.) continue;
-      if (fabs(jetEta) >= 2.4) continue;
-      if (jetPt >= 30.) ++njet30;
-      if (jetPt >= 40.) ++njet40;
-      if (jetPt >= 50.) ++njet50;
-
-      if (jet_btag_CSV[i] > 0.814) ++nbjet; 
-
-      indgoodjet.push_back(i);
-    }
-    unsigned int ngoodjet = indgoodjet.size();
-
-    _h_cuts_jet20_n->Fill((float)ngoodjet, _weight);
-    _h_cuts_jet30_n->Fill((float)njet30, _weight);
-    _h_cuts_jet40_n->Fill((float)njet40, _weight);
-    _h_cuts_jet50_n->Fill((float)njet50, _weight);
-    _h_cuts_csvJet20_n->Fill((float)nbjet, _weight);
-
-    if (_debug) cout << "Number of good jets = " << ngoodjet << endl;
-
-    if (njet40 < 2) continue;
-    ++counter[1];
-
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=2 jets with p_{T}>40 GeV/c"; ++iCut; // /!\ no SF 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=2 jets with p_{T}>40 GeV/c");
-
-    //======================================================
     // Good electrons selection
     //======================================================
 
@@ -488,9 +448,14 @@ void MyAna::Loop()
     if (_debug) cout << "Number of good electrons = " << ngoodelectron << endl;
 
     if (ngoodelectron < 1) continue;
-    ++counter[2];
+    ++counter[1];
+    if (_isMC) {
+      // Trigger scalefactors
+      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
+      _weight = _weight*weight_provider->get_weight_isoel(GetP4(electronloose_4vector, indgoodel[0])->Pt(), GetP4(electronloose_4vector, indgoodel[0])->Eta()); 
+    }
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=1 isolated e"; ++iCut; // no SF 
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=1 isolated e"; ++iCut;  
     _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=1 isolated e");
 
     //======================================================
@@ -550,6 +515,46 @@ void MyAna::Loop()
     unsigned int nvtx = indgoodver.size();
 
     if (_debug) cout << "Number of good vertices "<< nvtx << endl;
+
+    //======================================================
+    // Good jet selection
+    //======================================================
+
+    int njet30 = 0;
+    int njet40 = 0;
+    int njet50 = 0;
+    int nbjet  = 0;
+
+    if (_debug) cout << " -> jets size " << n_jets << endl;
+
+    for (unsigned int i = 0; i < n_jets; ++i) {
+      float jetPt = GetP4(jet_4vector,i)->Pt();
+      float jetEta = GetP4(jet_4vector,i)->Eta();
+      if (jetPt <= 20.) continue;
+      if (fabs(jetEta) >= 2.4) continue;
+      if (jetPt >= 30.) ++njet30;
+      if (jetPt >= 40.) ++njet40;
+      if (jetPt >= 50.) ++njet50;
+
+      if (jet_btag_CSV[i] > 0.814) ++nbjet; 
+
+      indgoodjet.push_back(i);
+    }
+    unsigned int ngoodjet = indgoodjet.size();
+
+    _h_cuts_jet20_n->Fill((float)ngoodjet, _weight);
+    _h_cuts_jet30_n->Fill((float)njet30, _weight);
+    _h_cuts_jet40_n->Fill((float)njet40, _weight);
+    _h_cuts_jet50_n->Fill((float)njet50, _weight);
+    _h_cuts_csvJet20_n->Fill((float)nbjet, _weight);
+
+    if (_debug) cout << "Number of good jets = " << ngoodjet << endl;
+
+    if (njet40 < 2) continue;
+    ++counter[2];
+
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=2 jets with p_{T}>40 GeV/c"; ++iCut;  
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=2 jets with p_{T}>40 GeV/c");
 
     //======================================================
     // MET
@@ -619,7 +624,7 @@ void MyAna::Loop()
     // if (!isDiLept) continue;
     if (!isSemiLept && !isDiLept) continue;
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e/#mu veto"; ++iCut; // no SF 
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "e/#mu veto"; ++iCut;  
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "e/#mu veto");
 
     //======================================================
@@ -642,7 +647,7 @@ void MyAna::Loop()
     if (njpsi != 1) continue;
     ++counter[5];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Exactly 1 J/#psi"; ++iCut; // /!\ no SF 
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Exactly 1 J/#psi"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Exactly 1 J/#psi");
 
     // Chi2
@@ -650,7 +655,7 @@ void MyAna::Loop()
     if (jpsi_vtxchi2[indgoodjpsi[0]] > 5.) continue;
     ++counter[6];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with #chi2<5"; ++iCut; // /!\ no SF 
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... with #chi2<5"; ++iCut;  
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... with #chi2<5"); 
 
     // ctau
@@ -660,7 +665,7 @@ void MyAna::Loop()
     if (jpsi_L3D[indgoodjpsi[0]] <= 0.005) continue; 
     ++counter[7];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut;  // /!\ no SF 
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "... and c#tau>0.005 cm"; ++iCut;  
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "... and c#tau>0.005 cm"); 
     */
     // ctau/sigma
@@ -677,13 +682,16 @@ void MyAna::Loop()
     _h_cuts_jpsi_dRLept->Fill(kinem::delta_R(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(),GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(),GetP4(electronloose_4vector,indgoodel[0])->Eta(),GetP4(electronloose_4vector,indgoodel[0])->Phi()), _weight);
 
     //======================================================
-    // Scale factors
+    // Scale factors 
     //======================================================
 
-    if (_isMC) {
+    // if (_isMC) {
       // Trigger scalefactors
+      /*
+       * already applied after lepton selection
       HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
       _weight = _weight*weight_provider->get_weight_isoel(GetP4(electronloose_4vector, indgoodel[0])->Pt(), GetP4(electronloose_4vector, indgoodel[0])->Eta()); 
+      */
       // Electron scalefactor
       /*
       _weight = _weight*(*electronloose_scaleFactor_tighteff_tightiso)[indgoodel[0]][0]; // 0 for central, 1 for up, 2 for down
@@ -710,7 +718,7 @@ void MyAna::Loop()
         _weight = _weight*sqrt(topPtWeight);
       }
       */
-    }
+    // }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
@@ -1118,8 +1126,8 @@ void MyAna::Loop()
   cout << "Total Number of events selected                           = "  << nselected << endl;
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
-  cout << "At least 2 jets pT>40 GeV/c                               = " << counter[1] << endl;
-  cout << "1 or 2 iso electron                                       = " << counter[2] << endl;
+  cout << "At least 1 iso electron                                   = " << counter[1] << endl;
+  cout << "At least 2 jets pT>40 GeV/c                               = " << counter[2] << endl;
   cout << "semi-leptonic                                             = " << counter[3] << endl;
   cout << "dileptonic                                                = " << counter[4] << endl;
   cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
