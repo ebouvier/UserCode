@@ -299,7 +299,8 @@ int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TSt
     my_style->cd();
     gROOT->SetBatch(true);
 
-    TString indir = date+"/v"+version+"/";
+    // TString indir = date+"/v"+version+"/";
+    TString indir = date+"/"+version+"/";
     TString outdir = indir+"MJpsi/";
     TString outFile = outdir;
     TString channel = " + Jets channel";
