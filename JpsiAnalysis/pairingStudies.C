@@ -247,11 +247,11 @@ int treatHisto(TTree* tree, TString outdir, TLatex* channel_tex,
   unsigned int nEvt = (unsigned int)tree->GetEntries();
   for (unsigned int iEvt = 0; iEvt < nEvt; iEvt++) {
     tree->GetEntry(iEvt);
-    histo_ap->Fill(m_var, 505*m_weight);
+    histo_ap->Fill(m_var, m_weight);
     if (m_pair > 0)
-      histo_gp->Fill(m_var, 505*m_weight);
+      histo_gp->Fill(m_var, m_weight);
     else
-      histo_wp->Fill(m_var, 505*m_weight);
+      histo_wp->Fill(m_var, m_weight);
   }
 
   double histo_max = 1.3*histo_ap->GetMaximum();
@@ -268,11 +268,11 @@ int treatHisto(TTree* tree, TString outdir, TLatex* channel_tex,
   leg->AddEntry(histo_wp, TString::Format("Wrong pairing (%4.2f %%)", 100.*nWP), "lp");
   leg->AddEntry(histo_ap, "Both pairings", "lp");
   leg_myStyle(leg);
-  histo_ap->Draw("hist");
-  histo_gp->Draw("same");
-  histo_wp->Draw("same");
+  histo_ap->Draw("e");
+  histo_gp->Draw("esame");
+  histo_wp->Draw("esame");
   leg->Draw("same");
-  histo_ap->Draw("same");
+  histo_ap->Draw("esame");
   channel_tex->Draw("same");
   cms_myStyle(lumi, true);
   TString outFile = outdir + histName;
@@ -288,6 +288,8 @@ int treatHisto(TTree* tree, TString outdir, TLatex* channel_tex,
 int pairingStudies(TString date = "", TString version = "", TString decay = "")
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     double lumi = 19.7;
@@ -332,11 +334,11 @@ int pairingStudies(TString date = "", TString version = "", TString decay = "")
     unsigned int nEvt = (unsigned int)tree->GetEntries();
     for (unsigned int iEvt = 0; iEvt < nEvt; iEvt++) {
       tree->GetEntry(iEvt);
-      histo_ap->Fill(m_var, 505*m_weight);
+      histo_ap->Fill(m_var, m_weight);
       if (m_pair > 0)
-        histo_gp->Fill(m_var, 505*m_weight);
+        histo_gp->Fill(m_var, m_weight);
       else
-        histo_wp->Fill(m_var, 505*m_weight);
+        histo_wp->Fill(m_var, m_weight);
     }
     double nGP = histo_gp->Integral()/histo_ap->Integral();
     double nWP = histo_wp->Integral()/histo_ap->Integral();
