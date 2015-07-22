@@ -15,27 +15,19 @@
 
 int mergeMC(TString date, TString version, TString channel){
 
+  TH1::SetDefaultSumw2(kTRUE);
+
   float lumi;
   // TString dir = date+"/v"+version+"/";
   TString dir = date+"/"+version+"/";
-  TString fileData = "";
   if (channel.Contains("mu", TString::kIgnoreCase)) {
     lumi = 19705.;
     dir += "MyAnaMu/";
-    fileData = dir+"MuHadASingleMuBCD.root";
   }
   if (channel.Contains("el", TString::kIgnoreCase)) {
     lumi = 19690.;
     dir += "MyAnaEl/";
-    fileData = dir+"ElectronHadASingleElectronBCD.root";
   }
-
-  TFile *file = TFile::Open(fileData);
-  TH1D* h = (TH1D*)file->Get("NJets20");
-  double nEvt = h->Integral();
-  delete h;
-  file->Close(); 
-  delete file;
 
   vector<TString> mtop; mtop.push_back("166"); mtop.push_back("169"); mtop.push_back("171"); mtop.push_back("172"); mtop.push_back("173"); mtop.push_back("175"); mtop.push_back("178"); 
 
@@ -151,19 +143,18 @@ int mergeMC(TString date, TString version, TString channel){
     const unsigned int vecsize = finames.size();
 
     vector<float> prop;
+    float tot = 0.;
     float norm = 0.;
     for (unsigned int i = 0; i < vecsize; i++){
       TFile *fi = TFile::Open(dir+finames[i]);
       TH1F* hist = (TH1F*) fi->Get("NVertices");
-      prop.push_back(lumi*xsections[i]*hist->Integral()/nevts[i]);
+      prop.push_back(xsections[i]/nevts[i]);
       norm += prop[i];
+      tot += hist->Integral()*lumi*xsections[i]/nevts[i];
       delete hist; fi->Close(); delete fi;
     }
-    float tot = 0.;
     for (unsigned int i = 0; i < vecsize; i++) {
-      prop[i] = nEvt*prop[i]/norm;
-      //prop[i] = prop[i]/norm;
-      tot += prop[i];
+      prop[i] = prop[i]/norm;
     }
 
     TFile *outfi = TFile::Open(dir+"All_"+mtop[itop]+"_5.root","RECREATE");
@@ -177,8 +168,6 @@ int mergeMC(TString date, TString version, TString channel){
     for (unsigned int i = 0; i < vecsize; i++) {
       std::cout << finames[i] << " : " << prop[i] << std::endl;
       TFile *fi = TFile::Open(dir+finames[i]);
-      TH1F *histo = (TH1F*) fi->Get("MTriLept-allPair"); 
-      outhisto->Add(histo, prop[i]);
       TTree *tree = (TTree*) fi->Get("MTriLept");
       int n_entries = tree->GetEntries();
       float massi; float weighti;
@@ -188,9 +177,12 @@ int mergeMC(TString date, TString version, TString channel){
         tree->GetEntry(j);
         mass = massi;
         weight = weighti*prop[i];
+        if (finames[i].Contains("TTJets_MSDecays_JpsiFilter_"))
+          weight = weight*505.;
         outtree->Fill();
+        outhisto->Fill(mass, weight);
       }
-      delete histo; delete tree; fi->Close(); delete fi;
+      delete tree; fi->Close(); delete fi;
     }
     std::cout << "total = " << tot << std::endl;
     outfi->Write();

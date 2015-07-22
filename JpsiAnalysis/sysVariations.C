@@ -249,13 +249,13 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
     TH1F* hRef = (TH1F*)fiRef->Get(histName);
     h_myStyle(hRef,30,30,0,-1111.,-1111.,510,510,20,30,1.2,0.,xTitle);
     leg->AddEntry(hRef, ref, "lp");
-    hRef->DrawNormalized("same");
+    hRef->DrawNormalized("ehistsame");
   }
   leg->AddEntry(hUp, up, "lp");
   leg_myStyle(leg);
-  hUp->DrawNormalized("same");
+  hUp->DrawNormalized("esame");
   leg->Draw("same");
-  channel_tex->Draw("same");
+  channel_tex->Draw("esame");
   cms_myStyle(lumi, true);
   TString outFile = outdir + histName;
   cn->SaveAs(outFile+".pdf");
