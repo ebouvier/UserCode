@@ -1384,6 +1384,7 @@ int simpleFit(TString date = "", TString version = "", TString decay = "",
 
     vector<TString> fileData; fileData.push_back("ElectronHadASingleElectronBCD.root"); fileData.push_back("MuHadASingleMuBCD.root"); fileData.push_back("Run2012ABCD.root");
     // vector<TString> inDir(3, date+"/v"+version+"/"); inDir[0] += "MyAnaEl/"; inDir[1] += "MyAnaMu/"; inDir[2] += "MyAnaAll/";
+    // vector<TString> outDir(3, date+"/v"+version+"/"); outDir[0] += "SimpleFitEl/"; outDir[1] += "SimpleFitMu/"; outDir[2] += "SimpleFitAll/";
     vector<TString> inDir(3, date+"/"+version+"/"); inDir[0] += "MyAnaEl/"; inDir[1] += "MyAnaMu/"; inDir[2] += "MyAnaAll/";
     vector<TString> outDir(3, date+"/"+version+"/"); outDir[0] += "SimpleFitEl/"; outDir[1] += "SimpleFitMu/"; outDir[2] += "SimpleFitAll/";
     TString histName = "NJets20";

@@ -421,7 +421,8 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
 double *treat(TString fileData, double lumi, TString decay, vector<double> mtop, vector<double> xlim, int binned, TString date, TString version) 
 //---------------------------------------------------------------
 {
-  TString indir = date+"/v"+version+"/";
+  //TString indir = date+"/v"+version+"/";
+  TString indir = date+"/"+version+"/";
   TString outdir = indir;
   TString channel = " + Jets channel";
   if (fileData.Contains("ElectronHad")) {
