@@ -270,6 +270,8 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
 int sysVariation(TString date = "", TString ref = "", TString down = "", TString up = "", TString out = "", TString decay = "")
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && down.Length() > 0 && up.Length() > 0 && out.Length() > 0 && decay.Length() > 0)  {
 
     double lumi = 19.7;

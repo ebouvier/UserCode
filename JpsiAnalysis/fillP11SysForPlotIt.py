@@ -30,6 +30,17 @@ dirO = os.path.join(dirO, options.out)
 if not os.path.isdir(dirO):
     os.mkdir(dirO)
 
+if options.out.lower().count('me'):
+  files = [['TTJets_MSDecays_JpsiFilter_172_5.root',245.8/5380767.,'TTJets_Powheg.root',245.8/21675970.,'TTJets_ME.root']]
+elif options.out.lower().count('cr'):
+  files = [['TTJets_SemiLeptMGDecays_TuneP11.root',107.6722/12005805.,'TTJets_SemiLeptMGDecays_TuneP11noCR.root',107.6722/12024653.,'TTJets_SemiLeptMGDecays_CR.root'], 
+          ['TTJets_FullLeptMGDecays_TuneP11.root',25.8031/5976484.,'TTJets_FullLeptMGDecays_TuneP11noCR.root',25.8031/5974627.,'TTJets_FullLeptMGDecays_CR.root'], 
+          ['TTJets_HadronicMGDecays_TuneP11.root',112.325/11651739.,'TTJets_HadronicMGDecays_TuneP11noCR.root',112.325/11919063.,'TTJets_HadronicMGDecays_CR.root']]
+elif options.out.lower().count('ue'):
+  files = [['TTJets_SemiLeptMGDecays_TuneP11.root',107.6722/12005805.,'TTJets_SemiLeptMGDecays_TuneP11mpiHi.root',107.6722/7978174.,'TTJets_SemiLeptMGDecays_UE.root'], 
+          ['TTJets_FullLeptMGDecays_TuneP11.root',25.8031/5976484.,'TTJets_FullLeptMGDecays_TuneP11mpiHi.root',25.8031/3982409.,'TTJets_FullLeptMGDecays_UE.root'], 
+          ['TTJets_HadronicMGDecays_TuneP11.root',112.325/11651739.,'TTJets_HadronicMGDecays_TuneP11mpiHi.root',112.325/7953758.,'TTJets_HadronicMGDecays_UE.root']]
+
 for ch in ['MyAnaEl', 'MyAnaMu']:
     dir1 = os.path.join(dirI1, ch)
     dir2 = os.path.join(dirI2, ch)
@@ -38,30 +49,18 @@ for ch in ['MyAnaEl', 'MyAnaMu']:
     dir0 = os.path.join(dirO, ch)
     if not os.path.isdir(dir0):
         os.mkdir(dir0)
-    files = [name for name in os.listdir(dir1) if name.endswith(".root") and os.path.isfile(os.path.join(dir2,name))]
     for file in files:
-        in1F = ROOT.TFile.Open(os.path.join(dir1,file), "read")
-        in2F = ROOT.TFile.Open(os.path.join(dir2,file), "read",)
-        outF = ROOT.TFile.Open(os.path.join(dir0,file), "recreate")
+        in1F = ROOT.TFile.Open(os.path.join(dir1,file[0]), "read")
+        in2F = ROOT.TFile.Open(os.path.join(dir2,file[2]), "read",)
+        outF = ROOT.TFile.Open(os.path.join(dir0,file[4]), "recreate")
         in1F.cd()
         dirList = ROOT.gDirectory.GetListOfKeys()
         for key in dirList:
             if key.GetClassName() == 'TH1F':
                 in1H = key.ReadObj()
                 in2H = in2F.Get(in1H.GetName())
-                if options.in1.lower().count("matchingdown") and options.in2.lower().count("matchingup"):
-                    in1H.Scale(5380767./2247788.)
-                    in2H.Scale(5380767./2741192.)
-                if options.in1.lower().count("scaledown") and options.in2.lower().count("scaleup"):
-                    in1H.Scale(5380767./1700060.)
-                    in2H.Scale(5380767./2669713.)
-                if options.in1.lower().count("bgdown") and options.in2.lower().count("bgup"):
-                    if file.count("W1JetsToLNu") or file.count("W1JetsToLNu") or file.count("W1JetsToLNu") or file.count("W1JetsToLNu") or file.count("WJetsToLNu") or file.count("DY1JetsToLL") or file.count("DY2JetsToLL") or file.count("DY3JetsToLL") or file.count("DY4JetsToLL") or file.count("DYJetsToLL"): 
-                        in1H.Scale(0.8)
-                        in2H.Scale(1.2)
-                    if file.count("WW-incl") or file.count("WZ-incl") or file.count("ZZ-incl"):
-                        in1H.Scale(0.95)
-                        in2H.Scale(1.05)
+                in1H.Scale(file[1]*5380767./245.8)
+                in2H.Scale(file[3]*5380767./245.8)
                 outH = ROOT.TH1F(in1H.GetName(),in1H.GetTitle(),in1H.GetNbinsX(),in1H.GetXaxis().GetXmin(),in1H.GetXaxis().GetXmax())
                 outH.GetXaxis().SetTitle(in1H.GetXaxis().GetTitle())
                 for ibin in range(1, outH.GetNbinsX()+1):
@@ -70,6 +69,8 @@ for ch in ['MyAnaEl', 'MyAnaMu']:
                         outH.SetBinError(ibin, abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin))/(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)))
                     else:
                         outH.SetBinError(ibin, 0.)
+                    if options.out.lower().count("jpsi"):    
+                        outH.SetBinError(ibin, 2.*outH.GetBinError(ibin))
                 outF.cd()
                 outH.Write()
         outF.Close()

@@ -539,7 +539,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   simPdf.addPdf(model_4,"m4");
   simPdf.addPdf(model_5,"m5");
 
-  RooAbsReal* simNll = simPdf.createNLL(combMC, NumCPU(NCPU));
+  RooAbsReal* simNll = simPdf.createNLL(combMC, NumCPU(NCPU), SumW2Error(kTRUE));
   RooMinuit minuit_mc(*simNll);
   minuit_mc.setPrintLevel(-1); 
   minuit_mc.setPrintEvalErrors(-1);
@@ -563,7 +563,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_0 = new TCanvas("cn_pdf_mc_0","cn_pdf_mc_0",800,800);
   cn_0->cd();
   RooPlot* frame_0 = mtl.frame() ;
-  combMC.plotOn(frame_0,Cut("mc_sample==mc_sample::m0"),Binning(50)) ;
+  combMC.plotOn(frame_0,Cut("mc_sample==mc_sample::m0"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),Components(pdf_gam_0),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -584,7 +584,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_1 = new TCanvas("cn_pdf_mc_1","cn_pdf_mc_1",800,800);
   cn_1->cd();
   RooPlot* frame_1 = mtl.frame() ;
-  combMC.plotOn(frame_1,Cut("mc_sample==mc_sample::m1"),Binning(50)) ;
+  combMC.plotOn(frame_1,Cut("mc_sample==mc_sample::m1"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),Components(pdf_gam_1),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -605,7 +605,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_2 = new TCanvas("cn_pdf_mc_2","cn_pdf_mc_2",800,800);
   cn_2->cd();
   RooPlot* frame_2 = mtl.frame() ;
-  combMC.plotOn(frame_2,Cut("mc_sample==mc_sample::m2"),Binning(50)) ;
+  combMC.plotOn(frame_2,Cut("mc_sample==mc_sample::m2"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),Components(pdf_gam_2),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -626,7 +626,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_3 = new TCanvas("cn_pdf_mc_3","cn_pdf_mc_3",800,800);
   cn_3->cd();
   RooPlot* frame_3 = mtl.frame() ;
-  combMC.plotOn(frame_3,Cut("mc_sample==mc_sample::m3"),Binning(50)) ;
+  combMC.plotOn(frame_3,Cut("mc_sample==mc_sample::m3"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),Components(pdf_gam_3),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -647,7 +647,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_4 = new TCanvas("cn_pdf_mc_4","cn_pdf_mc_4",800,800);
   cn_4->cd();
   RooPlot* frame_4 = mtl.frame() ;
-  combMC.plotOn(frame_4,Cut("mc_sample==mc_sample::m4"),Binning(50)) ;
+  combMC.plotOn(frame_4,Cut("mc_sample==mc_sample::m4"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),Components(pdf_gam_4),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -668,7 +668,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_5 = new TCanvas("cn_pdf_mc_5","cn_pdf_mc_5",800,800);
   cn_5->cd();
   RooPlot* frame_5 = mtl.frame() ;
-  combMC.plotOn(frame_5,Cut("mc_sample==mc_sample::m5"),Binning(50)) ;
+  combMC.plotOn(frame_5,Cut("mc_sample==mc_sample::m5"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),Components(pdf_gam_5),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -969,10 +969,10 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   RooDataSet *data_dataset = new RooDataSet("data_dataset", "data_dataset", RooArgSet(mtl, weight), Import(*data_tree), WeightVar(weight));
 
   //---- Fit des data avec une gamma+gaus
-  RooRealVar mean_gaus_toy("mean_gaus_toy", "mean_gaus_toy", 74., 66., 82.);
-  RooRealVar width_gaus_toy("width_gaus_toy", "width_gaus_toy", 20., 13., 28.);
+  RooRealVar mean_gaus_toy("mean_gaus_toy", "mean_gaus_toy", 74., 54., 94.);
+  RooRealVar width_gaus_toy("width_gaus_toy", "width_gaus_toy", 21., 14., 27.);
   RooRealVar ncat_toy("ncat_0", "ncat_0", 0.45, 0.3, 0.6);
-  RooRealVar gamma_gam_toy("gamma_gam_toy", "gamma_gam_toy", 2.5, 2.4, 2.6);
+  RooRealVar gamma_gam_toy("gamma_gam_toy", "gamma_gam_toy", 2.5, 2.4, 2.7);
   RooRealVar beta_gam_toy("beta_gam_toy", "beta_gam_toy", 34., 26., 42.);
   RooRealVar mu_gam_toy("mu_gam_toy", "mu_gam_toy", 9., 8., 10.);
 
@@ -980,7 +980,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   RooGamma pdf_gam_toy("pdf_gam_toy", "pdf_gam_toy", mtl, gamma_gam_toy, beta_gam_toy, mu_gam_toy);
   RooAddPdf modelToy("modelToy", "modelToy", RooArgList(pdf_gaus_toy,pdf_gam_toy), RooArgList(ncat_toy)) ;
 
-  RooAbsReal* nll_toy = modelToy.createNLL(*data_dataset, NumCPU(NCPU));
+  RooAbsReal* nll_toy = modelToy.createNLL(*data_dataset, NumCPU(NCPU), SumW2Error(kTRUE));
   RooMinuit m_toy(*nll_toy);
   m_toy.setPrintLevel(-1); 
   m_toy.setPrintEvalErrors(-1);
@@ -1015,7 +1015,7 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   RooFormulaVar ncat("ncat","@0+@1*@2",RooArgList(ncat_p0,ncat_p1,mt));
   RooAddPdf modelPdf("modelPdf","modelPdf",RooArgList(pdf_gaus,pdf_gamma),RooArgList(ncat));
 
-  RooAbsReal* nll_res = modelPdf.createNLL(*data_dataset, NumCPU(NCPU));
+  RooAbsReal* nll_res = modelPdf.createNLL(*data_dataset, NumCPU(NCPU), SumW2Error(kTRUE));
   RooMinuit m_res(*nll_res);
   m_res.setPrintLevel(-1); 
   m_res.setPrintEvalErrors(-1);
@@ -1038,11 +1038,12 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_toy_data = new TCanvas("cn_toy_data","cn_toy_data",800,800);
   cn_toy_data->cd();
   RooPlot* frameToy = mtl.frame();
-  data_dataset->plotOn(frameToy,Binning(25));
+  data_dataset->plotOn(frameToy,Binning(25), DataError(RooAbsData::SumW2));
   modelToy.plotOn(frameToy,FillColor(38),VisualizeError(*result_toy)) ;
   modelToy.plotOn(frameToy,LineColor(9)) ;
   modelToy.plotOn(frameToy,Components(pdf_gam_toy),LineStyle(kDashed),LineColor(kBlue));
   modelToy.plotOn(frameToy,Components(pdf_gaus_toy),LineStyle(kDashed),LineColor(kRed));
+  data_dataset->plotOn(frameToy,Binning(25), DataError(RooAbsData::SumW2));
   frameToy->Draw();
   channel_tex->Draw("same");
   TString out_fitToy_data = outDir+"FitToy_BlindedData";
@@ -1055,11 +1056,12 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   TCanvas *cn_fit_data = new TCanvas("cn_fit_data","cn_fit_data",800,800);
   cn_fit_data->cd();
   RooPlot* frame = mtl.frame();
-  data_dataset->plotOn(frame,Binning(25));
+  data_dataset->plotOn(frame,Binning(25), DataError(RooAbsData::SumW2));
   modelPdf.plotOn(frame,FillColor(38),VisualizeError(*result_final)) ;
   modelPdf.plotOn(frame,LineColor(9)) ;
   modelPdf.plotOn(frame,Components(pdf_gamma),LineStyle(kDashed),LineColor(kBlue));
   modelPdf.plotOn(frame,Components(pdf_gaus),LineStyle(kDashed),LineColor(kRed));
+  data_dataset->plotOn(frame,Binning(25), DataError(RooAbsData::SumW2));
   frame->Draw();
   TLegend *leg_fit_data = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
   leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV/c^{2}", mt.getVal(), mt.getError()));
@@ -1199,14 +1201,14 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   RooMCStudy* mcs = new RooMCStudy(modelToy,mtl);
   mcs->generate(nsample,nevt,kTRUE);
 
-  TH1F* hist_residual = new TH1F("Residual","Residual",100,-20,20);
+  TH1F* hist_residual = new TH1F("Residual","Residual",100,-2,2);
   TH1F* hist_pull = new TH1F("Pull","Pull",50,-5,5);
-  TH1F* hist_mean = new TH1F("Mean","Mean",mtlim[1]-mtlim[0],mtlim[0],mtlim[1]);
-  TH1F* hist_err = new TH1F("Error","Error",70,1.,8.);
+  TH1F* hist_mean = new TH1F("Mean","Mean",60,170,176);
+  TH1F* hist_err = new TH1F("Error","Error",50,0.1,0.2);
 
   for(unsigned int isample = 0; isample < nsample; isample++) {
     RooAbsData* gen_dataset = (RooDataSet*)mcs->genData(isample);
-    modelPdf.fitTo(*gen_dataset, Save(), PrintLevel(-1), PrintEvalErrors(-1));  
+    modelPdf.fitTo(*gen_dataset, Save(), SumW2Error(kTRUE), PrintLevel(-1), PrintEvalErrors(-1));  
 
     //---- fill des histos
     hist_residual->Fill(mt.getVal()-mti_v[0]);
@@ -1297,58 +1299,40 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
 }
 
 //---------------------------------------------------------------
-double *combi(double mt1, double dmt1, double mt2, double dmt2)
-  //---------------------------------------------------------------
-{
-  double dmt = pow((pow(dmt1,-2.)+pow(dmt2,-2.)),-0.5);
-  double mt = (pow(dmt1,-2.)*mt1+pow(dmt2,-2.)*mt2)/(pow(dmt1,-2.)+pow(dmt2,-2.));
-
-  double *mean_err = new double[2];
-  mean_err[0] = mt;
-  mean_err[1] = dmt;
-  return mean_err;
-}
-
-//---------------------------------------------------------------
 int computeSys(TString date = "", TString version = "", TString decay = "",
-    int nEvtEl = -1, int nEvtMu = -1)
+    int nEvt = -1)
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     cout << "/!\\ you should have run mergeMCforSys.C and mergeChannels.py before \n" << endl; 
 
     double mtop[6] = {166.5, 169.5, 171.5, 173.5, 175.5, 178.5};
     double mtlim[2] = {130, 216};
-    const unsigned int nsample = 3000.;
-    int nevt[3] = {0, 0, 0};
+    const unsigned int nsample = 1000.;
+    int nevt = 0;
 
-    vector<TString> fileData; fileData.push_back("ElectronHadASingleElectronBCD.root"); fileData.push_back("MuHadASingleMuBCD.root");
-    vector<TString> inDirPdf(3, date+"/Ref/"); inDirPdf[0] += "MyAnaEl/"; inDirPdf[1] += "MyAnaMu/"; inDirPdf[2] += "MyAnaAll/";
-    vector<TString> inDirToy(3, date+"/"+version+"/"); inDirToy[0] += "MyAnaEl/"; inDirToy[1] += "MyAnaMu/"; inDirToy[2] += "MyAnaAll/";
-    vector<TString> outDir(3, date+"/"+version+"/"); outDir[0] += "EvalSysEl/"; outDir[1] += "EvalSysMu/"; outDir[2] += "EvalSysAll/";
-    TString histName = "NJets20";
+    TString fileData = "All_172_5.root";
+    TString inDirPdf = date+"/Ref/MyAnaAll/";
+    TString inDirToy = date+"/"+version+"/MyAnaAll/";
+    TString outDir   = date+"/"+version+"/EvalSysAll/";
+    TString histName = "MTriLept-allPair";
 
-    if (nEvtEl > 0 && nEvtMu > 0) {
-      nevt[0] = nEvtEl;
-      nevt[1] = nEvtMu;
-      nevt[2] = nEvtEl + nEvtMu;
+    if (nEvt > 0) {
+      nevt = nEvt;
     }
     else {
-      for (unsigned int iCh = 0; iCh < fileData.size(); iCh++) {
-        TFile *file = TFile::Open(inDirPdf[iCh]+fileData[iCh]);
-        TH1D* hist = (TH1D*)file->Get(histName);
-        nevt[iCh] = floor(hist->Integral());
-        delete hist;
-        file->Close(); delete file;
-      }
-      nevt[2] = nevt[0] + nevt[1];
+      TFile *file = TFile::Open(inDirToy+fileData);
+      TH1D* hist = (TH1D*)file->Get(histName);
+      nevt = floor(hist->GetEntries());
+      delete hist;
+      file->Close(); delete file;
     }
 
     cout << "Performing a simultaneous unbinned likelihood fit (gaussian+gamma function) for M_{t} = "<< mtop[0] << ", " << mtop[1] << ", " << mtop[2] << ", " << mtop[3] << ", " << mtop[4] << ", " << mtop [5] << " GeV/c^{2}" << endl;
-    cout << "Toys for leading e type: " << nsample << " toys of Poisson(" << nevt[0] << ") events" << endl;
-    cout << "Toys for leading #mu type: " << nsample << " toys of Poisson(" << nevt[1] << ") events" << endl;
-    cout << "Toys both types: " << nsample << " toys of Poisson(" << nevt[2] << ") events" << endl;
+    cout << "Toys both types: " << nsample << " toys of Poisson(" << nevt << ") events" << endl;
 
     cout << "\n===================================================\n" <<endl;
 
@@ -1358,18 +1342,12 @@ int computeSys(TString date = "", TString version = "", TString decay = "",
     my_style->cd();
     gROOT->SetBatch(true);
 
-    double *mtop_el = treat(outDir[0], inDirPdf[0], inDirToy[0], 19.7, decay, nevt[0], mtop, mtlim, nsample); 
-    double *mtop_mu = treat(outDir[1], inDirPdf[1], inDirToy[1], 19.7, decay, nevt[1], mtop, mtlim, nsample); 
-    double *mtop_all = treat(outDir[2], inDirPdf[2], inDirToy[2], 19.7, decay, nevt[2], mtop, mtlim, nsample); 
+    double *mtop_all = treat(outDir, inDirPdf, inDirToy, 19.7, decay, nevt, mtop, mtlim, nsample); 
 
     cout << "\n===================================================\n" <<endl;
 
-    double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    double *mtoy_combi = combi(mtop_el[2], mtop_el[3], mtop_mu[2], mtop_mu[3]); 
-    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2} \n \t \t \t Mean toys = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_combi[0], mtop_combi[1], mtoy_combi[0], mtoy_combi[1]);
-    cout << result1 << endl;
-    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2} \n \t \t \t Mean toys = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_all[0], mtop_all[1], mtop_all[2], mtop_all[3]);
-    cout << result2 << endl;
+    TString result = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2} \n \t \t \t Mean toys = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_all[0], mtop_all[1], mtop_all[2], mtop_all[3]);
+    cout << result << endl;
 
     return 0;
   }
