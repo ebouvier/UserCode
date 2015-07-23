@@ -287,9 +287,11 @@ void cms_myStyle(double lumi = 19.7,bool isData = true){
 }
 
 //---------------------------------------------------------------
-int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TString decay = "")
+int fitMJpsi(TString date = "", TString version = "", TString decay = "", TString fileData = "")
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && version.Length() > 0 && fileData.Length() > 0 && decay.Length() > 0)  {
 
     vector<double> xlim; xlim.push_back(3.02); xlim.push_back(3.2);
@@ -359,14 +361,14 @@ int fitMJpsi(TString date = "", TString version = "", TString fileData = "", TSt
     h_myStyle(histo,38,38,3002,histo->GetMinimum(),1.2*histo->GetMaximum(),510,510,20,38,1.,0.);
     RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mjpsi), histo, 1.);
     RooGaussian pdf("gaus", "gaus", mjpsi, mean_gaus, width_gaus);
-    pdf.fitTo(*datahist, Range(xlim[0], xlim[1]));
+    pdf.fitTo(*datahist, Range(xlim[0], xlim[1]), SumW2Error(kTRUE));
     RooCBShape pdf2("CBall", "CBall", mjpsi, mean_cball, width_cball, alpha_cball, n_cball);
-    pdf2.fitTo(*datahist, Range(3., xlim[1]));
+    pdf2.fitTo(*datahist, Range(3., xlim[1]), SumW2Error(kTRUE));
 
     TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
     cn->cd();
     RooPlot *massframe = mjpsi.frame();
-    datahist->plotOn(massframe); //, MarkerColor(38), LineColor(38));
+    datahist->plotOn(massframe, DataError(RooAbsData::SumW2)); //, MarkerColor(38), LineColor(38));
     pdf.plotOn(massframe, LineColor(38), Range(xlim[0], xlim[1]), Name("bleu"));
     pdf2.plotOn(massframe, LineColor(50), Range(3., xlim[1]), Name("rouge"));
     massframe->Draw();

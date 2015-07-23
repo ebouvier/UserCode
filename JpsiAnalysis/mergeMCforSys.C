@@ -16,6 +16,8 @@
 
 int mergeMCforSys(TString date, TString version, TString channel){
 
+  TH1::SetDefaultSumw2(kTRUE);
+
   float lumi;
   // TString dir = date+"/v"+version+"/";
   TString dir = date+"/"+version+"/";
@@ -148,14 +150,12 @@ int mergeMCforSys(TString date, TString version, TString channel){
   const unsigned int vecsize = finames.size();
 
   vector<float> prop;
-  float tot = 0.;
   float norm = 0.;
   for (unsigned int i = 0; i < vecsize; i++){
     TFile *fi = TFile::Open(dir+finames[i]);
     TH1F* hist = (TH1F*) fi->Get("NVertices");
-    prop.push_back(xsections[i]/nevts[i]);
+    prop.push_back(lumi*hist->Integral()*xsections[i]/nevts[i]);
     norm += prop[i];
-    tot += hist->Integral()*lumi*xsections[i]/nevts[i];
     delete hist; fi->Close(); delete fi;
   }
   for (unsigned int i = 0; i < vecsize; i++) {
@@ -189,7 +189,7 @@ int mergeMCforSys(TString date, TString version, TString channel){
     }
     delete tree; fi->Close(); delete fi;
   }
-  std::cout << "total = " << tot << std::endl;
+  std::cout << "total = " << norm << std::endl;
   outfi->Write();
   delete outhisto;
   delete outtree;

@@ -310,12 +310,12 @@ double *binnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *chan
   h_myStyle(histo,38,38,3002,histo->GetMinimum(),1.2*histo->GetMaximum(),510,510,20,38,1.,0.);
   RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mtl), histo, 1.);
   RooGaussian pdf("gaus", "gaus", mtl, mean, width);
-  pdf.fitTo(*datahist, Range(xlim[0], xlim[1]), PrintLevel(-1), PrintEvalErrors(-1));
+  pdf.fitTo(*datahist, Range(xlim[0], xlim[1]), SumW2Error(kTRUE), PrintLevel(-1), PrintEvalErrors(-1));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
   RooPlot *massframe = mtl.frame();
-  datahist->plotOn(massframe, MarkerColor(38), LineColor(38));
+  datahist->plotOn(massframe, MarkerColor(38), LineColor(38), DataError(RooAbsData::SumW2));
   pdf.plotOn(massframe, LineColor(38), Range(xlim[0], xlim[1]));
   massframe->Draw();
   histo->Draw("samehist");
@@ -375,15 +375,15 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
   TTree *tree = (TTree*)res->Get("MTriLept");
   RooDataSet *dataset = new RooDataSet("dataset", "dataset", RooArgSet(mtl, weight), Import(*tree), WeightVar(weight));
   RooGaussian pdf("gaus", "gaus", mtl, mean, width);
-  pdf.fitTo(*dataset, Range(xlim[0], xlim[1]), PrintLevel(-1), PrintEvalErrors(-1));
+  pdf.fitTo(*dataset, Range(xlim[0], xlim[1]), SumW2Error(kTRUE), PrintLevel(-1), PrintEvalErrors(-1));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
   RooPlot *massframe = mtl.frame();
   if (mtop < 1e-6)
-    dataset->plotOn(massframe, Binning(25));
+    dataset->plotOn(massframe, Binning(25), DataError(RooAbsData::SumW2));
   else
-    dataset->plotOn(massframe, Binning(50));
+    dataset->plotOn(massframe, Binning(50), DataError(RooAbsData::SumW2));
   pdf.plotOn(massframe, Range(xlim[0], xlim[1]));
   massframe->Draw();
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
@@ -679,6 +679,8 @@ double *combi(double mt1, double dmt1, double mt2, double dmt2)
 int calib(TString date = "", TString version = "", TString decay = "", int binned = 0)
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     cout << "/!\\ you should have run mergeMC.C before \n" << endl;

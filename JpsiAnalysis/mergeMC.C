@@ -143,14 +143,12 @@ int mergeMC(TString date, TString version, TString channel){
     const unsigned int vecsize = finames.size();
 
     vector<float> prop;
-    float tot = 0.;
     float norm = 0.;
     for (unsigned int i = 0; i < vecsize; i++){
       TFile *fi = TFile::Open(dir+finames[i]);
       TH1F* hist = (TH1F*) fi->Get("NVertices");
-      prop.push_back(xsections[i]/nevts[i]);
+      prop.push_back(lumi*xsections[i]*hist->Integral()/nevts[i]);
       norm += prop[i];
-      tot += hist->Integral()*lumi*xsections[i]/nevts[i];
       delete hist; fi->Close(); delete fi;
     }
     for (unsigned int i = 0; i < vecsize; i++) {
@@ -184,7 +182,7 @@ int mergeMC(TString date, TString version, TString channel){
       }
       delete tree; fi->Close(); delete fi;
     }
-    std::cout << "total = " << tot << std::endl;
+    std::cout << "total = " << norm << std::endl;
     outfi->Write();
     delete outhisto;
     delete outtree;

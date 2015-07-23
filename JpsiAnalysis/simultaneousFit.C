@@ -544,7 +544,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   simPdf.addPdf(model_4,"m4");
   simPdf.addPdf(model_5,"m5");
 
-  RooAbsReal* simNll = simPdf.createNLL(combMC, NumCPU(NCPU));
+  RooAbsReal* simNll = simPdf.createNLL(combMC, NumCPU(NCPU), SumW2Error(kTRUE));
   RooMinuit minuit_mc(*simNll);
   minuit_mc.setPrintLevel(-1); 
   minuit_mc.setPrintEvalErrors(-1);
@@ -568,7 +568,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_0 = new TCanvas("cn_pdf_mc_0","cn_pdf_mc_0",800,800);
   cn_0->cd();
   RooPlot* frame_0 = mtl.frame() ;
-  combMC.plotOn(frame_0,Cut("mc_sample==mc_sample::m0"),Binning(50)) ;
+  combMC.plotOn(frame_0,Cut("mc_sample==mc_sample::m0"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),Components(pdf_gam_0),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -589,7 +589,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_1 = new TCanvas("cn_pdf_mc_1","cn_pdf_mc_1",800,800);
   cn_1->cd();
   RooPlot* frame_1 = mtl.frame() ;
-  combMC.plotOn(frame_1,Cut("mc_sample==mc_sample::m1"),Binning(50)) ;
+  combMC.plotOn(frame_1,Cut("mc_sample==mc_sample::m1"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),Components(pdf_gam_1),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -610,7 +610,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_2 = new TCanvas("cn_pdf_mc_2","cn_pdf_mc_2",800,800);
   cn_2->cd();
   RooPlot* frame_2 = mtl.frame() ;
-  combMC.plotOn(frame_2,Cut("mc_sample==mc_sample::m2"),Binning(50)) ;
+  combMC.plotOn(frame_2,Cut("mc_sample==mc_sample::m2"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),Components(pdf_gam_2),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -631,7 +631,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_3 = new TCanvas("cn_pdf_mc_3","cn_pdf_mc_3",800,800);
   cn_3->cd();
   RooPlot* frame_3 = mtl.frame() ;
-  combMC.plotOn(frame_3,Cut("mc_sample==mc_sample::m3"),Binning(50)) ;
+  combMC.plotOn(frame_3,Cut("mc_sample==mc_sample::m3"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),Components(pdf_gam_3),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -652,7 +652,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_4 = new TCanvas("cn_pdf_mc_4","cn_pdf_mc_4",800,800);
   cn_4->cd();
   RooPlot* frame_4 = mtl.frame() ;
-  combMC.plotOn(frame_4,Cut("mc_sample==mc_sample::m4"),Binning(50)) ;
+  combMC.plotOn(frame_4,Cut("mc_sample==mc_sample::m4"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),Components(pdf_gam_4),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -673,7 +673,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_5 = new TCanvas("cn_pdf_mc_5","cn_pdf_mc_5",800,800);
   cn_5->cd();
   RooPlot* frame_5 = mtl.frame() ;
-  combMC.plotOn(frame_5,Cut("mc_sample==mc_sample::m5"),Binning(50)) ;
+  combMC.plotOn(frame_5,Cut("mc_sample==mc_sample::m5"),Binning(50), DataError(RooAbsData::SumW2)) ;
   simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),ProjWData(mc_sample,combMC),FillColor(38),VisualizeError(*simRes)) ;
   simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),ProjWData(mc_sample,combMC),LineColor(9)) ;
   simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),Components(pdf_gam_5),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kBlue));
@@ -1003,7 +1003,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooFormulaVar ncat("ncat","@0+@1*@2",RooArgList(ncat_p0,ncat_p1,mt));
   RooAddPdf model("model","sumpdf",RooArgList(pdf_gaus,pdf_gamma),RooArgList(ncat));
 
-  RooAbsReal* nll_res = model.createNLL(*data_dataset, NumCPU(NCPU));
+  RooAbsReal* nll_res = model.createNLL(*data_dataset, NumCPU(NCPU), SumW2Error(kTRUE));
   RooMinuit m_res(*nll_res);
   m_res.setPrintLevel(-1); 
   m_res.setPrintEvalErrors(-1);
@@ -1026,7 +1026,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_fit_data = new TCanvas("cn_fit_data","cn_fit_data",800,800);
   cn_fit_data->cd();
   RooPlot* frame = mtl.frame();
-  data_dataset->plotOn(frame,Binning(25));
+  data_dataset->plotOn(frame,Binning(25), DataError(RooAbsData::SumW2));
   model.plotOn(frame,FillColor(38),VisualizeError(*result_final)) ;
   model.plotOn(frame,LineColor(9)) ;
   model.plotOn(frame,Components(pdf_gamma),LineStyle(kDashed),LineColor(kBlue));
@@ -1244,7 +1244,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
     for(unsigned int isample = 0; isample < nsample; isample++) {
       RooAbsData* gen_dataset = (RooDataSet*)mcs->genData(isample);
-      model.fitTo(*gen_dataset, Save(), PrintLevel(-1), PrintEvalErrors(-1));  
+      model.fitTo(*gen_dataset, Save(), SumW2Error(kTRUE), PrintLevel(-1), PrintEvalErrors(-1));  
 
       //---- fill des histos
       hist_residual->Fill(mt.getVal()-mti_v[0]);
@@ -1632,6 +1632,8 @@ int simultaneousFit(TString date = "", TString version = "", TString decay = "",
     bool blind = true, int nEvtEl = -1, int nEvtMu = -1)
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     cout << "/!\\ you should have run mergeMC.C and mergeChannels.py before \n" << endl; 

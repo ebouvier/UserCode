@@ -309,12 +309,12 @@ double *cbPeak(TString inFile, TString outFile, TString channel, double lumi)
   h_myStyle(histo,38,38,3002,histo->GetMinimum(),1.2*histo->GetMaximum(),510,510,20,38,1.,0.);
   RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mjpsi), histo, 1.);
   RooCBShape pdf("CBall", "CBall", mjpsi, mean_cball, width_cball, alpha_cball, n_cball);
-  pdf.fitTo(*datahist, Range(3., 3.2), SumW2Error(kTRUE));
+  pdf.fitTo(*datahist, Range(3., 3.2), SumW2Error(kTRUE), SumW2Error(kTRUE));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
   RooPlot *massframe = mjpsi.frame();
-  datahist->plotOn(massframe); //, MarkerColor(38), LineColor(38));
+  datahist->plotOn(massframe, DataError(RooAbsData::SumW2)); //, MarkerColor(38), LineColor(38));
   pdf.plotOn(massframe, LineColor(50), Range(3., 3.2), Name("rouge"));
   massframe->Draw();
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
@@ -367,7 +367,7 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
   RooPlot *massframe = mjpsi.frame();
-  datahist->plotOn(massframe); //, MarkerColor(38), LineColor(38));
+  datahist->plotOn(massframe, DataError(RooAbsData::SumW2)); //, MarkerColor(38), LineColor(38));
   pdf.plotOn(massframe, LineColor(38), Range(3.06, 3.14), Name("bleu"));
   /// pdf.plotOn(massframe, LineColor(38), Range(3.04, 3.13), Name("bleu"));
   massframe->Draw();
@@ -397,6 +397,8 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
 int fitJpsiPeaks(TString date = "", TString version = "", TString decay = "", TString fileData = "")
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && version.Length() > 0 && fileData.Length() > 0 && decay.Length() > 0)  {
 
     double lumi = 19.7;

@@ -387,7 +387,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     RooAddPdf mc_model("mc_model","mc_sumpdf",RooArgList(mc_pdf_gaus,mc_pdf_gamma),RooArgList(mc_ncat)) ;
 
     //--- Fit
-    RooAbsReal* mcNll = mc_model.createNLL(*mc_dataset, NumCPU(NCPU));
+    RooAbsReal* mcNll = mc_model.createNLL(*mc_dataset, NumCPU(NCPU), SumW2Error(kTRUE));
     RooMinuit minuit_mc(*mcNll);
     minuit_mc.setPrintLevel(-1); 
     minuit_mc.setPrintEvalErrors(-1);
@@ -404,7 +404,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     TCanvas *mc_cn = new TCanvas(TString::Format("cn_pdf_mc_%d", ind),TString::Format("cn_pdf_mc_%d",ind),800,800);
     mc_cn->cd();
     RooPlot* mc_frame = mtl.frame() ;
-    mc_dataset->plotOn(mc_frame,Binning(50));
+    mc_dataset->plotOn(mc_frame,Binning(50), DataError(RooAbsData::SumW2));
     mc_model.plotOn(mc_frame,FillColor(38),VisualizeError(*mc_res)) ;
     mc_model.plotOn(mc_frame,LineColor(9));
     mc_model.plotOn(mc_frame,Components(mc_pdf_gamma),LineStyle(kDashed),LineColor(kBlue));
@@ -743,7 +743,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooFormulaVar ncat("ncat","@0+@1*@2",RooArgList(ncat_0,ncat_1,mt));
   RooAddPdf model("model","sumpdf",RooArgList(pdf_gaus,pdf_gamma),RooArgList(ncat)) ;
 
-  RooAbsReal* nll_res = model.createNLL(*data_dataset, NumCPU(NCPU));
+  RooAbsReal* nll_res = model.createNLL(*data_dataset, NumCPU(NCPU), SumW2Error(kTRUE));
   RooMinuit m_res(*nll_res);
   m_res.setPrintLevel(-1); 
   m_res.setPrintEvalErrors(-1);
@@ -766,7 +766,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_fit_data = new TCanvas("cn_fit_data","cn_fit_data",800,800);
   cn_fit_data->cd();
   RooPlot* frame = mtl.frame();
-  data_dataset->plotOn(frame,Binning(25));
+  data_dataset->plotOn(frame,Binning(25), DataError(RooAbsData::SumW2));
   model.plotOn(frame,FillColor(38),VisualizeError(*result_final)) ;
   model.plotOn(frame,LineColor(9)) ;
   model.plotOn(frame,Components(pdf_gamma),LineStyle(kDashed),LineColor(kBlue));
@@ -984,7 +984,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
     for(unsigned int isample = 0; isample < nsample; isample++) {
       RooAbsData* gen_dataset = (RooDataSet*)mcs->genData(isample);
-      model.fitTo(*gen_dataset, Save(), PrintLevel(-1), PrintEvalErrors(-1));  
+      model.fitTo(*gen_dataset, Save(), SumW2Error(kTRUE), PrintLevel(-1), PrintEvalErrors(-1));  
 
       //---- fill des histos
       hist_residual->Fill(mt.getVal()-mti_v[0]);
@@ -1372,6 +1372,8 @@ int simpleFit(TString date = "", TString version = "", TString decay = "",
     bool blind = true, int nEvtEl = -1, int nEvtMu = -1)
 //---------------------------------------------------------------
 {  
+  TH1::SetDefaultSumw2(kTRUE);
+
   if (date.Length() > 0 && version.Length() > 0 && decay.Length() > 0)  {
 
     cout << "/!\\ you should have run mergeMC.C and mergeChannels.py before \n" << endl; 
