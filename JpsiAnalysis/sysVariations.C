@@ -227,9 +227,53 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
     TLatex* channel_tex, double lumi, TString histName, TString xTitle)
 //---------------------------------------------------------------
 {  
-  TString sRef   = date + "/" + ref + "/MyAnaAll/TTJets_MSDecays_JpsiFilter_172_5.root";
-  TString sDown  = date + "/" + down + "/MyAnaAll/TTJets_MSDecays_JpsiFilter_172_5.root"; 
-  TString sUp    = date + "/" + up + "/MyAnaAll/TTJets_MSDecays_JpsiFilter_172_5.root"; 
+  TString sRef = date + "/" + ref + "/MyAnaAll/";
+  if (ref.Contains("P11", TString::kIgnoreCase))
+    sRef += "TTJets_SemiLeptMGDecays_TuneP11.root";
+  else if (ref.Contains("P11mpiHi", TString::kIgnoreCase))
+    sRef += "TTJets_SemiLeptMGDecays_TuneP11mpiHi.root";
+  else if (ref.Contains("P11noCR", TString::kIgnoreCase))
+    sRef += "TTJets_SemiLeptMGDecays_TuneP11noCR.root";
+  else if (ref.Contains("P11TeV", TString::kIgnoreCase))
+    sRef += "TTJets_SemiLeptMGDecays_TuneP11TeV.root";
+  else if (ref.Contains("MCatNLO", TString::kIgnoreCase))
+    sRef += "TTJets_MCatNLO.root";
+  else if (ref.Contains("Powheg", TString::kIgnoreCase))
+    sRef += "TTJets_Powheg.root";
+  else
+    sRef += "TTJets_MSDecays_JpsiFilter_172_5.root";
+
+  TString sDown = date + "/" + down + "/MyAnaAll/"; 
+  if (down.Contains("P11", TString::kIgnoreCase))
+    sDown += "TTJets_SemiLeptMGDecays_TuneP11.root";
+  else if (down.Contains("P11mpiHi", TString::kIgnoreCase))
+    sDown += "TTJets_SemiLeptMGDecays_TuneP11mpiHi.root";
+  else if (down.Contains("P11noCR", TString::kIgnoreCase))
+    sDown += "TTJets_SemiLeptMGDecays_TuneP11noCR.root";
+  else if (down.Contains("P11TeV", TString::kIgnoreCase))
+    sDown += "TTJets_SemiLeptMGDecays_TuneP11TeV.root";
+  else if (down.Contains("MCatNLO", TString::kIgnoreCase))
+    sDown += "TTJets_MCatNLO.root";
+  else if (down.Contains("Powheg", TString::kIgnoreCase))
+    sDown += "TTJets_Powheg.root";
+  else
+    sDown += "TTJets_MSDecays_JpsiFilter_172_5.root"; 
+
+  TString sUp = date + "/" + up + "/MyAnaAll/"; 
+  if (up.Contains("P11", TString::kIgnoreCase))
+    sUp += "TTJets_SemiLeptMGDecays_TuneP11.root";
+  else if (up.Contains("P11mpiHi", TString::kIgnoreCase))
+    sUp += "TTJets_SemiLeptMGDecays_TuneP11mpiHi.root";
+  else if (up.Contains("P11noCR", TString::kIgnoreCase))
+    sUp += "TTJets_SemiLeptMGDecays_TuneP11noCR.root";
+  else if (up.Contains("P11TeV", TString::kIgnoreCase))
+    sUp += "TTJets_SemiLeptMGDecays_TuneP11TeV.root";
+  else if (up.Contains("MCatNLO", TString::kIgnoreCase))
+    sUp += "TTJets_MCatNLO.root";
+  else if (up.Contains("Powheg", TString::kIgnoreCase))
+    sUp += "TTJets_Powheg.root";
+  else
+    sUp += "TTJets_MSDecays_JpsiFilter_172_5.root"; 
 
   TFile* fiDown = TFile::Open(sDown);
   TFile* fiUp   = TFile::Open(sUp);
@@ -253,9 +297,10 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
   }
   leg->AddEntry(hUp, up, "lp");
   leg_myStyle(leg);
+  hDown->DrawNormalized("esame");
   hUp->DrawNormalized("esame");
   leg->Draw("same");
-  channel_tex->Draw("esame");
+  channel_tex->Draw("same");
   cms_myStyle(lumi, true);
   TString outFile = outdir + histName;
   cn->SaveAs(outFile+".pdf");
@@ -267,7 +312,7 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
 }
 
 //---------------------------------------------------------------
-int sysVariation(TString date = "", TString ref = "", TString down = "", TString up = "", TString out = "", TString decay = "")
+int sysVariations(TString date = "", TString ref = "", TString down = "", TString up = "", TString out = "", TString decay = "")
 //---------------------------------------------------------------
 {  
   TH1::SetDefaultSumw2(kTRUE);

@@ -35,6 +35,24 @@ if (os.path.isfile(dirEl+"/ElectronHadASingleElectronBCD.root") and os.path.isfi
 if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root")):
     cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root"
     os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_MCatNLO.root") and os.path.isfile(dirMu+"/TTJets_MCatNLO.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_MCatNLO.root "+dirEl+"/TTJets_MCatNLO.root "+dirMu+"/TTJets_MCatNLO.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_SemiLeptMGDecays_TuneP11.root") and os.path.isfile(dirMu+"/TTJets_SemiLeptMGDecays_TuneP11.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_SemiLeptMGDecays_TuneP11.root "+dirEl+"/TTJets_SemiLeptMGDecays_TuneP11.root "+dirMu+"/TTJets_SemiLeptMGDecays_TuneP11.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_SemiLeptMGDecays_TuneP11mpiHi.root") and os.path.isfile(dirMu+"/TTJets_SemiLeptMGDecays_TuneP11mpiHi.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_SemiLeptMGDecays_TuneP11mpiHi.root "+dirEl+"/TTJets_SemiLeptMGDecays_TuneP11mpiHi.root "+dirMu+"/TTJets_SemiLeptMGDecays_TuneP11mpiHi.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_SemiLeptMGDecays_TuneP11noCR.root") and os.path.isfile(dirMu+"/TTJets_SemiLeptMGDecays_TuneP11noCR.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_SemiLeptMGDecays_TuneP11noCR.root "+dirEl+"/TTJets_SemiLeptMGDecays_TuneP11noCR.root "+dirMu+"/TTJets_SemiLeptMGDecays_TuneP11noCR.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_SemiLeptMGDecays_TuneP11TeV.root") and os.path.isfile(dirMu+"/TTJets_SemiLeptMGDecays_TuneP11TeV.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_SemiLeptMGDecays_TuneP11TeV.root "+dirEl+"/TTJets_SemiLeptMGDecays_TuneP11TeV.root "+dirMu+"/TTJets_SemiLeptMGDecays_TuneP11TeV.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_Powheg.root") and os.path.isfile(dirMu+"/TTJets_Powheg.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_Powheg.root "+dirEl+"/TTJets_Powheg.root "+dirMu+"/TTJets_Powheg.root"
+    os.system(cmd)
 
 # Merging MC
 files = [name for name in os.listdir(dirEl) if name.startswith("All_") and name.endswith("_5.root")]
