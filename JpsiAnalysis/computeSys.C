@@ -1201,10 +1201,10 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
   RooMCStudy* mcs = new RooMCStudy(modelToy,mtl);
   mcs->generate(nsample,nevt,kTRUE);
 
-  TH1F* hist_residual = new TH1F("Residual","Residual",100,-2,2);
+  TH1F* hist_residual = new TH1F("Residual","Residual",50,-floor(10.*mtop_res[1]),floor(10.*mtop_res[1]));
   TH1F* hist_pull = new TH1F("Pull","Pull",50,-5,5);
-  TH1F* hist_mean = new TH1F("Mean","Mean",60,170,176);
-  TH1F* hist_err = new TH1F("Error","Error",50,0.1,0.2);
+  TH1F* hist_mean = new TH1F("Mean","Mean",40,mtop_res[0]-1.,mtop_res[0]+1.);
+  TH1F* hist_err = new TH1F("Error","Error",floor(0.5*mtop_res[1]/0.00025),0.75*mtop_res[1],1.25*mtop_res[1]);
 
   for(unsigned int isample = 0; isample < nsample; isample++) {
     RooAbsData* gen_dataset = (RooDataSet*)mcs->genData(isample);
