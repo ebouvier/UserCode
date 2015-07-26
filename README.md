@@ -134,6 +134,14 @@ First, create the rootfiles that contain histograms with the systematic errors a
 
 Those files will be stored in `date/SysForPlotIt/PU`.
 
+Then, run:
+
+    ./plotItSys.py --date 15JulYY --version Ref --channel muonic --decay all
+
+Using `configPlotItSys.template.yml stacked histograms will be store in:
+    
+    Date/Ref/PlotItSysMu/
+
 
 ### Data comparison between both channels 
 
