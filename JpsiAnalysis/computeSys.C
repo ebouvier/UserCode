@@ -1203,8 +1203,22 @@ double *treat(TString outDir, TString inDirPdf, TString inDirToy, double lumi, T
 
   TH1F* hist_residual = new TH1F("Residual","Residual",50,-floor(10.*mtop_res[1]),floor(10.*mtop_res[1]));
   TH1F* hist_pull = new TH1F("Pull","Pull",50,-5,5);
-  TH1F* hist_mean = new TH1F("Mean","Mean",40,mtop_res[0]-1.,mtop_res[0]+1.);
-  TH1F* hist_err = new TH1F("Error","Error",floor(0.5*mtop_res[1]/0.00025),0.75*mtop_res[1],1.25*mtop_res[1]);
+  double mean_inf = mtop_res[0]-floor(10.*mtop_res[1]);
+  double mean_sup = mtop_res[0]+floor(10.*mtop_res[1]);
+  if (nsample/1000. > 30) {
+    mean_inf = 160.;
+    mean_sup = 185.;
+  }
+  double err_inf = (1.-0.25*sqrt(nsample/1000.))*mtop_res[1];
+  double err_sup = (1.+0.25*sqrt(nsample/1000.))*mtop_res[1];
+  double err_nbins = floor(0.5*mtop_res[1]/0.00025);
+  if (nsample/1000. > 30.) {
+    err_inf = 0.6;
+    err_sup = 2.2;
+    err_nbins = 320.;
+  }
+  TH1F* hist_mean = new TH1F("Mean","Mean",40,mean_inf,mean_sup);
+  TH1F* hist_err = new TH1F("Error","Error",err_nbins,err_inf,err_sup);
 
   for(unsigned int isample = 0; isample < nsample; isample++) {
     RooAbsData* gen_dataset = (RooDataSet*)mcs->genData(isample);
@@ -1311,7 +1325,15 @@ int computeSys(TString date = "", TString version = "", TString decay = "",
 
     double mtop[6] = {166.5, 169.5, 171.5, 173.5, 175.5, 178.5};
     double mtlim[2] = {130, 216};
-    const unsigned int nsample = 1000.;
+    unsigned int nsample = 1000.;
+    if (version.Contains("Matching", TString::kIgnoreCase) || version.Contains("Scale", TString::kIgnoreCase))
+      nsample = 2*nsample;
+    else if (version.Contains("MCatNLO", TString::kIgnoreCase) || version.Contains("P11", TString::kIgnoreCase) || version.Contains("Powheg", TString::kIgnoreCase))
+      nsample = 50*nsample;
+    // would be nice but require too much RAM ?
+    else if (version.Contains("JER", TString::kIgnoreCase) || version.Contains("JES", TString::kIgnoreCase) || version.Contains("Bg", TString::kIgnoreCase) || version.Contains("nnpdf30", TString::kIgnoreCase) || version.Contains("mmht2014", TString::kIgnoreCase) || version.Contains("ct14", TString::kIgnoreCase))
+      nsample = 4*nsample;
+      
     int nevt = 0;
 
     TString fileData = "All_172_5.root";

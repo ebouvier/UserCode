@@ -14,6 +14,7 @@
 #include <set>
 #include <map>
 #include <TH2F.h>
+#include "LHAPDF/LHAPDF.h"
 
 using namespace std;
 
@@ -41,6 +42,22 @@ void MyAna::Loop()
   PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram.root"); 
   // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUup.root"); 
   // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUdown.root"); 
+  
+  /* PDF set variations
+   * https://twiki.cern.ch/twiki/bin/viewauth/CMS/PDFatCMS#Recommendation_for_PDF_use_in_CM
+   */
+  /* PDF set name */
+  // const std::string setname = "NNPDF30_nlo_as_0118";
+  // const std::string setname = "MMHT2014nlo68cl";
+  // const std::string setname = "CT14nlo";
+  /* Deviation up or down */
+  // bool devUp = true;
+  // bool devUp = false;
+  /* Loading LHAPDF */
+  /*
+  const LHAPDF::PDFSet set(setname);
+  const std::vector<LHAPDF::PDF*> pdfs = set.mkPDFs();
+  */
 
   _newfile = new TFile(_rootName.c_str(),"RECREATE");
 
@@ -392,6 +409,60 @@ void MyAna::Loop()
     int iCut = 0;
     _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = "Starting"; ++iCut; // /!\ no SF 
     _h_iCut->GetXaxis()->SetBinLabel(iCut, "Starting");
+
+    //======================================================
+    // LHAPDF 
+    //======================================================
+
+    // Using the reweighting method
+    // See https://www.hep.ucl.ac.uk/pdf4lhc/PDF4LHC_practical_guide.pdf
+    // https://twiki.cern.ch/twiki/bin/viewauth/CMS/TopSystematics#PDF_uncertainties
+    // http://cms.cern.ch/iCMS/jsp/openfile.jsp?tp=draft&files=AN2009_048_v1.pdf
+
+    /*
+    double xpdf1 = pdfs[0]->xfxQ(pdf_id1, pdf_x1, pdf_scale);
+    double xpdf2 = pdfs[0]->xfxQ(pdf_id2, pdf_x2, pdf_scale);
+    double w0 = xpdf1 * xpdf2;
+    double pdfWeight = 0.;
+    unsigned int Nmembers_pdf = set.size();
+    unsigned int N_error_pdf = (Nmembers_pdf-1)/2;
+    double xpdf1_new = 0.;
+    double xpdf2_new = 0.;
+    double pdf_weight = 1.;
+    vector<double> pdf_weight_down;
+    vector<double> pdf_weight_up;
+    for (size_t imem = 1; imem < Nmembers_pdf; imem++) {
+      xpdf1_new = pdfs[imem]->xfxQ(pdf_id1, pdf_x1, pdf_scale);
+      xpdf2_new = pdfs[imem]->xfxQ(pdf_id2, pdf_x2, pdf_scale);
+      pdf_weight = xpdf1_new * xpdf2_new / w0;
+      if (imem % 2 == 0) {
+        // up case
+        pdf_weight_down.push_back(pdf_weight); 
+      } else {
+        // down case
+        pdf_weight_up.push_back(pdf_weight); 
+      }
+    }
+    double cfac = 1.;
+    if (setname.find("CT10") != std::string::npos || setname.find("CT14") != std::string::npos) 
+      cfac = 1./1.64485;
+    if (devUp) {
+      for (unsigned int iev = 0; iev < N_error_pdf; iev++) {
+        double max = std::max(std::max(pdf_weight_up[iev]-1.,pdf_weight_down[iev]-1.),0.);
+        pdfWeight += max * max;  
+      }
+      pdfWeight = 1. + cfac * sqrt(pdfWeight);
+    }
+    else {
+      for (unsigned int iev = 0; iev < N_error_pdf; iev++) {
+        double max = std::max(std::max(1.-pdf_weight_up[iev],1.-pdf_weight_down[iev]),0.);
+        pdfWeight += max * max;  
+      }
+      pdfWeight = 1. - cfac * sqrt(pdfWeight);
+    }
+    if (_debug) cout << "pdfWeight = " << pdfWeight << endl;
+    _weight = _weight*pdfWeight;
+    */
 
     //======================================================
     // Trigger

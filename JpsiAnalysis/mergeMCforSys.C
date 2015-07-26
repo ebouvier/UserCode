@@ -21,13 +21,16 @@ int mergeMCforSys(TString date, TString version, TString channel){
   float lumi;
   // TString dir = date+"/v"+version+"/";
   TString dir = date+"/"+version+"/";
+  TString dirRef = date+"/Ref/";
   if (channel.Contains("mu", TString::kIgnoreCase)) {
     lumi = 19705.;
     dir += "MyAnaMu/";
+    dirRef += "MyAnaMu/";
   }
   if (channel.Contains("el", TString::kIgnoreCase)) {
     lumi = 19690.;
     dir += "MyAnaEl/";
+    dirRef += "MyAnaEl/";
   }
 
   vector<TString> finames;
@@ -152,7 +155,13 @@ int mergeMCforSys(TString date, TString version, TString channel){
   vector<float> prop;
   float norm = 0.;
   for (unsigned int i = 0; i < vecsize; i++){
-    TFile *fi = TFile::Open(dir+finames[i]);
+    TString name = dir+finames[i];
+    if ((version.Contains("nnpdf30", TString::kIgnoreCase) || 
+         version.Contains("mmht2014", TString::kIgnoreCase) || 
+         version.Contains("ct14", TString::kIgnoreCase)) 
+       && !finames[i].Contains("TTJets_MSDecays_JpsiFilter_172_5.root", TString::kIgnoreCase))
+      name = dirRef+finames[i];
+    TFile *fi = TFile::Open(name);
     TH1F* hist = (TH1F*) fi->Get("NVertices");
     prop.push_back(lumi*hist->Integral()*xsections[i]/nevts[i]);
     norm += prop[i];
@@ -172,7 +181,13 @@ int mergeMCforSys(TString date, TString version, TString channel){
   outtree->Branch("weight",&weight,"weight/F");
   for (unsigned int i = 0; i < vecsize; i++) {
     std::cout << finames[i] << " : " << prop[i] << std::endl;
-    TFile *fi = TFile::Open(dir+finames[i]);
+    TString name = dir+finames[i];
+    if ((version.Contains("nnpdf30", TString::kIgnoreCase) || 
+         version.Contains("mmht2014", TString::kIgnoreCase) || 
+         version.Contains("ct14", TString::kIgnoreCase)) 
+       && !finames[i].Contains("TTJets_MSDecays_JpsiFilter_172_5.root", TString::kIgnoreCase))
+      name = dirRef+finames[i];
+    TFile *fi = TFile::Open(name);
     TTree *tree = (TTree*) fi->Get("MTriLept");
     int n_entries = tree->GetEntries();
     float massi; float weighti;

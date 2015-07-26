@@ -1,12 +1,14 @@
-CXXFLAGS = -g -Wall -std=c++0x -fPIC -Wno-deprecated -I. -I`root-config --incdir` #-std=c++0x dire à g++ d'utiliser le c++11 au moment de la compilation
-LDFLAGS = -g -I.
+CXXFLAGS = -g -Wall -std=c++0x -fPIC -Wno-deprecated -I. -I`root-config --incdir` -I../External/ -I../External/include/ #-std=c++0x dire à g++ d'utiliser le c++11 au moment de la compilation
+LDDIR = -L../External/lib 
+LDFLAGS = -g -I. $(LDDIR)
+LIBS = -lLHAPDF
 CXX = c++
 DEPS =  $(patsubst %.cc, %.d, $(wildcard *.cc)) 
 
 all: run
 
 run: MyAna.o runMyAna.o HiggsTriggerEfficiencyProvider.o PUReweighter.o 
-	${CXX} ${LDFLAGS} -o runMyAna $^ `root-config --libs`
+	${CXX} ${LDFLAGS} $(LIBS) -o runMyAna $^ `root-config --libs`
 
 runMyAna.o: runMyAna.cc
 	${CXX} -c ${CXXFLAGS} `root-config --cflags` runMyAna.cc

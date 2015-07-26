@@ -124,6 +124,13 @@ class RootTupleDefs {
     Int_t           nPU;
     Float_t         nTrueInteractions;
     Float_t         generator_weight;
+    /* for PDF variations:
+     */
+    Float_t         pdf_x1;
+    Float_t         pdf_x2;
+    Int_t           pdf_id1;
+    Int_t           pdf_id2;
+    Float_t         pdf_scale;
 
     //jets leaves
     UInt_t          n_jets;
@@ -582,6 +589,11 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   SetBranchStatusAndAddress(eventsChain, "nPU", &nPU);
   SetBranchStatusAndAddress(eventsChain, "nTrueInteractions", &nTrueInteractions);
   SetBranchStatusAndAddress(eventsChain, "generator_weight", &generator_weight);
+  SetBranchStatusAndAddress(eventsChain, "pdf_x1", &pdf_x1);
+  SetBranchStatusAndAddress(eventsChain, "pdf_x2", &pdf_x2);
+  SetBranchStatusAndAddress(eventsChain, "pdf_id1", &pdf_id1);
+  SetBranchStatusAndAddress(eventsChain, "pdf_id2", &pdf_id2);
+  SetBranchStatusAndAddress(eventsChain, "pdf_scale", &pdf_scale);
 
   // set pointers and branches adresses  for HLT
 
