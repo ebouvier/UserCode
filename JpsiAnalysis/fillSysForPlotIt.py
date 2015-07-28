@@ -42,19 +42,17 @@ for ch in ['MyAnaEl', 'MyAnaMu']:
     for file in files:
         in1F = ROOT.TFile.Open(os.path.join(dir1,file), "read")
         in2F = ROOT.TFile.Open(os.path.join(dir2,file), "read",)
-        outF = ROOT.TFile.Open(os.path.join(dir0,file), "recreate")
+        outF = ROOT.TFile.Open(os.path.join(dir0,file[0:-5]+"_"+options.out+".root"), "recreate")
         in1F.cd()
         dirList = ROOT.gDirectory.GetListOfKeys()
         for key in dirList:
             if key.GetClassName() == 'TH1F':
                 in1H = key.ReadObj()
                 in2H = in2F.Get(in1H.GetName())
-                if options.in1.lower().count("matchingdown") and options.in2.lower().count("matchingup"):
-                    in1H.Scale(5380767./2247788.)
-                    in2H.Scale(5380767./2741192.)
-                if options.in1.lower().count("scaledown") and options.in2.lower().count("scaleup"):
-                    in1H.Scale(5380767./1700060.)
-                    in2H.Scale(5380767./2669713.)
+                if abs(in1H.Integral()) > 1e-6 :
+                    in1H.Scale(1./in1H.Integral())
+                if abs(in2H.Integral()) > 1e-6 :
+                    in2H.Scale(1./in2H.Integral())
                 if options.in1.lower().count("bgdown") and options.in2.lower().count("bgup"):
                     if file.count("W1JetsToLNu") or file.count("W1JetsToLNu") or file.count("W1JetsToLNu") or file.count("W1JetsToLNu") or file.count("WJetsToLNu") or file.count("DY1JetsToLL") or file.count("DY2JetsToLL") or file.count("DY3JetsToLL") or file.count("DY4JetsToLL") or file.count("DYJetsToLL"): 
                         in1H.Scale(0.8)
@@ -66,8 +64,9 @@ for ch in ['MyAnaEl', 'MyAnaMu']:
                 outH.GetXaxis().SetTitle(in1H.GetXaxis().GetTitle())
                 for ibin in range(1, outH.GetNbinsX()+1):
                     outH.SetBinContent(ibin, 0.)
-                    if in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin) != 0 and abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin)) < 0.4*(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)):
-                        outH.SetBinError(ibin, abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin))/(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)))
+                    if (in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)) != 0 and abs(in1H.GetBinError(ibin)) < 0.4*in1H.GetBinContent(ibin) and abs(in1H.GetBinError(ibin)) < 0.4*in2H.GetBinContent(ibin): 
+                        error = abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin))/(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin))
+                        outH.SetBinError(ibin, error)
                     else:
                         outH.SetBinError(ibin, 0.)
                 outF.cd()

@@ -31,15 +31,15 @@ if not os.path.isdir(dirO):
     os.mkdir(dirO)
 
 if options.out.lower().count('me'):
-  files = [['TTJets_MSDecays_JpsiFilter_172_5.root',245.8/5380767.,'TTJets_Powheg.root',245.8/21675970.,'TTJets_ME.root']]
+  files = [['TTJets_MSDecays_JpsiFilter_172_5.root','TTJets_Powheg.root','TTJets_ME.root',245.8]]
 elif options.out.lower().count('cr'):
-  files = [['TTJets_SemiLeptMGDecays_TuneP11.root',107.6722/12005805.,'TTJets_SemiLeptMGDecays_TuneP11noCR.root',107.6722/12024653.,'TTJets_SemiLeptMGDecays_CR.root'], 
-          ['TTJets_FullLeptMGDecays_TuneP11.root',25.8031/5976484.,'TTJets_FullLeptMGDecays_TuneP11noCR.root',25.8031/5974627.,'TTJets_FullLeptMGDecays_CR.root'], 
-          ['TTJets_HadronicMGDecays_TuneP11.root',112.325/11651739.,'TTJets_HadronicMGDecays_TuneP11noCR.root',112.325/11919063.,'TTJets_HadronicMGDecays_CR.root']]
+  files = [['TTJets_SemiLeptMGDecays_TuneP11.root','TTJets_SemiLeptMGDecays_TuneP11noCR.root','TTJets_SemiLeptMGDecays_CR.root',107.6722], 
+          ['TTJets_FullLeptMGDecays_TuneP11.root','TTJets_FullLeptMGDecays_TuneP11noCR.root','TTJets_FullLeptMGDecays_CR.root',25.8031], 
+          ['TTJets_HadronicMGDecays_TuneP11.root','TTJets_HadronicMGDecays_TuneP11noCR.root','TTJets_HadronicMGDecays_CR.root',112.325]]
 elif options.out.lower().count('ue'):
-  files = [['TTJets_SemiLeptMGDecays_TuneP11.root',107.6722/12005805.,'TTJets_SemiLeptMGDecays_TuneP11mpiHi.root',107.6722/7978174.,'TTJets_SemiLeptMGDecays_UE.root'], 
-          ['TTJets_FullLeptMGDecays_TuneP11.root',25.8031/5976484.,'TTJets_FullLeptMGDecays_TuneP11mpiHi.root',25.8031/3982409.,'TTJets_FullLeptMGDecays_UE.root'], 
-          ['TTJets_HadronicMGDecays_TuneP11.root',112.325/11651739.,'TTJets_HadronicMGDecays_TuneP11mpiHi.root',112.325/7953758.,'TTJets_HadronicMGDecays_UE.root']]
+  files = [['TTJets_SemiLeptMGDecays_TuneP11.root','TTJets_SemiLeptMGDecays_TuneP11mpiHi.root','TTJets_SemiLeptMGDecays_UE.root',107.6722], 
+          ['TTJets_FullLeptMGDecays_TuneP11.root','TTJets_FullLeptMGDecays_TuneP11mpiHi.root','TTJets_FullLeptMGDecays_UE.root',25.8031], 
+          ['TTJets_HadronicMGDecays_TuneP11.root','TTJets_HadronicMGDecays_TuneP11mpiHi.root','TTJets_HadronicMGDecays_UE.root',112.325]]
 
 for ch in ['MyAnaEl', 'MyAnaMu']:
     dir1 = os.path.join(dirI1, ch)
@@ -51,26 +51,27 @@ for ch in ['MyAnaEl', 'MyAnaMu']:
         os.mkdir(dir0)
     for file in files:
         in1F = ROOT.TFile.Open(os.path.join(dir1,file[0]), "read")
-        in2F = ROOT.TFile.Open(os.path.join(dir2,file[2]), "read",)
-        outF = ROOT.TFile.Open(os.path.join(dir0,file[4]), "recreate")
+        in2F = ROOT.TFile.Open(os.path.join(dir2,file[1]), "read",)
+        outF = ROOT.TFile.Open(os.path.join(dir0,file[2]), "recreate")
         in1F.cd()
         dirList = ROOT.gDirectory.GetListOfKeys()
         for key in dirList:
             if key.GetClassName() == 'TH1F':
                 in1H = key.ReadObj()
                 in2H = in2F.Get(in1H.GetName())
-                in1H.Scale(file[1]*5380767./245.8)
-                in2H.Scale(file[3]*5380767./245.8)
+                if abs(in1H.Integral()) > 1e-6 :
+                    in1H.Scale(1./in1H.Integral())
+                if abs(in2H.Integral()) > 1e-6 :
+                    in2H.Scale(1./in2H.Integral())
                 outH = ROOT.TH1F(in1H.GetName(),in1H.GetTitle(),in1H.GetNbinsX(),in1H.GetXaxis().GetXmin(),in1H.GetXaxis().GetXmax())
                 outH.GetXaxis().SetTitle(in1H.GetXaxis().GetTitle())
                 for ibin in range(1, outH.GetNbinsX()+1):
                     outH.SetBinContent(ibin, 0.)
-                    if in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin) != 0 and abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin)) < 0.4*(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)):
-                        outH.SetBinError(ibin, abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin))/(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin)))
+                    if in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin) != 0 and in1H.GetBinError(ibin) < 0.4*in1H.GetBinContent(ibin) and in2H.GetBinError(ibin) < 0.4*in2H.GetBinContent(ibin):
+                        error = abs(in1H.GetBinContent(ibin) - in2H.GetBinContent(ibin))/(in1H.GetBinContent(ibin) + in2H.GetBinContent(ibin))
+                        outH.SetBinError(ibin, error*file[3]/245.8)
                     else:
                         outH.SetBinError(ibin, 0.)
-                    if options.out.lower().count("jpsi"):    
-                        outH.SetBinError(ibin, 2.*outH.GetBinError(ibin))
                 outF.cd()
                 outH.Write()
         outF.Close()
