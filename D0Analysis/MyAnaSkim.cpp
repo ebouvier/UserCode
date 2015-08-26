@@ -762,8 +762,8 @@ void MyAna::Loop()
   cout << "-> 1 iso muon                                             = " << counter[3] << endl;
   cout << "-> 1 iso electron                                         = " << counter[4] << endl;
   cout << "Semi-leptonic                                             = " << counter[5] << endl;
-  cout << "-> semi-electronic                                        = " << counter[6] << endl;
-  cout << "-> semi-muonic                                            = " << counter[7] << endl;
+  cout << "-> semi-muonic                                            = " << counter[6] << endl;
+  cout << "-> semi-electronic                                        = " << counter[7] << endl;
   cout << "At least 1 mu-tagged jet                                  = " << counter[8] << endl;
   cout << "========================================================================" << endl;
   cout << "Total Number of events skimmed                            = "  << nwrite			   << endl;

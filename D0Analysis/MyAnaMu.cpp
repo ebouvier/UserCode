@@ -76,6 +76,8 @@ void MyAna::Loop()
   _h_cuts_muons_n->SetXTitle("Number of isolated #mu (before cut)");
   TH1F* _h_cuts_electrons_n = new TH1F("NElectrons-cuts", "NElectrons-cuts", 4, 0., 4.);
   _h_cuts_electrons_n->SetXTitle("Number of veto e (before cut)");
+  TH1F* _h_cuts_muons_dr = new TH1F("DeltaRMuons-b-jets-cuts", "DeltaRMuons-b-jets-cuts", 50, 0., 0.1); 
+  _h_cuts_muons_dr->SetXTitle("#DeltaR(iso #mu, soft #mu) (before cut)");
   TH1F* _h_cuts_mujets_n = new TH1F("N-b-jets-cuts", "N-b-jets-cuts", 5, 0., 5.);
   _h_cuts_mujets_n->SetXTitle("Number of #mu-tagged jets (before cut)");
 
@@ -90,7 +92,7 @@ void MyAna::Loop()
   TH1F* _h_isoLept_pfiso          = new TH1F("PfIsoIsoLept", "PfIsoIsoLept", 25, 0., 0.5);  
   _h_isoLept_pfiso->SetXTitle("#mu isolation");
 
-  TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 11, 0., 11.); 
+  TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 8, 3., 11.); 
   _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
   TH1F* _h_jet30_pt               = new TH1F("PtJets30", "PtJets30", 100, 0., 500.); 
   _h_jet30_pt->SetXTitle("p_{T}(jets) (GeV/c)");
@@ -98,7 +100,7 @@ void MyAna::Loop()
   _h_jet30_eta->SetXTitle("#eta(jets)");
   TH1F* _h_jet30_phi              = new TH1F("PhiJets30", "PhiJets30", 32, -3.2, 3.2);
   _h_jet30_phi->SetXTitle("#phi(jets)");
-  TH1F* _h_jet30_csv              = new TH1F("CsvJets30", "CsvJets30", 25, 0.5, 1.);
+  TH1F* _h_jet30_csv              = new TH1F("CsvJets30", "CsvJets30", 100, 0., 1.);
   _h_jet30_csv->SetXTitle("CSV discriminant");
 
   TH1F* _h_met_met                = new TH1F("MetMet", "MetMet", 35, 0., 350.);
@@ -330,38 +332,6 @@ void MyAna::Loop()
     vector<unsigned int> indgoodver;
 
     //======================================================
-    // Good jet selection
-    //======================================================
-
-    int n55jet = 0;
-    int n45jet = 0;
-    int n35jet = 0;
-
-    if (_debug) cout << " -> jets size " << n_jets << endl;
-
-    for (unsigned int i = 0; i < n_jets; ++i) {
-      float jetPt = GetP4(jet_4vector,i)->Pt();
-      float jetEta = GetP4(jet_4vector,i)->Eta();
-      if (jetPt <= 20.) continue;
-      if (fabs(jetEta) >= 2.5) continue;
-      if (jetPt > 55.) ++n55jet;
-      if (jetPt > 45.) ++n45jet;
-      if (jetPt > 35.) ++n35jet;
-      if (jetPt > 30.) ind30jet.push_back(i);
-      indgoodjet.push_back(i);
-    }
-    unsigned int ngoodjet = indgoodjet.size();
-    unsigned int n30jet = ind30jet.size();
-
-    if (_debug) cout << "Number of good jets = " << ngoodjet << endl;
-    _h_cuts_jet30_n->Fill(n30jet, _weight);
-    
-    if (n30jet < 4) continue;
-    ++counter[1];
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = ">=4 jets with p_{T}>30 GeV/c"; ++iCut; // /!\ no scalefactors yet 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut,">=4 jets with p_{T}>30 GeV/c");
-
-    //======================================================
     // Good muons selection
     //======================================================
 
@@ -393,7 +363,12 @@ void MyAna::Loop()
     if (_debug) cout << "Number of good muons = " << ngoodmuon << endl;
 
     if (ngoodmuon != 1) continue;
-    ++counter[2];
+    ++counter[1];
+    if (_isMC) {
+      // Trigger scalefactors
+      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
+      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muonloose_4vector, indgoodmu[0])->Pt(), GetP4(muonloose_4vector, indgoodmu[0])->Eta()); 
+    }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "exactly 1 isolated #mu"; ++iCut; // /!\ no scalefactors yet 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"exactly 1 isolated #mu");
@@ -420,7 +395,7 @@ void MyAna::Loop()
     if (_debug) cout << "Number of soft electrons = " << nsoftelectron << endl;
 
     if (nsoftelectron != 0) continue;
-    ++counter[3];
+    ++counter[2];
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "no soft e"; ++iCut; // /!\ no scalefactors yet 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"no soft e");
@@ -448,7 +423,7 @@ void MyAna::Loop()
     if (_debug) cout << "Number of soft muons = " << nsoftmuon << endl;
 
     if (nsoftmuon != 0) continue;
-    ++counter[4];
+    ++counter[3];
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "no soft #mu"; ++iCut; // /!\ no scalefactors yet 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"no soft #mu");
@@ -469,6 +444,31 @@ void MyAna::Loop()
     if (_debug) cout << "Number of good vertices " << nvtx << endl;
 
     //======================================================
+    // Good jet selection
+    //======================================================
+
+    if (_debug) cout << " -> jets size " << n_jets << endl;
+
+    for (unsigned int i = 0; i < n_jets; ++i) {
+      float jetPt = GetP4(jet_4vector,i)->Pt();
+      float jetEta = GetP4(jet_4vector,i)->Eta();
+      if (jetPt <= 20.) continue;
+      if (fabs(jetEta) >= 2.5) continue;
+      if (jetPt > 30.) ind30jet.push_back(i);
+      indgoodjet.push_back(i);
+    }
+    unsigned int ngoodjet = indgoodjet.size();
+    unsigned int n30jet = ind30jet.size();
+
+    if (_debug) cout << "Number of good jets = " << ngoodjet << endl;
+    _h_cuts_jet30_n->Fill(n30jet, _weight);
+    
+    if (n30jet < 4) continue;
+    ++counter[4];
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "#geq4 jets with p_{T}>30 GeV/c"; ++iCut; // /!\ no scalefactors yet 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"#geq4 jets with p_{T}>30 GeV/c");
+
+    //======================================================
     // MET
     //======================================================
 
@@ -483,48 +483,53 @@ void MyAna::Loop()
     }
 
     //======================================================
-    // Has a mu-tagged jet
+    // Z veto
     //======================================================
 
-    float gMassMu = 0.105658367;
-
-    if (_debug) cout << " -> mutagged jets size " << n_mujet << endl;
-
     bool hasZ = false;
-
-    for (int i = 0; i < n_mujet; ++i) {
-      if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
-      // Z veto in semi_mu channel 
-      int idIsoLep = muonloose_charge[indgoodmu[0]];
-      TLorentzVector p_IsoLep;
-      p_IsoLep.SetPtEtaPhiM(GetP4(muonloose_4vector,indgoodmu[0])->Pt(), GetP4(muonloose_4vector,indgoodmu[0])->Eta(), GetP4(muonloose_4vector,indgoodmu[0])->Phi(), gMassMu);
-      TLorentzVector p_MuCand(0., 0., 0., 0.);
-      if (idIsoLep < 0) {
-        if (mujet_nonisomuplus_pdgid[i] < 1) continue;
-        p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,i)->Pt(), GetP4(mujet_nonisomuplus_4vector,i)->Eta(), GetP4(mujet_nonisomuplus_4vector,i)->Phi(), gMassMu);
+    TLorentzVector p_Iso(GetP4(muonloose_4vector,indgoodmu[0])->Px(), GetP4(muonloose_4vector,indgoodmu[0])->Py(), GetP4(muonloose_4vector,indgoodmu[0])->Pz(), GetP4(muonloose_4vector,indgoodmu[0])->E());
+    for (int j = 0; j < n_mu; ++j) {
+      if (abs(mujet_mu_pdgid[j]) != 13) continue;
+      if (GetP4(mujet_mu_4vector, j)->Pt() <= 4.) continue;
+      if (fabs(GetP4(mujet_mu_4vector, j)->Eta()) > 2.4) continue;
+      if (mujet_mu_iso[j] <= 0.2) continue;
+      TLorentzVector p_NonIso(GetP4(mujet_mu_4vector,j)->Px(), GetP4(mujet_mu_4vector,j)->Py(), GetP4(mujet_mu_4vector,j)->Pz(), GetP4(mujet_mu_4vector,j)->E());
+      if (mujet_mu_pdgid[j]*muon_charge[indgoodmu[0]] > 0 && (p_NonIso+p_Iso).M() >= 76. && (p_NonIso+p_Iso).M() < 106.) {
+        hasZ = true;
+        break;
       }
-      else {
-        if (mujet_nonisomuminus_pdgid[i] > 1) continue;
-        p_MuCand.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,i)->Pt(), GetP4(mujet_nonisomuminus_4vector,i)->Eta(), GetP4(mujet_nonisomuminus_4vector,i)->Phi(), gMassMu);
-      }
-      if (p_MuCand.Pt() < 1e-6) continue;
-      if ((p_MuCand+p_IsoLep).M() >= 106. || (p_MuCand+p_IsoLep).M() < 76) continue; 
-      hasZ = true;
     }
 
     if (hasZ) continue;
     ++counter[5];
 
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Z veto"; ++iCut; // /!\ no scalefactors yet 
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Z veto"; ++iCut;  
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Z veto");
 
+    //======================================================
+    // Has a mu-tagged jet
+    //======================================================
+
+    if (_debug) cout << " -> mutagged jets size " << n_mujet << endl;
+
     for (int i = 0; i < n_mujet; ++i) {
+      bool hasNonIsoMu = false;
       if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
       // Look for good soft muon
-      if (GetP4(mujet_nonisomuplus_4vector,i)->Pt() <= 4. && GetP4(mujet_nonisomuminus_4vector,i)->Pt() <= 4.) continue;
+      for (int j = 0; j < n_mu; ++j) {
+        if (mujet_mu_indmujet[j] != i) continue;
+        if (abs(mujet_mu_pdgid[j]) != 13) continue;
+        if (GetP4(mujet_mu_4vector, j)->Pt() <= 4.) continue;
+        if (fabs(GetP4(mujet_mu_4vector, j)->Eta()) > 2.4) continue;
+        if (mujet_mu_iso[j] <= 0.2) continue;
+        hasNonIsoMu = true;
+        break;
+      }
+      if (!hasNonIsoMu) continue;
       indmujet.push_back(i);
     }
-    int nmujet = indmujet.size();
+
+    unsigned int nmujet = indmujet.size();
 
     _h_cuts_mujets_n->Fill((float)nmujet, _weight);
 
@@ -533,37 +538,12 @@ void MyAna::Loop()
     if (nmujet < 1) continue;
     ++counter[6];
 
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "#geq1 #mu-tagged jet"; ++iCut; // /!\ no scalefactors yet 
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "#geq1 #mu-tagged jet"; ++iCut;  
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"#geq1 #mu-tagged jet");
 
     //======================================================
     // Scale factors
     //======================================================
-
-    if (_isMC) {
-      // Trigger scalefactors
-      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
-      _weight = _weight*weight_provider->get_weight_isomu(GetP4(muonloose_4vector, indgoodmu[0])->Pt(), GetP4(muonloose_4vector, indgoodmu[0])->Eta());
-      // Muon scalefactor
-      /*
-      _weight = _weight*(*muonloose_scaleFactor_tighteff_tightiso)[indgoodmu[0]][0]; // 0 for central, 1 for up, 2 for down
-      */
-      // Jet scalefactors
-      /*
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[0]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[1]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[2]][0]; // 0 for central, 1 for up, 2 for down
-      _weight = _weight*(*jet_scaleFactor)[ind30jet[3]][0]; // 0 for central, 1 for up, 2 for down
-      */
-      // Apply scale factor for soft muon and jet
-      /*
-      _weight = _weight*(*mujet_jet_scaleFactor)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
-      if (GetP4(mujet_nonisomuplus_4vector,indmujet[0])->Pt() > GetP4(mujet_nonisomuminus_4vector,indmujet[0])->Pt())
-      _weight = _weight*(*mujet_nonisomuplus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
-      else
-      _weight = _weight*(*mujet_nonisomuminus_muon_scaleFactor_looseeff_looseiso)[indmujet[0]][0]; // 0 for central, 1 for up, 2 for down
-      */
-    }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut;
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
@@ -600,7 +580,7 @@ void MyAna::Loop()
     // Analyze mu-tagged jets
     //======================================================
     
-    for (int i = 0; i < nmujet; ++i) {
+    for (unsigned int i = 0; i < nmujet; ++i) {
       
       _CSVdisc = mujet_jet_btag_CSV[indmujet[i]];
       _h_CSVSelJets->Fill(mujet_jet_btag_CSV[indmujet[i]], _weight);
@@ -643,7 +623,7 @@ void MyAna::Loop()
       for (int j = 0; j < n_tr; ++j) {
         if (mujet_tr_indmujet[j] != indmujet[i]) continue;
         indtr.push_back(j);
-        if (abs(mujet_tr_pdgid[j]) != 13 || GetP4(mujet_tr_4vector,indtr[0])->Pt() < 4.) indtrnomu.push_back(j);
+        if (abs(mujet_tr_pdgid[j]) != 13 || GetP4(mujet_tr_4vector,indtr[0])->Pt() < 4. || fabs(GetP4(mujet_tr_4vector,indtr[0])->Eta()) > 2.4) indtrnomu.push_back(j);
       }
       if (indtr.size() > 0) {
         TLorentzVector p_sum(GetP4(mujet_tr_4vector,indtr[0])->Px(), GetP4(mujet_tr_4vector,indtr[0])->Py(), GetP4(mujet_tr_4vector,indtr[0])->Pz(), GetP4(mujet_tr_4vector,indtr[0])->E());
@@ -692,22 +672,24 @@ void MyAna::Loop()
         if (GetP4(mujet_d0_4vector,j)->Pt() <= 12.) continue;
 
         TLorentzVector p_d0;
-        p_d0.SetPtEtaPhiM(GetP4(mujet_d0_4vector,j)->Pt(), GetP4(mujet_d0_4vector,j)->Phi(), GetP4(mujet_d0_4vector,j)->Eta(), GetP4(mujet_d0_4vector,j)->M());
+        p_d0.SetPtEtaPhiM(GetP4(mujet_d0_4vector,j)->Pt(), GetP4(mujet_d0_4vector,j)->Eta(), GetP4(mujet_d0_4vector,j)->Phi(), GetP4(mujet_d0_4vector,j)->M());
         _D0mass = p_d0.M();
         _h_D0Mass->Fill(p_d0.M(), _weight);
         _h_D0p->Fill(p_d0.P(), _weight);
         _h_D0pT->Fill(p_d0.Pt(), _weight);
         _h_D0eta->Fill(p_d0.Eta(), _weight);
         
-        // consider a mu with OS to the kaon
-        TLorentzVector p_mu;
-        if (mujet_d0_kaon_pdgid[j] > 0 && fabs(mujet_nonisomuminus_pdgid[indmujet[i]]) > 0) {
-          p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuminus_4vector,indmujet[i])->Pt(), GetP4(mujet_nonisomuminus_4vector,indmujet[i])->Eta(), GetP4(mujet_nonisomuminus_4vector,indmujet[i])->Phi(), gMassMu);
-        }
-        else {
-          if (mujet_d0_kaon_pdgid[j] < 0 && fabs(mujet_nonisomuplus_pdgid[indmujet[i]]) > 0)
-            p_mu.SetPtEtaPhiM(GetP4(mujet_nonisomuplus_4vector,indmujet[i])->Pt(), GetP4(mujet_nonisomuplus_4vector,indmujet[i])->Eta(), GetP4(mujet_nonisomuplus_4vector,indmujet[i])->Phi(), gMassMu);
-          p_mu.SetPtEtaPhiM(0., 0., 0., 0.);
+        // consider a mu with SS to the kaon
+        TLorentzVector p_mu(0.,0.,0.,0.);
+        for (int k = 0; k < n_mu; ++k) {
+          if (mujet_mu_indmujet[k] != mujet_d0_indmujet[j]) continue;
+          if (abs(mujet_mu_pdgid[k]) != 13) continue;
+          if (GetP4(mujet_mu_4vector, k)->Pt() <= 4.) continue;
+          if (fabs(GetP4(mujet_mu_4vector, k)->Eta()) > 2.4) continue;
+          if (mujet_mu_iso[k] <= 0.2) continue;
+          if (mujet_mu_pdgid[k]*mujet_d0_kaon_pdgid[j] > 0) continue;
+          p_mu.SetPxPyPzE(GetP4(mujet_mu_4vector,k)->Px(), GetP4(mujet_mu_4vector,k)->Py(), GetP4(mujet_mu_4vector,k)->Pz(), GetP4(mujet_mu_4vector, k)->E());
+          break;
         }
         if (p_mu.P() < 1e-6) continue;
         _Mup = p_mu.P();
@@ -773,10 +755,10 @@ void MyAna::Loop()
   cout << "Total Number of events selected                           = "  << nselected			   << endl;
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
-  cout << "At least 4 jets pT>30 GeV/c                               = " << counter[1] << endl;
-  cout << "1 iso muon                                                = " << counter[2] << endl;
-  cout << "electron veto                                             = " << counter[3] << endl;
-  cout << "muon veto                                                 = " << counter[4] << endl;
+  cout << "1 iso muon                                                = " << counter[1] << endl;
+  cout << "electron veto                                             = " << counter[2] << endl;
+  cout << "muon veto                                                 = " << counter[3] << endl;
+  cout << "At least 4 jets pT>30 GeV/c                               = " << counter[4] << endl;
   cout << "Z veto                                                    = " << counter[5] << endl;
   cout << "At least 1 mu-tagged jet                                  = " << counter[6] << endl;
   cout << "========================================================================" << endl;
