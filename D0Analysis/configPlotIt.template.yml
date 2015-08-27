@@ -198,83 +198,73 @@ files:
     order: 0
 
 plots:
-  ##"NTrueInteractions":
-    ##show-ratio: true
-    ##fit-ratio: true
-    ##fit-function: "pol1"
-    ##show-errors: true
-    ##save-extensions: ["pdf","C","jpg","eps"]
-    ##rebin: 1
-    ##show-ratio: false
-    ##show-errors: true
-    ##log-y: true
-    ##x-axis-range: [,]
-    ##y-axis-range: [,]
-    ##legend-position: [0.7, 0.45, 0.9, 0.9] 
-
-  ##"NTrueInteractionsReweighted":
-    ##show-ratio: true
-    ##fit-ratio: true
-    ##fit-function: "pol1"
-    ##show-errors: true
-    ##save-extensions: ["pdf","C","jpg","eps"]
-
   "Event-yields":
+    y-axis-format: "%1%"
     log-y: true
     show-ratio: true
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-    y-axis-range: [1e4, 1e8]
+    y-axis-range: [10, 1e8]
+    y-axis-show-zero: true
     ##y-axis-show-zero: true
 
   "NMuons-cuts":  
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NElectrons-cuts":  
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets30-cuts":  
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "N-b-jets-cuts":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":  
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":  
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaIsoLept":  
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiIsoLept":  
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
-    y-axis-range: [0, 7000]
+    y-axis-range: [0, 5000]
     save-extensions: ["pdf","C","jpg","eps"]
   "PfIsoIsoLept":  
+    x-axis: "lepton isolation"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -283,6 +273,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJets30":  
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -290,6 +281,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis-range: [3, 11]
   "PtJets30":  
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -297,18 +289,20 @@ plots:
     x-axis-range: [0, 300]
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJets30":  
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiJets30":  
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
-    y-axis-range: [0, 28000]
+    y-axis-range: [0, 22000]
     save-extensions: ["pdf","C","jpg","eps"]
   "CsvJets30":  
     show-ratio: true
@@ -319,21 +313,24 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "MetMet":  
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiMet":  
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
-    y-axis-range: [0, 7000]
+    y-axis-range: [0, 5000]
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NPrimaryVtx":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -341,6 +338,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "N-b-jets":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -353,6 +351,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "TransverseMomentum-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
@@ -360,6 +359,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Eta-b-jets":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -367,12 +367,14 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Nch-b-jets":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Sump-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 400]
     show-ratio: true
     fit-ratio: true
@@ -380,6 +382,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "VectorialSump-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 400]
     show-ratio: true
     fit-ratio: true
@@ -388,6 +391,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Highestp-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: true
@@ -395,6 +399,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Sum2p-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
@@ -402,6 +407,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Sum3p-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
@@ -409,12 +415,12 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Mass3-b-jets":
+    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-
   "R1-b-jets":
     rebin: 3
 #    log-y: true
@@ -432,6 +438,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "R3-b-jets":
+    legend-position: [0.22, 0.45, 0.4, 0.8] 
     rebin: 3
 #    log-y: true
     show-ratio: true
@@ -441,6 +448,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "Highestp-nomu-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: true
@@ -448,6 +456,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Sum2p-nomu-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
@@ -455,6 +464,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Sum3p-nomu-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 300]
     show-ratio: true
     fit-ratio: true
@@ -462,12 +472,12 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Mass3-nomu-b-jets":
+    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-
   "R1-nomu-b-jets":
     rebin: 3
 #    log-y: true
@@ -494,6 +504,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "D0Mass-b-jets":
+    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
     x-axis-range: [0, 5]
     ##x-axis-range: [1.6, 2.2]
     ##y-axis-range: [0, 300]
@@ -503,12 +514,14 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "D0p-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "D0pT-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 150]
     show-ratio: true
     fit-ratio: true
@@ -516,6 +529,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "D0eta-b-jets":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -525,6 +539,7 @@ plots:
     y-axis-range: [0, 2400]
 
   "BMomentum-nobias-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 350]
     show-ratio: true
     fit-ratio: true
@@ -532,13 +547,14 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "BMass-nobias-b-jets":
+    y-axis-format: "%1% / (%2$.1f GeV/c^{2})"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
-
   "BMomentum-D0cut-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 350]
     show-ratio: true
     fit-ratio: false
@@ -546,12 +562,15 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "BMass-D0cut-b-jets":
+    y-axis-format: "%1% / (%2$.1f GeV/c^{2})"
     show-ratio: true
     fit-ratio: false
     #fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+
   "Muonp-nobias-b-jets":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     x-axis-range: [0, 200]
     show-ratio: true
     fit-ratio: false
