@@ -522,7 +522,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-show-zero: true
-    y-axis-range: [0, 600]
+    y-axis-range: [0, 2400]
 
   "BMomentum-nobias-b-jets":
     x-axis-range: [0, 350]

@@ -251,12 +251,14 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":  
+    x-axis: "Number of leading leptons"
     show-ratio: true
     fit-ratio: false
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtIsoLept":  
+    x-axis: "p_{T}(leading lepton) (GeV/c)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -264,6 +266,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "EtaIsoLept":  
+    x-axis: "#eta(leading lepton)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -271,6 +274,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PhiIsoLept":  
+    x-axis: "#phi(leading lepton)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -280,6 +284,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PfIsoIsoLept":  
+    x-axis: "lepton isolation"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -550,7 +555,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
     y-axis-show-zero: true
-    y-axis-range: [0, 1100]
+    y-axis-range: [0, 2400]
 
   "BMomentum-nobias-b-jets":
     x-axis-range: [0, 350]

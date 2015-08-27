@@ -53,29 +53,34 @@ plots:
     log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    y-axis-range: [1e4, 1e8]
+    y-axis-range: [1e4, 1e6]
 
   "NJets30-cuts":  
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":  
+    x-axis: "Number of leading leptons"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtIsoLept":  
+    x-axis: "p_{T}(leading lepton) (GeV/c)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "EtaIsoLept":  
+    x-axis: "#eta(leading lepton)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PhiIsoLept":  
+    x-axis: "#phi(leading lepton)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PfIsoIsoLept":  
+    x-axis: "lepton isolation"
     x-axis-range: [0, 0.2]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]

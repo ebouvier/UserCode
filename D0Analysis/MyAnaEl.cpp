@@ -481,7 +481,6 @@ void MyAna::Loop()
     if (_debug) cout << " -> mutagged jets size " << n_mujet << endl;
 
     for (int i = 0; i < n_mujet; ++i) {
-      indmujet.push_back(i);
       bool hasNonIsoMu = false;
       if (GetP4(mujet_jet_4vector,i)->Pt() <= 20.) continue;
       // Look for good soft muon
