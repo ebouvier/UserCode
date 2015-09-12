@@ -51,6 +51,7 @@ plots:
     ##y-axis-range: [,]
 
   "Event-yields":
+    y-axis-format: "%1%"
     log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
@@ -58,49 +59,62 @@ plots:
     y-axis-show-zero: true
 
   "NMuons-cuts":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "Number of isolated #mu (before cut)"
   "NElectrons-cuts":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "Number of isolated e (before cut)"
   "NJets20-cuts":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NCsvJets20-cuts":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-cuts":
+    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NJpsi-cuts":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi-cuts":
+    y-axis-format: "%1% / %2$.1f"
     log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-cuts":
+    y-axis-format: "%1% / (%2$.2f cm)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi-cuts":
+    y-axis-format: "%1% / %2$.3f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NIsoLept":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "Number of leading leptons"
   "PtIsoLept":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "p_{T}(leading lepton) (GeV/c)"
   "EtaIsoLept":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "#eta(leading lepton)"
   "PhiIsoLept":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
@@ -112,15 +126,19 @@ plots:
     x-axis: "lepton isolation"
 
   "NJets20":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJets20":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJets20":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiJets20":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
@@ -128,68 +146,87 @@ plots:
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NCsvJets20":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets30":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets40":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets50":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "MetMet":
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiMet":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
+    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
     x-axis: "W transverse mass (GeV/c^{2})"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NVertices":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NTracksVertices":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
   "NJpsi":
+    y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":
+    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJpsi":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJpsi":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiJpsi":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "Chi2Jpsi":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi":
+    y-axis-format: "%1% / (%2$.2f cm)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-zoom":
+    y-axis-format: "%1% / (%2$.4f cm)"
     y-axis-range: [0, 15]
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "SigmaLJpsi":
+    y-axis-format: "%1% / (%2$.5f cm)"
     log-y: true
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi":
+    y-axis-format: "%1% / %2$.3f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PtFracJpsiJet":
@@ -208,17 +245,21 @@ plots:
     x-axis: "#DeltaR (J/#psi-leading lepton)"
   
   "PtMuJpsi":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaMuJpsi":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiMuJpsi":
+    y-axis-format: "%1% / %2$.1f"
     show-ratio: false
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtJetJpsi":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -249,6 +290,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "ChEFracJetJpsi":
+    legend-position: [0.22, 0.72, 0.52, 0.8]
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -274,18 +316,22 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
+    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "M(J/#psi+l) (GeV/c^{2})"
   "PtTriLept":
+    y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "p_{T}(J/#psi+l) (GeV/c)"
     
   "bjjMass":
+    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "WMass":
+    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
