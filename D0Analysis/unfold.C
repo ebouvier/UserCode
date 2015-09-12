@@ -12,16 +12,13 @@
 #include "TPaveText.h"
 #include "TFile.h"
 #include "TH1F.h"
-#include "TGraphAsymmErrors.h"
+#include "TH2F.h"
+#include "TGraph.h"
 #include "TTree.h"
 #include "TCanvas.h"
-#include "RooWorkspace.h"
-#include "RooRealVar.h"
-#include "RooDataHist.h"
-#include "RooGaussian.h"
-#include "RooExponential.h"
-#include "RooAddPdf.h"
-#include "RooStats/SPlot.h"
+#include "TUnfoldSys.h"
+#include "TSpline.h"
+#include "TMath.h"
 
 #pragma once
 
@@ -32,8 +29,6 @@
 #define RIGHT_MARGIN 0.03
 #define TOP_MARGIN 0.05
 #define BOTTOM_MARGIN 0.13
-
-using namespace RooFit;
 
 TStyle* createMyStyle() {
   TStyle *myStyle = new TStyle("myStyle", "myStyle");
@@ -200,6 +195,31 @@ void h_myStyle(TH1 *h,
   h->GetXaxis()->SetTitle(xtitle);
 }
 
+void sp_myStyle(TSpline *gr,
+                const char* name="",
+                int line_width=2,
+                int line_color=1,
+                int line_style=1, 
+                int fill_color=50,
+                int fill_style=1001,
+                int marker_style=20,
+                int marker_color=1,
+                double marker_size=1.2) {
+  
+  gr->SetLineWidth(line_width);
+  gr->SetLineColor(line_color);
+  gr->SetLineStyle(line_style);
+  gr->SetFillColor(fill_color);
+  gr->SetFillStyle(fill_style);
+  
+  gr->SetMarkerStyle(marker_style);
+  gr->SetMarkerColor(marker_color);
+  gr->SetMarkerSize(marker_size);
+  
+  gr->SetName(name);
+  
+}
+
 void gr_myStyle(TGraph *gr,
                 const char* name="",
                 int line_width=2,
@@ -292,9 +312,9 @@ int unfold(TString date = "", TString version = "", bool inBatch = true)
     TH1F* histoMC_reco = (TH1F*)fiMC->Get("PtChReco-nomu-b-jets");
     TH1F* histoMC_true = (TH1F*)fiMC->Get("PtChTrue-nomu-b-jets");
     
-    histoMC_reco_true->Rebin(factor);
-    histoMC_reco->Rebin(factor);
-    histoMC_true->Rebin(factor); 
+    histoMC_reco_true->Scale(factor);
+    histoMC_reco->Scale(factor);
+    histoMC_true->Scale(factor); 
     
     TFile* fiData = TFile::Open(date+"/v"+version+"/MyAnaAll/Run2012ABCD.root");
     TH1F* histoData_reco = (TH1F*)fiData->Get("PtChReco-nomu-b-jets");
@@ -414,10 +434,10 @@ int unfold(TString date = "", TString version = "", bool inBatch = true)
     // show tau (regularization strength) as a function of chi**2
     TCanvas *cn_tau = new TCanvas("cn_tau","cn_tau",800,800);
     cn_tau->cd();
-    gr_myStyle(logTauX,"logTauX",1,9,1,9,1001,40.,110.,510,510,20,9,0.1,"#chi^{2}","#tau");
+    sp_myStyle(logTauX,"logTauX",1,9,1,9,1001,20,9,0.1);
     logTauX->Draw("AL");
     bestLogTauLogChi2->SetMarkerColor(50);
-    bestLogTauLogChi2->SetMarkerType(21);
+    bestLogTauLogChi2->SetMarkerStyle(21);
     bestLogTauLogChi2->SetMarkerSize(1.2);
     bestLogTauLogChi2->Draw("ep");
     channel_tex->Draw("same");
@@ -429,10 +449,10 @@ int unfold(TString date = "", TString version = "", bool inBatch = true)
     // show the L curve (matrix of regularization conditions)
     TCanvas *cn_lcurve = new TCanvas("cn_lcurve","cn_lcurve",800,800);
     cn_lcurve->cd();
-    gr_myStyle(lCurve,"lCurve",1,9,1,9,1001,40.,110.,510,510,20,9,0.1,"L_{x}^{curve}","L_{y}^{curve}");
+    gr_myStyle(lCurve,"lCurve",1,9,1,9,1001,xminGen,xmaxGen,510,510,20,9,0.1,"L_{x}^{curve}","L_{y}^{curve}");
     lCurve->Draw("AL");
     bestLcurve->SetMarkerColor(50);
-    bestLcurve->SetMarkerType(21);
+    bestLcurve->SetMarkerStyle(21);
     bestLcurve->SetMarkerSize(1.2);
     bestLcurve->Draw("ep");  
     channel_tex->Draw("same");
@@ -495,7 +515,7 @@ int unfold(TString date = "", TString version = "", bool inBatch = true)
     }
     outRoot->cd();
     hWeight->Write();
-    outRoot->Close()
+    outRoot->Close();
     outFile << endl;
     outFile.close();
     
