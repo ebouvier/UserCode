@@ -121,20 +121,44 @@ void MyAna::Loop()
   TH1F* _h_etaSelJets = new TH1F("Eta-b-jets", "Eta-b-jets", 60, -3., 3.); 
   _h_etaSelJets->SetXTitle("#eta(jets)");
 
-  TH2F* _h_unfold_tr_eta = new TH2F("EtaCh-nomu-b-jets", "EtaCh-nomu-b-jets", 60, -3., 3., 60, -3., 3.);
-  _h_unfold_tr_eta->SetXTitle("#eta^{reco}(tracks, no #mu)");
-  _h_unfold_tr_eta->SetYTitle("#eta^{gen}(tracks, no #mu)");
-  TH2F* _h_unfold_tr_pt = new TH2F("PtCh-nomu-b-jets", "PtCh-nomu-b-jets", 300, 0., 300., 300, 0., 300.);
-  _h_unfold_tr_pt->SetXTitle("p_{T}^{reco}(tracks, no #mu)");
-  _h_unfold_tr_pt->SetYTitle("p_{T}^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_M2p4toM1p5_pt = new TH2F("PtCh-M2p4toM1p5-nomu-b-jets", "PtCh-M2p4toM1p5-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_M2p4toM1p5_pt->SetYTitle("p_{T}^{reco}(tracks, no #mu)");
+  _h_unfold_tr_M2p4toM1p5_pt->SetXTitle("p_{T}^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_M1p5toM1_pt = new TH2F("PtCh-M1p5toM1-nomu-b-jets", "PtCh-M1p5toM1-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_M1p5toM1_pt->SetYTitle("p_{T}^{reco}(tracks, no #mu)");
+  _h_unfold_tr_M1p5toM1_pt->SetXTitle("p_{T}^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_M1to0_pt = new TH2F("PtCh-M1to0-nomu-b-jets", "PtCh-M1to0-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_M1to0_pt->SetYTitle("p_{T}^{reco}(tracks, no #mu)");
+  _h_unfold_tr_M1to0_pt->SetXTitle("p_{T}^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_0toP1_pt = new TH2F("PtCh-0toP1-nomu-b-jets", "PtCh-0toP1-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_0toP1_pt->SetYTitle("p_{T}^{reco}(tracks, no #mu)");
+  _h_unfold_tr_0toP1_pt->SetXTitle("p_{T}^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_P1toP1p5_pt = new TH2F("PtCh-P1toP1p5-nomu-b-jets", "PtCh-P1toP1p5-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_P1toP1p5_pt->SetYTitle("p_{T}^{reco}(tracks, no #mu)");
+  _h_unfold_tr_P1toP1p5_pt->SetXTitle("p_{T}^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_P1p5toP2p4_pt = new TH2F("PtCh-P1p5toP2p4-nomu-b-jets", "PtCh-P1p5toP2p4-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_P1p5toP2p4_pt->SetYTitle("p_{T}^{reco}(tracks, no #mu)");
+  _h_unfold_tr_P1p5toP2p4_pt->SetXTitle("p_{T}^{gen}(tracks, no #mu)");
   TH1F* _h_unfold_tr_dr = new TH1F("DrCh-nomu-b-jets", "DrCh-nomu-b-jets", 150, 0., 1.5);
   _h_unfold_tr_dr->SetXTitle("#DeltaR^{gen-reco}(tracks, no #mu)");
-  TH2F* _h_unfold_mu_eta = new TH2F("EtaSoftMu-b-jets", "EtaSoftMu-b-jets", 60, -3., 3., 60, -3., 3.);
-  _h_unfold_mu_eta->SetXTitle("#eta^{reco}(soft #mu)");
-  _h_unfold_mu_eta->SetYTitle("#eta^{gen}(soft #mu)");
-  TH2F* _h_unfold_mu_pt = new TH2F("PtSoftMu-b-jets", "PtSoftMu-b-jets", 300, 0., 300., 300, 0., 300.);
-  _h_unfold_mu_pt->SetXTitle("p_{T}^{reco}(soft #mu)");
-  _h_unfold_mu_pt->SetYTitle("p_{T}^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_M2p4toM1p5_pt = new TH2F("PtSoftMu-M2p4toM1p5-b-jets", "PtSoftMu-M2p4toM1p5-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_M2p4toM1p5_pt->SetYTitle("p_{T}^{reco}(soft #mu)");
+  _h_unfold_mu_M2p4toM1p5_pt->SetXTitle("p_{T}^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_M1p5toM1_pt = new TH2F("PtSoftMu-M1p5toM1-b-jets", "PtSoftMu-M1p5toM1-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_M1p5toM1_pt->SetYTitle("p_{T}^{reco}(soft #mu)");
+  _h_unfold_mu_M1p5toM1_pt->SetXTitle("p_{T}^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_M1to0_pt = new TH2F("PtSoftMu-M1to0-b-jets", "PtSoftMu-M1to0-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_M1to0_pt->SetYTitle("p_{T}^{reco}(soft #mu)");
+  _h_unfold_mu_M1to0_pt->SetXTitle("p_{T}^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_0toP1_pt = new TH2F("PtSoftMu-0toP1-b-jets", "PtSoftMu-0toP1-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_0toP1_pt->SetYTitle("p_{T}^{reco}(soft #mu)");
+  _h_unfold_mu_0toP1_pt->SetXTitle("p_{T}^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_P1toP1p5_pt = new TH2F("PtSoftMu-P1toP1p5-b-jets", "PtSoftMu-P1toP1p5-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_P1toP1p5_pt->SetYTitle("p_{T}^{reco}(soft #mu)");
+  _h_unfold_mu_P1toP1p5_pt->SetXTitle("p_{T}^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_P1p5toP2p4_pt = new TH2F("PtSoftMu-P1p5toP2p4-b-jets", "PtSoftMu-P1p5toP2p4-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_P1p5toP2p4_pt->SetYTitle("p_{T}^{reco}(soft #mu)");
+  _h_unfold_mu_P1p5toP2p4_pt->SetXTitle("p_{T}^{gen}(soft #mu)");
   TH1F* _h_unfold_mu_dr = new TH1F("DrSoftMu-b-jets", "DrSoftMu-b-jets", 150, 0., 1.5);
   _h_unfold_mu_dr->SetXTitle("#DeltaR^{gen-reco}(soft #mu)");
 
@@ -555,25 +579,45 @@ void MyAna::Loop()
       _h_etaSelJets->Fill(GetP4(mujet_jet_4vector,indmujet[i])->Eta(), _weight);
 
       // Unfold
-      if (_isMC) {
-        for (int j = 0; j < n_unfold_tr; ++j) {
-          if (mujet_unfold_indmujet[j] != indmujet[i]) continue;
+      for (int j = 0; j < n_unfold_tr; ++j) {
+        if (mujet_unfold_indmujet[j] != indmujet[i]) continue;
+        if (_isMC) {
           // nomu
           if (mujet_unfold_tr_genpt[j] > 1e-6) {
             _h_unfold_tr_dr->Fill(mujet_unfold_tr_dr[j], _weight);
             if (mujet_unfold_tr_dr[j] <= 0.015) {
-              _h_unfold_tr_eta->Fill(mujet_unfold_tr_recoeta[j], mujet_unfold_tr_geneta[j], _weight);
-              _h_unfold_tr_pt->Fill(mujet_unfold_tr_recopt[j], mujet_unfold_tr_genpt[j], _weight);
+              if (mujet_unfold_tr_geneta[j] > -2.4 && mujet_unfold_tr_geneta[j] <= -1.5)
+                _h_unfold_tr_M2p4toM1p5_pt->Fill(mujet_unfold_tr_genpt[j], mujet_unfold_tr_recopt[j], _weight);
+              if (mujet_unfold_tr_geneta[j] > -1.5 && mujet_unfold_tr_geneta[j] <= -1.)
+                _h_unfold_tr_M1p5toM1_pt->Fill(mujet_unfold_tr_genpt[j], mujet_unfold_tr_recopt[j], _weight);
+              if (mujet_unfold_tr_geneta[j] > -1. && mujet_unfold_tr_geneta[j] <= 0.)
+                _h_unfold_tr_M1to0_pt->Fill(mujet_unfold_tr_genpt[j], mujet_unfold_tr_recopt[j], _weight);
+              if (mujet_unfold_tr_geneta[j] > 0. && mujet_unfold_tr_geneta[j] <= 1.)
+                _h_unfold_tr_0toP1_pt->Fill(mujet_unfold_tr_genpt[j], mujet_unfold_tr_recopt[j], _weight);
+              if (mujet_unfold_tr_geneta[j] > 1. && mujet_unfold_tr_geneta[j] <= 1.5)
+                _h_unfold_tr_P1toP1p5_pt->Fill(mujet_unfold_tr_genpt[j], mujet_unfold_tr_recopt[j], _weight);
+              if (mujet_unfold_tr_geneta[j] > 1.5 && mujet_unfold_tr_geneta[j] <= 2.4)
+                _h_unfold_tr_P1p5toP2p4_pt->Fill(mujet_unfold_tr_genpt[j], mujet_unfold_tr_recopt[j], _weight);
             }
           }
           // soft mu
           if (mujet_unfold_mu_genpt[j] > 1e-6) {
             _h_unfold_mu_dr->Fill(mujet_unfold_mu_dr[j], _weight);
             if (mujet_unfold_mu_dr[j] <= 0.015) {
-              _h_unfold_mu_eta->Fill(mujet_unfold_mu_recoeta[j], mujet_unfold_mu_geneta[j], _weight);
-              _h_unfold_mu_pt->Fill(mujet_unfold_mu_recopt[j], mujet_unfold_mu_genpt[j], _weight);
+              if (mujet_unfold_mu_geneta[j] > -2.4 && mujet_unfold_mu_geneta[j] <= -1.5)
+                _h_unfold_mu_M2p4toM1p5_pt->Fill(mujet_unfold_mu_genpt[j], mujet_unfold_mu_recopt[j], _weight);
+              if (mujet_unfold_mu_geneta[j] > -1.5 && mujet_unfold_mu_geneta[j] <= -1.)
+                _h_unfold_mu_M1p5toM1_pt->Fill(mujet_unfold_mu_genpt[j], mujet_unfold_mu_recopt[j], _weight);
+              if (mujet_unfold_mu_geneta[j] > -1. && mujet_unfold_mu_geneta[j] <= 0.)
+                _h_unfold_mu_M1to0_pt->Fill(mujet_unfold_mu_genpt[j], mujet_unfold_mu_recopt[j], _weight);
+              if (mujet_unfold_mu_geneta[j] > 0. && mujet_unfold_mu_geneta[j] <= 1.)
+                _h_unfold_mu_0toP1_pt->Fill(mujet_unfold_mu_genpt[j], mujet_unfold_mu_recopt[j], _weight);
+              if (mujet_unfold_mu_geneta[j] > 1. && mujet_unfold_mu_geneta[j] <= 1.5)
+                _h_unfold_mu_P1toP1p5_pt->Fill(mujet_unfold_mu_genpt[j], mujet_unfold_mu_recopt[j], _weight);
+              if (mujet_unfold_mu_geneta[j] > 1.5 && mujet_unfold_mu_geneta[j] <= 2.4)
+                _h_unfold_mu_P1p5toP2p4_pt->Fill(mujet_unfold_mu_genpt[j], mujet_unfold_mu_recopt[j], _weight);
             }
-          }
+          } 
         }
       }
       
