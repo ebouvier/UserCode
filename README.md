@@ -64,7 +64,7 @@ after running:
 
 ### Migration matrices
 
-Migration matrices can be obtain as TH2F in a root file or as tables in a txt file by running in root:
+Migration matrices can be obtained, as TH2F in a root file or as tables in a txt file, by running in root:
 
     .L migration.C++
     migration("date", "version", inBatch)
