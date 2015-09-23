@@ -3,7 +3,7 @@ configuration:
   height: 800
   luminosity-label: '(8 TeV)'
   experiment: "CMS"
-  extra-label: "Simulation preliminary"
+  extra-label: "Preliminary"
   root: 'MyAnaMu'
   luminosity: 19705 
   luminosity-error: 0.026
