@@ -511,6 +511,17 @@ plots:
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
+  "D0Mass-zoom-b-jets":
+    y-axis-show-zero: true
+    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    x-axis-range: [0, 5]
+    ##x-axis-range: [1.6, 2.2]
+    ##y-axis-range: [0, 600]
+    show-ratio: true
+    fit-ratio: true
+    fit-function: "pol1"
+    show-errors: true
+    save-extensions: ["pdf","C","jpg","eps"]
   "D0p-b-jets":
     y-axis-format: "%1% / (%2$.0f GeV/c)"
     show-ratio: true

@@ -201,6 +201,8 @@ void MyAna::Loop()
 
   TH1F* _h_D0Mass = new TH1F("D0Mass-b-jets", "D0Mass-b-jets", 400, 0, 8);
   _h_D0Mass->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV/c^{2})");
+  TH1F* _h_D0Mass_zoom = new TH1F("D0Mass-zoom-b-jets", "D0Mass-zoom-b-jets", 30, 1.7, 2);
+  _h_D0Mass_zoom->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV/c^{2})");
   TH1F* _h_D0p = new TH1F("D0p-b-jets", "D0p-b-jets", 150, 0, 300); 
   _h_D0p->SetXTitle("p(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV/c)");
   TH1F* _h_D0pT = new TH1F("D0pT-b-jets", "D0pT-b-jets", 100, 0, 400); 
@@ -733,6 +735,7 @@ void MyAna::Loop()
         p_d0.SetPtEtaPhiM(GetP4(mujet_d0_4vector,j)->Pt(), GetP4(mujet_d0_4vector,j)->Eta(), GetP4(mujet_d0_4vector,j)->Phi(), GetP4(mujet_d0_4vector,j)->M());
         _D0mass = p_d0.M();
         _h_D0Mass->Fill(p_d0.M(), _weight);
+        _h_D0Mass_zoom->Fill(p_d0.M(), _weight);
         _h_D0p->Fill(p_d0.P(), _weight);
         _h_D0pT->Fill(p_d0.Pt(), _weight);
         _h_D0eta->Fill(p_d0.Eta(), _weight);
