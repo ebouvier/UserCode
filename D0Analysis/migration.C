@@ -163,10 +163,12 @@ void cms_style_bis(bool isData = true){
 }
 
 //---------------------------------------------------------------
-int migration(TString date = "", TString version = "", bool inBatch = true)
+int migration(TString date = "", TString version = "", bool inBatch = true, bool isTrans = false)
 //---------------------------------------------------------------
 {  
   if (date.Length() > 0 && version.Length() > 0)  {
+    TString pf = "P";
+    if (isTrans) pf = "Pt";
  
     TStyle* my_style = createMyStyle();
     my_style->cd();
@@ -179,6 +181,8 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
 
     TString outDir = date+"/v"+version+"/Migration/";
     gROOT->ProcessLine(".! mkdir "+outDir);
+    outDir = outDir+pf+"/";
+    gROOT->ProcessLine(".! mkdir "+outDir);
     TFile *outRoot = TFile::Open(outDir+"Matrices.root","recreate");
     ofstream outTxt(outDir+"Chi2.txt"); // eta^gen chi2    
     ofstream outTxt2(outDir+"Matrices.txt"); // pT reco vert, pT gen horiz; 10 bins between 0 and 100    
@@ -186,21 +190,26 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     TFile* fiMC = TFile::Open(date+"/v"+version+"/MyAnaAll/TTJets_SemiLeptMGDecays.root");
 
     // Tracks, no mu
-    outTxt << "|\\eta^{gen}(tracks, no \\mu)| \t \\chi^{2}" << endl;
+    // outTxt << "|\\eta^{gen}(tracks, no \\mu)| \t \\chi^{2}" << endl;
+    outTxt << "## Tracks, no mu \n" << endl;
     outTxt2 << "## Tracks, no mu \n" << endl;
 
-    TH2F* _h_unfold_tr_M2p4toM1p5_pt = (TH2F*)fiMC->Get("PtCh-M2p4toM1p5-nomu-b-jets");
-    TH2F* _h_unfold_tr_P1p5toP2p4_pt = (TH2F*)fiMC->Get("PtCh-P1p5toP2p4-nomu-b-jets");
-    double chi_tr_1p5to2p4 = _h_unfold_tr_M2p4toM1p5_pt->Chi2Test(_h_unfold_tr_P1p5toP2p4_pt,"WW OF UF CHI2/NDF");
+    TH2F* _h_unfold_tr_M2p4toM1p5 = (TH2F*)fiMC->Get(pf+"Ch-M2p4toM1p5-nomu-b-jets");
+    TH2F* _h_unfold_tr_P1p5toP2p4 = (TH2F*)fiMC->Get(pf+"Ch-P1p5toP2p4-nomu-b-jets");
+    /*
+    double chi_tr_1p5to2p4 = _h_unfold_tr_M2p4toM1p5->Chi2Test(_h_unfold_tr_P1p5toP2p4,"WW OF UF CHI2/NDF");
     outTxt << "[1.5; 2.4] \t" << chi_tr_1p5to2p4 << endl;
+    */
+    /*
     outTxt2 << "### 1.5 < |eta| < 2.4" << endl;
-    for (int ireco = 1; ireco <= _h_unfold_tr_M2p4toM1p5_pt->GetNbinsY(); ireco++) {
-      for (int igen = 1; igen <= _h_unfold_tr_M2p4toM1p5_pt->GetNbinsX(); igen++) {
-        outTxt2 << _h_unfold_tr_M2p4toM1p5_pt->GetBinContent(igen,ireco) + _h_unfold_tr_P1p5toP2p4_pt->GetBinContent(igen,ireco) << "\t";
+    for (int ireco = 1; ireco <= _h_unfold_tr_M2p4toM1p5->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_tr_M2p4toM1p5->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_tr_M2p4toM1p5->GetBinContent(igen,ireco) + _h_unfold_tr_P1p5toP2p4->GetBinContent(igen,ireco) << "\t";
       }
       outTxt2 << endl;
     }
     outTxt2 << endl;
+    */
 
     TCanvas *cn_tr_M2p4toM1p5 = new TCanvas("cn_tr_M2p4toM1p5","cn_tr_M2p4toM1p5",800,800);
     cn_tr_M2p4toM1p5->cd();
@@ -209,12 +218,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_tr_M2p4toM1p5->SetRightMargin(0.11);
     */
     cn_tr_M2p4toM1p5->SetLogz();
-    _h_unfold_tr_M2p4toM1p5_pt->SetStats(kFALSE);
-    _h_unfold_tr_M2p4toM1p5_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_M2p4toM1p5_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_M2p4toM1p5_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_M2p4toM1p5_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_M2p4toM1p5_pt->Draw("COLZ");
+    _h_unfold_tr_M2p4toM1p5->SetStats(kFALSE);
+    _h_unfold_tr_M2p4toM1p5->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_M2p4toM1p5->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_M2p4toM1p5->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_M2p4toM1p5->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_M2p4toM1p5->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_tr_M2p4toM1p5->SaveAs(outDir+"Migration_Tr_M2p4toM1p5.C");
@@ -227,30 +236,34 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_tr_P1p5toP2p4->SetRightMargin(0.11);
     */
     cn_tr_P1p5toP2p4->SetLogz();
-    _h_unfold_tr_P1p5toP2p4_pt->SetStats(kFALSE);
-    _h_unfold_tr_P1p5toP2p4_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_P1p5toP2p4_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_P1p5toP2p4_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_P1p5toP2p4_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_P1p5toP2p4_pt->Draw("COLZ");
+    _h_unfold_tr_P1p5toP2p4->SetStats(kFALSE);
+    _h_unfold_tr_P1p5toP2p4->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_P1p5toP2p4->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_P1p5toP2p4->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_P1p5toP2p4->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_P1p5toP2p4->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_tr_P1p5toP2p4->SaveAs(outDir+"Migration_Tr_P1p5toP2p4.C");
     cn_tr_P1p5toP2p4->SaveAs(outDir+"Migration_Tr_P1p5toP2p4.eps");
     cn_tr_P1p5toP2p4->SaveAs(outDir+"Migration_Tr_P1p5toP2p4.pdf");
     
-    TH2F* _h_unfold_tr_M1p5toM1_pt = (TH2F*)fiMC->Get("PtCh-M1p5toM1-nomu-b-jets");
-    TH2F* _h_unfold_tr_P1toP1p5_pt = (TH2F*)fiMC->Get("PtCh-P1toP1p5-nomu-b-jets");
-    double chi_tr_1to1p5 = _h_unfold_tr_M1p5toM1_pt->Chi2Test(_h_unfold_tr_P1toP1p5_pt,"WW OF UF CHI2/NDF");
+    TH2F* _h_unfold_tr_M1p5toM1 = (TH2F*)fiMC->Get(pf+"Ch-M1p5toM1-nomu-b-jets");
+    TH2F* _h_unfold_tr_P1toP1p5 = (TH2F*)fiMC->Get(pf+"Ch-P1toP1p5-nomu-b-jets");
+    /*
+    double chi_tr_1to1p5 = _h_unfold_tr_M1p5toM1->Chi2Test(_h_unfold_tr_P1toP1p5,"WW OF UF CHI2/NDF");
     outTxt << "[1.0; 1.5] \t" << chi_tr_1to1p5 << endl;
+    */
+    /*
     outTxt2 << "### 1.0 < |eta| < 1.5" << endl;
-    for (int ireco = 1; ireco <= _h_unfold_tr_M1p5toM1_pt->GetNbinsY(); ireco++) {
-      for (int igen = 1; igen <= _h_unfold_tr_M1p5toM1_pt->GetNbinsX(); igen++) {
-        outTxt2 << _h_unfold_tr_M1p5toM1_pt->GetBinContent(igen,ireco) + _h_unfold_tr_P1toP1p5_pt->GetBinContent(igen,ireco) << "\t";
+    for (int ireco = 1; ireco <= _h_unfold_tr_M1p5toM1->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_tr_M1p5toM1->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_tr_M1p5toM1->GetBinContent(igen,ireco) + _h_unfold_tr_P1toP1p5->GetBinContent(igen,ireco) << "\t";
       }
       outTxt2 << endl;
     }
     outTxt2 << endl;
+    */
 
     TCanvas *cn_tr_M1p5toM1 = new TCanvas("cn_tr_M1p5toM1","cn_tr_M1p5toM1",800,800);
     cn_tr_M1p5toM1->cd();
@@ -259,12 +272,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_tr_M1p5toM1->SetRightMargin(0.11);
     */
     cn_tr_M1p5toM1->SetLogz();
-    _h_unfold_tr_M1p5toM1_pt->SetStats(kFALSE);
-    _h_unfold_tr_M1p5toM1_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_M1p5toM1_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_M1p5toM1_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_M1p5toM1_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_M1p5toM1_pt->Draw("COLZ");
+    _h_unfold_tr_M1p5toM1->SetStats(kFALSE);
+    _h_unfold_tr_M1p5toM1->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_M1p5toM1->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_M1p5toM1->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_M1p5toM1->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_M1p5toM1->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_tr_M1p5toM1->SaveAs(outDir+"Migration_Tr_M1p5toM1.C");
@@ -277,30 +290,34 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_tr_P1toP1p5->SetRightMargin(0.11);
     */
     cn_tr_P1toP1p5->SetLogz();
-    _h_unfold_tr_P1toP1p5_pt->SetStats(kFALSE);
-    _h_unfold_tr_P1toP1p5_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_P1toP1p5_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_P1toP1p5_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_P1toP1p5_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_P1toP1p5_pt->Draw("COLZ");
+    _h_unfold_tr_P1toP1p5->SetStats(kFALSE);
+    _h_unfold_tr_P1toP1p5->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_P1toP1p5->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_P1toP1p5->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_P1toP1p5->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_P1toP1p5->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_tr_P1toP1p5->SaveAs(outDir+"Migration_Tr_P1toP1p5.C");
     cn_tr_P1toP1p5->SaveAs(outDir+"Migration_Tr_P1toP1p5.eps");
     cn_tr_P1toP1p5->SaveAs(outDir+"Migration_Tr_P1toP1p5.pdf");
 
-    TH2F* _h_unfold_tr_M1to0_pt = (TH2F*)fiMC->Get("PtCh-M1to0-nomu-b-jets");
-    TH2F* _h_unfold_tr_0toP1_pt = (TH2F*)fiMC->Get("PtCh-0toP1-nomu-b-jets");
-    double chi_tr_0to1 = _h_unfold_tr_M1to0_pt->Chi2Test(_h_unfold_tr_0toP1_pt,"WW OF UF CHI2/NDF");
+    TH2F* _h_unfold_tr_M1to0 = (TH2F*)fiMC->Get(pf+"Ch-M1to0-nomu-b-jets");
+    TH2F* _h_unfold_tr_0toP1 = (TH2F*)fiMC->Get(pf+"Ch-0toP1-nomu-b-jets");
+    /*
+    double chi_tr_0to1 = _h_unfold_tr_M1to0->Chi2Test(_h_unfold_tr_0toP1,"WW OF UF CHI2/NDF");
     outTxt << "[0; 1] \t" << chi_tr_0to1 << endl;
+    */
+    /*
     outTxt2 << "### 0 < |eta| < 1.0" << endl;
-    for (int ireco = 1; ireco <= _h_unfold_tr_M1to0_pt->GetNbinsY(); ireco++) {
-      for (int igen = 1; igen <= _h_unfold_tr_M1to0_pt->GetNbinsX(); igen++) {
-        outTxt2 << _h_unfold_tr_M1to0_pt->GetBinContent(igen,ireco) + _h_unfold_tr_0toP1_pt->GetBinContent(igen,ireco) << "\t";
+    for (int ireco = 1; ireco <= _h_unfold_tr_M1to0->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_tr_M1to0->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_tr_M1to0->GetBinContent(igen,ireco) + _h_unfold_tr_0toP1->GetBinContent(igen,ireco) << "\t";
       }
       outTxt2 << endl;
     }
     outTxt2 << endl;
+    */
 
     TCanvas *cn_tr_M1to0 = new TCanvas("cn_tr_M1to0","cn_tr_M1to0",800,800);
     cn_tr_M1to0->cd();
@@ -309,12 +326,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_tr_M1to0->SetRightMargin(0.11);
     */
     cn_tr_M1to0->SetLogz();
-    _h_unfold_tr_M1to0_pt->SetStats(kFALSE);
-    _h_unfold_tr_M1to0_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_M1to0_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_M1to0_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_M1to0_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_M1to0_pt->Draw("COLZ");
+    _h_unfold_tr_M1to0->SetStats(kFALSE);
+    _h_unfold_tr_M1to0->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_M1to0->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_M1to0->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_M1to0->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_M1to0->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_tr_M1to0->SaveAs(outDir+"Migration_Tr_M1to0.C");
@@ -327,12 +344,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_tr_0toP1->SetRightMargin(0.11);
     */
     cn_tr_0toP1->SetLogz();
-    _h_unfold_tr_0toP1_pt->SetStats(kFALSE);
-    _h_unfold_tr_0toP1_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_0toP1_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_tr_0toP1_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_0toP1_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_tr_0toP1_pt->Draw("COLZ");
+    _h_unfold_tr_0toP1->SetStats(kFALSE);
+    _h_unfold_tr_0toP1->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_0toP1->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_tr_0toP1->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_0toP1->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_tr_0toP1->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_tr_0toP1->SaveAs(outDir+"Migration_Tr_0toP1.C");
@@ -340,33 +357,105 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_tr_0toP1->SaveAs(outDir+"Migration_Tr_0toP1.pdf");
 
     outRoot->cd();
-    _h_unfold_tr_M2p4toM1p5_pt->Write();
-    _h_unfold_tr_M1p5toM1_pt->Write();
-    _h_unfold_tr_M1to0_pt->Write();
-    _h_unfold_tr_0toP1_pt->Write();
-    _h_unfold_tr_P1toP1p5_pt->Write();
-    _h_unfold_tr_P1p5toP2p4_pt->Write();
+    _h_unfold_tr_M2p4toM1p5->Write();
+    _h_unfold_tr_M1p5toM1->Write();
+    _h_unfold_tr_M1to0->Write();
+    _h_unfold_tr_0toP1->Write();
+    _h_unfold_tr_P1toP1p5->Write();
+    _h_unfold_tr_P1p5toP2p4->Write();
+
+    outTxt.width(13); outTxt << " ";
+    outTxt.width(13); outTxt << "[-2.4;-1.5]";
+    outTxt.width(13); outTxt << "[-1.5;-1.0]";
+    outTxt.width(13); outTxt << "[-1.0;0]";
+    outTxt.width(13); outTxt << "[0;1.0]";
+    outTxt.width(13); outTxt << "[1.0;1.5]";
+    outTxt.width(13); outTxt << "[1.5;2.4]";
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[-2.4;-1.5]"; 
+    outTxt.width(13); outTxt << _h_unfold_tr_M2p4toM1p5->Chi2Test(_h_unfold_tr_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M2p4toM1p5->Chi2Test(_h_unfold_tr_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M2p4toM1p5->Chi2Test(_h_unfold_tr_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M2p4toM1p5->Chi2Test(_h_unfold_tr_0toP1,"WW OF UF CHI2/NDF");
+    outTxt.width(13); outTxt << _h_unfold_tr_M2p4toM1p5->Chi2Test(_h_unfold_tr_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M2p4toM1p5->Chi2Test(_h_unfold_tr_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[-1.5;-1.0]"; 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1p5toM1->Chi2Test(_h_unfold_tr_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1p5toM1->Chi2Test(_h_unfold_tr_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1p5toM1->Chi2Test(_h_unfold_tr_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1p5toM1->Chi2Test(_h_unfold_tr_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1p5toM1->Chi2Test(_h_unfold_tr_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1p5toM1->Chi2Test(_h_unfold_tr_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[-1.0;0]";
+    outTxt.width(13); outTxt << _h_unfold_tr_M1to0->Chi2Test(_h_unfold_tr_M2p4toM1p5,"WW OF UF CHI2/NDF");
+    outTxt.width(13); outTxt << _h_unfold_tr_M1to0->Chi2Test(_h_unfold_tr_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1to0->Chi2Test(_h_unfold_tr_M1to0,"WW OF UF CHI2/NDF");
+    outTxt.width(13); outTxt << _h_unfold_tr_M1to0->Chi2Test(_h_unfold_tr_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1to0->Chi2Test(_h_unfold_tr_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_M1to0->Chi2Test(_h_unfold_tr_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[0;1.0]";
+    outTxt.width(13); outTxt << _h_unfold_tr_0toP1->Chi2Test(_h_unfold_tr_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_0toP1->Chi2Test(_h_unfold_tr_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_0toP1->Chi2Test(_h_unfold_tr_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_0toP1->Chi2Test(_h_unfold_tr_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_0toP1->Chi2Test(_h_unfold_tr_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_0toP1->Chi2Test(_h_unfold_tr_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[1.0;1.5]"; 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1toP1p5->Chi2Test(_h_unfold_tr_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1toP1p5->Chi2Test(_h_unfold_tr_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1toP1p5->Chi2Test(_h_unfold_tr_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1toP1p5->Chi2Test(_h_unfold_tr_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1toP1p5->Chi2Test(_h_unfold_tr_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1toP1p5->Chi2Test(_h_unfold_tr_P1p5toP2p4,"WW OF UF CHI2/NDF") ; 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[1.5;2.4]"; 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1p5toP2p4->Chi2Test(_h_unfold_tr_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1p5toP2p4->Chi2Test(_h_unfold_tr_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1p5toP2p4->Chi2Test(_h_unfold_tr_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1p5toP2p4->Chi2Test(_h_unfold_tr_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1p5toP2p4->Chi2Test(_h_unfold_tr_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_tr_P1p5toP2p4->Chi2Test(_h_unfold_tr_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+
+    for (int ireco = 1; ireco <= _h_unfold_tr_M1to0->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_tr_M1to0->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_tr_M2p4toM1p5->GetBinContent(igen,ireco) + _h_unfold_tr_P1p5toP2p4->GetBinContent(igen,ireco)
+                  +_h_unfold_tr_M1p5toM1->GetBinContent(igen,ireco) + _h_unfold_tr_P1toP1p5->GetBinContent(igen,ireco)
+                  +_h_unfold_tr_M1to0->GetBinContent(igen,ireco) + _h_unfold_tr_0toP1->GetBinContent(igen,ireco) << "\t";
+      }
+      outTxt2 << endl;
+    }
+    outTxt2 << endl;
     
     
     // Soft mu
     
     outTxt << endl;
-    outTxt << "|\\eta^{gen}(soft \\mu)| \t \\chi^{2}" << endl;
+    outTxt << "## Soft mu \n" << endl;
+    // outTxt << "|\\eta^{gen}(soft \\mu)| \t \\chi^{2}" << endl;
     outTxt2 << endl;
     outTxt2 << "## Soft mu \n" << endl;
 
-    TH2F* _h_unfold_mu_M2p4toM1p5_pt = (TH2F*)fiMC->Get("PtSoftMu-M2p4toM1p5-b-jets");
-    TH2F* _h_unfold_mu_P1p5toP2p4_pt = (TH2F*)fiMC->Get("PtSoftMu-P1p5toP2p4-b-jets");
-    double chi_mu_1p5to2p4 = _h_unfold_mu_M2p4toM1p5_pt->Chi2Test(_h_unfold_mu_P1p5toP2p4_pt,"WW OF UF CHI2/NDF");
+    TH2F* _h_unfold_mu_M2p4toM1p5 = (TH2F*)fiMC->Get(pf+"SoftMu-M2p4toM1p5-b-jets");
+    TH2F* _h_unfold_mu_P1p5toP2p4 = (TH2F*)fiMC->Get(pf+"SoftMu-P1p5toP2p4-b-jets");
+    /*
+    double chi_mu_1p5to2p4 = _h_unfold_mu_M2p4toM1p5->Chi2Test(_h_unfold_mu_P1p5toP2p4,"WW OF UF CHI2/NDF");
     outTxt << "[1.5; 2.4] \t" << chi_mu_1p5to2p4 << endl;
+    */
+    /*
     outTxt2 << "### 1.5 < |eta| < 2.4" << endl;
-    for (int ireco = 1; ireco <= _h_unfold_mu_M2p4toM1p5_pt->GetNbinsY(); ireco++) {
-      for (int igen = 1; igen <= _h_unfold_mu_M2p4toM1p5_pt->GetNbinsX(); igen++) {
-        outTxt2 << _h_unfold_mu_M2p4toM1p5_pt->GetBinContent(igen,ireco) + _h_unfold_mu_P1p5toP2p4_pt->GetBinContent(igen,ireco) << "\t";
+    for (int ireco = 1; ireco <= _h_unfold_mu_M2p4toM1p5->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_mu_M2p4toM1p5->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_mu_M2p4toM1p5->GetBinContent(igen,ireco) + _h_unfold_mu_P1p5toP2p4->GetBinContent(igen,ireco) << "\t";
       }
       outTxt2 << endl;
     }
     outTxt2 << endl;
+    */
 
     TCanvas *cn_mu_M2p4toM1p5 = new TCanvas("cn_mu_M2p4toM1p5","cn_mu_M2p4toM1p5",800,800);
     cn_mu_M2p4toM1p5->cd();
@@ -375,12 +464,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_mu_M2p4toM1p5->SetRightMargin(0.11);
     */
     cn_mu_M2p4toM1p5->SetLogz();
-    _h_unfold_mu_M2p4toM1p5_pt->SetStats(kFALSE);
-    _h_unfold_mu_M2p4toM1p5_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_M2p4toM1p5_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_M2p4toM1p5_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_M2p4toM1p5_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_M2p4toM1p5_pt->Draw("COLZ");
+    _h_unfold_mu_M2p4toM1p5->SetStats(kFALSE);
+    _h_unfold_mu_M2p4toM1p5->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_M2p4toM1p5->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_M2p4toM1p5->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_M2p4toM1p5->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_M2p4toM1p5->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_mu_M2p4toM1p5->SaveAs(outDir+"Migration_Mu_M2p4toM1p5.C");
@@ -393,30 +482,34 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_mu_P1p5toP2p4->SetRightMargin(0.11);
     */
     cn_mu_P1p5toP2p4->SetLogz();
-    _h_unfold_mu_P1p5toP2p4_pt->SetStats(kFALSE);
-    _h_unfold_mu_P1p5toP2p4_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_P1p5toP2p4_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_P1p5toP2p4_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_P1p5toP2p4_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_P1p5toP2p4_pt->Draw("COLZ");
+    _h_unfold_mu_P1p5toP2p4->SetStats(kFALSE);
+    _h_unfold_mu_P1p5toP2p4->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_P1p5toP2p4->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_P1p5toP2p4->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_P1p5toP2p4->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_P1p5toP2p4->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_mu_P1p5toP2p4->SaveAs(outDir+"Migration_Mu_P1p5toP2p4.C");
     cn_mu_P1p5toP2p4->SaveAs(outDir+"Migration_Mu_P1p5toP2p4.eps");
     cn_mu_P1p5toP2p4->SaveAs(outDir+"Migration_Mu_P1p5toP2p4.pdf");
 
-    TH2F* _h_unfold_mu_M1p5toM1_pt = (TH2F*)fiMC->Get("PtSoftMu-M1p5toM1-b-jets");
-    TH2F* _h_unfold_mu_P1toP1p5_pt = (TH2F*)fiMC->Get("PtSoftMu-P1toP1p5-b-jets");
-    double chi_mu_1to1p5 = _h_unfold_mu_M1p5toM1_pt->Chi2Test(_h_unfold_mu_P1toP1p5_pt,"WW OF UF CHI2/NDF");
+    TH2F* _h_unfold_mu_M1p5toM1 = (TH2F*)fiMC->Get(pf+"SoftMu-M1p5toM1-b-jets");
+    TH2F* _h_unfold_mu_P1toP1p5 = (TH2F*)fiMC->Get(pf+"SoftMu-P1toP1p5-b-jets");
+    /*
+    double chi_mu_1to1p5 = _h_unfold_mu_M1p5toM1->Chi2Test(_h_unfold_mu_P1toP1p5,"WW OF UF CHI2/NDF");
     outTxt << "[1.0; 1.5] \t" << chi_mu_1to1p5 << endl;
+    */
+    /*
     outTxt2 << "### 1.0 < |eta| < 1.5" << endl;
-    for (int ireco = 1; ireco <= _h_unfold_mu_M1p5toM1_pt->GetNbinsY(); ireco++) {
-      for (int igen = 1; igen <= _h_unfold_mu_M1p5toM1_pt->GetNbinsX(); igen++) {
-        outTxt2 << _h_unfold_mu_M1p5toM1_pt->GetBinContent(igen,ireco) + _h_unfold_mu_P1toP1p5_pt->GetBinContent(igen,ireco) << "\t";
+    for (int ireco = 1; ireco <= _h_unfold_mu_M1p5toM1->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_mu_M1p5toM1->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_mu_M1p5toM1->GetBinContent(igen,ireco) + _h_unfold_mu_P1toP1p5->GetBinContent(igen,ireco) << "\t";
       }
       outTxt2 << endl;
     }
     outTxt2 << endl;
+    */
 
     TCanvas *cn_mu_M1p5toM1 = new TCanvas("cn_mu_M1p5toM1","cn_mu_M1p5toM1",800,800);
     cn_mu_M1p5toM1->cd();
@@ -425,12 +518,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_mu_M1p5toM1->SetRightMargin(0.11);
     */
     cn_mu_M1p5toM1->SetLogz();
-    _h_unfold_mu_M1p5toM1_pt->SetStats(kFALSE);
-    _h_unfold_mu_M1p5toM1_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_M1p5toM1_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_M1p5toM1_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_M1p5toM1_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_M1p5toM1_pt->Draw("COLZ");
+    _h_unfold_mu_M1p5toM1->SetStats(kFALSE);
+    _h_unfold_mu_M1p5toM1->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_M1p5toM1->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_M1p5toM1->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_M1p5toM1->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_M1p5toM1->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_mu_M1p5toM1->SaveAs(outDir+"Migration_Mu_M1p5toM1.C");
@@ -443,30 +536,34 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_mu_P1toP1p5->SetRightMargin(0.11);
     */
     cn_mu_P1toP1p5->SetLogz();
-    _h_unfold_mu_P1toP1p5_pt->SetStats(kFALSE);
-    _h_unfold_mu_P1toP1p5_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_P1toP1p5_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_P1toP1p5_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_P1toP1p5_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_P1toP1p5_pt->Draw("COLZ");
+    _h_unfold_mu_P1toP1p5->SetStats(kFALSE);
+    _h_unfold_mu_P1toP1p5->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_P1toP1p5->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_P1toP1p5->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_P1toP1p5->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_P1toP1p5->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_mu_P1toP1p5->SaveAs(outDir+"Migration_Mu_P1toP1p5.C");
     cn_mu_P1toP1p5->SaveAs(outDir+"Migration_Mu_P1toP1p5.eps");
     cn_mu_P1toP1p5->SaveAs(outDir+"Migration_Mu_P1toP1p5.pdf");
 
-    TH2F* _h_unfold_mu_M1to0_pt = (TH2F*)fiMC->Get("PtSoftMu-M1to0-b-jets");
-    TH2F* _h_unfold_mu_0toP1_pt = (TH2F*)fiMC->Get("PtSoftMu-0toP1-b-jets");
-    double chi_mu_0to1 = _h_unfold_mu_M1to0_pt->Chi2Test(_h_unfold_mu_0toP1_pt,"WW OF UF CHI2/NDF");
+    TH2F* _h_unfold_mu_M1to0 = (TH2F*)fiMC->Get(pf+"SoftMu-M1to0-b-jets");
+    TH2F* _h_unfold_mu_0toP1 = (TH2F*)fiMC->Get(pf+"SoftMu-0toP1-b-jets");
+    /*
+    double chi_mu_0to1 = _h_unfold_mu_M1to0->Chi2Test(_h_unfold_mu_0toP1,"WW OF UF CHI2/NDF");
     outTxt << "[0; 1] \t" << chi_mu_0to1 << endl;
+    */
+    /*
     outTxt2 << "### 0 < |eta| < 1.0" << endl;
-    for (int ireco = 1; ireco <= _h_unfold_mu_M1to0_pt->GetNbinsY(); ireco++) {
-      for (int igen = 1; igen <= _h_unfold_mu_M1to0_pt->GetNbinsX(); igen++) {
-        outTxt2 << _h_unfold_mu_M1to0_pt->GetBinContent(igen,ireco) + _h_unfold_mu_0toP1_pt->GetBinContent(igen,ireco) << "\t";
+    for (int ireco = 1; ireco <= _h_unfold_mu_M1to0->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_mu_M1to0->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_mu_M1to0->GetBinContent(igen,ireco) + _h_unfold_mu_0toP1->GetBinContent(igen,ireco) << "\t";
       }
       outTxt2 << endl;
     }
     outTxt2 << endl;
+    */
 
     TCanvas *cn_mu_M1to0 = new TCanvas("cn_mu_M1to0","cn_mu_M1to0",800,800);
     cn_mu_M1to0->cd();
@@ -475,12 +572,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_mu_M1to0->SetRightMargin(0.11);
     */
     cn_mu_M1to0->SetLogz();
-    _h_unfold_mu_M1to0_pt->SetStats(kFALSE);
-    _h_unfold_mu_M1to0_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_M1to0_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_M1to0_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_M1to0_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_M1to0_pt->Draw("COLZ");
+    _h_unfold_mu_M1to0->SetStats(kFALSE);
+    _h_unfold_mu_M1to0->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_M1to0->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_M1to0->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_M1to0->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_M1to0->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_mu_M1to0->SaveAs(outDir+"Migration_Mu_M1to0.C");
@@ -493,12 +590,12 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_mu_0toP1->SetRightMargin(0.11);
     */
     cn_mu_0toP1->SetLogz();
-    _h_unfold_mu_0toP1_pt->SetStats(kFALSE);
-    _h_unfold_mu_0toP1_pt->GetXaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_0toP1_pt->GetYaxis()->SetLabelSize(0.025);
-    _h_unfold_mu_0toP1_pt->GetXaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_0toP1_pt->GetYaxis()->SetTitleOffset(1.2);
-    _h_unfold_mu_0toP1_pt->Draw("COLZ");
+    _h_unfold_mu_0toP1->SetStats(kFALSE);
+    _h_unfold_mu_0toP1->GetXaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_0toP1->GetYaxis()->SetLabelSize(0.025);
+    _h_unfold_mu_0toP1->GetXaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_0toP1->GetYaxis()->SetTitleOffset(1.2);
+    _h_unfold_mu_0toP1->Draw("COLZ");
     channel_tex->Draw("same");
     cms_style_bis(false);
     cn_mu_0toP1->SaveAs(outDir+"Migration_Mu_0toP1.C");
@@ -506,14 +603,81 @@ int migration(TString date = "", TString version = "", bool inBatch = true)
     cn_mu_0toP1->SaveAs(outDir+"Migration_Mu_0toP1.pdf");
 
     outRoot->cd();
-    _h_unfold_mu_M2p4toM1p5_pt->Write();
-    _h_unfold_mu_M1p5toM1_pt->Write();
-    _h_unfold_mu_M1to0_pt->Write();
-    _h_unfold_mu_0toP1_pt->Write();
-    _h_unfold_mu_P1toP1p5_pt->Write();
-    _h_unfold_mu_P1p5toP2p4_pt->Write();
+    _h_unfold_mu_M2p4toM1p5->Write();
+    _h_unfold_mu_M1p5toM1->Write();
+    _h_unfold_mu_M1to0->Write();
+    _h_unfold_mu_0toP1->Write();
+    _h_unfold_mu_P1toP1p5->Write();
+    _h_unfold_mu_P1p5toP2p4->Write();
 
     if (!inBatch) getchar();
+
+    outTxt.width(13); outTxt << " ";
+    outTxt.width(13); outTxt << "[-2.4;-1.5]";
+    outTxt.width(13); outTxt << "[-1.5;-1.0]";
+    outTxt.width(13); outTxt << "[-1.0;0]";
+    outTxt.width(13); outTxt << "[0;1.0]";
+    outTxt.width(13); outTxt << "[1.0;1.5]";
+    outTxt.width(13); outTxt << "[1.5;2.4]";
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[-2.4;-1.5]"; 
+    outTxt.width(13); outTxt << _h_unfold_mu_M2p4toM1p5->Chi2Test(_h_unfold_mu_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M2p4toM1p5->Chi2Test(_h_unfold_mu_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M2p4toM1p5->Chi2Test(_h_unfold_mu_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M2p4toM1p5->Chi2Test(_h_unfold_mu_0toP1,"WW OF UF CHI2/NDF");
+    outTxt.width(13); outTxt << _h_unfold_mu_M2p4toM1p5->Chi2Test(_h_unfold_mu_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M2p4toM1p5->Chi2Test(_h_unfold_mu_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[-1.5;-1.0]"; 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1p5toM1->Chi2Test(_h_unfold_mu_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1p5toM1->Chi2Test(_h_unfold_mu_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1p5toM1->Chi2Test(_h_unfold_mu_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1p5toM1->Chi2Test(_h_unfold_mu_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1p5toM1->Chi2Test(_h_unfold_mu_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1p5toM1->Chi2Test(_h_unfold_mu_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[-1.0;0]";
+    outTxt.width(13); outTxt << _h_unfold_mu_M1to0->Chi2Test(_h_unfold_mu_M2p4toM1p5,"WW OF UF CHI2/NDF");
+    outTxt.width(13); outTxt << _h_unfold_mu_M1to0->Chi2Test(_h_unfold_mu_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1to0->Chi2Test(_h_unfold_mu_M1to0,"WW OF UF CHI2/NDF");
+    outTxt.width(13); outTxt << _h_unfold_mu_M1to0->Chi2Test(_h_unfold_mu_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1to0->Chi2Test(_h_unfold_mu_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_M1to0->Chi2Test(_h_unfold_mu_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[0;1.0]";
+    outTxt.width(13); outTxt << _h_unfold_mu_0toP1->Chi2Test(_h_unfold_mu_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_0toP1->Chi2Test(_h_unfold_mu_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_0toP1->Chi2Test(_h_unfold_mu_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_0toP1->Chi2Test(_h_unfold_mu_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_0toP1->Chi2Test(_h_unfold_mu_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_0toP1->Chi2Test(_h_unfold_mu_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[1.0;1.5]"; 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1toP1p5->Chi2Test(_h_unfold_mu_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1toP1p5->Chi2Test(_h_unfold_mu_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1toP1p5->Chi2Test(_h_unfold_mu_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1toP1p5->Chi2Test(_h_unfold_mu_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1toP1p5->Chi2Test(_h_unfold_mu_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1toP1p5->Chi2Test(_h_unfold_mu_P1p5toP2p4,"WW OF UF CHI2/NDF") ; 
+    outTxt << endl;
+    outTxt.width(13); outTxt << "[1.5;2.4]"; 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1p5toP2p4->Chi2Test(_h_unfold_mu_M2p4toM1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1p5toP2p4->Chi2Test(_h_unfold_mu_M1p5toM1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1p5toP2p4->Chi2Test(_h_unfold_mu_M1to0,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1p5toP2p4->Chi2Test(_h_unfold_mu_0toP1,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1p5toP2p4->Chi2Test(_h_unfold_mu_P1toP1p5,"WW OF UF CHI2/NDF"); 
+    outTxt.width(13); outTxt << _h_unfold_mu_P1p5toP2p4->Chi2Test(_h_unfold_mu_P1p5toP2p4,"WW OF UF CHI2/NDF"); 
+    outTxt << endl;
+
+    for (int ireco = 1; ireco <= _h_unfold_mu_M1to0->GetNbinsY(); ireco++) {
+      for (int igen = 1; igen <= _h_unfold_mu_M1to0->GetNbinsX(); igen++) {
+        outTxt2 << _h_unfold_mu_M2p4toM1p5->GetBinContent(igen,ireco) + _h_unfold_mu_P1p5toP2p4->GetBinContent(igen,ireco)
+                  +_h_unfold_mu_M1p5toM1->GetBinContent(igen,ireco) + _h_unfold_mu_P1toP1p5->GetBinContent(igen,ireco)
+                  +_h_unfold_mu_M1to0->GetBinContent(igen,ireco) + _h_unfold_mu_0toP1->GetBinContent(igen,ireco) << "\t";
+      }
+      outTxt2 << endl;
+    }
+    outTxt2 << endl;
     
     outTxt2 << endl;
     outTxt2.close();

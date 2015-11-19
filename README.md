@@ -62,16 +62,6 @@ after running:
     ./getNumberOfEvents.py --date 15AprYY --version X
 
 
-### Migration matrices
-
-Migration matrices can be obtained, as TH2F in a root file or as tables in a txt file, by running in root:
-
-    .L migration.C++
-    migration("date", "version", inBatch)
-
-This will produce plots, `Chi2.txt`, `Matrices.txt`, and `Matrices.root` in `date/version/Migration`.
-
-
 ### Merge both channels
 
 `hadd` commands (for data, and TTJets* files) are executed when running:
@@ -79,6 +69,16 @@ This will produce plots, `Chi2.txt`, `Matrices.txt`, and `Matrices.root` in `dat
     ./mergeChannels.py --date 15AprYY --version X
 
 Rootfiles are stored in `date/version/MyAnaAll`.    
+
+
+### Migration matrices
+
+Migration matrices can be obtained, as TH2F in a root file or as tables in a txt file, by running in root:
+
+    .L migration.C++
+    migration("date", "version", inBatch, isTrans)
+
+This will produce plots, `Chi2.txt`, `Matrices.txt`, and `Matrices.root` in `date/version/Migration/P` or `date/version/Migration/Pt`.
 
 
 ### Apply the sPlot technique

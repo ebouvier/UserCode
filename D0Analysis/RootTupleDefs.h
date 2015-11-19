@@ -149,6 +149,22 @@ class RootTupleDefs {
     Int_t           jet_algo_parton_flavor[200]; 
     Int_t           jet_physics_parton_pdgid[200]; 
     std::vector<std::vector<double> > *jet_scaleFactor;
+    Int_t           n_jet_unfold_tr;
+    Int_t           jet_unfold_indmujet[10000];
+    TClonesArray    *jet_unfold_tr_reco_4vector;
+    TClonesArray    *jet_unfold_tr_gen_4vector;
+    Float_t         jet_unfold_tr_recopt[10000]; 
+    Float_t         jet_unfold_tr_recoeta[10000]; 
+    Float_t         jet_unfold_tr_genpt[10000];
+    Float_t         jet_unfold_tr_geneta[10000];
+    Float_t         jet_unfold_tr_dr[10000];
+    TClonesArray    *jet_unfold_mu_reco_4vector;
+    TClonesArray    *jet_unfold_mu_gen_4vector;
+    Float_t         jet_unfold_mu_recopt[10000];
+    Float_t         jet_unfold_mu_recoeta[10000];
+    Float_t         jet_unfold_mu_genpt[10000]; 
+    Float_t         jet_unfold_mu_geneta[10000];
+    Float_t         jet_unfold_mu_dr[10000];
 
     //MET leaves
     TClonesArray    *met_4vector;
@@ -417,6 +433,10 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   genjet_4vector = NULL;
   rawjet_4vector = NULL;
   jet_scaleFactor = NULL;
+  jet_unfold_tr_reco_4vector = NULL;
+  jet_unfold_tr_gen_4vector = NULL;
+  jet_unfold_mu_reco_4vector = NULL;
+  jet_unfold_mu_gen_4vector = NULL;
   met_4vector = NULL;
   unclustered_particle_4vector = NULL;
   muonloose_4vector = NULL;
@@ -568,6 +588,22 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   SetBranchStatusAndAddress(jetsChain, "jet_algo_parton_flavor", &jet_algo_parton_flavor);
   SetBranchStatusAndAddress(jetsChain, "jet_physics_parton_pdgid", &jet_physics_parton_pdgid);
   SetBranchStatusAndAddress(jetsChain, "jet_scaleFactor", &jet_scaleFactor);
+  SetBranchStatusAndAddress(jetsChain, "n_unfold_tr", &n_jet_unfold_tr);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_indmujet", &jet_unfold_indmujet);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_tr_reco_4vector", &jet_unfold_tr_reco_4vector);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_tr_gen_4vector", &jet_unfold_tr_gen_4vector);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_tr_recopt", &jet_unfold_tr_recopt);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_tr_recoeta", &jet_unfold_tr_recoeta);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_tr_genpt", &jet_unfold_tr_genpt);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_tr_geneta", &jet_unfold_tr_geneta);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_tr_dr", &jet_unfold_tr_dr);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_mu_reco_4vector", &jet_unfold_mu_reco_4vector);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_mu_gen_4vector", &jet_unfold_mu_gen_4vector);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_mu_recopt", &jet_unfold_mu_recopt);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_mu_recoeta", &jet_unfold_mu_recoeta);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_mu_genpt", &jet_unfold_mu_genpt);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_mu_geneta", &jet_unfold_mu_geneta);
+  SetBranchStatusAndAddress(jetsChain, "jet_unfold_mu_dr", &jet_unfold_mu_dr);
 
   // set pointers and branches adresses  for MET
 

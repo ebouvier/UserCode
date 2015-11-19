@@ -162,6 +162,43 @@ void MyAna::Loop()
   TH1F* _h_unfold_mu_dr = new TH1F("DrSoftMu-b-jets", "DrSoftMu-b-jets", 150, 0., 1.5);
   _h_unfold_mu_dr->SetXTitle("#DeltaR^{gen-reco}(soft #mu)");
 
+  TH2F* _h_unfold_tr_M2p4toM1p5_p = new TH2F("PCh-M2p4toM1p5-nomu-b-jets", "PCh-M2p4toM1p5-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_M2p4toM1p5_p->SetYTitle("p^{reco}(tracks, no #mu)");
+  _h_unfold_tr_M2p4toM1p5_p->SetXTitle("p^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_M1p5toM1_p = new TH2F("PCh-M1p5toM1-nomu-b-jets", "PCh-M1p5toM1-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_M1p5toM1_p->SetYTitle("p^{reco}(tracks, no #mu)");
+  _h_unfold_tr_M1p5toM1_p->SetXTitle("p^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_M1to0_p = new TH2F("PCh-M1to0-nomu-b-jets", "PCh-M1to0-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_M1to0_p->SetYTitle("p^{reco}(tracks, no #mu)");
+  _h_unfold_tr_M1to0_p->SetXTitle("p^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_0toP1_p = new TH2F("PCh-0toP1-nomu-b-jets", "PCh-0toP1-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_0toP1_p->SetYTitle("p^{reco}(tracks, no #mu)");
+  _h_unfold_tr_0toP1_p->SetXTitle("p^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_P1toP1p5_p = new TH2F("PCh-P1toP1p5-nomu-b-jets", "PCh-P1toP1p5-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_P1toP1p5_p->SetYTitle("p^{reco}(tracks, no #mu)");
+  _h_unfold_tr_P1toP1p5_p->SetXTitle("p^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_tr_P1p5toP2p4_p = new TH2F("PCh-P1p5toP2p4-nomu-b-jets", "PCh-P1p5toP2p4-nomu-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_tr_P1p5toP2p4_p->SetYTitle("p^{reco}(tracks, no #mu)");
+  _h_unfold_tr_P1p5toP2p4_p->SetXTitle("p^{gen}(tracks, no #mu)");
+  TH2F* _h_unfold_mu_M2p4toM1p5_p = new TH2F("PSoftMu-M2p4toM1p5-b-jets", "PSoftMu-M2p4toM1p5-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_M2p4toM1p5_p->SetYTitle("p^{reco}(soft #mu)");
+  _h_unfold_mu_M2p4toM1p5_p->SetXTitle("p^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_M1p5toM1_p = new TH2F("PSoftMu-M1p5toM1-b-jets", "PSoftMu-M1p5toM1-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_M1p5toM1_p->SetYTitle("p^{reco}(soft #mu)");
+  _h_unfold_mu_M1p5toM1_p->SetXTitle("p^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_M1to0_p = new TH2F("PSoftMu-M1to0-b-jets", "PSoftMu-M1to0-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_M1to0_p->SetYTitle("p^{reco}(soft #mu)");
+  _h_unfold_mu_M1to0_p->SetXTitle("p^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_0toP1_p = new TH2F("PSoftMu-0toP1-b-jets", "PSoftMu-0toP1-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_0toP1_p->SetYTitle("p^{reco}(soft #mu)");
+  _h_unfold_mu_0toP1_p->SetXTitle("p^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_P1toP1p5_p = new TH2F("PSoftMu-P1toP1p5-b-jets", "PSoftMu-P1toP1p5-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_P1toP1p5_p->SetYTitle("p^{reco}(soft #mu)");
+  _h_unfold_mu_P1toP1p5_p->SetXTitle("p^{gen}(soft #mu)");
+  TH2F* _h_unfold_mu_P1p5toP2p4_p = new TH2F("PSoftMu-P1p5toP2p4-b-jets", "PSoftMu-P1p5toP2p4-b-jets", 10, 0., 100., 10, 0., 100.);
+  _h_unfold_mu_P1p5toP2p4_p->SetYTitle("p^{reco}(soft #mu)");
+  _h_unfold_mu_P1p5toP2p4_p->SetXTitle("p^{gen}(soft #mu)");
+
   TH1F* _h_Nch = new TH1F("Nch-b-jets", "Nch-b-jets", 45, 0, 45); 
   _h_Nch->SetXTitle("Track multiplicity");
   TH1F* _h_sump = new TH1F("Sump-b-jets", "Sump-b-jets", 200, 0, 1000);
@@ -604,6 +641,77 @@ void MyAna::Loop()
 
     _h_nVtx->Fill((float)indgoodver.size(), _weight);
 
+    // Unfold
+    for (unsigned int i = 0; i < ngoodjet; ++i) {
+      for (int j = 0; j < n_jet_unfold_tr; ++j) {
+        if ((unsigned)jet_unfold_indmujet[j] != indgoodjet[i]) continue;
+        if (_isMC) {
+          // nomu
+          if (jet_unfold_tr_genpt[j] > 1e-6) {
+            _h_unfold_tr_dr->Fill(jet_unfold_tr_dr[j], _weight);
+            if (jet_unfold_tr_dr[j] <= 0.015) {
+              if (jet_unfold_tr_geneta[j] > -2.4 && jet_unfold_tr_geneta[j] <= -1.5)
+                _h_unfold_tr_M2p4toM1p5_pt->Fill(jet_unfold_tr_genpt[j], jet_unfold_tr_recopt[j], _weight);
+              if (jet_unfold_tr_geneta[j] > -1.5 && jet_unfold_tr_geneta[j] <= -1.)
+                _h_unfold_tr_M1p5toM1_pt->Fill(jet_unfold_tr_genpt[j], jet_unfold_tr_recopt[j], _weight);
+              if (jet_unfold_tr_geneta[j] > -1. && jet_unfold_tr_geneta[j] <= 0.)
+                _h_unfold_tr_M1to0_pt->Fill(jet_unfold_tr_genpt[j], jet_unfold_tr_recopt[j], _weight);
+              if (jet_unfold_tr_geneta[j] > 0. && jet_unfold_tr_geneta[j] <= 1.)
+                _h_unfold_tr_0toP1_pt->Fill(jet_unfold_tr_genpt[j], jet_unfold_tr_recopt[j], _weight);
+              if (jet_unfold_tr_geneta[j] > 1. && jet_unfold_tr_geneta[j] <= 1.5)
+                _h_unfold_tr_P1toP1p5_pt->Fill(jet_unfold_tr_genpt[j], jet_unfold_tr_recopt[j], _weight);
+              if (jet_unfold_tr_geneta[j] > 1.5 && jet_unfold_tr_geneta[j] <= 2.4)
+                _h_unfold_tr_P1p5toP2p4_pt->Fill(jet_unfold_tr_genpt[j], jet_unfold_tr_recopt[j], _weight);
+
+              if (jet_unfold_tr_geneta[j] > -2.4 && jet_unfold_tr_geneta[j] <= -1.5)
+                _h_unfold_tr_M2p4toM1p5_p->Fill(GetP4(jet_unfold_tr_gen_4vector,j)->P(), GetP4(jet_unfold_tr_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_tr_geneta[j] > -1.5 && jet_unfold_tr_geneta[j] <= -1.)
+                _h_unfold_tr_M1p5toM1_p->Fill(GetP4(jet_unfold_tr_gen_4vector,j)->P(), GetP4(jet_unfold_tr_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_tr_geneta[j] > -1. && jet_unfold_tr_geneta[j] <= 0.)
+                _h_unfold_tr_M1to0_p->Fill(GetP4(jet_unfold_tr_gen_4vector,j)->P(), GetP4(jet_unfold_tr_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_tr_geneta[j] > 0. && jet_unfold_tr_geneta[j] <= 1.)
+                _h_unfold_tr_0toP1_p->Fill(GetP4(jet_unfold_tr_gen_4vector,j)->P(), GetP4(jet_unfold_tr_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_tr_geneta[j] > 1. && jet_unfold_tr_geneta[j] <= 1.5)
+                _h_unfold_tr_P1toP1p5_p->Fill(GetP4(jet_unfold_tr_gen_4vector,j)->P(), GetP4(jet_unfold_tr_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_tr_geneta[j] > 1.5 && jet_unfold_tr_geneta[j] <= 2.4)
+                _h_unfold_tr_P1p5toP2p4_p->Fill(GetP4(jet_unfold_tr_gen_4vector,j)->P(), GetP4(jet_unfold_tr_reco_4vector,j)->P(), _weight);
+            }
+          }
+          // soft mu
+          if (jet_unfold_mu_genpt[j] > 1e-6) {
+            _h_unfold_mu_dr->Fill(jet_unfold_mu_dr[j], _weight);
+            if (jet_unfold_mu_dr[j] <= 0.015) {
+              if (jet_unfold_mu_geneta[j] > -2.4 && jet_unfold_mu_geneta[j] <= -1.5)
+                _h_unfold_mu_M2p4toM1p5_pt->Fill(jet_unfold_mu_genpt[j], jet_unfold_mu_recopt[j], _weight);
+              if (jet_unfold_mu_geneta[j] > -1.5 && jet_unfold_mu_geneta[j] <= -1.)
+                _h_unfold_mu_M1p5toM1_pt->Fill(jet_unfold_mu_genpt[j], jet_unfold_mu_recopt[j], _weight);
+              if (jet_unfold_mu_geneta[j] > -1. && jet_unfold_mu_geneta[j] <= 0.)
+                _h_unfold_mu_M1to0_pt->Fill(jet_unfold_mu_genpt[j], jet_unfold_mu_recopt[j], _weight);
+              if (jet_unfold_mu_geneta[j] > 0. && jet_unfold_mu_geneta[j] <= 1.)
+                _h_unfold_mu_0toP1_pt->Fill(jet_unfold_mu_genpt[j], jet_unfold_mu_recopt[j], _weight);
+              if (jet_unfold_mu_geneta[j] > 1. && jet_unfold_mu_geneta[j] <= 1.5)
+                _h_unfold_mu_P1toP1p5_pt->Fill(jet_unfold_mu_genpt[j], jet_unfold_mu_recopt[j], _weight);
+              if (jet_unfold_mu_geneta[j] > 1.5 && jet_unfold_mu_geneta[j] <= 2.4)
+                _h_unfold_mu_P1p5toP2p4_pt->Fill(jet_unfold_mu_genpt[j], jet_unfold_mu_recopt[j], _weight);
+
+              if (jet_unfold_mu_geneta[j] > -2.4 && jet_unfold_mu_geneta[j] <= -1.5)
+                _h_unfold_mu_M2p4toM1p5_p->Fill(GetP4(jet_unfold_mu_gen_4vector,j)->P(), GetP4(jet_unfold_mu_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_mu_geneta[j] > -1.5 && jet_unfold_mu_geneta[j] <= -1.)
+                _h_unfold_mu_M1p5toM1_p->Fill(GetP4(jet_unfold_mu_gen_4vector,j)->P(), GetP4(jet_unfold_mu_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_mu_geneta[j] > -1. && jet_unfold_mu_geneta[j] <= 0.)
+                _h_unfold_mu_M1to0_p->Fill(GetP4(jet_unfold_mu_gen_4vector,j)->P(), GetP4(jet_unfold_mu_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_mu_geneta[j] > 0. && jet_unfold_mu_geneta[j] <= 1.)
+                _h_unfold_mu_0toP1_p->Fill(GetP4(jet_unfold_mu_gen_4vector,j)->P(), GetP4(jet_unfold_mu_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_mu_geneta[j] > 1. && jet_unfold_mu_geneta[j] <= 1.5)
+                _h_unfold_mu_P1toP1p5_p->Fill(GetP4(jet_unfold_mu_gen_4vector,j)->P(), GetP4(jet_unfold_mu_reco_4vector,j)->P(), _weight);
+              if (jet_unfold_mu_geneta[j] > 1.5 && jet_unfold_mu_geneta[j] <= 2.4)
+                _h_unfold_mu_P1p5toP2p4_p->Fill(GetP4(jet_unfold_mu_gen_4vector,j)->P(), GetP4(jet_unfold_mu_reco_4vector,j)->P(), _weight);
+            }
+          } 
+        }
+      }
+    }
+
     //======================================================
     // Analyze mu-tagged jets
     //======================================================
@@ -616,6 +724,7 @@ void MyAna::Loop()
       _h_etaSelJets->Fill(GetP4(mujet_jet_4vector,indmujet[i])->Eta(), _weight);
 
       // Unfold
+      /*
       for (int j = 0; j < n_unfold_tr; ++j) {
         if (mujet_unfold_indmujet[j] != indmujet[i]) continue;
         if (_isMC) {
@@ -657,6 +766,7 @@ void MyAna::Loop()
           } 
         }
       }
+      */
 
       _Ntr = (float)mujet_ntr[indmujet[i]];
       _h_Nch->Fill((float)mujet_ntr[indmujet[i]], _weight);
