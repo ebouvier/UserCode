@@ -576,6 +576,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame_0->Draw();
   TLegend *leg_0 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
   leg_0->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[0]));
+  leg_0->SetTextSize(0.035);
   leg_myStyle(leg_0);
   leg_0->Draw("same");
   channel_tex->Draw("same");
@@ -597,6 +598,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame_1->Draw();
   TLegend *leg_1 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
   leg_1->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[1]));
+  leg_1->SetTextSize(0.035);
   leg_myStyle(leg_1);
   leg_1->Draw("same");
   channel_tex->Draw("same");
@@ -618,6 +620,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame_2->Draw();
   TLegend *leg_2 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
   leg_2->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[2]));
+  leg_2->SetTextSize(0.035);
   leg_myStyle(leg_2);
   leg_2->Draw("same");
   channel_tex->Draw("same");
@@ -639,6 +642,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame_3->Draw();
   TLegend *leg_3 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
   leg_3->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[3]));
+  leg_3->SetTextSize(0.035);
   leg_myStyle(leg_3);
   leg_3->Draw("same");
   channel_tex->Draw("same");
@@ -660,6 +664,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame_4->Draw();
   TLegend *leg_4 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
   leg_4->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[4]));
+  leg_4->SetTextSize(0.035);
   leg_myStyle(leg_4);
   leg_4->Draw("same");
   channel_tex->Draw("same");
@@ -681,6 +686,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame_5->Draw();
   TLegend *leg_5 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
   leg_5->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[5]));
+  leg_5->SetTextSize(0.035);
   leg_myStyle(leg_5);
   leg_5->Draw("same");
   channel_tex->Draw("same");
@@ -702,8 +708,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   model_5.plotOn(frame_comp,LineColor(800),Name("model5"));
   frame_comp->SetYTitle("P_{sig}");
   frame_comp->Draw();
-  TLegend *leg_comp = new TLegend(0.6,0.5,0.9,0.9,NULL,"brNDC");
-  leg_comp->SetTextSize(0.025);
+  TLegend *leg_comp = new TLegend(0.55,0.5,0.9,0.9,NULL,"brNDC");
+  leg_comp->SetTextSize(0.035);
   leg_comp->AddEntry(frame_comp->findObject("model0"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[0]), "l");
   leg_comp->AddEntry(frame_comp->findObject("model1"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[1]), "l");
   leg_comp->AddEntry(frame_comp->findObject("model2"), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[2]), "l");
@@ -753,8 +759,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_mean_gaus_s->SetLineColor(38); fit_mean_gaus_s->SetLineStyle(2); fit_mean_gaus_s->SetLineWidth(2);
   fit_mean_gaus_s->Draw("same");
   gr_mean_gaus->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
-  TLegend *leg_par_0 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
-  leg_par_0->SetTextSize(0.025);
+  TLegend *leg_par_0 = new TLegend(0.3,0.78,0.85,0.88,NULL,"brNDC");
+  leg_par_0->SetTextSize(0.035);
   leg_par_0->SetHeader("Mean of the Gaussian");
   leg_par_0->AddEntry(gr_mean_gaus, TString::Format("#mu = %2.0f + %2.2f#upointM_{t}",p0_mean_gaus.getVal(),p1_mean_gaus.getVal()), "l");
   leg_myStyle(leg_par_0);
@@ -792,8 +798,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_width_gaus_s->SetLineColor(38); fit_width_gaus_s->SetLineStyle(2); fit_width_gaus_s->SetLineWidth(2);
   fit_width_gaus_s->Draw("same");
   gr_width_gaus->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
-  TLegend *leg_par_1 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
-  leg_par_1->SetTextSize(0.025);
+  TLegend *leg_par_1 = new TLegend(0.3,0.78,0.85,0.88,NULL,"brNDC");
+  leg_par_1->SetTextSize(0.035);
   leg_par_1->SetHeader("Width of the Gaussian");
   leg_par_1->AddEntry(gr_width_gaus, TString::Format("#sigma = %2.0f + %2.2f#upointM_{t}",p0_width_gaus.getVal(),p1_width_gaus.getVal()), "l");
   leg_myStyle(leg_par_1);
@@ -831,8 +837,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_ncat_s->SetLineColor(38); fit_ncat_s->SetLineStyle(2); fit_ncat_s->SetLineWidth(2);
   fit_ncat_s->Draw("same");
   gr_ncat->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
-  TLegend *leg_par_2 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
-  leg_par_2->SetTextSize(0.025);
+  TLegend *leg_par_2 = new TLegend(0.3,0.78,0.85,0.88,NULL,"brNDC");
+  leg_par_2->SetTextSize(0.035);
   leg_par_2->SetHeader("Relative contribution of the Gaussian");
   leg_par_2->AddEntry(gr_ncat, TString::Format("#alpha = %2.2f + %2.4f#upointM_{t}",p0_ncat.getVal(),p1_ncat.getVal()), "l");
   leg_myStyle(leg_par_2);
@@ -870,8 +876,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_gamma_gam_s->SetLineColor(38); fit_gamma_gam_s->SetLineStyle(2); fit_gamma_gam_s->SetLineWidth(2);
   fit_gamma_gam_s->Draw("same");
   gr_gamma_gam->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
-  TLegend *leg_par_3 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
-  leg_par_3->SetTextSize(0.025);
+  TLegend *leg_par_3 = new TLegend(0.3,0.78,0.85,0.88,NULL,"brNDC");
+  leg_par_3->SetTextSize(0.035);
   leg_par_3->SetHeader("Shape parameter of the gamma distribution");
   leg_par_3->AddEntry(gr_gamma_gam, TString::Format("#gamma = %2.1f + %2.4f#upointM_{t}",p0_gamma_gam.getVal(),p1_gamma_gam.getVal()), "l");
   leg_myStyle(leg_par_3);
@@ -909,8 +915,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_beta_gam_s->SetLineColor(38); fit_beta_gam_s->SetLineStyle(2); fit_beta_gam_s->SetLineWidth(2);
   fit_beta_gam_s->Draw("same");
   gr_beta_gam->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
-  TLegend *leg_par_4 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
-  leg_par_4->SetTextSize(0.025);
+  TLegend *leg_par_4 = new TLegend(0.3,0.78,0.85,0.88,NULL,"brNDC");
+  leg_par_4->SetTextSize(0.035);
   leg_par_4->SetHeader("Scale parameter of the gamma distribution");
   leg_par_4->AddEntry(gr_beta_gam, TString::Format("#beta = %2.2f + %2.2f#upointM_{t}",p0_beta_gam.getVal(),p1_beta_gam.getVal()), "l");
   leg_myStyle(leg_par_4);
@@ -948,8 +954,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_mu_gam_s->SetLineColor(38); fit_mu_gam_s->SetLineStyle(2); fit_mu_gam_s->SetLineWidth(2);
   fit_mu_gam_s->Draw("same");
   gr_mu_gam->GetXaxis()->SetRangeUser(mtlim[0],mtlim[1]);
-  TLegend *leg_par_5 = new TLegend(0.4,0.82,0.9,0.9,NULL,"brNDC");
-  leg_par_5->SetTextSize(0.025);
+  TLegend *leg_par_5 = new TLegend(0.3,0.78,0.85,0.88,NULL,"brNDC");
+  leg_par_5->SetTextSize(0.035);
   leg_par_5->SetHeader("Shift parameter of the gamma distribution");
   leg_par_5->AddEntry(gr_mu_gam, TString::Format("#mu = %2.0f + %2.2f#upointM_{t}",p0_mu_gam.getVal(),p1_mu_gam.getVal()), "l");
   leg_myStyle(leg_par_5);
@@ -1080,7 +1086,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_res_data->cd();
   frame->Draw();
   TLegend *leg_res_data = new TLegend(0.58,0.42,0.9,0.5,NULL,"brNDC");
-  leg_res_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV/c^{2}", mt.getVal(), mt.getError()));
+  leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV/c^{2}", mt.getVal(), mt.getError()));
+  leg_res_data->SetTextSize(0.035);
   leg_myStyle(leg_res_data);
   leg_res_data->Draw("same");
   channel_tex->Draw("same");
@@ -1353,7 +1360,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
     TCanvas *cn_pull = new TCanvas("cn_pull","cn_pull",800,800);
     cn_pull->cd();
-    h_myStyle(hist_pull, 0, 38, 1, 38, 3002, 0, 1.1*hist_pull->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "(#tilde{M}_{t}^{toy}-#tilde{M}_{t}^{gen})/#Delta #tilde{M}_{t}^{toy}");
+    h_myStyle(hist_pull, 0, 38, 1, 38, 3002, 0, 1.1*hist_pull->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "(#tilde{M}_{t}^{toy}-M_{t}^{gen})/#Delta#tilde{M}_{t}^{toy}");
     hist_pull->Draw("hist");
     hist_pull->Fit("gaus","Q","");
     TF1 *fit_pull_gaus = hist_pull->GetFunction("gaus");
@@ -1395,7 +1402,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
     TCanvas *cn_residual = new TCanvas("cn_residual","cn_residual",800,800);
     cn_residual->cd();
-    h_myStyle(hist_residual, 0, 38, 1, 38, 3002, 0, 1.1*hist_residual->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#tilde{M}_{t}^{toy}-#tilde{M}_{t}^{gen} (GeV/c^{2})");
+    h_myStyle(hist_residual, 0, 38, 1, 38, 3002, 0, 1.1*hist_residual->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#tilde{M}_{t}^{toy}-M_{t}^{gen} (GeV/c^{2})");
     hist_residual->Draw("hist");
     hist_residual->Fit("gaus","Q","");
     TF1 *fit_residual_gaus = hist_residual->GetFunction("gaus");
@@ -1478,7 +1485,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_mean_res->Draw("same");
   fit_up_mean_res->Draw("same");
   fit_down_mean_res->Draw("same");
-  TLegend *leg_mean_res = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
+  TLegend *leg_mean_res = new TLegend(0.4,0.78,0.9,0.88,NULL,"brNDC");
+  leg_mean_res->SetTextSize(0.055);
   leg_mean_res->SetHeader(TString::Format("c = (%0.3f #pm %0.3f) GeV/c^{2}",fit_mean_res->Eval(172.5),mean_residual_e[n172p5]));
   leg_myStyle(leg_mean_res);
   leg_mean_res->Draw("same");
@@ -1518,7 +1526,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_width_pull->Draw("same");
   fit_up_width_pull->Draw("same");
   fit_down_width_pull->Draw("same");
-  TLegend *leg_width_pull = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
+  TLegend *leg_width_pull = new TLegend(0.4,0.78,0.9,0.88,NULL,"brNDC");
+  leg_width_pull->SetTextSize(0.055);
   leg_width_pull->SetHeader(TString::Format("c = %0.3f #pm %0.3f",fit_width_pull->Eval(172.5),width_pull_e[n172p5]));
   leg_myStyle(leg_width_pull);
   leg_width_pull->Draw("same");
@@ -1558,7 +1567,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_mean_pull->Draw("same");
   fit_up_mean_pull->Draw("same");
   fit_down_mean_pull->Draw("same");
-  TLegend *leg_mean_pull = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
+  TLegend *leg_mean_pull = new TLegend(0.4,0.78,0.9,0.88,NULL,"brNDC");
+  leg_mean_pull->SetTextSize(0.055);
   leg_mean_pull->SetHeader(TString::Format("c = %0.3f #pm %0.3f",fit_mean_pull->Eval(172.5),mean_pull_e[n172p5]));
   leg_myStyle(leg_mean_pull);
   leg_mean_pull->Draw("same");
@@ -1598,7 +1608,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_width_res->Draw("same");
   fit_up_width_res->Draw("same");
   fit_down_width_res->Draw("same");
-  TLegend *leg_width_res = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
+  TLegend *leg_width_res = new TLegend(0.4,0.78,0.9,0.88,NULL,"brNDC");
+  leg_width_res->SetTextSize(0.055);
   leg_width_res->SetHeader(TString::Format("c = (%0.3f #pm %0.3f) GeV/c^{2}",fit_width_res->Eval(172.5),width_residual_e[n172p5]));
   leg_myStyle(leg_width_res);
   leg_width_res->Draw("same");

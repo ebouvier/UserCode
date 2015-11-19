@@ -5,16 +5,17 @@ import math, os, string, sys
 statErr = [
         "Statistical Error", -3.028, 3.028
         ]
+ref = 172.792
 systErr = [
         ["Experimental uncertainties", [
-            ["Fit calibration", -0.214, 0.214],
+            ["Fit calibration", ref-0.214, ref+0.214],
             ["FSR of $\\text{J}/\\psi$ daughters", 172.792, 172.594],
             #["Jet energy scale", 172.783-0.002, 172.788+0.002], 
             #["Jet energy resolution", 172.787-0.002, 172.792+0.002], 
             ["Jet energy scale", 172.783, 172.788], 
             ["Jet energy resolution", 172.787, 172.792], 
             ["Pile up", 172.928, 172.758],
-            ["Muon momentum scale", 173.274, 172.6324],
+            ["Muon momentum scale", 173.274, 172.324],
             #["Muon momentum resolution", 172.082, 173.537], # not cited in https://twiki.cern.ch/twiki/bin/view/CMS/TopMassSystematics
             ["Electron momentum scale", 173.491, 172.145],
             #["Electron momentum resolution", 171.276, 174.675],# not cited in https://twiki.cern.ch/twiki/bin/view/CMS/TopMassSystematics
@@ -24,18 +25,16 @@ systErr = [
             ]],
         ["Modeling of perturbative QCD", [
             ["Renormalization scale", 173.263, 172.637],
-            ["ME-PS matching threshold", 172.792, 173.334],
+            ["ME-PS matching threshold", 172.925-0.190, 173.335],
             ["Parton density functions", 172.407, 172.909],
-            ["ME generator", 172.792, 170.685],
+            #["ME generator", FIXME, FIXME],
             ["top-quark transverse momentum", 172.792, 172.165]
             ]],
         ["Modeling of soft QCD", [
-            ["Underlying event", 170.966, 172.945],
-            ["Color reconnection modeling", 170.966, 172.341]
-            ]],
-        #["Modeling of hadronization", [
+            #["Underlying event", FIXME, FIXME],
+            #["Color reconnection modeling", FIXME, FIXME]
             #["b fragmentation", FIXME, FIXME]
-            #]]
+            ]],
         ]
 dir = os.path.join("15Jul20", "Results")
 if not os.path.isdir(dir):
@@ -76,8 +75,15 @@ for sourceSys in systErr:
     tex.write("\\multicolumn{2}{c}{\\it " + cat + "} \\\\ \n")
     for source in subcat:
         name = source[0]
-        value = abs(source[2] - source[1])/2.
-        tex.write(name + " & %.3f \\\\ \n" % value)
+        value = 0.
+        if (abs(source[2]-ref) < 1e-6 or abs(source[1]-ref) < 1e-6 or abs(abs(source[2]-ref)-abs(source[1]-ref)) < 6e-2):
+            value = abs(source[2] - source[1])/2.
+            tex.write(name + " & %.3f \\\\ \n" % value)
+        else:
+            value2 = source[2]-ref
+            value1 = source[1]-ref
+            value = (abs(value1)+abs(value2))/2.
+            tex.write(name + " & $^{+%.3f}_{%.3f}$ \\\\ \n" % (max(value1,value2), min(value1,value2)))
         systTot += pow(value, 2.)
 
 tex.write("\\hline\\hline\n")

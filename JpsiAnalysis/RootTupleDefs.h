@@ -40,6 +40,9 @@ class RootTupleDefs {
     //muons leaves
     UInt_t          n_muons;
     TClonesArray    *muon_4vector;
+    TClonesArray    *muon_lesup_4vector;
+    TClonesArray    *muon_lesdown_4vector;
+    TClonesArray    *muon_raw_4vector;
     Float_t         muon_vx[100];   
     Float_t         muon_vy[100];   
     Float_t         muon_vz[100];   
@@ -77,6 +80,8 @@ class RootTupleDefs {
     //electrons leaves
     UInt_t          n_electrons;
     TClonesArray    *electron_4vector;
+    TClonesArray    *electron_lesup_4vector;
+    TClonesArray    *electron_lesdown_4vector;
     Float_t         electron_vx[100]; 
     Float_t         electron_vy[100]; 
     Float_t         electron_vz[100]; 
@@ -172,6 +177,9 @@ class RootTupleDefs {
     //muonsloose leaves
     UInt_t          n_muonsloose;
     TClonesArray    *muonloose_4vector;
+    TClonesArray    *muonloose_lesup_4vector;
+    TClonesArray    *muonloose_lesdown_4vector;
+    TClonesArray    *muonloose_raw_4vector;
     Float_t         muonloose_vx[100]; 
     Float_t         muonloose_vy[100]; 
     Float_t         muonloose_vz[100]; 
@@ -209,6 +217,8 @@ class RootTupleDefs {
     //electronsloose leaves
     UInt_t          n_electronsloose;
     TClonesArray    *electronloose_4vector;
+    TClonesArray    *electronloose_lesup_4vector;
+    TClonesArray    *electronloose_lesdown_4vector;
     Float_t         electronloose_vx[100]; 
     Float_t         electronloose_vy[100]; 
     Float_t         electronloose_vz[100]; 
@@ -261,6 +271,8 @@ class RootTupleDefs {
     TClonesArray    *MC_JPsi_4vector;
     TClonesArray    *MC_Bhad_4vector;
     Int_t           MC_Bhad_id[200]; 
+    Int_t           MC_BhadWithNuDaughter[200]; 
+    Int_t           MC_BhadWithoutNuDaughter[200]; 
     TClonesArray    *MC_Bquark_4vector;
 
     //J/psi leaves
@@ -272,12 +284,34 @@ class RootTupleDefs {
     Int_t           jpsi_indpf1[50]; 
     Int_t           jpsi_indpf2[50]; 
     TClonesArray    *jpsipf_4vector;
+    TClonesArray    *jpsipf_lesup_4vector;
+    TClonesArray    *jpsipf_lesdown_4vector;
+    TClonesArray    *jpsipf_raw_4vector;
+    TClonesArray    *jpsipf_mu1_4vector;
+    TClonesArray    *jpsipf_mu1_lesup_4vector;
+    TClonesArray    *jpsipf_mu1_lesdown_4vector;
+    TClonesArray    *jpsipf_mu1_raw_4vector;
+    TClonesArray    *jpsipf_mu2_4vector;
+    TClonesArray    *jpsipf_mu2_lesup_4vector;
+    TClonesArray    *jpsipf_mu2_lesdown_4vector;
+    TClonesArray    *jpsipf_mu2_raw_4vector;
     TClonesArray    *jpsi_4vector;
+    TClonesArray    *jpsi_lesup_4vector;
+    TClonesArray    *jpsi_lesdown_4vector;
+    TClonesArray    *jpsi_raw_4vector;
     TClonesArray    *jpsi_mu1_4vector;
+    TClonesArray    *jpsi_mu1_lesup_4vector;
+    TClonesArray    *jpsi_mu1_lesdown_4vector;
+    TClonesArray    *jpsi_mu1_raw_4vector;
+    Int_t           jpsi_mu1_pdgid[50]; 
     std::vector<std::vector<double> > *jpsi_mu1_muon_scaleFactor_looseeff_looseiso;
     std::vector<std::vector<double> > *jpsi_mu1_muon_scaleFactor_tighteff_looseiso;
     std::vector<std::vector<double> > *jpsi_mu1_muon_scaleFactor_tighteff_tightiso;
     TClonesArray    *jpsi_mu2_4vector;
+    TClonesArray    *jpsi_mu2_lesup_4vector;
+    TClonesArray    *jpsi_mu2_lesdown_4vector;
+    TClonesArray    *jpsi_mu2_raw_4vector;
+    Int_t           jpsi_mu2_pdgid[50]; 
     std::vector<std::vector<double> > *jpsi_mu2_muon_scaleFactor_looseeff_looseiso;
     std::vector<std::vector<double> > *jpsi_mu2_muon_scaleFactor_tighteff_looseiso;
     std::vector<std::vector<double> > *jpsi_mu2_muon_scaleFactor_tighteff_tightiso;
@@ -395,10 +429,15 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   HLT_vector = NULL;
   HLT_passed = NULL;
   muon_4vector = NULL;
+  muon_lesup_4vector = NULL;
+  muon_lesdown_4vector = NULL;
+  muon_raw_4vector = NULL;
   muon_scaleFactor_looseeff_looseiso = NULL;
   muon_scaleFactor_tighteff_looseiso = NULL;
   muon_scaleFactor_tighteff_tightiso = NULL;
   electron_4vector = NULL;
+  electron_lesup_4vector = NULL;
+  electron_lesdown_4vector = NULL;
   electron_scaleFactor_looseeff_tightiso=NULL;
   electron_scaleFactor_tighteff_tightiso=NULL;
   jet_4vector = NULL;
@@ -408,10 +447,15 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   met_4vector = NULL;
   unclustered_particle_4vector = NULL;
   muonloose_4vector = NULL;
+  muonloose_lesup_4vector = NULL;
+  muonloose_lesdown_4vector = NULL;
+  muonloose_raw_4vector = NULL;
   muonloose_scaleFactor_looseeff_looseiso = NULL;
   muonloose_scaleFactor_tighteff_looseiso = NULL;
   muonloose_scaleFactor_tighteff_tightiso = NULL;
   electronloose_4vector = NULL;
+  electronloose_lesup_4vector = NULL;
+  electronloose_lesdown_4vector = NULL;
   electronloose_scaleFactor_looseeff_tightiso=NULL;
   electronloose_scaleFactor_tighteff_tightiso = NULL;
   MC_4vector = NULL;
@@ -421,12 +465,32 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   jpsi_jet_4vector = NULL;
   jpsi_jet_scaleFactor = NULL;
   jpsipf_4vector = NULL;
+  jpsipf_lesup_4vector = NULL;
+  jpsipf_lesdown_4vector = NULL;
+  jpsipf_raw_4vector = NULL;
+  jpsipf_mu1_4vector = NULL;
+  jpsipf_mu1_lesup_4vector = NULL;
+  jpsipf_mu1_lesdown_4vector = NULL;
+  jpsipf_mu1_raw_4vector = NULL;
+  jpsipf_mu2_4vector = NULL;
+  jpsipf_mu2_lesup_4vector = NULL;
+  jpsipf_mu2_lesdown_4vector = NULL;
+  jpsipf_mu2_raw_4vector = NULL;
   jpsi_4vector = NULL;
+  jpsi_lesup_4vector = NULL;
+  jpsi_lesdown_4vector = NULL;
+  jpsi_raw_4vector = NULL;
   jpsi_mu1_4vector = NULL;
+  jpsi_mu1_lesup_4vector = NULL;
+  jpsi_mu1_lesdown_4vector = NULL;
+  jpsi_mu1_raw_4vector = NULL;
   jpsi_mu1_muon_scaleFactor_looseeff_looseiso = NULL;
   jpsi_mu1_muon_scaleFactor_tighteff_looseiso = NULL;
   jpsi_mu1_muon_scaleFactor_tighteff_tightiso = NULL;
   jpsi_mu2_4vector = NULL;
+  jpsi_mu2_lesup_4vector = NULL;
+  jpsi_mu2_lesdown_4vector = NULL;
+  jpsi_mu2_raw_4vector = NULL;
   jpsi_mu2_muon_scaleFactor_looseeff_looseiso = NULL;
   jpsi_mu2_muon_scaleFactor_tighteff_looseiso = NULL;
   jpsi_mu2_muon_scaleFactor_tighteff_tightiso = NULL;
@@ -440,6 +504,9 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
 
   SetBranchStatusAndAddress(muonsChain, "n_muons", &n_muons);
   SetBranchStatusAndAddress(muonsChain, "muon_4vector", &muon_4vector);
+  SetBranchStatusAndAddress(muonsChain, "muon_lesup_4vector", &muon_lesup_4vector);
+  SetBranchStatusAndAddress(muonsChain, "muon_lesdown_4vector", &muon_lesdown_4vector);
+  SetBranchStatusAndAddress(muonsChain, "muon_raw_4vector", &muon_raw_4vector);
   SetBranchStatusAndAddress(muonsChain, "muon_vx", &muon_vx);
   SetBranchStatusAndAddress(muonsChain, "muon_vy", &muon_vy);
   SetBranchStatusAndAddress(muonsChain, "muon_vz", &muon_vz);
@@ -484,6 +551,8 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
 
   SetBranchStatusAndAddress(electronsChain, "n_electrons", &n_electrons);
   SetBranchStatusAndAddress(electronsChain, "electron_4vector", &electron_4vector);
+  SetBranchStatusAndAddress(electronsChain, "electron_lesup_4vector", &electron_lesup_4vector);
+  SetBranchStatusAndAddress(electronsChain, "electron_lesdown_4vector", &electron_lesdown_4vector);
   SetBranchStatusAndAddress(electronsChain, "electron_vx", &electron_vx);
   SetBranchStatusAndAddress(electronsChain, "electron_vy", &electron_vy);
   SetBranchStatusAndAddress(electronsChain, "electron_vz", &electron_vz);
@@ -619,6 +688,9 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
 
   SetBranchStatusAndAddress(muonslooseChain, "n_muons", &n_muonsloose);
   SetBranchStatusAndAddress(muonslooseChain, "muon_4vector", &muonloose_4vector);
+  SetBranchStatusAndAddress(muonslooseChain, "muon_lesup_4vector", &muonloose_lesup_4vector);
+  SetBranchStatusAndAddress(muonslooseChain, "muon_lesdown_4vector", &muonloose_lesdown_4vector);
+  SetBranchStatusAndAddress(muonslooseChain, "muon_raw_4vector", &muonloose_raw_4vector);
   SetBranchStatusAndAddress(muonslooseChain, "muon_vx", &muonloose_vx);
   SetBranchStatusAndAddress(muonslooseChain, "muon_vy", &muonloose_vy);
   SetBranchStatusAndAddress(muonslooseChain, "muon_vz", &muonloose_vz);
@@ -663,6 +735,8 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
 
   SetBranchStatusAndAddress(electronslooseChain, "n_electrons", &n_electronsloose);
   SetBranchStatusAndAddress(electronslooseChain, "electron_4vector", &electronloose_4vector);
+  SetBranchStatusAndAddress(electronslooseChain, "electron_lesup_4vector", &electronloose_lesup_4vector);
+  SetBranchStatusAndAddress(electronslooseChain, "electron_lesdown_4vector", &electronloose_lesdown_4vector);
   SetBranchStatusAndAddress(electronslooseChain, "electron_vx", &electronloose_vx);
   SetBranchStatusAndAddress(electronslooseChain, "electron_vy", &electronloose_vy);
   SetBranchStatusAndAddress(electronslooseChain, "electron_vz", &electronloose_vz);
@@ -724,6 +798,8 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
     SetBranchStatusAndAddress(MCChain, "MC_JPsi_4vector", &MC_JPsi_4vector);
     SetBranchStatusAndAddress(MCChain, "MC_Bhad_4vector", &MC_Bhad_4vector);
     SetBranchStatusAndAddress(MCChain, "MC_Bhad_id", &MC_Bhad_id);
+    SetBranchStatusAndAddress(MCChain, "MC_BhadWithNuDaughter", &MC_BhadWithNuDaughter);
+    SetBranchStatusAndAddress(MCChain, "MC_BhadWithoutNuDaughter", &MC_BhadWithoutNuDaughter);
     SetBranchStatusAndAddress(MCChain, "MC_Bquark_4vector", &MC_Bquark_4vector);
 
   }   
@@ -744,12 +820,34 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   SetBranchStatusAndAddress(jpsiChain, "jpsi_indpf1", &jpsi_indpf1);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_indpf2", &jpsi_indpf2);
   SetBranchStatusAndAddress(jpsiChain, "jpsipf_4vector", &jpsipf_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_lesup_4vector", &jpsipf_lesup_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_lesdown_4vector", &jpsipf_lesdown_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_raw_4vector", &jpsipf_raw_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu1_4vector", &jpsipf_mu1_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu1_lesup_4vector", &jpsipf_mu1_lesup_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu1_lesdown_4vector", &jpsipf_mu1_lesdown_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu1_raw_4vector", &jpsipf_mu1_raw_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu2_4vector", &jpsipf_mu2_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu2_lesup_4vector", &jpsipf_mu2_lesup_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu2_lesdown_4vector", &jpsipf_mu2_lesdown_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsipf_mu2_raw_4vector", &jpsipf_mu2_raw_4vector);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_4vector", &jpsi_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_lesup_4vector", &jpsi_lesup_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_lesdown_4vector", &jpsi_lesdown_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_raw_4vector", &jpsi_raw_4vector);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_4vector", &jpsi_mu1_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_lesup_4vector", &jpsi_mu1_lesup_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_lesdown_4vector", &jpsi_mu1_lesdown_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_raw_4vector", &jpsi_mu1_raw_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_pdgid", &jpsi_mu1_pdgid);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_muon_scaleFactor_looseeff_looseiso", &jpsi_mu1_muon_scaleFactor_looseeff_looseiso);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_muon_scaleFactor_tighteff_looseiso", &jpsi_mu1_muon_scaleFactor_tighteff_looseiso);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu1_muon_scaleFactor_tighteff_tightiso", &jpsi_mu1_muon_scaleFactor_tighteff_tightiso);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_4vector", &jpsi_mu2_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_lesup_4vector", &jpsi_mu2_lesup_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_lesdown_4vector", &jpsi_mu2_lesdown_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_raw_4vector", &jpsi_mu2_raw_4vector);
+  SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_pdgid", &jpsi_mu2_pdgid);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_muon_scaleFactor_looseeff_looseiso", &jpsi_mu2_muon_scaleFactor_looseeff_looseiso);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_muon_scaleFactor_tighteff_looseiso", &jpsi_mu2_muon_scaleFactor_tighteff_looseiso);
   SetBranchStatusAndAddress(jpsiChain, "jpsi_mu2_muon_scaleFactor_tighteff_tightiso", &jpsi_mu2_muon_scaleFactor_tighteff_tightiso);

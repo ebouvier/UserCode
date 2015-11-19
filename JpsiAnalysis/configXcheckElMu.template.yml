@@ -190,6 +190,10 @@ plots:
     y-axis-format: "%1% / %2$.0f"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
+  "MJpsi-large":
+    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    show-ratio: false
+    save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":
     y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
     show-ratio: false

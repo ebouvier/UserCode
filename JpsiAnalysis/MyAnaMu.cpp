@@ -110,7 +110,9 @@ void MyAna::Loop()
   _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV/c (before cut)");
   TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 6, 0., 6.);
   _h_cuts_csvJet20_n->SetXTitle("Number of CSV b-tagged jets (before cut)");
-  TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 20, 3., 3.2);
+  TH1F* _h_large_jpsi_m          = new TH1F("MJpsi-large", "MJpsi-large", 24, 2.8, 3.4);
+  _h_large_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 8, 3., 3.2);
   _h_cuts_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2}) (before cut)");
   TH1F* _h_cuts_jpsi_n           = new TH1F("NJpsi-cuts", "NJpsi-cuts", 3, 0., 3.);
   _h_cuts_jpsi_n->SetXTitle("Number of J/#psi (before cut)");
@@ -127,6 +129,11 @@ void MyAna::Loop()
   _h_cuts_jpsi_lOverSig_zoom->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi) (before cut)");
   TH1F* _h_cuts_jpsi_dRLept      = new TH1F("DRJpsiIsoLept-cuts", "DRJpsiIsoLept-cuts", 100, 0., 5.);
   _h_cuts_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading #mu) (before cut)");
+
+  TH1F* _h_dRBhadbjet_gen   = new TH1F("DeltaRBhadbjet-gen", "DeltaRBhadbjet-gen", 250, 0., 5);
+  _h_dRBhadbjet_gen->SetXTitle("#DeltaR(B hadron-b jet)^{gen}");
+  TH1F* _h_pTBhadOverpTbjet_gen  = new TH1F("PtBhadOverPtbjet-gen", "PtBhadOverPtbjet-gen", 100, 0., 2.);
+  _h_pTBhadOverpTbjet_gen->SetXTitle("p_{T}^{gen}(B hadron)/p_{T}^{gen}(b jet)");
 
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of leading #mu");
@@ -224,7 +231,7 @@ void MyAna::Loop()
 
   TH1F* _h_jpsi_n                 = new TH1F("NJpsi", "NJpsi", 3, 0., 3.);
   _h_jpsi_n->SetXTitle("Number of J/#psi");
-  TH1F* _h_jpsi_m                 = new TH1F("MJpsi", "MJpsi", 20, 3., 3.2);
+  TH1F* _h_jpsi_m                 = new TH1F("MJpsi", "MJpsi", 8, 3., 3.2);
   _h_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
   TH1F* _h_jpsi_pt                = new TH1F("PtJpsi", "PtJpsi", 28, 0., 140.);   
   _h_jpsi_pt->SetXTitle("p_{T} (J/#psi) (GeV/c)");
@@ -707,6 +714,15 @@ void MyAna::Loop()
     //======================================================
     // J/psi
     //======================================================
+    
+    // Mass spectrum with sidebands
+    for (int j = 0; j < n_jpsi; ++j) {
+      if (jpsi_vtxchi2[j] > 5.) continue;
+      if (jpsi_L3DoverSigmaL3D[j] < 20.) continue;
+      if (GetP4(jpsi_4vector, j)->M() >= 2.8 && GetP4(jpsi_4vector, j)->M() <= 3.4) {
+        _h_large_jpsi_m->Fill(GetP4(jpsi_4vector,j)->M(), _weight);
+      }
+    }
 
     // Mass
     for (int j = 0; j < n_jpsi; ++j) {
@@ -721,6 +737,7 @@ void MyAna::Loop()
 
     _h_cuts_jpsi_n->Fill((float)njpsi, _weight);
 
+    if (njpsi > 1) cout << "! More than one J/psi (" << njpsi << ") !" << endl;
     if (njpsi != 1) continue;
     ++counter[5];
 
@@ -785,7 +802,7 @@ void MyAna::Loop()
     // Scale factors
     //======================================================
 
-    // if (_isMC) {
+    if (_isMC) {
       // Trigger scalefactors
       /*
        * already applied after lepton selection
@@ -818,7 +835,35 @@ void MyAna::Loop()
         _weight = _weight*sqrt(topPtWeight);
       }
       */
-    // }
+      // Pt(B had)/Pt(b jet)
+      double xB = -1.;
+      bool hasBhad = false;
+      bool hasbjet = false;
+      double dRBhadbjetmin = 200.;
+      for (int igenpart = 0; igenpart < n_MCs; igenpart++) {
+        if (GetP4(MC_Bhad_4vector,igenpart)->Pt() != GetP4(MC_Bhad_4vector,igenpart)->Pt() || fabs(GetP4(MC_Bhad_4vector,igenpart)->CosTheta()) > 0.999 || fabs(GetP4(MC_Bhad_4vector,igenpart)->CosTheta()) < 1e-3) continue;
+        hasBhad = true;
+        for (unsigned int igenjet = 0; igenjet < n_jets; igenjet++) {
+          if (GetP4(genjet_4vector,igenjet)->Pt() != GetP4(genjet_4vector,igenjet)->Pt() || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) > 0.999 || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) < 1e-3) continue;
+          // if (abs(jet_physics_parton_pdgid[igenjet]) != 5) continue;
+          if (abs(jet_algo_parton_flavor[igenjet]) != 5) continue;
+          hasbjet = true;
+          double dRBhadbjet = GetP4(genjet_4vector,igenjet)->DeltaR(*GetP4(MC_Bhad_4vector,igenpart)); 
+          if (dRBhadbjet < dRBhadbjetmin) {
+            dRBhadbjetmin = dRBhadbjet;
+            xB = GetP4(MC_Bhad_4vector,igenpart)->Pt()/GetP4(genjet_4vector,igenjet)->Pt();
+          }
+        }
+      }
+      if (xB < 0) {
+        std::cout << "PROBLEME : " ;
+        if (!hasBhad) std::cout << "no B had" << std::endl;
+        else if (!hasbjet) std::cout << "no b jet" << std::endl;
+        else std::cout << "B had and b jet not from same top" << std::endl;
+      }
+      _h_dRBhadbjet_gen->Fill(dRBhadbjetmin, _weight);
+      _h_pTBhadOverpTbjet_gen->Fill(xB, _weight);
+    }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut; 
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
@@ -1054,6 +1099,8 @@ void MyAna::Loop()
       if (MC_JPsiFromAntiTop[indJPsi] && MC_LeptonFromAntiTop[indLepton]) goodpaired = true;
       if (_debug) cout << "good paired : " << goodpaired << endl;
 
+      if (JPsiMatched)
+        ++counter[8];
       if (JPsiMatched && LeptonMatched) {
         ++counter[9];
         if (goodpaired) {
@@ -1176,11 +1223,10 @@ void MyAna::Loop()
     //======================================================
 
     if (_debug) {
-      cout << "CANDIDATE = " 
-        << currentfile << " : " 
-        << run << ":" 
-        << lumi << ":" 
-        << evtID << endl;
+      cout << currentfile << " : " 
+           << run << ":" 
+           << lumi << ":" 
+           << evtID << endl;
     }   
 
     //===============================================================================================
@@ -1227,7 +1273,8 @@ void MyAna::Loop()
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
   cout << "At least 1 iso muon                                       = " << counter[1] << endl;
-  cout << "At least 2 jets pT>40 GeV/c                               = " << counter[2] << endl;
+  cout << "At least 4 jets pT>55,45,35,20 GeV/c                      = " << counter[2] << endl;
+  //cout << "At least 2 jets pT>40 GeV/c                               = " << counter[2] << endl;
   cout << "semi-leptonic                                             = " << counter[3] << endl;
   cout << "dileptonic                                                = " << counter[4] << endl;
   cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
@@ -1235,6 +1282,8 @@ void MyAna::Loop()
   cout << "... and Delta(c.tau) / c.tau > 20                         = " << counter[7] << endl;
 //  cout << "Tighter isolated lepton                                   = " << counter[8] << endl;
   if (_isMC && _isSIG) {
+    cout << "========================================================================" << endl;
+    cout << "J/psi matched to MC truth (DeltaR<0.05)                         = " << counter[8] << endl;
     cout << "========================================================================" << endl;
     cout << "Events matched to MC truth (DeltaR<0.05 for J/psi and lepton)   = " << counter[9] << endl;
     cout << "... good pairing                                                = " << counter[10] << endl;

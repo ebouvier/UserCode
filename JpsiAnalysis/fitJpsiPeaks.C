@@ -301,7 +301,7 @@ double *cbPeak(TString inFile, TString outFile, TString channel, double lumi)
 
   RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV/c^{2}");
   RooRealVar mean_cball("mean_cball", "mass_cball", 3.09, 3.07, 3.11);
-  RooRealVar width_cball("width_cball", "width_cball", 0.04, 0.02, 0.06);
+  RooRealVar width_cball("width_cball", "width_cball", 0.035, 0.02, 0.05);
   RooRealVar alpha_cball("alpha_cball", "alpha_cball", 1.8);
   RooRealVar n_cball("n_cball", "n_cball", 2.5);
 
@@ -325,6 +325,7 @@ double *cbPeak(TString inFile, TString outFile, TString channel, double lumi)
   leg->AddEntry((TObject*)0, TString::Format("#alpha = %2.1f, n = %2.1f",alpha_cball.getVal(),n_cball.getVal()), "");
   leg_myStyle(leg);
   leg->Draw("same");
+  massframe->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, true); 
   // cms_myStyle(lumi, false);
@@ -361,15 +362,16 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
   h_myStyle(histo,38,38,3002,histo->GetMinimum(),1.2*histo->GetMaximum(),510,510,20,38,1.,0.);
   RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mjpsi), histo, 1.);
   RooGaussian pdf("Gall", "Gall", mjpsi, mean_gaus, width_gaus);
-  pdf.fitTo(*datahist, Range(3.06, 3.14), SumW2Error(kTRUE));
-  // pdf.fitTo(*datahist, Range(3.04, 3.13), SumW2Error(kTRUE));
+  // pdf.fitTo(*datahist, Range(3.06, 3.14), SumW2Error(kTRUE));
+  pdf.fitTo(*datahist, Range(3.05, 3.15), SumW2Error(kTRUE));
+  // pdf.fitTo(*datahist, Range(3.0, 3.2), SumW2Error(kTRUE));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
   RooPlot *massframe = mjpsi.frame();
   datahist->plotOn(massframe, DataError(RooAbsData::SumW2)); //, MarkerColor(38), LineColor(38));
-  pdf.plotOn(massframe, LineColor(38), Range(3.06, 3.14), Name("bleu"));
-  /// pdf.plotOn(massframe, LineColor(38), Range(3.04, 3.13), Name("bleu"));
+  // pdf.plotOn(massframe, LineColor(38), Range(3.06, 3.14), Name("bleu"));
+  pdf.plotOn(massframe, LineColor(38), Range(3.05, 3.15), Name("bleu"));
   massframe->Draw();
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   leg->SetTextSize(0.025);
@@ -378,6 +380,7 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
   leg->AddEntry((TObject*)0, TString::Format("#sigma = (%4.4f #pm %4.4f) GeV/c^{2}",width_gaus.getVal(),width_gaus.getError()), "");
   leg_myStyle(leg);
   leg->Draw("same");
+  massframe->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
   cn->SaveAs(outFile+".pdf");

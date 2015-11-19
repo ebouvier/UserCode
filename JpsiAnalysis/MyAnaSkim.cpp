@@ -86,7 +86,9 @@ void MyAna::Loop()
   _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV/c (before cut)");
   TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 6, 0., 6.);
   _h_cuts_csvJet20_n->SetXTitle("Number of CSV b-tagged jets (before cut)");
-  TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 20, 3., 3.2);
+  TH1F* _h_large_jpsi_m          = new TH1F("MJpsi-large", "MJpsi-large", 24, 2.8, 3.4);
+  _h_large_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 8, 3., 3.2);
   _h_cuts_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2}) (before cut)");
   TH1F* _h_cuts_jpsi_n           = new TH1F("NJpsi-cuts", "NJpsi-cuts", 3, 0., 3.);
   _h_cuts_jpsi_n->SetXTitle("Number of J/#psi (before cut)");
@@ -195,8 +197,14 @@ void MyAna::Loop()
 
   TH1F* _h_jpsi_n                 = new TH1F("NJpsi", "NJpsi", 3, 0., 3.);
   _h_jpsi_n->SetXTitle("Number of J/#psi");
-  TH1F* _h_jpsi_m                 = new TH1F("MJpsi", "MJpsi", 20, 3., 3.2);
+  TH1F* _h_jpsi_m                 = new TH1F("MJpsi", "MJpsi", 8, 3., 3.2);
   _h_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  /*
+  TH1F* _h_jpsi_seagull_m         = new TH1F("MJpsiSeagull", "MJpsiSeagull", 8, 3., 3.2);
+  _h_jpsi_seagull_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  TH1F* _h_jpsi_cowboy_m          = new TH1F("MJpsiCowboy", "MJpsiCowboy", 8, 3., 3.2);
+  _h_jpsi_cowboy_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  */
   TH1F* _h_jpsi_pt                = new TH1F("PtJpsi", "PtJpsi", 28, 0., 140.);   
   _h_jpsi_pt->SetXTitle("p_{T} (J/#psi) (GeV/c)");
   TH1F* _h_jpsi_eta               = new TH1F("EtaJpsi", "EtaJpsi", 30, -3., 3.); 
@@ -249,6 +257,10 @@ void MyAna::Loop()
 
   TH1F* _h_triLept_m              = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
   _h_triLept_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+  TH1F* _h_triLept_seagull_m      = new TH1F("MTriLeptSeagull-allPair", "MTriLeptSeagull-allPair", 25, 0., 250.);
+  _h_triLept_seagull_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+  TH1F* _h_triLept_cowboy_m       = new TH1F("MTriLeptCowboy-allPair", "MTriLeptCowboy-allPair", 25, 0., 250.);
+  _h_triLept_cowboy_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
   TH1F* _h_triLept_goodPair_m     = new TH1F("MTriLept-goodPair", "MTriLept-goodPair", 25, 0., 250.);
   _h_triLept_goodPair_m->SetXTitle("M(J/#psi+l, from same top) (GeV/c^{2})");
   TH1F* _h_triLept_wrongPair_m    = new TH1F("MTriLept-wrongPair", "MTriLept-wrongPair", 25, 0., 250.);
@@ -576,8 +588,9 @@ void MyAna::Loop()
 
     // Mass
     for (int j = 0; j < n_jpsi; ++j) {
-      if (GetP4(jpsi_4vector, j)->M() >= 3. && GetP4(jpsi_4vector, j)->M() <= 3.2) {
+      if (GetP4(jpsi_4vector, j)->M() >= 2.8 && GetP4(jpsi_4vector, j)->M() <= 3.4) {
         _h_cuts_jpsi_m->Fill(GetP4(jpsi_4vector,j)->M(), _weight);
+        _h_large_jpsi_m->Fill(GetP4(jpsi_4vector,j)->M(), _weight);
         indgoodjpsi.push_back(j);
       }
     }
@@ -741,8 +754,32 @@ void MyAna::Loop()
     // Jpsi analysis :
     //----------------
 
+    bool isSeagull = false;
+    bool isCowboy = false;
+    if (jpsi_mu1_pdgid[indgoodjpsi[0]] > 0) {
+      if (GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->Phi()-GetP4(jpsi_4vector, indgoodjpsi[0])->Phi() > 0) 
+        isSeagull = true;
+      else
+        isCowboy = true;
+    } else {
+      if (GetP4(jpsi_mu1_4vector, indgoodjpsi[0])->Phi()-GetP4(jpsi_4vector, indgoodjpsi[0])->Phi() < 0)
+        isSeagull = true;
+      else
+        isCowboy = true;
+    }
+    if (isSeagull && !isCowboy) 
+        ++counter[14];
+    if (!isSeagull && isCowboy) 
+        ++counter[15];
+
     _h_jpsi_n->Fill((float)njpsi, _weight);     
     _h_jpsi_m->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->M(), _weight);
+    /*
+    if (isSeagull && !isCowboy)
+      _h_jpsi_seagull_m->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->M(), _weight); 
+    if (isCowboy && !isSeagull)
+      _h_jpsi_cowboy_m->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->M(), _weight); 
+      */
     _h_jpsi_pt->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Pt(), _weight);
     _h_jpsi_eta->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Eta(), _weight);
     _h_jpsi_phi->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Phi(), _weight);
@@ -801,7 +838,11 @@ void MyAna::Loop()
       if ( m_reco >= 0 ) m_reco = sqrt(m_reco);
       else               m_reco = 0.;
 
-      _h_triLept_m->Fill(m_reco, _weight);
+        _h_triLept_m->Fill(m_reco, _weight);
+      if (isSeagull && !isCowboy)
+        _h_triLept_seagull_m->Fill(m_reco, _weight); 
+      if (isCowboy && !isSeagull)
+        _h_triLept_cowboy_m->Fill(m_reco, _weight); 
 
       if (_isMC && _isSIG) {
         bool goodpaired = false;
@@ -1064,11 +1105,18 @@ void MyAna::Loop()
     //======================================================
 
     if (_debug) {
-      cout << "CANDIDATE = " 
-        << currentfile << " : " 
-        << run << ":" 
-        << lumi << ":" 
-        << evtID << endl;
+      if (isSeagull && !isCowboy) 
+          cout << "Seagull = "; 
+      if (!isSeagull && isCowboy) 
+          cout << "Cowboy = " ;
+      if (isSeagull && isCowboy) 
+          cout << "/!\\ Both = "; 
+      if (!isSeagull && !isCowboy)
+          cout << "/!\\ None = " ;
+      cout << currentfile << " : " 
+           << run << ":" 
+           << lumi << ":" 
+           << evtID << endl;
     }   
 
     //===============================================================================================
@@ -1130,6 +1178,9 @@ void MyAna::Loop()
     cout << "... good pairing                                                = " << counter[12] << endl;
     cout << "... wrong pairing                                               = " << counter[13] << endl;
   }
+  cout << "========================================================================" << endl;
+  cout << "Seagulls                                                  = " << counter[14] << endl; 
+  cout << "Cowboys                                                   = " << counter[15] << endl; 
   cout << "========================================================================" << endl;
   cout << "Total Number of events skimmed                            = "  << nwrite	 << endl;
   cout << "========================================================================" << endl;
