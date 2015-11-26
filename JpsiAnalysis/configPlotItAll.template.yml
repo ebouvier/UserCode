@@ -411,6 +411,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-cuts":
     y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-show-zero: true
     show-ratio: true
     fit-ratio: false
     show-errors: true
@@ -618,6 +619,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-large":
     y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-show-zero: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -625,6 +627,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":
     y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-show-zero: true
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
