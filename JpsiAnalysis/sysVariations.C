@@ -341,15 +341,15 @@ int sysVariations(TString date = "", TString ref = "", TString down = "", TStrin
     outdir += out+"/";
     gROOT->ProcessLine(".! mkdir "+outdir);
 
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtIsoLept", "p_{T}(leading lepton) (GeV/c)");
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "NJets20", "Number of jets with p_{T}>20 GeV/c");
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtLeadJet1", "p_{T}(1st jet) (GeV/c)");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtIsoLept", "p_{T}(leading lepton) (GeV)");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "NJets20", "Number of jets with p_{T}>20 GeV");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtLeadJet1", "p_{T}(1st jet) (GeV)");
     treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "MetMet", "MET (GeV)");
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "MJpsi", "J/#psi mass (GeV/c^{2})");
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtJpsi", "p_{T} (J/#psi) (GeV/c)");
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "MTriLept-allPair", "M(J/#psi+l) (GeV/c^{2})");
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtTriLept", "p_{T}(J/#psi+l) (GeV/c)");
-    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtJetJpsi", "p_{T}(jets with a J/#psi) (GeV/c)");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "MJpsi", "J/#psi mass (GeV)");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtJpsi", "p_{T} (J/#psi) (GeV)");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "MTriLept-allPair", "M(J/#psi+l) (GeV)");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtTriLept", "p_{T}(J/#psi+l) (GeV)");
+    treatHisto(date, ref, down, up, outdir, channel_tex, lumi, "PtJetJpsi", "p_{T}(jets with a J/#psi) (GeV)");
 
     return 0;
   }

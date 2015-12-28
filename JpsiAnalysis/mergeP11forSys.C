@@ -157,7 +157,7 @@ int mergeP11forSys(TString date, TString version, TString channel){
 
   TFile *outfi = TFile::Open(dir+"All_172_5.root","RECREATE");
   TH1F *outhisto = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
-  outhisto->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+  outhisto->SetXTitle("M(J/#psi+l) (GeV)");
   outhisto->SetYTitle("Events / 10");
   TTree *outtree = new TTree("MTriLept","MTriLept");
   float mass; float weight;

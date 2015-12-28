@@ -3,40 +3,33 @@
 import math, os, string, sys
 
 statErr = [
-        "Statistical Error", -3.028, 3.028
+        "Statistical Error", -3.008, 3.008
         ]
-ref = 172.792
+ref = 172.789
 systErr = [
         ["Experimental uncertainties", [
-            ["Fit calibration", ref-0.214, ref+0.214],
-            ["FSR of $\\text{J}/\\psi$ daughters", 172.792, 172.594],
-            #["Jet energy scale", 172.783-0.002, 172.788+0.002], 
-            #["Jet energy resolution", 172.787-0.002, 172.792+0.002], 
+            ["Fit calibration", ref-0.212, ref+0.212],
+            ["Muon momentum scale", 172.748, 172.920],
+            ["Electron momentum scale", 172.720, 172.941],
+            ["Modeling of the $\\text{J}/\\psi$ mass distribution", 172.696, ref],
             ["Jet energy scale", 172.783, 172.788], 
             ["Jet energy resolution", 172.787, 172.792], 
-            ["Pile up", 172.928, 172.758],
-            ["Muon momentum scale", 173.274, 172.324],
-            #["Muon momentum resolution", 172.082, 173.537], # not cited in https://twiki.cern.ch/twiki/bin/view/CMS/TopMassSystematics
-            ["Electron momentum scale", 173.491, 172.145],
-            #["Electron momentum resolution", 171.276, 174.675],# not cited in https://twiki.cern.ch/twiki/bin/view/CMS/TopMassSystematics
-            ["Trigger scale factors", 172.792, 172.385],
-            #["Non-$\\text{t}\\bar{\\text{t}}$ background", 172.815+0.002, 172.789-0.002] 
-            ["Non-$\\text{t}\\bar{\\text{t}}$ background", 172.815, 172.789] 
+            ["Trigger scale factors", 172.379, ref],
+            ["Non-$\\text{t}\\bar{\\text{t}}$ background", 172.785, 172.811], 
+            ["Pile up", 172.747, 172.917],
             ]],
-        ["Modeling of perturbative QCD", [
-            ["Renormalization scale", 173.263, 172.637],
-            ["ME-PS matching threshold", 172.925-0.190, 173.335],
-            ["Parton density functions", 172.407, 172.909],
+        ["Theoretical uncertainties", [
             #["ME generator", FIXME, FIXME],
-            ["top-quark transverse momentum", 172.792, 172.165]
-            ]],
-        ["Modeling of soft QCD", [
-            #["Underlying event", FIXME, FIXME],
-            #["Color reconnection modeling", FIXME, FIXME]
-            #["b fragmentation", FIXME, FIXME]
+            ["Renormalization scale", 172.252, 172.873],
+            ["ME-PS matching threshold", 172.763, 173.373],
+            ["Underlying event", 172.656, 172.863],
+            ["Color reconnection modelling", 172.745, 172.811],
+            ["top-quark transverse momentum", 172.154, ref],
+            ["b fragmentation", 172.430, 173.018],
+            ["Parton density functions", 172.397, 172.901],
             ]],
         ]
-dir = os.path.join("15Jul20", "Results")
+dir = os.path.join("15Dec15", "Results")
 if not os.path.isdir(dir):
     os.mkdir(dir)
 
@@ -56,14 +49,14 @@ tex.write("\n%%%\n")
 tex.write("\\begin{table}[b!] \n")
 tex.write("\\begin{center} \n")
 tex.write("\\caption{\label{results:tab1} \n")
-tex.write("Statistical and systematic uncertainties ($\\text{GeV/c}^2$). \n")
+tex.write("Statistical and systematic uncertainties ($\\text{GeV}$). \n")
 tex.write("Electron and muon channels are summed before fitting. \n")
 tex.write("Systematic uncertainties are computed by fitting, with the \n") 
 tex.write("nominal PDF, toys of Poisson($N^{\\text{MC}}$) events, generated from \n")
-tex.write("the variations for $M_\\text{top}=172.5\\;\\text{GeV/c}^2$. \n")
+tex.write("the variations for $M_\\text{top}=172.5\\;\\text{GeV}$. \n")
 tex.write("} \n")
 tex.write("\\begin{tabular}{lc} \n")
-tex.write("Source & Value ($\\text{GeV/c}^2$) \\\\ \n")
+tex.write("Source & Value ($\\text{GeV}$) \\\\ \n")
 tex.write("\\hline\n")
 
 # Erreurs syst

@@ -349,7 +349,7 @@ int fitMJpsi(TString date = "", TString version = "", TString decay = "", TStrin
 
     TFile *res = TFile::Open(fileData);
 
-    RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV/c^{2}");
+    RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV");
     RooRealVar mean_gaus("mean_gaus", "mass_gaus", 3.09, 3.07, 3.11);
     RooRealVar width_gaus("width_gaus", "width_gaus", 0.04, 0.02, 0.06);
     RooRealVar mean_cball("mean_cball", "mass_cball", 3.09, 3.07, 3.11);
@@ -375,13 +375,13 @@ int fitMJpsi(TString date = "", TString version = "", TString decay = "", TStrin
     TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
     leg->SetTextSize(0.025);
     leg->SetHeader("Gaussian fit parameters:");
-    leg->AddEntry(massframe->findObject("bleu"), TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",mean_gaus.getVal(),mean_gaus.getError()), "l");
-    leg->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",width_gaus.getVal(),width_gaus.getError()), "");
+    leg->AddEntry(massframe->findObject("bleu"), TString::Format("#mu = (%4.3f #pm %4.3f) GeV",mean_gaus.getVal(),mean_gaus.getError()), "l");
+    leg->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",width_gaus.getVal(),width_gaus.getError()), "");
     TLegend *leg2 = new TLegend(0.58,0.72,0.93,0.82,NULL,"brNDC");
     leg2->SetTextSize(0.025);
     leg2->SetHeader("Crystal Ball fit parameters:");
-    leg2->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",mean_cball.getVal(),mean_cball.getError()), "");
-    leg2->AddEntry(massframe->findObject("rouge"), TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",width_cball.getVal(),width_cball.getError()), "l");
+    leg2->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",mean_cball.getVal(),mean_cball.getError()), "");
+    leg2->AddEntry(massframe->findObject("rouge"), TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",width_cball.getVal(),width_cball.getError()), "l");
     leg2->AddEntry((TObject*)0, TString::Format("#alpha = %2.1f, n = %2.1f",alpha_cball.getVal(),n_cball.getVal()), "");
     leg_myStyle(leg);
     leg_myStyle(leg2);

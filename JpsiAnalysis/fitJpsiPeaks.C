@@ -299,7 +299,7 @@ double *cbPeak(TString inFile, TString outFile, TString channel, double lumi)
 
   TFile *res = TFile::Open(inFile);
 
-  RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV/c^{2}");
+  RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV");
   RooRealVar mean_cball("mean_cball", "mass_cball", 3.09, 3.07, 3.11);
   RooRealVar width_cball("width_cball", "width_cball", 0.035, 0.02, 0.05);
   RooRealVar alpha_cball("alpha_cball", "alpha_cball", 1.8);
@@ -309,19 +309,19 @@ double *cbPeak(TString inFile, TString outFile, TString channel, double lumi)
   h_myStyle(histo,38,38,3002,histo->GetMinimum(),1.2*histo->GetMaximum(),510,510,20,38,1.,0.);
   RooDataHist *datahist = new RooDataHist("datahist", "datahist", RooArgList(mjpsi), histo, 1.);
   RooCBShape pdf("CBall", "CBall", mjpsi, mean_cball, width_cball, alpha_cball, n_cball);
-  pdf.fitTo(*datahist, Range(3., 3.2), SumW2Error(kTRUE), SumW2Error(kTRUE));
+  pdf.fitTo(*datahist, Range(3.03, 3.15), SumW2Error(kTRUE), SumW2Error(kTRUE));
 
   TCanvas *cn = new TCanvas("cn", "cn", 800, 800);
   cn->cd();
   RooPlot *massframe = mjpsi.frame();
   datahist->plotOn(massframe, DataError(RooAbsData::SumW2)); //, MarkerColor(38), LineColor(38));
-  pdf.plotOn(massframe, LineColor(50), Range(3., 3.2), Name("rouge"));
+  pdf.plotOn(massframe, LineColor(50), Range(3.03, 3.15), Name("rouge"));
   massframe->Draw();
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   leg->SetTextSize(0.025);
   leg->SetHeader("Crystal Ball fit parameters:");
-  leg->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",mean_cball.getVal(),mean_cball.getError()), "");
-  leg->AddEntry(massframe->findObject("rouge"), TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",width_cball.getVal(),width_cball.getError()), "l");
+  leg->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",mean_cball.getVal(),mean_cball.getError()), "");
+  leg->AddEntry(massframe->findObject("rouge"), TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",width_cball.getVal(),width_cball.getError()), "l");
   leg->AddEntry((TObject*)0, TString::Format("#alpha = %2.1f, n = %2.1f",alpha_cball.getVal(),n_cball.getVal()), "");
   leg_myStyle(leg);
   leg->Draw("same");
@@ -354,7 +354,7 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
 
   TFile *res = TFile::Open(inFile);
 
-  RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV/c^{2}");
+  RooRealVar mjpsi("mass", "M_{J/#psi}", 3., 3.2, "GeV");
   RooRealVar mean_gaus("mean_gaus", "mass_gaus", 3.09, 3.07, 3.11);
   RooRealVar width_gaus("width_gaus", "width_gaus", 0.04, 0.02, 0.06);
 
@@ -376,8 +376,8 @@ double *gPeak(TString inFile, TString outFile, TString channel, double lumi)
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   leg->SetTextSize(0.025);
   leg->SetHeader("Gaussian fit parameters:");
-  leg->AddEntry(massframe->findObject("bleu"), TString::Format("#mu = (%4.4f #pm %4.4f) GeV/c^{2}",mean_gaus.getVal(),mean_gaus.getError()), "l");
-  leg->AddEntry((TObject*)0, TString::Format("#sigma = (%4.4f #pm %4.4f) GeV/c^{2}",width_gaus.getVal(),width_gaus.getError()), "");
+  leg->AddEntry(massframe->findObject("bleu"), TString::Format("#mu = (%4.4f #pm %4.4f) GeV",mean_gaus.getVal(),mean_gaus.getError()), "l");
+  leg->AddEntry((TObject*)0, TString::Format("#sigma = (%4.4f #pm %4.4f) GeV",width_gaus.getVal(),width_gaus.getError()), "");
   leg_myStyle(leg);
   leg->Draw("same");
   massframe->Draw("same");
@@ -466,9 +466,9 @@ int fitJpsiPeaks(TString date = "", TString version = "", TString decay = "", TS
 
     cout << "\n===================================================\n" <<endl;
 
-    TString res_data = TString::Format("For data: M_{J/#psi} = (%4.4f #pm %4.4f) GeV/c^{2}", mjpsi_data[0], mjpsi_data[1]);
-    TString res_mc   = TString::Format("For MC  : M_{J/#psi} = (%4.4f #pm %4.4f) GeV/c^{2}", mjpsi_mc[0], mjpsi_mc[1]);
-    TString res = TString::Format("\n\t\t\t #deltaM_{J/#psi} = (%4.4f #pm %4.4f) GeV/c^{2}", fabs(mjpsi_mc[0]-mjpsi_data[0]), mjpsi_data[1]+mjpsi_mc[1]);
+    TString res_data = TString::Format("For data: M_{J/#psi} = (%4.4f #pm %4.4f) GeV", mjpsi_data[0], mjpsi_data[1]);
+    TString res_mc   = TString::Format("For MC  : M_{J/#psi} = (%4.4f #pm %4.4f) GeV", mjpsi_mc[0], mjpsi_mc[1]);
+    TString res = TString::Format("\n\t\t\t #deltaM_{J/#psi} = (%4.4f #pm %4.4f) GeV", fabs(mjpsi_mc[0]-mjpsi_data[0]), mjpsi_data[1]+mjpsi_mc[1]);
 
     cout << res_data << endl;
     cout << res_mc << endl;

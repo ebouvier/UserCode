@@ -32,7 +32,7 @@ int mergeMC(TString date, TString version, TString channel){
   vector<TString> mtop; mtop.push_back("166"); mtop.push_back("169"); mtop.push_back("171"); mtop.push_back("172"); mtop.push_back("173"); mtop.push_back("175"); mtop.push_back("178"); 
 
   for (unsigned int itop = 0; itop < mtop.size(); itop++) {
-    cout << "\n" << mtop[itop] << " GeV/c2" << endl;
+    cout << "\n" << mtop[itop] << " GeV" << endl;
     vector<TString> finames;
     finames.push_back("T_s-channel.root"); 
     finames.push_back("T_tW-channel.root");
@@ -157,7 +157,7 @@ int mergeMC(TString date, TString version, TString channel){
 
     TFile *outfi = TFile::Open(dir+"All_"+mtop[itop]+"_5.root","RECREATE");
     TH1F *outhisto = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
-    outhisto->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+    outhisto->SetXTitle("M(J/#psi+l) (GeV)");
     outhisto->SetYTitle("Events / 10");
     TTree *outtree = new TTree("MTriLept","MTriLept");
     float mass; float weight;

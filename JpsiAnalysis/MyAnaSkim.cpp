@@ -3,6 +3,8 @@
 #include <memory>
 #include "MyAna.h"
 #include "HiggsTriggerEfficiencyProvider.h"
+#include "BfragWeightsProvider.h"
+#include "JpsiWeightsProvider.h"
 #include "PUReweighter.h"
 
 
@@ -77,19 +79,19 @@ void MyAna::Loop()
   TH1F* _h_cuts_electrons_n      = new TH1F("NElectrons-cuts", "NElectrons-cuts", 4, 0., 4.);
   _h_cuts_electrons_n->SetXTitle("Number of isolated e(before cut)");
   TH1F* _h_cuts_jet20_n          = new TH1F("NJets20-cuts", "NJets20-cuts", 15, 0., 15.);
-  _h_cuts_jet20_n->SetXTitle("Number of jets with p_{T} > 20 GeV/c (before cut)");
+  _h_cuts_jet20_n->SetXTitle("Number of jets with p_{T} > 20 GeV (before cut)");
   TH1F* _h_cuts_jet30_n          = new TH1F("NJets30-cuts", "NJets30-cuts", 15, 0., 15.);
-  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV/c (before cut)");
+  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV (before cut)");
   TH1F* _h_cuts_jet40_n          = new TH1F("NJets40-cuts", "NJets40-cuts", 15, 0., 15.);
-  _h_cuts_jet40_n->SetXTitle("Number of jets with p_{T} > 40 GeV/c (before cut)");
+  _h_cuts_jet40_n->SetXTitle("Number of jets with p_{T} > 40 GeV (before cut)");
   TH1F* _h_cuts_jet50_n          = new TH1F("NJets50-cuts", "NJets50-cuts", 15, 0., 15.);
-  _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV/c (before cut)");
+  _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV (before cut)");
   TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 6, 0., 6.);
   _h_cuts_csvJet20_n->SetXTitle("Number of CSV b-tagged jets (before cut)");
   TH1F* _h_large_jpsi_m          = new TH1F("MJpsi-large", "MJpsi-large", 24, 2.8, 3.4);
-  _h_large_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  _h_large_jpsi_m->SetXTitle("J/#psi mass (GeV)");
   TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 8, 3., 3.2);
-  _h_cuts_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2}) (before cut)");
+  _h_cuts_jpsi_m->SetXTitle("J/#psi mass (GeV) (before cut)");
   TH1F* _h_cuts_jpsi_n           = new TH1F("NJpsi-cuts", "NJpsi-cuts", 3, 0., 3.);
   _h_cuts_jpsi_n->SetXTitle("Number of J/#psi (before cut)");
   TH1F* _h_cuts_jpsi_chi2        = new TH1F("Chi2Jpsi-cuts", "Chi2Jpsi-cuts", 32, 0., 16.);
@@ -104,7 +106,7 @@ void MyAna::Loop()
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of leading leptons");
   TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 30, 0., 300.);   
-  _h_isoLept_pt->SetXTitle("p_{T}(leading lepton) (GeV/c)");
+  _h_isoLept_pt->SetXTitle("p_{T}(leading lepton) (GeV)");
   TH1F* _h_isoLept_eta            = new TH1F("EtaIsoLept", "EtaIsoLept", 30, -3., 3.); 
   _h_isoLept_eta->SetXTitle("#eta(leading lepton)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
@@ -113,9 +115,9 @@ void MyAna::Loop()
   _h_isoLept_pfiso->SetXTitle("lepton isolation");
 
   TH1F* _h_jet20_n                = new TH1F("NJets20", "NJets20", 11, 0., 11.); 
-  _h_jet20_n->SetXTitle("Number of jets with p_{T}>20 GeV/c");
+  _h_jet20_n->SetXTitle("Number of jets with p_{T}>20 GeV");
   TH1F* _h_jet20_pt               = new TH1F("PtJets20", "PtJets20", 25, 0., 500.); 
-  _h_jet20_pt->SetXTitle("p_{T}(jets) (GeV/c)");
+  _h_jet20_pt->SetXTitle("p_{T}(jets) (GeV)");
   TH1F* _h_jet20_eta              = new TH1F("EtaJets20", "EtaJets20", 30, -3., 3);
   _h_jet20_eta->SetXTitle("#eta(jets)");
   TH1F* _h_jet20_phi              = new TH1F("PhiJets20", "PhiJets20", 32, -3.2, 3.2);
@@ -123,34 +125,34 @@ void MyAna::Loop()
   TH1F* _h_jet20_csv              = new TH1F("CsvJets20", "CsvJets20", 50, 0., 1.);
   _h_jet20_csv->SetXTitle("CSV discriminant");
   TH1F* _h_csvJet20_n             = new TH1F("NCsvJets20", "NCsvJets20", 5, 0., 5.); 
-  _h_csvJet20_n->SetXTitle("Number of CSV b-tagged jets with p_{T}>20 GeV/c");
+  _h_csvJet20_n->SetXTitle("Number of CSV b-tagged jets with p_{T}>20 GeV");
   TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 11, 0., 11.);
-  _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
+  _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV");
   TH1F* _h_jet40_n                = new TH1F("NJets40", "NJets40", 9, 0., 9.);
-  _h_jet40_n->SetXTitle("Number of jets with p_{T}>40 GeV/c");
+  _h_jet40_n->SetXTitle("Number of jets with p_{T}>40 GeV");
   TH1F* _h_jet50_n                = new TH1F("NJets50", "NJets50", 8, 0., 8.);
-  _h_jet50_n->SetXTitle("Number of jets with p_{T}>50 GeV/c");
+  _h_jet50_n->SetXTitle("Number of jets with p_{T}>50 GeV");
 
   TH1F* _h_leadJet1_pt            = new TH1F("PtLeadJet1", "PtLeadJet1", 25, 0., 500.); 
-  _h_leadJet1_pt->SetXTitle("p_{T}(1st jet) (GeV/c)");
+  _h_leadJet1_pt->SetXTitle("p_{T}(1st jet) (GeV)");
   TH1F* _h_leadJet1_eta           = new TH1F("EtaLeadJet1", "EtaLeadJet1", 25, -5., 5);
   _h_leadJet1_eta->SetXTitle("#eta(1st jet)");
   TH1F* _h_leadJet1_phi           = new TH1F("PhiLeadJet1", "PhiLeadJet1", 32, -3.2, 3.2);
   _h_leadJet1_phi->SetXTitle("#phi(1st jet)");
   TH1F* _h_leadJet2_pt            = new TH1F("PtLeadJet2", "PtLeadJet2", 25, 0., 500.); 
-  _h_leadJet2_pt->SetXTitle("p_{T}(2nd jet) (GeV/c)");
+  _h_leadJet2_pt->SetXTitle("p_{T}(2nd jet) (GeV)");
   TH1F* _h_leadJet2_eta           = new TH1F("EtaLeadJet2", "EtaLeadJet2", 25, -5., 5);
   _h_leadJet2_eta->SetXTitle("#eta(2nd jet)");
   TH1F* _h_leadJet2_phi           = new TH1F("PhiLeadJet2", "PhiLeadJet2", 32, -3.2, 3.2);
   _h_leadJet2_phi->SetXTitle("#phi(2nd jet)");
   TH1F* _h_leadJet3_pt            = new TH1F("PtLeadJet3", "PtLeadJet3", 25, 0., 500.); 
-  _h_leadJet3_pt->SetXTitle("p_{T}(3th jet) (GeV/c)");
+  _h_leadJet3_pt->SetXTitle("p_{T}(3th jet) (GeV)");
   TH1F* _h_leadJet3_eta           = new TH1F("EtaLeadJet3", "EtaLeadJet3", 25, -5., 5);
   _h_leadJet3_eta->SetXTitle("#eta(3th jet)");
   TH1F* _h_leadJet3_phi           = new TH1F("PhiLeadJet3", "PhiLeadJet3", 32, -3.2, 3.2);
   _h_leadJet3_phi->SetXTitle("#phi(3th jet)");
   TH1F* _h_leadJet4_pt            = new TH1F("PtLeadJet4", "PtLeadJet4", 25, 0., 500.); 
-  _h_leadJet4_pt->SetXTitle("p_{T}(4th jet) (GeV/c)");
+  _h_leadJet4_pt->SetXTitle("p_{T}(4th jet) (GeV)");
   TH1F* _h_leadJet4_eta           = new TH1F("EtaLeadJet4", "EtaLeadJet4", 25, -5., 5);
   _h_leadJet4_eta->SetXTitle("#eta(4th jet)");
   TH1F* _h_leadJet4_phi           = new TH1F("PhiLeadJet4", "PhiLeadJet4", 32, -3.2, 3.2);
@@ -161,7 +163,7 @@ void MyAna::Loop()
   TH1F* _h_met_phi                = new TH1F("PhiMet", "PhiMet", 32, -3.2, 3.2);
   _h_met_phi->SetXTitle("#phi(MET)");
   TH1F* _h_W_mt                   = new TH1F("MtW", "MtW", 30, 0., 300.);
-  _h_W_mt->SetXTitle("W transverse mass (GeV/c^{2})");
+  _h_W_mt->SetXTitle("W transverse mass (GeV)");
 
   TH1F* _h_vertex_n               = new TH1F("NVertices", "NVertices", 20, 0., 40.);
   _h_vertex_n->SetXTitle("Number of vertices");
@@ -198,15 +200,15 @@ void MyAna::Loop()
   TH1F* _h_jpsi_n                 = new TH1F("NJpsi", "NJpsi", 3, 0., 3.);
   _h_jpsi_n->SetXTitle("Number of J/#psi");
   TH1F* _h_jpsi_m                 = new TH1F("MJpsi", "MJpsi", 8, 3., 3.2);
-  _h_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  _h_jpsi_m->SetXTitle("J/#psi mass (GeV)");
   /*
   TH1F* _h_jpsi_seagull_m         = new TH1F("MJpsiSeagull", "MJpsiSeagull", 8, 3., 3.2);
-  _h_jpsi_seagull_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  _h_jpsi_seagull_m->SetXTitle("J/#psi mass (GeV)");
   TH1F* _h_jpsi_cowboy_m          = new TH1F("MJpsiCowboy", "MJpsiCowboy", 8, 3., 3.2);
-  _h_jpsi_cowboy_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  _h_jpsi_cowboy_m->SetXTitle("J/#psi mass (GeV)");
   */
   TH1F* _h_jpsi_pt                = new TH1F("PtJpsi", "PtJpsi", 28, 0., 140.);   
-  _h_jpsi_pt->SetXTitle("p_{T} (J/#psi) (GeV/c)");
+  _h_jpsi_pt->SetXTitle("p_{T} (J/#psi) (GeV)");
   TH1F* _h_jpsi_eta               = new TH1F("EtaJpsi", "EtaJpsi", 30, -3., 3.); 
   _h_jpsi_eta->SetXTitle("#eta (J/#psi)");
   TH1F* _h_jpsi_phi               = new TH1F("PhiJpsi", "PhiJpsi", 32, -3.2, 3.2); 
@@ -230,14 +232,14 @@ void MyAna::Loop()
   _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading lepton)");
 
   TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 15, 0., 150.);  
-  _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");
+  _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV)");
   TH1F* _h_muJpsi_eta             = new TH1F("EtaMuJpsi", "EtaMuJpsi", 30, -3., 3.); 
   _h_muJpsi_eta->SetXTitle("#eta(#mu^{#pm})");
   TH1F* _h_muJpsi_phi             = new TH1F("PhiMuJpsi", "PhiMuJpsi", 32, -3.2, 3.2);
   _h_muJpsi_phi->SetXTitle("#phi(#mu^{#pm})");
 
   TH1F* _h_jetJpsi_pt               = new TH1F("PtJetJpsi", "PtJetJpsi", 25, 0., 500.); 
-  _h_jetJpsi_pt->SetXTitle("p_{T}(jets with a J/#psi) (GeV/c)");
+  _h_jetJpsi_pt->SetXTitle("p_{T}(jets with a J/#psi) (GeV)");
   TH1F* _h_jetJpsi_csv              = new TH1F("CsvJetJpsi", "CsvJetJpsi", 50, 0., 1.);
   _h_jetJpsi_csv->SetXTitle("CSV discriminant (jets with a J/#psi)");
   TH1F* _h_jetJpsi_chMuEFrac        = new TH1F("ChMuEFracJetJpsi", "ChMuEFracJetJpsi", 50, 0., 1.);
@@ -256,17 +258,17 @@ void MyAna::Loop()
   _h_jetJpsi_nEFrac->SetXTitle("Neutral energy fraction (jets with a J/#psi)");
 
   TH1F* _h_triLept_m              = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
-  _h_triLept_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+  _h_triLept_m->SetXTitle("M(J/#psi+l) (GeV)");
   TH1F* _h_triLept_seagull_m      = new TH1F("MTriLeptSeagull-allPair", "MTriLeptSeagull-allPair", 25, 0., 250.);
-  _h_triLept_seagull_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+  _h_triLept_seagull_m->SetXTitle("M(J/#psi+l) (GeV)");
   TH1F* _h_triLept_cowboy_m       = new TH1F("MTriLeptCowboy-allPair", "MTriLeptCowboy-allPair", 25, 0., 250.);
-  _h_triLept_cowboy_m->SetXTitle("M(J/#psi+l) (GeV/c^{2})");
+  _h_triLept_cowboy_m->SetXTitle("M(J/#psi+l) (GeV)");
   TH1F* _h_triLept_goodPair_m     = new TH1F("MTriLept-goodPair", "MTriLept-goodPair", 25, 0., 250.);
-  _h_triLept_goodPair_m->SetXTitle("M(J/#psi+l, from same top) (GeV/c^{2})");
+  _h_triLept_goodPair_m->SetXTitle("M(J/#psi+l, from same top) (GeV)");
   TH1F* _h_triLept_wrongPair_m    = new TH1F("MTriLept-wrongPair", "MTriLept-wrongPair", 25, 0., 250.);
-  _h_triLept_wrongPair_m->SetXTitle("M(J/#psi+l, not from same top) (GeV/c^{2})");
+  _h_triLept_wrongPair_m->SetXTitle("M(J/#psi+l, not from same top) (GeV)");
   TH1F* _h_triLept_pt             = new TH1F("PtTriLept", "PtTriLept", 25, 0., 250.); 
-  _h_triLept_pt->SetXTitle("p_{T}(J/#psi+l) (GeV/c)");
+  _h_triLept_pt->SetXTitle("p_{T}(J/#psi+l) (GeV)");
   TH1F* _h_jpsi_resR              = new TH1F("ResRJpsi", "ResRJpsi", 200, 0., 0.1); 
   _h_jpsi_resR->SetXTitle("#DeltaR(gen-reco J/#psi)");
   TH1F* _h_jpsi_resPt 	          = new TH1F("ResPtJpsi", "ResPtJpsi", 20,0.,0.2); 
@@ -277,9 +279,9 @@ void MyAna::Loop()
   _h_isoLept_resPt->SetXTitle("#Deltap_{T}(gen-reco iso lepton)/p_{T}^{gen}(iso lepton)");
 
   TH1F* _h_bjj_m                  = new TH1F("bjjMass", "bjjMass", 25, 0., 500.);
-  _h_bjj_m->SetXTitle("M(bjj) (GeV/c^{2})");
+  _h_bjj_m->SetXTitle("M(bjj) (GeV)");
   TH1F* _h_W_m                    = new TH1F("WMass", "WMass", 20, 0., 200.);
-  _h_W_m->SetXTitle("W mass (GeV/c^{2})");
+  _h_W_m->SetXTitle("W mass (GeV)");
 
   TTree* _t_triLept_m       = new TTree("MTriLept","MTriLept");
   float triLept_mass, triLept_weight;
@@ -423,8 +425,8 @@ void MyAna::Loop()
     if (njet40 < 2) continue;
     ++counter[1];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=2 jets with p_{T}>40 GeV/c"; ++iCut; // /!\ no SF 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=2 jets with p_{T}>40 GeV/c");
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=2 jets with p_{T}>40 GeV"; ++iCut; // /!\ no SF 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=2 jets with p_{T}>40 GeV");
 
     //======================================================
     // Good muons selection
@@ -1162,14 +1164,14 @@ void MyAna::Loop()
   cout << "Total Number of events selected                           = "  << nselected << endl;
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
-  cout << "At least 2 jets pT>40 GeV/c                               = " << counter[1] << endl;
+  cout << "At least 2 jets pT>40 GeV                                 = " << counter[1] << endl;
   cout << "At least 1 iso lepton                                     = " << counter[2] << endl;
   cout << "-> 1 iso muon                                             = " << counter[3] << endl;
   cout << "-> 1 iso electron                                         = " << counter[4] << endl;
   cout << "Lepton veto                                               = " << counter[5] << endl;
   cout << "-> no soft electron                                       = " << counter[6] << endl;
   cout << "-> no soft muon                                           = " << counter[7] << endl;
-  cout << ">=1 J/psi in [3, 3.2] GeV/c^2                             = " << counter[8] << endl;
+  cout << ">=1 J/psi in [3, 3.2] GeV                                 = " << counter[8] << endl;
   cout << "... with chi2 < 5                                         = " << counter[9] << endl;
   cout << "... and ctau > 0.005 cm                                   = " << counter[10] << endl;
   if (_isMC && _isSIG) {

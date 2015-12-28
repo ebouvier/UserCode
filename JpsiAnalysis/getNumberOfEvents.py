@@ -56,7 +56,7 @@ aodsim_names = [
     ["tth", "\\ttbar $\\to \\text{bqq} \\text{bqq}$"],
     ["tto", "\\ttbar{} other"],
     ["sto", "single top (t, tW, s channels)"],
-    ["zll", "$\\text{Z} / \\gamma^* \\to \\ell^+ \\ell^- + \\text{jets}$, $\\text{M}_{\\ell\\ell} > 50 \\; \\text{GeV/c}^2$"],
+    ["zll", "$\\text{Z} / \\gamma^* \\to \\ell^+ \\ell^- + \\text{jets}$, $\\text{M}_{\\ell\\ell} > 50 \\; \\text{GeV}$"],
     ["wln", "$\\text{W}^\\pm \\to \\ell^\\pm \\nu + \\text{jets}$"],
     ["dib", "WW/WZ/ZZ"],
     ]

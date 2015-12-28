@@ -341,8 +341,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   //=========================
 
   //---- Variables
-  RooRealVar mt("mt","M_{t}",173.,mtlim[0],mtlim[1], "GeV/c^{2}");
-  RooRealVar mtl("mass", "M_{J/#psi+l}", 0., 250., "GeV/c^{2}");
+  RooRealVar mt("mt","M_{t}",173.,mtlim[0],mtlim[1], "GeV");
+  RooRealVar mtl("mass", "M_{J/#psi+l}", 0., 250., "GeV");
   RooRealVar weight("weight", "weight", 0., 2.);
 
   //=========================
@@ -411,7 +411,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     mc_model.plotOn(mc_frame,Components(mc_pdf_gaus),LineStyle(kDashed),LineColor(kRed));
     mc_frame->Draw();
     TLegend *mc_leg = new TLegend(0.55,0.82,0.9,0.9,NULL,"brNDC");
-    mc_leg->SetHeader(TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[ind]));
+    mc_leg->SetHeader(TString::Format("M_{t} = %4.1f GeV",mtop[ind]));
     mc_leg->SetTextSize(0.035);
     leg_myStyle(mc_leg);
     mc_leg->Draw("same");
@@ -424,7 +424,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     mc_cn->SaveAs(mc_out+".eps");
 
     mc_model.plotOn(frame_comp,LineColor(color[ind]),Name(TString::Format("model%d",ind)));
-    leg_comp->AddEntry(frame_comp->findObject(TString::Format("model%d",ind)), TString::Format("M_{t} = %4.1f GeV/c^{2}",mtop[ind]), "l");
+    leg_comp->AddEntry(frame_comp->findObject(TString::Format("model%d",ind)), TString::Format("M_{t} = %4.1f GeV",mtop[ind]), "l");
 
     mc_fi->Close();
   }
@@ -468,7 +468,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_0 = new TCanvas("cn_par_0","cn_par_0",800,800);
   cn_par_0->cd();
-  gr_myStyle(gr_mean_gaus,"gr_mean_gaus",1,9,1,9,1001,40.,110.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#mu (GeV/c^{2})");
+  gr_myStyle(gr_mean_gaus,"gr_mean_gaus",1,9,1,9,1001,40.,110.,510,510,20,9,0.1,"M_{t} (GeV)","#mu (GeV)");
   gr_mean_gaus->Draw("AP");
   fit_mean_gaus_up->SetLineColor(38); fit_mean_gaus_up->SetLineStyle(2); fit_mean_gaus_up->SetLineWidth(2);
   fit_mean_gaus_up->Draw("same");
@@ -511,7 +511,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_1 = new TCanvas("cn_par_1","cn_par_1",800,800);
   cn_par_1->cd();
-  gr_myStyle(gr_width_gaus,"gr_width_gaus",1,9,1,9,1001,10.,30.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#sigma (GeV/c^{2})");
+  gr_myStyle(gr_width_gaus,"gr_width_gaus",1,9,1,9,1001,10.,30.,510,510,20,9,0.1,"M_{t} (GeV)","#sigma (GeV)");
   gr_width_gaus->Draw("AP");
   fit_width_gaus_up->SetLineColor(38); fit_width_gaus_up->SetLineStyle(2); fit_width_gaus_up->SetLineWidth(2);
   fit_width_gaus_up->Draw("same");
@@ -554,7 +554,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_2 = new TCanvas("cn_par_2","cn_par_2",800,800);
   cn_par_2->cd();
-  gr_myStyle(gr_ncat,"gr_ncat",1,9,1,9,1001,0.,1.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#alpha");
+  gr_myStyle(gr_ncat,"gr_ncat",1,9,1,9,1001,0.,1.,510,510,20,9,0.1,"M_{t} (GeV)","#alpha");
   gr_ncat->Draw("AP");
   fit_ncat_up->SetLineColor(38); fit_ncat_up->SetLineStyle(2); fit_ncat_up->SetLineWidth(2);
   fit_ncat_up->Draw("same");
@@ -597,7 +597,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_3 = new TCanvas("cn_par_3","cn_par_3",800,800);
   cn_par_3->cd();
-  gr_myStyle(gr_gamma_gamma,"gr_gamma_gamma",1,9,1,9,1001,0.,5.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#gamma");
+  gr_myStyle(gr_gamma_gamma,"gr_gamma_gamma",1,9,1,9,1001,0.,5.,510,510,20,9,0.1,"M_{t} (GeV)","#gamma");
   gr_gamma_gamma->Draw("AP");
   fit_gamma_gamma_up->SetLineColor(38); fit_gamma_gamma_up->SetLineStyle(2); fit_gamma_gamma_up->SetLineWidth(2);
   fit_gamma_gamma_up->Draw("same");
@@ -640,7 +640,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_4 = new TCanvas("cn_par_4","cn_par_4",800,800);
   cn_par_4->cd();
-  gr_myStyle(gr_beta_gamma,"gr_beta_gamma",1,9,1,9,1001,0.,60.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#beta (GeV/c^{2})");
+  gr_myStyle(gr_beta_gamma,"gr_beta_gamma",1,9,1,9,1001,0.,60.,510,510,20,9,0.1,"M_{t} (GeV)","#beta (GeV)");
   gr_beta_gamma->Draw("AP");
   fit_beta_gamma_up->SetLineColor(38); fit_beta_gamma_up->SetLineStyle(2); fit_beta_gamma_up->SetLineWidth(2);
   fit_beta_gamma_up->Draw("same");
@@ -683,7 +683,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_5 = new TCanvas("cn_par_5","cn_par_5",800,800);
   cn_par_5->cd();
-  gr_myStyle(gr_mu_gamma,"gr_mu_gamma",1,9,1,9,1001,0.,30.,510,510,20,9,0.1,"M_{t} (GeV/c^{2})","#mu (GeV/c^{2})");
+  gr_myStyle(gr_mu_gamma,"gr_mu_gamma",1,9,1,9,1001,0.,30.,510,510,20,9,0.1,"M_{t} (GeV)","#mu (GeV)");
   gr_mu_gamma->Draw("AP");
   fit_mu_gamma_up->SetLineColor(38); fit_mu_gamma_up->SetLineStyle(2); fit_mu_gamma_up->SetLineWidth(2);
   fit_mu_gamma_up->Draw("same");
@@ -774,7 +774,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   model.plotOn(frame,Components(pdf_gaus),LineStyle(kDashed),LineColor(kRed));
   frame->Draw();
   TLegend *leg_fit_data = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV/c^{2}", mt.getVal(), mt.getError()));
+  leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
   leg_myStyle(leg_fit_data);
   leg_fit_data->Draw("same");
   channel_tex->Draw("same");
@@ -799,7 +799,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   likeframe->SetYTitle("-log(L/L_{max})");
   likeframe->Draw();
   TLegend *leg_nll_data = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV/c^{2}", mt.getVal(), mt.getError()));
+  leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
   leg_myStyle(leg_nll_data);
   leg_nll_data->Draw("same");
   channel_tex->Draw("same");
@@ -821,7 +821,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_res_data->cd();
   frame->Draw();
   TLegend *leg_res_data = new TLegend(0.58,0.42,0.9,0.5,NULL,"brNDC");
-  leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV/c^{2}", mt.getVal(), mt.getError()));
+  leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal(), mt.getError()));
   leg_res_data->SetTextSize(0.035);
   leg_myStyle(leg_res_data);
   leg_res_data->Draw("same");
@@ -997,13 +997,13 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
     TCanvas *cn_mean = new TCanvas("cn_mean","cn_mean",800,800);
     cn_mean->cd();
-    h_myStyle(hist_mean, 0, 38, 1, 38, 3002, 0, 1.1*hist_mean->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#tilde{M}_{t}^{toy} (GeV/c^{2})");
+    h_myStyle(hist_mean, 0, 38, 1, 38, 3002, 0, 1.1*hist_mean->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#tilde{M}_{t}^{toy} (GeV)");
     hist_mean->Draw("hist");
     TLegend *leg_mean = new TLegend(0.7,0.62,0.9,0.7,NULL,"brNDC");
     leg_mean->SetTextSize(0.025);
-    //leg_mean->SetHeader(TString::Format("Generated at M_{t} = %4.2f GeV/c^{2}", mti_v[0]));
+    //leg_mean->SetHeader(TString::Format("Generated at M_{t} = %4.2f GeV", mti_v[0]));
     leg_mean->AddEntry((TObject*)0,"Generated at","");
-    leg_mean->AddEntry((TObject*)0,TString::Format("M_{t} = %4.2f GeV/c^{2}", mti_v[0]),"");
+    leg_mean->AddEntry((TObject*)0,TString::Format("M_{t} = %4.2f GeV", mti_v[0]),"");
     leg_myStyle(leg_mean);
     leg_mean->Draw("same");
     channel_tex->Draw("same");
@@ -1047,7 +1047,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
     TCanvas *cn_err = new TCanvas("cn_err","cn_err",800,800);
     cn_err->cd();
-    h_myStyle(hist_err, 0, 38, 1, 38, 3002, 0, 1.1*hist_err->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#Delta#tilde{M}_{t}^{toy} (GeV/c^{2})");
+    h_myStyle(hist_err, 0, 38, 1, 38, 3002, 0, 1.1*hist_err->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#Delta#tilde{M}_{t}^{toy} (GeV)");
     hist_err->Draw("hist");
     TLegend *leg_err = new TLegend(0.7,0.62,0.9,0.7,NULL,"brNDC");
     leg_err->SetTextSize(0.025);
@@ -1104,8 +1104,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     TLegend *leg_pull = new TLegend(0.67,0.62,0.9,0.7,NULL,"brNDC");
     leg_pull->SetTextSize(0.025);
     leg_pull->SetHeader("Gaussian fit parameters:");
-    leg_pull->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",fit_pull_gaus->GetParameter(1),fit_pull_gaus->GetParError(1)), "");
-    leg_pull->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",fit_pull_gaus->GetParameter(2),fit_pull_gaus->GetParError(2)), "");
+    leg_pull->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(1),fit_pull_gaus->GetParError(1)), "");
+    leg_pull->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(2),fit_pull_gaus->GetParError(2)), "");
     leg_myStyle(leg_pull);
     leg_pull->Draw("same");
     channel_tex->Draw("same");
@@ -1137,7 +1137,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
     TCanvas *cn_residual = new TCanvas("cn_residual","cn_residual",800,800);
     cn_residual->cd();
-    h_myStyle(hist_residual, 0, 38, 1, 38, 3002, 0, 1.1*hist_residual->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#tilde{M}_{t}^{toy}-M_{t}^{gen} (GeV/c^{2})");
+    h_myStyle(hist_residual, 0, 38, 1, 38, 3002, 0, 1.1*hist_residual->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#tilde{M}_{t}^{toy}-M_{t}^{gen} (GeV)");
     hist_residual->Draw("hist");
     hist_residual->Fit("gaus","Q","");
     TF1 *fit_residual_gaus = hist_residual->GetFunction("gaus");
@@ -1146,8 +1146,8 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     TLegend *leg_residual = new TLegend(0.67,0.62,0.9,0.7,NULL,"brNDC");
     leg_residual->SetTextSize(0.025);
     leg_residual->SetHeader("Gaussian fit parameters:");
-    leg_residual->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV/c^{2}",fit_residual_gaus->GetParameter(1),fit_residual_gaus->GetParError(1)), "");
-    leg_residual->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV/c^{2}",fit_residual_gaus->GetParameter(2),fit_residual_gaus->GetParError(2)), "");
+    leg_residual->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(1),fit_residual_gaus->GetParError(1)), "");
+    leg_residual->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(2),fit_residual_gaus->GetParError(2)), "");
     leg_myStyle(leg_residual);
     leg_residual->Draw("same");
     channel_tex->Draw("same");
@@ -1195,7 +1195,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_gr_mean_res = new TCanvas("cn_gr_mean_res","cn_gr_mean_res",800,800);
   cn_gr_mean_res->cd();
   TGraphErrors *gr_mean_res = new TGraphErrors(nttbar,mttbar,mean_residual,0,mean_residual_e);
-  gr_myStyle(gr_mean_res,"gr_mean_res",1,9,1,9,1001,-3.,3.,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","residual mean (GeV/c^{2})");
+  gr_myStyle(gr_mean_res,"gr_mean_res",1,9,1,9,1001,-3.,3.,510,510,20,9,1.1,"M_{t}^{gen} (GeV)","residual mean (GeV)");
   TFitResultPtr fitptr_mean_res = gr_mean_res->Fit("pol1","FS","");
   TF1 *fit_mean_res = gr_mean_res->GetFunction("pol1");
   double err_up_mean_res[nttbar];
@@ -1222,7 +1222,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_down_mean_res->Draw("same");
   TLegend *leg_mean_res = new TLegend(0.4,0.78,0.9,0.88,NULL,"brNDC");
   leg_mean_res->SetTextSize(0.055);
-  leg_mean_res->SetHeader(TString::Format("c = (%0.3f #pm %0.3f) GeV/c^{2}",fit_mean_res->Eval(173.),mean_residual_e[n172p5]));
+  leg_mean_res->SetHeader(TString::Format("c = (%0.3f #pm %0.3f) GeV",fit_mean_res->Eval(173.),mean_residual_e[n172p5]));
   leg_myStyle(leg_mean_res);
   leg_mean_res->Draw("same");
   channel_tex->Draw("same");
@@ -1236,7 +1236,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_gr_width_pull = new TCanvas("cn_gr_width_pull","cn_gr_width_pull",800,800);
   cn_gr_width_pull->cd();
   TGraphErrors *gr_width_pull = new TGraphErrors(nttbar,mttbar,width_pull,0,width_pull_e);
-  gr_myStyle(gr_width_pull,"gr_width_pull",1,9,1,9,1001,0.7,1.3,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","pull width");
+  gr_myStyle(gr_width_pull,"gr_width_pull",1,9,1,9,1001,0.7,1.3,510,510,20,9,1.1,"M_{t}^{gen} (GeV)","pull width");
   TFitResultPtr fitptr_width_pull = gr_width_pull->Fit("pol1","FS","");
   TF1 *fit_width_pull = gr_width_pull->GetFunction("pol1");
   double err_up_width_pull[nttbar];
@@ -1277,7 +1277,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_gr_mean_pull = new TCanvas("cn_gr_mean_pull","cn_gr_mean_pull",800,800);
   cn_gr_mean_pull->cd();
   TGraphErrors *gr_mean_pull = new TGraphErrors(nttbar,mttbar,mean_pull,0,mean_pull_e);
-  gr_myStyle(gr_mean_pull,"gr_mean_pull",1,9,1,9,1001,-1.,1.,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","pull mean");
+  gr_myStyle(gr_mean_pull,"gr_mean_pull",1,9,1,9,1001,-1.,1.,510,510,20,9,1.1,"M_{t}^{gen} (GeV)","pull mean");
   TFitResultPtr fitptr_mean_pull = gr_mean_pull->Fit("pol1","FS","");
   TF1 *fit_mean_pull = gr_mean_pull->GetFunction("pol1");
   double err_up_mean_pull[nttbar];
@@ -1318,7 +1318,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TCanvas *cn_gr_width_res = new TCanvas("cn_gr_width_res","cn_gr_width_res",800,800);
   cn_gr_width_res->cd();
   TGraphErrors *gr_width_res = new TGraphErrors(nttbar,mttbar,width_residual,0,width_residual_e);
-  gr_myStyle(gr_width_res,"gr_width_res",1,9,1,9,1001,1.,8.,510,510,20,9,1.1,"M_{t}^{gen} (GeV/c^{2})","residual width (GeV/c^{2})");
+  gr_myStyle(gr_width_res,"gr_width_res",1,9,1,9,1001,1.,8.,510,510,20,9,1.1,"M_{t}^{gen} (GeV)","residual width (GeV)");
   TFitResultPtr fitptr_width_res = gr_width_res->Fit("pol1","FS","");
   TF1 *fit_width_res = gr_width_res->GetFunction("pol1");
   double err_up_width_res[nttbar];
@@ -1345,7 +1345,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   fit_down_width_res->Draw("same");
   TLegend *leg_width_res = new TLegend(0.4,0.78,0.9,0.88,NULL,"brNDC");
   leg_width_res->SetTextSize(0.055);
-  leg_width_res->SetHeader(TString::Format("c = (%0.3f #pm %0.3f) GeV/c^{2}",fit_width_res->Eval(173.),width_residual_e[n172p5]));
+  leg_width_res->SetHeader(TString::Format("c = (%0.3f #pm %0.3f) GeV",fit_width_res->Eval(173.),width_residual_e[n172p5]));
   leg_myStyle(leg_width_res);
   leg_width_res->Draw("same");
   channel_tex->Draw("same");
@@ -1414,14 +1414,14 @@ int simpleFit(TString date = "", TString version = "", TString decay = "",
     }
 
     if (blind)
-      cout << "Running the blinded analysis: \"data\" is the full-stat MC sample generated at 173.5 GeV/c^{2} " << endl; 
+      cout << "Running the blinded analysis: \"data\" is the full-stat MC sample generated at 173.5 GeV " << endl; 
     else  
       cout << "Running the unblinded analysis: \"data\" is Run2012ABCD" << endl; 
-    cout << "Performing a simple unbinned likelihood fit (gaussian+gamma function) for M_{t} = "<< mtop[0] << ", " << mtop[1] << ", " << mtop[2] << ", " << mtop[3] << ", " << mtop[4] << ", " << mtop [5] << " GeV/c^{2}" << endl;
+    cout << "Performing a simple unbinned likelihood fit (gaussian+gamma function) for M_{t} = "<< mtop[0] << ", " << mtop[1] << ", " << mtop[2] << ", " << mtop[3] << ", " << mtop[4] << ", " << mtop [5] << " GeV" << endl;
     cout << "Toys for leading e type: " << nsample << " toys of Poisson(" << nevt[0] << ") events" << endl;
     cout << "Toys for leading #mu type: " << nsample << " toys of Poisson(" << nevt[1] << ") events" << endl;
     cout << "Toys both types: " << nsample << " toys of Poisson(" << nevt[2] << ") events" << endl;
-    cout << "for M_{t} = " << mtoys[0] << ", " << mtoys[1] << ", " << mtoys[2] << ", " << mtoys[3] << ", " << mtoys[4] << ", " << mtoys[5] << ", " << mtoys[6] << " GeV/c^{2}" << endl;
+    cout << "for M_{t} = " << mtoys[0] << ", " << mtoys[1] << ", " << mtoys[2] << ", " << mtoys[3] << ", " << mtoys[4] << ", " << mtoys[5] << ", " << mtoys[6] << " GeV" << endl;
 
     cout << "\n===================================================\n" <<endl;
 
@@ -1438,9 +1438,9 @@ int simpleFit(TString date = "", TString version = "", TString decay = "",
     cout << "\n===================================================\n" <<endl;
 
     double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
+    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV", mtop_combi[0], mtop_combi[1]);
     cout << result1 << endl;
-    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
+    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV", mtop_all[0], mtop_all[1]);
     cout << result2 << endl;
 
     return 0;

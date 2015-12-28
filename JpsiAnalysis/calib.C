@@ -301,7 +301,7 @@ double *binnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *chan
 
   TFile *res = TFile::Open(fiName);
 
-  RooRealVar mtl("mass", "M_{J/#psi+l}", 0., 250., "GeV/c^{2}");
+  RooRealVar mtl("mass", "M_{J/#psi+l}", 0., 250., "GeV");
   //RooRealVar mean("mean", "mass", (xlim[1]+xlim[0])/2., (xlim[1]+3.*xlim[0])/4., (3.*xlim[1]+xlim[0])/4.);
   RooRealVar mean("mean", "mass", 70., 60., 80.);
   RooRealVar width("width", "width", 25., 15., 40.);
@@ -321,9 +321,9 @@ double *binnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *chan
   histo->Draw("samehist");
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   if (mtop < 1e-6)
-    leg->SetHeader(TString::Format("#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV", mean.getVal(), mean.getError()));
   else
-    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV}{#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV}", mtop+0.5, mean.getVal(), mean.getError()));
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
@@ -366,7 +366,7 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
 
   TFile *res = TFile::Open(fiName);
 
-  RooRealVar mtl("mass", "M_{J/#psi+l}", 0., 250., "GeV/c^{2}");
+  RooRealVar mtl("mass", "M_{J/#psi+l}", 0., 250., "GeV");
   RooRealVar weight("weight", "weight", 0., 2.);
   //RooRealVar mean("mean", "mass", (xlim[1]+xlim[0])/2., (xlim[1]+3.*xlim[0])/4., (3.*xlim[1]+xlim[0])/4.);
   RooRealVar mean("mean", "mass", 70., 60., 80.);
@@ -388,9 +388,9 @@ double *unbinnedFit(TString fiName, vector<double> xlim, double mtop, TLatex *ch
   massframe->Draw();
   TLegend *leg = new TLegend(0.58,0.82,0.93,0.92,NULL,"brNDC");
   if (mtop < 1e-6)
-    leg->SetHeader(TString::Format("#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV", mean.getVal(), mean.getError()));
   else
-    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV/c^{2}}{#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}}", mtop+0.5, mean.getVal(), mean.getError()));
+    leg->SetHeader(TString::Format("#splitline{M_{t}^{gen} = %3.1f GeV}{#tilde{M}_{J/#psi+l} = (%3.1f #pm %3.1f) GeV}", mtop+0.5, mean.getVal(), mean.getError()));
   leg_myStyle(leg);
   leg->Draw("same");
   channel_tex->Draw("same");
@@ -516,7 +516,7 @@ double *treat(TString fileData, double lumi, TString decay, vector<double> mtop,
   
   TCanvas *cn_calib = new TCanvas("cn_calib", "cn_calib", 800, 800);
   cn_calib->cd();
-  grapherrors_myStyle(gr,"gr",2,30,1,30,1001,-1111,-1111,510,510,21,36,1.,"M_{t} (GeV/c^{2})","M_{J/#psi+l} (GeV/c^{2})");
+  grapherrors_myStyle(gr,"gr",2,30,1,30,1001,-1111,-1111,510,510,21,36,1.,"M_{t} (GeV)","M_{J/#psi+l} (GeV)");
   gr->Draw("AP");
   cn_calib->Update();
   fit->SetLineColor(30);
@@ -547,7 +547,7 @@ double *treat(TString fileData, double lumi, TString decay, vector<double> mtop,
     data_fit = binnedFit(indir+fileData, xlim, 0., channel_tex, outdir, lumi);
   double mean_gaus = data_fit[0];
   double err_gaus = data_fit[1];
-  TString mjpsil_res = TString::Format("M_{J/#psi+l} = (%3.1f #pm %3.1f) GeV/c^{2}", mean_gaus, err_gaus);
+  TString mjpsil_res = TString::Format("M_{J/#psi+l} = (%3.1f #pm %3.1f) GeV", mean_gaus, err_gaus);
 
   double x_horiz[4]={gr->GetXaxis()->GetXmin(),fit->GetX(mean_gaus+err_gaus,0,250),fit->GetX(mean_gaus-err_gaus,0,250),gr->GetXaxis()->GetXmin()};
   double y_horiz[4]={mean_gaus+err_gaus,mean_gaus+err_gaus,mean_gaus-err_gaus,mean_gaus-err_gaus};
@@ -574,9 +574,9 @@ double *treat(TString fileData, double lumi, TString decay, vector<double> mtop,
   double p_fit = x_vert_max[3]-x_vert_mean[3];
   double m_fit = x_vert_mean[0]-x_vert_min[0];
   if (fabs(p_fit-m_fit)<0.1) 
-    mt_res= TString::Format("M_{t} = (%0.1f #pm %0.1f #pm %0.1f) GeV/c^{2}", fit->GetX(mean_gaus,0,250), pm_fit, fabs(m_fit));
+    mt_res= TString::Format("M_{t} = (%0.1f #pm %0.1f #pm %0.1f) GeV", fit->GetX(mean_gaus,0,250), pm_fit, fabs(m_fit));
   else 
-    mt_res= TString::Format("M_{t} = (%0.1f #pm %0.1f #splitline{_{+ %0.1f}}{_{- %0.1f}}) GeV/c^{2}", fit->GetX(mean_gaus,0,250),pm_fit, fabs(p_fit), fabs(m_fit));
+    mt_res= TString::Format("M_{t} = (%0.1f #pm %0.1f #splitline{_{+ %0.1f}}{_{- %0.1f}}) GeV", fit->GetX(mean_gaus,0,250),pm_fit, fabs(p_fit), fabs(m_fit));
   double *mtop_res = new double[2];
   mtop_res[0] = fit->GetX(mean_gaus,0,250);
   mtop_res[1] = pm_fit + max(fabs(p_fit), fabs(m_fit));
@@ -589,7 +589,7 @@ double *treat(TString fileData, double lumi, TString decay, vector<double> mtop,
 
   TCanvas *cn_res = new TCanvas("cn_res", "cn_res", 800, 800);
   cn_res->cd();
-  grapherrors_myStyle(gr,"gr",2,30,1,30,1001,-1111,-1111,510,510,21,36,1.,"M_{t} (GeV/c^{2})","M_{J/#psi+l} (GeV/c^{2})");
+  grapherrors_myStyle(gr,"gr",2,30,1,30,1001,-1111,-1111,510,510,21,36,1.,"M_{t} (GeV)","M_{J/#psi+l} (GeV)");
   gr->Draw("AP");
   cn_res->Update();
   fit->SetLineColor(30);
@@ -644,7 +644,7 @@ double *treat(TString fileData, double lumi, TString decay, vector<double> mtop,
 
   cout << "\n=============== " << channel <<" =================\n" <<endl;
   for (unsigned int itop = 0; itop < numberOfPoints; itop++)
-    cout << "M_{top} = "<< x[itop] << " GeV/c^{2}, #tilde{M}_{J/#psi+l} = (" << y[itop] << " +/- "<< ey[itop] << ") GeV/c^{2}" << endl;
+    cout << "M_{top} = "<< x[itop] << " GeV, #tilde{M}_{J/#psi+l} = (" << y[itop] << " +/- "<< ey[itop] << ") GeV" << endl;
   cout << "\nCalibration:" << endl;
   cout << "#chi^{2}/Ndof = " << chi2/ndf << endl;
   cout << "slope = " << slope << " +/- " << errSlope << endl;
@@ -713,9 +713,9 @@ int calib(TString date = "", TString version = "", TString decay = "", int binne
     cout << "\n===================================================\n" <<endl;
 
     double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_combi[0], mtop_combi[1]);
+    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV", mtop_combi[0], mtop_combi[1]);
     cout << result1 << endl;
-    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV/c^{2}", mtop_all[0], mtop_all[1]);
+    TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.1f #pm %3.1f) GeV", mtop_all[0], mtop_all[1]);
     cout << result2 << endl;
    
     return 0;

@@ -3,6 +3,8 @@
 #include <memory>
 #include "MyAna.h"
 #include "HiggsTriggerEfficiencyProvider.h"
+#include "BfragWeightsProvider.h"
+#include "JpsiWeightsProvider.h"
 #include "PUReweighter.h"
 
 
@@ -39,6 +41,9 @@ void MyAna::Loop()
   cout << " => Running on MC     ? " << boolalpha << _isMC  << endl;
   cout << " => Running on Signal ? " << boolalpha << _isSIG << endl;
 
+  // Trigger scalefactors
+  HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
+
   PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram.root"); 
   // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUup.root"); 
   // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUdown.root"); 
@@ -57,6 +62,18 @@ void MyAna::Loop()
   /*
   const LHAPDF::PDFSet set(setname);
   const std::vector<LHAPDF::PDF*> pdfs = set.mkPDFs();
+  */
+
+  /* JpsiWeightsProvider */
+  /*
+  JpsiWeightsProvider* myJpsiReweighter = new JpsiWeightsProvider("15Nov24", "MyAnaEl"); 
+  */
+
+  /* BfragWeightsProvider */
+  /*
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("Inclusive", "Z2star_rbLEPhard", "xb"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("15Dec05", "Z2star_rbLEP", "xjpsixb"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("15Dec05", "Z2star_rbLEP", "xb"); 
   */
 
   _newfile = new TFile(_rootName.c_str(),"RECREATE");
@@ -101,19 +118,19 @@ void MyAna::Loop()
   TH1F* _h_cuts_muons_n          = new TH1F("NMuons-cuts", "NMuons-cuts", 4, 0., 4.);
   _h_cuts_muons_n->SetXTitle("Number of veto #mu (before cut)");
   TH1F* _h_cuts_jet20_n          = new TH1F("NJets20-cuts", "NJets20-cuts", 15, 0., 15.);
-  _h_cuts_jet20_n->SetXTitle("Number of jets with p_{T} > 20 GeV/c (before cut)");
+  _h_cuts_jet20_n->SetXTitle("Number of jets with p_{T} > 20 GeV (before cut)");
   TH1F* _h_cuts_jet30_n          = new TH1F("NJets30-cuts", "NJets30-cuts", 15, 0., 15.);
-  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV/c (before cut)");
+  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV (before cut)");
   TH1F* _h_cuts_jet40_n          = new TH1F("NJets40-cuts", "NJets40-cuts", 15, 0., 15.);
-  _h_cuts_jet40_n->SetXTitle("Number of jets with p_{T} > 40 GeV/c (before cut)");
+  _h_cuts_jet40_n->SetXTitle("Number of jets with p_{T} > 40 GeV (before cut)");
   TH1F* _h_cuts_jet50_n          = new TH1F("NJets50-cuts", "NJets50-cuts", 15, 0., 15.);
-  _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV/c (before cut)");
+  _h_cuts_jet50_n->SetXTitle("Number of jets with p_{T} > 50 GeV (before cut)");
   TH1F* _h_cuts_csvJet20_n       = new TH1F("NCsvJets20-cuts", "NCsvJets20-cuts", 6, 0., 6.);
   _h_cuts_csvJet20_n->SetXTitle("Number of CSV b-tagged jets (before cut)");
   TH1F* _h_large_jpsi_m          = new TH1F("MJpsi-large", "MJpsi-large", 24, 2.8, 3.4);
-  _h_large_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  _h_large_jpsi_m->SetXTitle("J/#psi mass (GeV)");
   TH1F* _h_cuts_jpsi_m           = new TH1F("MJpsi-cuts", "MJpsi-cuts", 8, 3., 3.2);
-  _h_cuts_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2}) (before cut)");
+  _h_cuts_jpsi_m->SetXTitle("J/#psi mass (GeV) (before cut)");
   TH1F* _h_cuts_jpsi_n           = new TH1F("NJpsi-cuts", "NJpsi-cuts", 3, 0., 3.);
   _h_cuts_jpsi_n->SetXTitle("Number of J/#psi (before cut)");
   TH1F* _h_cuts_jpsi_chi2        = new TH1F("Chi2Jpsi-cuts", "Chi2Jpsi-cuts", 32, 0., 16.);
@@ -130,6 +147,14 @@ void MyAna::Loop()
   TH1F* _h_cuts_jpsi_dRLept      = new TH1F("DRJpsiIsoLept-cuts", "DRJpsiIsoLept-cuts", 100, 0., 5.);
   _h_cuts_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading e) (before cut)");
 
+  TH1F* _h_dRJpsibjet_gen   = new TH1F("DeltaRJpsibjet-gen", "DeltaRJpsibjet-gen", 250, 0., 5);
+  _h_dRJpsibjet_gen->SetXTitle("#DeltaR(J/#psi-b jet)^{gen}");
+  TH1F* _h_pTJpsiOverpTbjet_gen  = new TH1F("PtJpsiOverPtbjet-gen", "PtJpsiOverPtbjet-gen", 100, 0., 2.);
+  _h_pTJpsiOverpTbjet_gen->SetXTitle("p_{T}^{gen}(J/#psi)/p_{T}^{gen}(b jet)");
+  TH1F* _h_dRJpsiBhad_gen   = new TH1F("DeltaRJpsiBhad-gen", "DeltaRJpsiBhad-gen", 250, 0., 5);
+  _h_dRJpsiBhad_gen->SetXTitle("#DeltaR(J/#psi-B hadron)^{gen}");
+  TH1F* _h_pTJpsiOverpTBhad_gen  = new TH1F("PtJpsiOverPtBhad-gen", "PtJpsiOverPtBhad-gen", 100, 0., 2.);
+  _h_pTJpsiOverpTBhad_gen->SetXTitle("p_{T}^{gen}(J/#psi)/p_{T}^{gen}(B hadron)");
   TH1F* _h_dRBhadbjet_gen   = new TH1F("DeltaRBhadbjet-gen", "DeltaRBhadbjet-gen", 250, 0., 5);
   _h_dRBhadbjet_gen->SetXTitle("#DeltaR(B hadron-b jet)^{gen}");
   TH1F* _h_pTBhadOverpTbjet_gen  = new TH1F("PtBhadOverPtbjet-gen", "PtBhadOverPtbjet-gen", 100, 0., 2.);
@@ -138,7 +163,7 @@ void MyAna::Loop()
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of leading e");
   TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 30, 0., 300.);   
-  _h_isoLept_pt->SetXTitle("p_{T}(leading e) (GeV/c)");
+  _h_isoLept_pt->SetXTitle("p_{T}(leading e) (GeV)");
   TH1F* _h_isoLept_eta            = new TH1F("EtaIsoLept", "EtaIsoLept", 30, -3., 3.); 
   _h_isoLept_eta->SetXTitle("#eta(leading e)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
@@ -147,44 +172,46 @@ void MyAna::Loop()
   _h_isoLept_pfiso->SetXTitle("e isolation");
 
   TH1F* _h_jet20_n                = new TH1F("NJets20", "NJets20", 11, 0., 11.); 
-  _h_jet20_n->SetXTitle("Number of jets with p_{T}>20 GeV/c");
+  _h_jet20_n->SetXTitle("Number of jets with p_{T}>20 GeV");
   TH1F* _h_jet20_pt               = new TH1F("PtJets20", "PtJets20", 25, 0., 500.); 
-  _h_jet20_pt->SetXTitle("p_{T}(jets) (GeV/c)");
+  _h_jet20_pt->SetXTitle("p_{T}(jets) (GeV)");
   TH1F* _h_jet20_eta              = new TH1F("EtaJets20", "EtaJets20", 30, -3., 3);
   _h_jet20_eta->SetXTitle("#eta(jets)");
   TH1F* _h_jet20_phi              = new TH1F("PhiJets20", "PhiJets20", 32, -3.2, 3.2);
   _h_jet20_phi->SetXTitle("#phi(jets)");
   TH1F* _h_jet20_csv              = new TH1F("CsvJets20", "CsvJets20", 50, 0., 1.);
   _h_jet20_csv->SetXTitle("CSV discriminant");
+  TH1F* _h_jet20_chmult           = new TH1F("ChMultJets20", "ChMultJets20", 50, 0., 50.);
+  _h_jet20_chmult->SetXTitle("Charge multiplicity");
   TH1F* _h_csvJet20_n             = new TH1F("NCsvJets20", "NCsvJets20", 5, 0., 5.); 
-  _h_csvJet20_n->SetXTitle("Number of CSV b-tagged jets with p_{T}>20 GeV/c");
+  _h_csvJet20_n->SetXTitle("Number of CSV b-tagged jets with p_{T}>20 GeV");
   TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 11, 0., 11.);
-  _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
+  _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV");
   TH1F* _h_jet40_n                = new TH1F("NJets40", "NJets40", 9, 0., 9.);
-  _h_jet40_n->SetXTitle("Number of jets with p_{T}>40 GeV/c");
+  _h_jet40_n->SetXTitle("Number of jets with p_{T}>40 GeV");
   TH1F* _h_jet50_n                = new TH1F("NJets50", "NJets50", 8, 0., 8.);
-  _h_jet50_n->SetXTitle("Number of jets with p_{T}>50 GeV/c");
+  _h_jet50_n->SetXTitle("Number of jets with p_{T}>50 GeV");
 
   TH1F* _h_leadJet1_pt            = new TH1F("PtLeadJet1", "PtLeadJet1", 25, 0., 500.); 
-  _h_leadJet1_pt->SetXTitle("p_{T}(1st jet) (GeV/c)");
+  _h_leadJet1_pt->SetXTitle("p_{T}(1st jet) (GeV)");
   TH1F* _h_leadJet1_eta           = new TH1F("EtaLeadJet1", "EtaLeadJet1", 25, -5., 5);
   _h_leadJet1_eta->SetXTitle("#eta(1st jet)");
   TH1F* _h_leadJet1_phi           = new TH1F("PhiLeadJet1", "PhiLeadJet1", 32, -3.2, 3.2);
   _h_leadJet1_phi->SetXTitle("#phi(1st jet)");
   TH1F* _h_leadJet2_pt            = new TH1F("PtLeadJet2", "PtLeadJet2", 25, 0., 500.); 
-  _h_leadJet2_pt->SetXTitle("p_{T}(2nd jet) (GeV/c)");
+  _h_leadJet2_pt->SetXTitle("p_{T}(2nd jet) (GeV)");
   TH1F* _h_leadJet2_eta           = new TH1F("EtaLeadJet2", "EtaLeadJet2", 25, -5., 5);
   _h_leadJet2_eta->SetXTitle("#eta(2nd jet)");
   TH1F* _h_leadJet2_phi           = new TH1F("PhiLeadJet2", "PhiLeadJet2", 32, -3.2, 3.2);
   _h_leadJet2_phi->SetXTitle("#phi(2nd jet)");
   TH1F* _h_leadJet3_pt            = new TH1F("PtLeadJet3", "PtLeadJet3", 25, 0., 500.); 
-  _h_leadJet3_pt->SetXTitle("p_{T}(3th jet) (GeV/c)");
+  _h_leadJet3_pt->SetXTitle("p_{T}(3th jet) (GeV)");
   TH1F* _h_leadJet3_eta           = new TH1F("EtaLeadJet3", "EtaLeadJet3", 25, -5., 5);
   _h_leadJet3_eta->SetXTitle("#eta(3th jet)");
   TH1F* _h_leadJet3_phi           = new TH1F("PhiLeadJet3", "PhiLeadJet3", 32, -3.2, 3.2);
   _h_leadJet3_phi->SetXTitle("#phi(3th jet)");
   TH1F* _h_leadJet4_pt            = new TH1F("PtLeadJet4", "PtLeadJet4", 25, 0., 500.); 
-  _h_leadJet4_pt->SetXTitle("p_{T}(4th jet) (GeV/c)");
+  _h_leadJet4_pt->SetXTitle("p_{T}(4th jet) (GeV)");
   TH1F* _h_leadJet4_eta           = new TH1F("EtaLeadJet4", "EtaLeadJet4", 25, -5., 5);
   _h_leadJet4_eta->SetXTitle("#eta(4th jet)");
   TH1F* _h_leadJet4_phi           = new TH1F("PhiLeadJet4", "PhiLeadJet4", 32, -3.2, 3.2);
@@ -195,7 +222,7 @@ void MyAna::Loop()
   TH1F* _h_met_phi                = new TH1F("PhiMet", "PhiMet", 32, -3.2, 3.2);
   _h_met_phi->SetXTitle("#phi(MET)");
   TH1F* _h_W_mt                   = new TH1F("MtW", "MtW", 30, 0., 300.);
-  _h_W_mt->SetXTitle("W transverse mass (GeV/c^{2})");
+  _h_W_mt->SetXTitle("W transverse mass (GeV)");
 
   TH1F* _h_vertex_n               = new TH1F("NVertices", "NVertices", 20, 0., 40.);
   _h_vertex_n->SetXTitle("Number of vertices");
@@ -232,9 +259,9 @@ void MyAna::Loop()
   TH1F* _h_jpsi_n                 = new TH1F("NJpsi", "NJpsi", 3, 0., 3.);
   _h_jpsi_n->SetXTitle("Number of J/#psi");
   TH1F* _h_jpsi_m                 = new TH1F("MJpsi", "MJpsi", 8, 3., 3.2);
-  _h_jpsi_m->SetXTitle("J/#psi mass (GeV/c^{2})");
+  _h_jpsi_m->SetXTitle("J/#psi mass (GeV)");
   TH1F* _h_jpsi_pt                = new TH1F("PtJpsi", "PtJpsi", 28, 0., 140.);   
-  _h_jpsi_pt->SetXTitle("p_{T} (J/#psi) (GeV/c)");
+  _h_jpsi_pt->SetXTitle("p_{T} (J/#psi) (GeV)");
   TH1F* _h_jpsi_eta               = new TH1F("EtaJpsi", "EtaJpsi", 30, -3., 3.); 
   _h_jpsi_eta->SetXTitle("#eta (J/#psi)");
   TH1F* _h_jpsi_phi               = new TH1F("PhiJpsi", "PhiJpsi", 32, -3.2, 3.2); 
@@ -251,6 +278,8 @@ void MyAna::Loop()
   _h_jpsi_lOverSigma->SetXTitle("(c#tau)/#Delta(c#tau)(J/#psi)");
   TH1F* _h_jpsi_jetPtFrac         = new TH1F("PtFracJpsiJet", "PtFracJpsiJet", 20, 0., 1.);
   _h_jpsi_jetPtFrac->SetXTitle("p_{T}(J/#psi)/p_{T}(jet)");
+  TH1F* _h_jpsiraw_jetPtFrac      = new TH1F("PtFracJpsiRawJet", "PtFracJpsiRawJet", 20, 0., 1.);
+  _h_jpsiraw_jetPtFrac->SetXTitle("p_{T}(J/#psi)/p_{T}(jet)");
 
   TH1F* _h_jpsi_dPhiLept          = new TH1F("DPhiJpsiIsoLept", "DPhiJpsiIsoLept", 16, 0., 4.);
   _h_jpsi_dPhiLept->SetXTitle("#Delta#phi (J/#psi-leading e)");
@@ -258,18 +287,20 @@ void MyAna::Loop()
   _h_jpsi_dRLept->SetXTitle("#DeltaR (J/#psi-leading e)");
 
   TH1F* _h_muJpsi_pt              = new TH1F("PtMuJpsi", "PtMuJpsi", 15, 0., 150.);  
-  _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");
+  _h_muJpsi_pt->SetXTitle("p_{T}(#mu^{#pm}) (GeV)");
   TH1F* _h_muJpsi_pt_zoom         = new TH1F("PtMuJpsi-zoom", "PtMuJpsi-zoom", 20, 0., 10.);  
-  _h_muJpsi_pt_zoom->SetXTitle("p_{T}(#mu^{#pm}) (GeV/c)");
+  _h_muJpsi_pt_zoom->SetXTitle("p_{T}(#mu^{#pm}) (GeV)");
   TH1F* _h_muJpsi_eta             = new TH1F("EtaMuJpsi", "EtaMuJpsi", 30, -3., 3.); 
   _h_muJpsi_eta->SetXTitle("#eta(#mu^{#pm})");
   TH1F* _h_muJpsi_phi             = new TH1F("PhiMuJpsi", "PhiMuJpsi", 32, -3.2, 3.2);
   _h_muJpsi_phi->SetXTitle("#phi(#mu^{#pm})");
 
   TH1F* _h_jetJpsi_pt               = new TH1F("PtJetJpsi", "PtJetJpsi", 25, 0., 500.); 
-  _h_jetJpsi_pt->SetXTitle("p_{T}(jets with a J/#psi) (GeV/c)");
+  _h_jetJpsi_pt->SetXTitle("p_{T}(jets with a J/#psi) (GeV)");
   TH1F* _h_jetJpsi_csv              = new TH1F("CsvJetJpsi", "CsvJetJpsi", 50, 0., 1.);
   _h_jetJpsi_csv->SetXTitle("CSV discriminant (jets with a J/#psi)");
+  TH1F* _h_jetJpsi_chmult           = new TH1F("ChMultJetJpsi", "ChMultJetJpsi", 50, 0., 50.);
+  _h_jetJpsi_chmult->SetXTitle("Charge multiplicity (jets with a J/#psi)");
   TH1F* _h_jetJpsi_chMuEFrac        = new TH1F("ChMuEFracJetJpsi", "ChMuEFracJetJpsi", 50, 0., 1.);
   _h_jetJpsi_chMuEFrac->SetXTitle("#mu^{#pm} energy fraction (jets with a J/#psi)");
   TH1F* _h_jetJpsi_chEMEFrac        = new TH1F("ChEMEFracJetJpsi", "ChEMEFracJetJpsi", 50, 0., 1.);
@@ -286,13 +317,13 @@ void MyAna::Loop()
   _h_jetJpsi_nEFrac->SetXTitle("Neutral energy fraction (jets with a J/#psi)");
 
   TH1F* _h_triLept_m              = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
-  _h_triLept_m->SetXTitle("M(J/#psi+e) (GeV/c^{2})");
+  _h_triLept_m->SetXTitle("M(J/#psi+e) (GeV)");
   TH1F* _h_triLept_goodPair_m     = new TH1F("MTriLept-goodPair", "MTriLept-goodPair", 25, 0., 250.);
-  _h_triLept_goodPair_m->SetXTitle("M(J/#psi+e, from same top) (GeV/c^{2})");
+  _h_triLept_goodPair_m->SetXTitle("M(J/#psi+e, from same top) (GeV)");
   TH1F* _h_triLept_wrongPair_m    = new TH1F("MTriLept-wrongPair", "MTriLept-wrongPair", 25, 0., 250.);
-  _h_triLept_wrongPair_m->SetXTitle("M(J/#psi+e, not from same top) (GeV/c^{2})");
+  _h_triLept_wrongPair_m->SetXTitle("M(J/#psi+e, not from same top) (GeV)");
   TH1F* _h_triLept_pt             = new TH1F("PtTriLept", "PtTriLept", 25, 0., 250.); 
-  _h_triLept_pt->SetXTitle("p_{T}(J/#psi+e) (GeV/c)");
+  _h_triLept_pt->SetXTitle("p_{T}(J/#psi+e) (GeV)");
   TH1F* _h_jpsi_resR              = new TH1F("ResRJpsi", "ResRJpsi", 200, 0., 0.1); 
   _h_jpsi_resR->SetXTitle("#DeltaR(gen-reco J/#psi)");
   TH1F* _h_jpsi_resPt 	          = new TH1F("ResPtJpsi", "ResPtJpsi", 20,0.,0.2); 
@@ -303,9 +334,9 @@ void MyAna::Loop()
   _h_isoLept_resPt->SetXTitle("#Deltap_{T}(gen-reco iso e)/p_{T}^{gen}(iso e)");
 
   TH1F* _h_bjj_m                  = new TH1F("bjjMass", "bjjMass", 25, 0., 500.);
-  _h_bjj_m->SetXTitle("M(bjj) (GeV/c^{2})");
+  _h_bjj_m->SetXTitle("M(bjj) (GeV)");
   TH1F* _h_W_m                    = new TH1F("WMass", "WMass", 20, 0., 200.);
-  _h_W_m->SetXTitle("W mass (GeV/c^{2})");
+  _h_W_m->SetXTitle("W mass (GeV)");
 
   TTree* _t_triLept_m       = new TTree("MTriLept","MTriLept");
   float triLept_mass, triLept_weight;
@@ -529,7 +560,6 @@ void MyAna::Loop()
     ++counter[1];
     if (_isMC) {
       // Trigger scalefactors
-      HiggsTriggerEfficiencyProvider *weight_provider = new HiggsTriggerEfficiencyProvider();
       _weight = _weight*weight_provider->get_weight_isoel(GetP4(electronloose_4vector, indgoodel[0])->Pt(), GetP4(electronloose_4vector, indgoodel[0])->Eta()); 
     }
 
@@ -631,8 +661,8 @@ void MyAna::Loop()
     if (njet40 < 2) continue;
     ++counter[2];
 
-    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=2 jets with p_{T}>40 GeV/c"; ++iCut;  
-    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=2 jets with p_{T}>40 GeV/c");
+    _h_iCut->Fill((float)iCut, _weight); cutName[iCut] = ">=2 jets with p_{T}>40 GeV"; ++iCut;  
+    _h_iCut->GetXaxis()->SetBinLabel(iCut, ">=2 jets with p_{T}>40 GeV");
 
     //======================================================
     // MET
@@ -708,15 +738,6 @@ void MyAna::Loop()
     //======================================================
     // J/psi
     //======================================================
-    
-    // Mass spectrum with sidebands
-    for (int j = 0; j < n_jpsi; ++j) {
-      if (jpsi_vtxchi2[j] > 5.) continue;
-      if (jpsi_L3DoverSigmaL3D[j] < 20.) continue;
-      if (GetP4(jpsi_4vector, j)->M() >= 2.8 && GetP4(jpsi_4vector, j)->M() <= 3.4) {
-        _h_large_jpsi_m->Fill(GetP4(jpsi_4vector,j)->M(), _weight);
-      }
-    }
 
     // Mass
     for (int j = 0; j < n_jpsi; ++j) {
@@ -730,6 +751,23 @@ void MyAna::Loop()
     if (_debug) cout << " Number of J/Psi candidate = " << njpsi << endl;
 
     _h_cuts_jpsi_n->Fill((float)njpsi, _weight);
+    
+    // Mass spectrum with sidebands
+    if (njpsi < 2) {
+      for (int j = 0; j < n_jpsi; ++j) {
+        if (jpsi_vtxchi2[j] > 5.) continue;
+        if (jpsi_L3DoverSigmaL3D[j] < 20.) continue;
+        if (GetP4(jpsi_4vector, j)->M() >= 2.8 && GetP4(jpsi_4vector, j)->M() <= 3.4) {
+          // Jpsi reweighting
+          /*
+          if (_isMC)
+            _h_large_jpsi_m->Fill(GetP4(jpsi_4vector,j)->M(), _weight*myJpsiReweighter->getEventWeight(GetP4(jpsi_4vector, j)->M()));
+          else
+          */
+            _h_large_jpsi_m->Fill(GetP4(jpsi_4vector,j)->M(), _weight);
+        }
+      }
+    }
 
     if (njpsi > 1) cout << "! More than one J/psi (" << njpsi << ") !" << endl;
     if (njpsi != 1) continue;
@@ -794,6 +832,10 @@ void MyAna::Loop()
       _weight = _weight*(*jpsi_mu1_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
       _weight = _weight*(*jpsi_mu2_muon_scaleFactor_looseeff_looseiso)[indgoodjpsi[0]][0]; // 0 for central, 1 for up, 2 for down
       */
+      // Jpsi reweighting
+      /*
+      _weight = _weight*myJpsiReweighter->getEventWeight(GetP4(jpsi_4vector, indgoodjpsi[0])->M());
+      */
       // Top-pt 
       /*
       if (_isTTbar) {
@@ -806,19 +848,57 @@ void MyAna::Loop()
         _weight = _weight*sqrt(topPtWeight);
       }
       */
-      // Pt(B had)/Pt(b jet)
-      double xB = -1.;
-      bool hasBhad = false;
-      bool hasbjet = false;
-      double dRBhadbjetmin = 200.;
+      // Pt(J/psi)/Pt(b jet)
+      double xJpsi = -1.;
+      double dRJpsibjetmin = 200.;
       for (int igenpart = 0; igenpart < n_MCs; igenpart++) {
-        if (GetP4(MC_Bhad_4vector,igenpart)->Pt() != GetP4(MC_Bhad_4vector,igenpart)->Pt() || fabs(GetP4(MC_Bhad_4vector,igenpart)->CosTheta()) > 0.999 || fabs(GetP4(MC_Bhad_4vector,igenpart)->CosTheta()) < 1e-3) continue;
-        hasBhad = true;
+        if (GetP4(MC_JPsi_4vector,igenpart)->Pt() < 1e-4 || GetP4(MC_JPsi_4vector,igenpart)->Pt() != GetP4(MC_JPsi_4vector,igenpart)->Pt() || fabs(GetP4(MC_JPsi_4vector,igenpart)->CosTheta()) > 0.999 || fabs(GetP4(MC_JPsi_4vector,igenpart)->CosTheta()) < 1e-3) continue;
         for (unsigned int igenjet = 0; igenjet < n_jets; igenjet++) {
           if (GetP4(genjet_4vector,igenjet)->Pt() != GetP4(genjet_4vector,igenjet)->Pt() || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) > 0.999 || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) < 1e-3) continue;
           // if (abs(jet_physics_parton_pdgid[igenjet]) != 5) continue;
           if (abs(jet_algo_parton_flavor[igenjet]) != 5) continue;
-          hasbjet = true;
+          double dRJpsibjet = GetP4(genjet_4vector,igenjet)->DeltaR(*GetP4(MC_JPsi_4vector,igenpart)); 
+          if (dRJpsibjet < dRJpsibjetmin) {
+            dRJpsibjetmin = dRJpsibjet;
+            xJpsi = GetP4(MC_JPsi_4vector,igenpart)->Pt()/GetP4(genjet_4vector,igenjet)->Pt();
+          }
+        }
+      }
+      // Bfrag reweighting
+      /*
+      _weight = _weight*myBfragReweighter->getEventWeight(xJpsi);
+      */
+      _h_dRJpsibjet_gen->Fill(dRJpsibjetmin, _weight);
+      _h_pTJpsiOverpTbjet_gen->Fill(xJpsi, _weight);
+      // Pt(J/psi)/Pt(B had)
+      double xJpsixB = -1.;
+      double dRJpsiBhadmin = 200.;
+      for (int igenpart = 0; igenpart < n_MCs; igenpart++) {
+        if (GetP4(MC_JPsi_4vector,igenpart)->Pt() < 1e-4 || GetP4(MC_JPsi_4vector,igenpart)->Pt() != GetP4(MC_JPsi_4vector,igenpart)->Pt() || fabs(GetP4(MC_JPsi_4vector,igenpart)->CosTheta()) > 0.999 || fabs(GetP4(MC_JPsi_4vector,igenpart)->CosTheta()) < 1e-3) continue;
+        for (int jgenpart = 0; jgenpart < n_MCs; jgenpart++) {
+          if (GetP4(MC_Bhad_4vector,jgenpart)->Pt() < 1e-4 || GetP4(MC_Bhad_4vector,jgenpart)->Pt() != GetP4(MC_Bhad_4vector,jgenpart)->Pt() || fabs(GetP4(MC_Bhad_4vector,jgenpart)->CosTheta()) > 0.999 || fabs(GetP4(MC_Bhad_4vector,jgenpart)->CosTheta()) < 1e-3) continue;
+          double dRJpsiBhad = GetP4(MC_Bhad_4vector,jgenpart)->DeltaR(*GetP4(MC_JPsi_4vector,igenpart)); 
+          if (dRJpsiBhad < dRJpsiBhadmin) {
+            dRJpsiBhadmin = dRJpsiBhad;
+            xJpsixB = GetP4(MC_JPsi_4vector,igenpart)->Pt()/GetP4(MC_Bhad_4vector,jgenpart)->Pt();
+          }
+        }
+      }
+      // Bfrag reweighting
+      /*
+      _weight = _weight*myBfragReweighter->getEventWeight(xJpsixB);
+      */
+      _h_dRJpsiBhad_gen->Fill(dRJpsiBhadmin, _weight);
+      _h_pTJpsiOverpTBhad_gen->Fill(xJpsixB, _weight);
+      // Pt(B had)/Pt(b jet)
+      double xB = -1.;
+      double dRBhadbjetmin = 200.;
+      for (int igenpart = 0; igenpart < n_MCs; igenpart++) {
+        if (GetP4(MC_Bhad_4vector,igenpart)->Pt() < 1e-4 || GetP4(MC_Bhad_4vector,igenpart)->Pt() != GetP4(MC_Bhad_4vector,igenpart)->Pt() || fabs(GetP4(MC_Bhad_4vector,igenpart)->CosTheta()) > 0.999 || fabs(GetP4(MC_Bhad_4vector,igenpart)->CosTheta()) < 1e-3) continue;
+        for (unsigned int igenjet = 0; igenjet < n_jets; igenjet++) {
+          if (GetP4(genjet_4vector,igenjet)->Pt() != GetP4(genjet_4vector,igenjet)->Pt() || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) > 0.999 || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) < 1e-3) continue;
+          // if (abs(jet_physics_parton_pdgid[igenjet]) != 5) continue;
+          if (abs(jet_algo_parton_flavor[igenjet]) != 5) continue;
           double dRBhadbjet = GetP4(genjet_4vector,igenjet)->DeltaR(*GetP4(MC_Bhad_4vector,igenpart)); 
           if (dRBhadbjet < dRBhadbjetmin) {
             dRBhadbjetmin = dRBhadbjet;
@@ -826,12 +906,10 @@ void MyAna::Loop()
           }
         }
       }
-      if (xB < 0) {
-        std::cout << "PROBLEME : " ;
-        if (!hasBhad) std::cout << "no B had" << std::endl;
-        else if (!hasbjet) std::cout << "no b jet" << std::endl;
-        else std::cout << "B had and b jet not from same top" << std::endl;
-      }
+      // Bfrag reweighting
+      /*
+      _weight = _weight*myBfragReweighter->getEventWeight(xB);
+      */
       _h_dRBhadbjet_gen->Fill(dRBhadbjetmin, _weight);
       _h_pTBhadOverpTbjet_gen->Fill(xB, _weight);
     }
@@ -863,6 +941,7 @@ void MyAna::Loop()
       _h_jet20_eta->Fill(GetP4(jet_4vector,indgoodjet[j])->Eta(), _weight);
       _h_jet20_phi->Fill(GetP4(jet_4vector,indgoodjet[j])->Phi(), _weight);
       _h_jet20_csv->Fill(jet_btag_CSV[indgoodjet[j]], _weight);
+      _h_jet20_chmult->Fill(jet_chmult[indgoodjet[j]], _weight);
     }
 
     _h_jet20_n->Fill((float)ngoodjet, _weight);
@@ -960,6 +1039,7 @@ void MyAna::Loop()
     _h_jpsi_lOverSigma->Fill(jpsi_L3DoverSigmaL3D[indgoodjpsi[0]], _weight);
     _h_jpsi_chi2->Fill(jpsi_vtxchi2[indgoodjpsi[0]], _weight);
     _h_jpsi_jetPtFrac->Fill(GetP4(jpsi_4vector,indgoodjpsi[0])->Pt()/GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
+    _h_jpsiraw_jetPtFrac->Fill(GetP4(jpsi_raw_4vector,indgoodjpsi[0])->Pt()/GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
 
     // min_ijet == jpsi_indjet[indgoodjpsi[0]]
     double min_dRjet = 200.;
@@ -973,6 +1053,7 @@ void MyAna::Loop()
     }
     _h_jetJpsi_pt->Fill(GetP4(jpsi_jet_4vector,indgoodjpsi[0])->Pt(), _weight);
     _h_jetJpsi_csv->Fill(jpsi_jet_btag_CSV[indgoodjpsi[0]], _weight);
+    _h_jetJpsi_chmult->Fill(jet_chmult[min_ijet], _weight);
     _h_jetJpsi_chMuEFrac->Fill(jet_chmuEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
     _h_jetJpsi_chEMEFrac->Fill(jet_chemEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
     _h_jetJpsi_chHadEFrac->Fill(jet_chhadEfrac[min_ijet]/GetP4(rawjet_4vector,min_ijet)->E()*GetP4(jet_4vector,min_ijet)->E(), _weight);
@@ -1244,11 +1325,11 @@ void MyAna::Loop()
   cout << "========================================================================" << endl;
   cout << "Trigger                                                   = " << counter[0] << endl;
   cout << "At least 1 iso electron                                   = " << counter[1] << endl;
-  cout << "At least 4 jets pT>55,45,35,20 GeV/c                      = " << counter[2] << endl;
-  //cout << "At least 2 jets pT>40 GeV/c                               = " << counter[2] << endl;
+  cout << "At least 4 jets pT>55,45,35,20 GeV                        = " << counter[2] << endl;
+  //cout << "At least 2 jets pT>40 GeV                                 = " << counter[2] << endl;
   cout << "semi-leptonic                                             = " << counter[3] << endl;
   cout << "dileptonic                                                = " << counter[4] << endl;
-  cout << "1 J/psi in [3, 3.2] GeV/c^2                               = " << counter[5] << endl;
+  cout << "1 J/psi in [3, 3.2] GeV                                   = " << counter[5] << endl;
   cout << "... with chi2 < 5                                         = " << counter[6] << endl;
   cout << "... and Delta(c.tau) / c.tau > 20                         = " << counter[7] << endl;
   if (_isMC && _isSIG) {

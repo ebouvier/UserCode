@@ -47,10 +47,13 @@ if options.channel.lower().count("all"):
     outPlot = "PlotItSysAll"
     if options.decay.lower().count("semi"):
         textChannel = "e\/#mu"+textChannel
+        #textChannel = "#splitline{e\/#mu"+textChannel+"}{P12}"
     if options.decay.lower().count("di"):
         textChannel = "ee\/#mu#mu\/e#mu"+textChannel
+        #textChannel = "#splitline{ee\/#mu#mu\/e#mu"+textChannel+"}{P12}"
     if options.decay.lower().count("all"):
         textChannel = "e\/#mu\/ee\/#mu#mu\/e#mu"+textChannel
+        #textChannel = "#splitline{e\/#mu\/ee\/#mu#mu\/e#mu"+textChannel+"}{P12}"
     os.system("sed -e \"s/@text@/%s/\" configPlotItSysAll.template.yml > configPlotItSys.yml" % (textChannel))
 
 print "/!\\ you should not have sourced cmsenv"

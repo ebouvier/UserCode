@@ -346,8 +346,8 @@ int pairingStudies(TString date = "", TString version = "", TString decay = "")
     delete histo_gp; 
     delete histo_ap;
 
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "MJpsi", "J/#psi mass (GeV/c^{2})", 20, 3., 3.2);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtJpsi", "p_{T} (J/#psi) (GeV/c)", 28, 0., 140.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "MJpsi", "J/#psi mass (GeV)", 20, 3., 3.2);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtJpsi", "p_{T} (J/#psi) (GeV)", 28, 0., 140.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "EtaJpsi", "#eta (J/#psi)", 30, -3., 3.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PhiJpsi", "#phi (J/#psi)", 32, -3.2, 3.2);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "Chi2Jpsi", "#chi^{2}(J/#psi vertex)", 16, 0., 8.);
@@ -355,7 +355,7 @@ int pairingStudies(TString date = "", TString version = "", TString decay = "")
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "SigmaLJpsi", "#Delta(c#tau)(J/#psi) (cm)", 30, 0., 0.0015);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "LOverSigmaJpsi", "(c#tau)/#Delta(c#tau)(J/#psi)", 42, 0., 7000.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtFracJpsiJet", "p_{T}(J/#psi)/p_{T}(jet)", 20, 0., 1.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtJetJpsi", "p_{T}(jets with a J/#psi) (GeV/c)", 25, 0., 500.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtJetJpsi", "p_{T}(jets with a J/#psi) (GeV)", 25, 0., 500.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "CsvJetJpsi", "CSV discriminant (jets with a J/#psi)", 50, 0., 1.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "ChMuEFracJetJpsi", "#mu^{#pm} energy fraction (jets with a J/#psi)", 50, 0., 1.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "ChEMEFracJetJpsi", "e^{#pm} energy fraction (jets with a J/#psi)", 50, 0., 1.);
@@ -364,13 +364,13 @@ int pairingStudies(TString date = "", TString version = "", TString decay = "")
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "NEMEFracJetJpsi", "#gamma energy fraction (jets with a J/#psi)", 50, 0., 1.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "NHadEFracJetJpsi", "Neutral hadron energy fraction (jets with a J/#psi)", 50, 0., 1.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "NEFracJetJpsi", "Neutral energy fraction (jets with a J/#psi)", 50, 0., 1.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtIsoLept", "p_{T}(isolated lepton) (GeV/c)", 30, 0., 300.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtIsoLept", "p_{T}(isolated lepton) (GeV)", 30, 0., 300.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "EtaIsoLept", "#eta(isolated lepton)", 30, -3., 3.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PhiIsoLept", "#phi(isolated lepton)", 32, -3.2, 3.2);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "DPhiJpsiIsoLept", "#Delta#phi (J/#psi-isolated lepton)", 16, 0., 4.);
     treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "DRJpsiIsoLept", "#DeltaR (J/#psi-isolated lepton)", 20, 0., 5.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "MTriLept", "M(J/#psi+l) (GeV/c^{2})", 25, 0., 250.);
-    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtTriLept", "p_{T}(J/#psi+l) (GeV/c)", 25, 0., 250.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "MTriLept", "M(J/#psi+l) (GeV)", 25, 0., 250.);
+    treatHisto(tree, outdir, channel_tex, lumi, nGP, nWP, "PtTriLept", "p_{T}(J/#psi+l) (GeV)", 25, 0., 250.);
 
     delete tree;
     res->Close(); 
