@@ -35,6 +35,18 @@ if (os.path.isfile(dirEl+"/ElectronHadASingleElectronBCD.root") and os.path.isfi
 if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root")):
     cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root"
     os.system(cmd)
+if (os.path.isfile(dirEl+"/T_t-channel.root") and os.path.isfile(dirMu+"/T_t-channel.root")):
+    cmd = "hadd -f "+dirAll+"/T_t-channel.root "+dirEl+"/T_t-channel.root "+dirMu+"/T_t-channel.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/Tbar_t-channel.root") and os.path.isfile(dirMu+"/Tbar_t-channel.root")):
+    cmd = "hadd -f "+dirAll+"/Tbar_t-channel.root "+dirEl+"/Tbar_t-channel.root "+dirMu+"/Tbar_t-channel.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/T_tW-channel.root") and os.path.isfile(dirMu+"/T_tW-channel.root")):
+    cmd = "hadd -f "+dirAll+"/T_tW-channel.root "+dirEl+"/T_tW-channel.root "+dirMu+"/T_tW-channel.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/Tbar_tW-channel.root") and os.path.isfile(dirMu+"/Tbar_tW-channel.root")):
+    cmd = "hadd -f "+dirAll+"/Tbar_tW-channel.root "+dirEl+"/Tbar_tW-channel.root "+dirMu+"/Tbar_tW-channel.root"
+    os.system(cmd)
 if (os.path.isfile(dirEl+"/TTJets_MCatNLO.root") and os.path.isfile(dirMu+"/TTJets_MCatNLO.root")):
     cmd = "hadd -f "+dirAll+"/TTJets_MCatNLO.root "+dirEl+"/TTJets_MCatNLO.root "+dirMu+"/TTJets_MCatNLO.root"
     os.system(cmd)

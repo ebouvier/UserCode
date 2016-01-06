@@ -27,7 +27,7 @@ files:
     line-color: 419
     line-type: 1 
     line-width: 3
-    legend: 'm_{top}=166.5 GeV/c^{2}'
+    legend: 'm_{top}=166.5 GeV'
 
   'TTJets_MSDecays_JpsiFilter_169_5.root':
     type: signal
@@ -37,7 +37,7 @@ files:
     line-color: 862
     line-type: 1 
     line-width: 3
-    legend: 'm_{top}=169.5 GeV/c^{2}'
+    legend: 'm_{top}=169.5 GeV'
 
   'TTJets_MSDecays_JpsiFilter_171_5.root':
     type: signal
@@ -47,7 +47,7 @@ files:
     line-color: 602
     line-type: 1 
     line-width: 3
-    legend: 'm_{top}=171.5 GeV/c^{2}'
+    legend: 'm_{top}=171.5 GeV'
 
   'TTJets_MSDecays_JpsiFilter_172_5.root':
     type: signal
@@ -57,7 +57,7 @@ files:
     line-color: 877
     line-type: 1 
     line-width: 3
-    legend: 'm_{top}=172.5 GeV/c^{2}'
+    legend: 'm_{top}=172.5 GeV'
 
   'TTJets_MSDecays_JpsiFilter_173_5.root':
     type: signal
@@ -67,7 +67,7 @@ files:
     line-color: 907
     line-type: 1 
     line-width: 3
-    legend: 'm_{top}=173.5 GeV/c^{2}'
+    legend: 'm_{top}=173.5 GeV'
 
   'TTJets_MSDecays_JpsiFilter_175_5.root':
     type: signal
@@ -77,7 +77,7 @@ files:
     line-color: 807
     line-type: 1
     line-width: 3
-    legend: 'm_{top}=175.5 GeV/c^{2}'
+    legend: 'm_{top}=175.5 GeV'
 
   'TTJets_MSDecays_JpsiFilter_178_5.root':
     type: signal
@@ -87,7 +87,7 @@ files:
     line-color: 800
     line-type: 1
     line-width: 3
-    legend: 'm_{top}=178.5 GeV/c^{2}'
+    legend: 'm_{top}=178.5 GeV'
 
   'TTJets_SemiLeptMGDecays.root':
     type: mc
@@ -162,7 +162,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-cuts":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     y-axis-show-zero: true
     show-ratio: true
     fit-ratio: false
@@ -201,7 +201,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -239,7 +239,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJets20":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -313,8 +313,8 @@ plots:
     y-axis-range: [0, 70]
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
-    x-axis: "W transverse mass (GeV/c^{2})"  
+    y-axis-format: "%1% / (%2$.0f GeV)"
+    x-axis: "W transverse mass (GeV)"  
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -343,7 +343,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-large":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     y-axis-show-zero: true
     show-ratio: true
     fit-ratio: true
@@ -351,15 +351,16 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     y-axis-show-zero: true
-    show-ratio: true
+    #show-ratio: true
+    show-ratio: false
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -439,7 +440,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   
   "PtMuJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -463,7 +464,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtJetJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -520,14 +521,14 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtTriLept":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -535,14 +536,14 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
     
   "bjjMass":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "WMass":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"

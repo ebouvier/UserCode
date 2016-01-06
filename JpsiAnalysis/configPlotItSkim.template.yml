@@ -249,7 +249,7 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-cuts":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     y-axis-show-zero: true
     show-ratio: true
     fit-ratio: false
@@ -288,23 +288,23 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtIsoLept":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaIsoLept":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiIsoLept":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
@@ -312,7 +312,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   "PfIsoIsoLept":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     x-axis-range: [0, 0.2]
@@ -321,28 +321,28 @@ plots:
   "NJets20":
     y-axis-format: "%1% / %2$.0f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJets20":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJets20":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiJets20":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     y-axis-range: [0, 200]
@@ -350,35 +350,35 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   "CsvJets20":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NCsvJets20":
     y-axis-format: "%1% / %2$.0f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets30":
     y-axis-format: "%1% / %2$.0f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets40":
     y-axis-format: "%1% / %2$.0f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NJets50":
     y-axis-format: "%1% / %2$.0f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
@@ -386,24 +386,24 @@ plots:
   "MetMet":
     y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiMet":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
     y-axis-range: [0, 70]
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
-    x-axis: "W transverse mass (GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
+    x-axis: "W transverse mass (GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
@@ -411,14 +411,14 @@ plots:
   "NVertices":
     y-axis-format: "%1% / %2$.0f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NTracksVertices":
     y-axis-format: "%1% / %2$.0f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
@@ -430,39 +430,40 @@ plots:
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-large":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     y-axis-show-zero: true
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     y-axis-show-zero: true
-    show-ratio: true
-    fit-ratio: true
+    #show-ratio: true
+    show-ratio: false
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJpsi":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiJpsi":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
@@ -471,21 +472,21 @@ plots:
   "Chi2Jpsi":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi":
     y-axis-format: "%1% / (%2$.2f cm)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LJpsi-zoom":
     y-axis-format: "%1% / (%2$.4f cm)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
@@ -493,20 +494,20 @@ plots:
     y-axis-format: "%1% / (%2$.5f cm)"
     log-y: true
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "LOverSigmaJpsi":
     y-axis-format: "%1% / %2$.3f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtFracJpsiJet":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
@@ -514,35 +515,35 @@ plots:
   "DPhiJpsiIsoLept":
     y-axis-range: [0, 200]
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "DRJpsiIsoLept":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   
   "PtMuJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaMuJpsi":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PhiMuJpsi":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     y-axis-show-zero: true
@@ -550,88 +551,88 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtJetJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "CsvJetJpsi":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "ChMuEFracJetJpsi":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "ChEMEFracJetJpsi":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "ChHadEFracJetJpsi":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "ChEFracJetJpsi":
     legend-position: [0.22, 0.45, 0.4, 0.8]
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NEMEFracJetJpsi":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NHadEFracJetJpsi":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "NEFracJetJpsi":
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "PtTriLept":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
     
   "bjjMass":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]
   "WMass":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
-    fit-ratio: true
+    fit-ratio: false
     fit-function: "pol1"
     show-errors: true
     save-extensions: ["pdf","C","jpg","eps"]

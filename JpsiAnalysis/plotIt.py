@@ -62,7 +62,7 @@ print "/!\\ you should not have sourced cmsenv"
 os.chdir(dir)
 if not os.path.isdir(outPlot):
     os.mkdir(outPlot)
-cmd = "../../../../plotIt/plotIt -o " + outPlot + " ../../configPlotIt.yml >& " + outPlot + "/NEvents.log"
+cmd = "../../../../plotIt/plotIt -v -o " + outPlot + " ../../configPlotIt.yml >& " + outPlot + "/NEvents.log"
 os.system(cmd)
 
 os.chdir("../../")

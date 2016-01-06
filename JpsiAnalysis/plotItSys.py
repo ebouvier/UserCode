@@ -48,12 +48,15 @@ if options.channel.lower().count("all"):
     if options.decay.lower().count("semi"):
         textChannel = "e\/#mu"+textChannel
         #textChannel = "#splitline{e\/#mu"+textChannel+"}{P12}"
+        #textChannel = "#splitline{e\/#mu"+textChannel+"}{Z2* rbLEP}"
     if options.decay.lower().count("di"):
         textChannel = "ee\/#mu#mu\/e#mu"+textChannel
         #textChannel = "#splitline{ee\/#mu#mu\/e#mu"+textChannel+"}{P12}"
+        #textChannel = "#splitline{ee\/#mu#mu\/e#mu"+textChannel+"}{Z2* rbLEP}"
     if options.decay.lower().count("all"):
         textChannel = "e\/#mu\/ee\/#mu#mu\/e#mu"+textChannel
         #textChannel = "#splitline{e\/#mu\/ee\/#mu#mu\/e#mu"+textChannel+"}{P12}"
+        #textChannel = "#splitline{e\/#mu\/ee\/#mu#mu\/e#mu"+textChannel+"}{Z2* rbLEP}"
     os.system("sed -e \"s/@text@/%s/\" configPlotItSysAll.template.yml > configPlotItSys.yml" % (textChannel))
 
 print "/!\\ you should not have sourced cmsenv"
@@ -61,7 +64,7 @@ print "/!\\ you should not have sourced cmsenv"
 os.chdir(dir)
 if not os.path.isdir(outPlot):
     os.mkdir(outPlot)
-cmd = "../../../../plotIt/plotIt -o " + outPlot + " ../../configPlotItSys.yml >& " + outPlot + "/NEvents.log "
+cmd = "../../../../plotIt/plotIt -v -o " + outPlot + " ../../configPlotItSys.yml >& " + outPlot + "/NEvents.log "
 os.system(cmd)
 
 os.chdir("../../")

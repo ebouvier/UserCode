@@ -20,7 +20,7 @@ if not options.filelist or not os.path.isdir(options.filelist):
     parser.error("you must specify a file list directory")
 
 #date = datetime.datetime.now().strftime("%y%b%d")
-date = "15Nov24"
+date = "15Dec15"
 
 outRoot = date
 if not os.path.isdir(outRoot):
@@ -83,7 +83,7 @@ for aFile in filelist:
     if aFile.count("SingleElectron") != 1 and aFile.count("SingleMu") != 1 and aFile.count("MuHad") != 1 and aFile.count("ElectronHad") != 1 :
         option = option+" -mc"
 
-    if aFile.count("TTJets") == 1 or aFile.count("t-channel_mass") == 1:
+    if aFile.count("TTJets") == 1 or aFile.count("t-channel") == 1 or aFile.count("tW-channel") == 1:
         option = option+" -sig"    
         
     if aFile.count("TTJets") == 1 or aFile.count("TTWJets") == 1 or aFile.count("TTWWJets") == 1 or aFile.count("TTZJets") ==1 :

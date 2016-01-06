@@ -77,7 +77,7 @@ plots:
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-cuts":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "NJpsi-cuts":
@@ -104,10 +104,10 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
     x-axis: "Number of leading leptons"
   "PtIsoLept":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis: "p_{T}(leading lepton) (GeV/c)"
+    x-axis: "p_{T}(leading lepton) (GeV)"
   "EtaIsoLept":
     y-axis-format: "%1% / %2$.1f"
     show-ratio: false
@@ -130,7 +130,7 @@ plots:
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJets20":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJets20":
@@ -172,8 +172,8 @@ plots:
     y-axis-show-zero: true
     save-extensions: ["pdf","C","jpg","eps"]
   "MtW":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
-    x-axis: "W transverse mass (GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
+    x-axis: "W transverse mass (GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 
@@ -191,15 +191,15 @@ plots:
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi-large":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "MJpsi":
-    y-axis-format: "%1% / (%2$.2f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.3f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "PtJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaJpsi":
@@ -249,7 +249,7 @@ plots:
     x-axis: "#DeltaR (J/#psi-leading lepton)"
   
   "PtMuJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "EtaMuJpsi":
@@ -263,7 +263,7 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
 
   "PtJetJpsi":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: true
     fit-ratio: true
     fit-function: "pol1"
@@ -320,22 +320,22 @@ plots:
     save-extensions: ["pdf","C","jpg","eps"]
   
   "MTriLept-allPair":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis: "M(J/#psi+l) (GeV/c^{2})"
+    x-axis: "M(J/#psi+l) (GeV)"
   "PtTriLept":
-    y-axis-format: "%1% / (%2$.0f GeV/c)"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
-    x-axis: "p_{T}(J/#psi+l) (GeV/c)"
+    x-axis: "p_{T}(J/#psi+l) (GeV)"
     
   "bjjMass":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
   "WMass":
-    y-axis-format: "%1% / (%2$.0f GeV/c^{2})"
+    y-axis-format: "%1% / (%2$.0f GeV)"
     show-ratio: false
     save-extensions: ["pdf","C","jpg","eps"]
 

@@ -103,13 +103,23 @@ void MyAna::Loop()
   _h_iCut->SetBarOffset(0.125);
   TH1F* _h_weight = new TH1F("Weight", "Weight", 2000, 0., 2.);
   _h_weight->SetXTitle("Weight");
-  TH1F* _h_decay = new TH1F("Decay","Decay", 3, 0., 3.);
+  TH1F* _h_decay = new TH1F("Decay","Decay", 6, 0., 6.);
   _h_decay->SetOption("bar");
   _h_decay->SetBarWidth(0.75);
   _h_decay->SetBarOffset(0.125);
-  _h_decay->GetXaxis()->SetBinLabel(1, "e + Jets");
-  _h_decay->GetXaxis()->SetBinLabel(2, "ee + Jets");
-  _h_decay->GetXaxis()->SetBinLabel(3, "e#mu + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(1, "#mu + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(2, "#mu#mu + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(3, "#mue + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(4, "e + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(5, "ee + Jets");
+  _h_decay->GetXaxis()->SetBinLabel(6, "e#mu + Jets");
+  TH1F* _h_decay_part = new TH1F("Decay-part","Decay-part", 3, 0., 3.);
+  _h_decay_part->SetOption("bar");
+  _h_decay_part->SetBarWidth(0.75);
+  _h_decay_part->SetBarOffset(0.125);
+  _h_decay_part->GetXaxis()->SetBinLabel(1, "e + Jets");
+  _h_decay_part->GetXaxis()->SetBinLabel(2, "ee + Jets");
+  _h_decay_part->GetXaxis()->SetBinLabel(3, "e#mu + Jets");
 
   float _weight = 1.;
 
@@ -921,13 +931,18 @@ void MyAna::Loop()
     // Plots
     //======================================================
 
-    if (isSemiLept)
-      _h_decay->Fill(0.5, _weight);
+    if (isSemiLept) {
+      _h_decay->Fill(3.5, _weight);
+      _h_decay_part->Fill(0.5, _weight);
+    }
     if (isDiLept) {
-      if (isDiLept_same)
-        _h_decay->Fill(1.5, _weight);
-      else
-        _h_decay->Fill(2.5, _weight);
+      if (isDiLept_same) {
+        _h_decay->Fill(4.5, _weight);
+        _h_decay_part->Fill(1.5, _weight);
+      } else {
+        _h_decay->Fill(5.5, _weight);
+        _h_decay_part->Fill(2.5, _weight);
+      }
     }
 
     if (_isMC)
