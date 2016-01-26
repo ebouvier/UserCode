@@ -66,8 +66,16 @@ if (os.path.isfile(dirEl+"/TTJets_Powheg.root") and os.path.isfile(dirMu+"/TTJet
     cmd = "hadd -f "+dirAll+"/TTJets_Powheg.root "+dirEl+"/TTJets_Powheg.root "+dirMu+"/TTJets_Powheg.root"
     os.system(cmd)
 
-# Merging MC
+# Merging tW
 files = [name for name in os.listdir(dirEl) if name.startswith("All_") and name.endswith("_5.root")]
+for file in files:
+    if os.path.isfile(os.path.join(dirMu,file)):
+        cmd = "hadd -f "+os.path.join(dirAll,file)+" "+os.path.join(dirEl,file)+" "+os.path.join(dirMu,file)
+        os.system(cmd)
+
+
+# Merging MC
+files = [name for name in os.listdir(dirEl) if "tW-channel_mass" in name and name.endswith("_5.root")]
 for file in files:
     if os.path.isfile(os.path.join(dirMu,file)):
         cmd = "hadd -f "+os.path.join(dirAll,file)+" "+os.path.join(dirEl,file)+" "+os.path.join(dirMu,file)

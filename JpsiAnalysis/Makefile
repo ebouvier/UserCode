@@ -7,7 +7,7 @@ DEPS =  $(patsubst %.cc, %.d, $(wildcard *.cc))
 
 all: run
 
-run: MyAna.o runMyAna.o HiggsTriggerEfficiencyProvider.o PUReweighter.o 
+run: MyAna.o runMyAna.o HiggsTriggerEfficiencyProvider.o PUReweighter.o  
 	${CXX} ${LDFLAGS} $(LIBS) -o runMyAna $^ `root-config --libs`
 
 runMyAna.o: runMyAna.cc

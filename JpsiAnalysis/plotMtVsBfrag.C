@@ -255,7 +255,7 @@ void grapherrors_myStyle(TGraphErrors *gr,
 
 }
 
-void cms_myStyle(float lumi = 19.7,bool isData = true){
+void cms_myStyle(float lumi = 19.7,bool isData = false){
   std::string status = "Simulation preliminary";
   if (isData) status = "Preliminary";
   TPaveText* pt_exp = new TPaveText(LEFT_MARGIN, 1 - 0.5 * TOP_MARGIN, 1 - RIGHT_MARGIN, 1, "brNDC");
@@ -269,7 +269,7 @@ void cms_myStyle(float lumi = 19.7,bool isData = true){
   pt_exp->AddText(d);
   pt_exp->Draw();
 
-  TString lumi_s = TString::Format("%3.1f fb^{-1} (8 TeV)", lumi);
+  TString lumi_s = TString::Format("(8 TeV)");
   TPaveText* pt_lumi = new TPaveText(LEFT_MARGIN, 1 - 0.5 * TOP_MARGIN, 1 - RIGHT_MARGIN, 1, "brNDC");
   pt_lumi->SetFillStyle(0);
   pt_lumi->SetBorderSize(0);
@@ -294,17 +294,17 @@ int plotMtVsBfrag(TString myanaDate)
   std::vector<TString> tune;               std::vector<double> mt;     std::vector<double> errmt;
   tune.push_back("Z2star");                mt.push_back(ref+172.789);     errmt.push_back(0.158);
 //   tune.push_back("P11");                   mt.push_back(ref+17);    errmt.push_back(0.);
-  tune.push_back("P12");                   mt.push_back(ref+172.745);    errmt.push_back(0.157);
-  tune.push_back("P12ueLo");               mt.push_back(ref+172.813);    errmt.push_back(0.158);
-  tune.push_back("P12ueHi");               mt.push_back(ref+172.863);    errmt.push_back(0.158);
-  tune.push_back("P12loCR");               mt.push_back(ref+172.811);    errmt.push_back(0.157);
   tune.push_back("P12FT");                 mt.push_back(ref+172.430);    errmt.push_back(0.156);
+  tune.push_back("P12");                   mt.push_back(ref+172.745);    errmt.push_back(0.157);
+//   tune.push_back("P12ueLo");               mt.push_back(ref+172.813);    errmt.push_back(0.158);
+//   tune.push_back("P12ueHi");               mt.push_back(ref+172.863);    errmt.push_back(0.158);
+//   tune.push_back("P12loCR");               mt.push_back(ref+172.811);    errmt.push_back(0.157);
   tune.push_back("P12FL");                 mt.push_back(ref+173.018);    errmt.push_back(0.159);
 //   tune.push_back("Z2starLEP");             mt.push_back(ref+17);    errmt.push_back(0.);
 //   tune.push_back("Z2starLEP_peterson");    mt.push_back(ref+17);    errmt.push_back(0.);
 //   tune.push_back("Z2starLEP_lund");        mt.push_back(ref+17);    errmt.push_back(0.);
-  tune.push_back("Z2star_rbLEP");          mt.push_back(ref+172.987);    errmt.push_back(0.160);
   tune.push_back("Z2star_rbLEP_soft");     mt.push_back(ref+173.002);    errmt.push_back(0.160);
+  tune.push_back("Z2star_rbLEP");          mt.push_back(ref+172.987);    errmt.push_back(0.160);
   tune.push_back("Z2star_rbLEP_hard");     mt.push_back(ref+173.070);    errmt.push_back(0.159);
 
   TFile *fi = TFile::Open("/gridgroup/cms/bouvier/CMSSW_5_3_27/src/UserCode/FragmentationAnalyzer/test/crab_results/"+date+"/BfragWeights_"+var+".root");
@@ -371,7 +371,7 @@ int plotMtVsBfrag(TString myanaDate)
   fit_up->Draw("same");
   fit_down->SetLineColor(921); fit_down->SetLineStyle(2); fit_down->SetLineWidth(2);
   fit_down->Draw("same");
-  TLatex* fit_tex = new TLatex(0.45, 0.3, TString::Format("#DeltaM_{t} = (%.0f GeV) #upoint #Delta"+xaxis, slope));
+  TLatex* fit_tex = new TLatex(0.4, 0.3, TString::Format("#DeltaM_{t} = (%.2f GeV/1%) #times #Delta"+xaxis, slope/100));
   fit_tex->SetNDC(true);
   fit_tex->SetTextFont(63);
   fit_tex->SetTextSize(TITLE_FONTSIZE - 4);

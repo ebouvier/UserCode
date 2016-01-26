@@ -50,8 +50,8 @@ files:
     type: mc
     cross-section: 11.1
     generated-events: 497658
-    group: bckg
-    order: 1
+    group: sto
+    order: 2
     systematics: ['../../SysForPlotIt/Jpsi/@root@/T_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/@root@/T_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/@root@/T_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/@root@/T_tW-channel_ElecScale.root', '../../SysForPlotIt/Trigger/@root@/T_tW-channel_Trigger.root']
 
   'Tbar_s-channel.root':
@@ -693,7 +693,7 @@ groups:
     legend: 't#bar{t}'
     fill-color: 633
   sto:
-    legend: 't-channel'
+    legend: 'Single top'
     fill-color: 618
   bckg:
     legend: 'Background'

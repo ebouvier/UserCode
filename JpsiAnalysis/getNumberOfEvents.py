@@ -52,10 +52,10 @@ datasets = [
         
 aodsim_names = [
     ["tts", "$\\ttbar \\to \\text{b} \\ell^- \\bar{\\nu} \\bar{\\text{b}}\\text{q}\\bar{\\text{q'}}$"],
-    ["ttd", "$\\ttbar \\to \\text{b} \\ell^- \\bar{\\nu} \\bar{\\text{b}}\\text{q}\\bar{\\text{q'}}$"], 
+    ["ttd", "$\\ttbar \\to \\text{b} \\ell^- \\bar{\\nu} \\bar{\\text{b}} \\ell^+ \\nu$"], 
     ["tth", "$\\ttbar \\to \\text{b}\\bar{\\text{q}}\\text{q'} \\bar{\\text{b}}\\text{q}\\bar{\\text{q'}}$"],
-    ["stt", "single-top t-channel"],
-    ["sto", "single-top tW- and s-channels"],
+    ["stt", "single top t-channel"],
+    ["sto", "single top tW- and s-channels"],
     ["tto", "\\ttbar\\PW/\\ttbar\\PW\\PW/\\ttbar\\PZ"],
     ["zll", "$\\text{Z} / \\gamma^* \\to \\ell^+ \\ell^- + \\text{jets}$, $\\text{M}_{\\ell\\ell} > 50 \\; \\text{GeV}$"],
     ["wln", "$\\text{W}^\\pm \\to \\ell^\\pm \\nu + \\text{jets}$"],

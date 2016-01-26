@@ -35,9 +35,11 @@ int mergeMC(TString date, TString version, TString channel){
     cout << "\n" << mtop[itop] << " GeV" << endl;
     vector<TString> finames;
     finames.push_back("T_s-channel.root"); 
-    finames.push_back("T_tW-channel.root");
     finames.push_back("Tbar_s-channel.root");
+    /*
+    finames.push_back("T_tW-channel.root");
     finames.push_back("Tbar_tW-channel.root");
+    */
     finames.push_back("TTWJets.root"); 
     finames.push_back("TTWWJets.root");
     finames.push_back("TTZJets.root");
@@ -61,11 +63,19 @@ int mergeMC(TString date, TString version, TString channel){
       finames.push_back("TToLeptons_t-channel_mass"+mtop[itop]+"_5.root");
       finames.push_back("TBarToLeptons_t-channel_mass"+mtop[itop]+"_5.root");
     }
+    finames.push_back("TToDilepton_tW-channel_mass"+mtop[itop]+"_5.root");
+    finames.push_back("TToThadWlep_tW-channel_mass"+mtop[itop]+"_5.root");
+    finames.push_back("TToTlepWhad_tW-channel_mass"+mtop[itop]+"_5.root");
+    finames.push_back("TBarToDilepton_tW-channel_mass"+mtop[itop]+"_5.root");
+    finames.push_back("TBarToThadWlep_tW-channel_mass"+mtop[itop]+"_5.root");
+    finames.push_back("TBarToTlepWhad_tW-channel_mass"+mtop[itop]+"_5.root");
     vector<float> nevts;
     nevts.push_back(259961);
-    nevts.push_back(497658);
     nevts.push_back(139974);
+    /*
+    nevts.push_back(497658);
     nevts.push_back(493460);
+    */
     nevts.push_back(196046);
     nevts.push_back(217820);
     nevts.push_back(210160);
@@ -115,11 +125,19 @@ int mergeMC(TString date, TString version, TString channel){
       nevts.push_back(1891106);
       nevts.push_back(967539);
     }
+    nevts.push_back(1.);
+    nevts.push_back(1.);
+    nevts.push_back(1.);
+    nevts.push_back(1.);
+    nevts.push_back(1.);
+    nevts.push_back(1.);
     vector<float> xsections;
     xsections.push_back(3.79); 
-    xsections.push_back(11.1); 
     xsections.push_back(1.76); 
+    /*
     xsections.push_back(11.1); 
+    xsections.push_back(11.1); 
+    */
     xsections.push_back(0.2149);
     xsections.push_back(0.0020370);
     xsections.push_back(0.172); 
@@ -135,8 +153,19 @@ int mergeMC(TString date, TString version, TString channel){
     xsections.push_back(640.4); 
     xsections.push_back(264.0); 
     xsections.push_back(245.8);
-    xsections.push_back(56.4);
-    xsections.push_back(30.7);
+    if (mtop[itop].Contains("172")) {
+      xsections.push_back(56.4); 
+      xsections.push_back(30.7); 
+    } else {
+      xsections.push_back(56.4*0.3272); 
+      xsections.push_back(30.7*0.3272); 
+    }
+    xsections.push_back(0.1071*11.1);
+    xsections.push_back(0.2206*11.1);
+    xsections.push_back(0.2206*11.1);
+    xsections.push_back(0.1071*11.1);
+    xsections.push_back(0.2206*11.1);
+    xsections.push_back(0.2206*11.1);
 
     assert (finames.size() == nevts.size());
     assert (nevts.size() == xsections.size());
@@ -146,7 +175,7 @@ int mergeMC(TString date, TString version, TString channel){
     float norm = 0.;
     for (unsigned int i = 0; i < vecsize; i++){
       TFile *fi = TFile::Open(dir+finames[i]);
-      TH1F* hist = (TH1F*) fi->Get("NVertices");
+      TH1F* hist = (TH1F*) fi->Get("MTriLept-allPair");//NVertices");
       prop.push_back(lumi*xsections[i]*hist->Integral()/nevts[i]);
       norm += prop[i];
       delete hist; fi->Close(); delete fi;
@@ -158,7 +187,7 @@ int mergeMC(TString date, TString version, TString channel){
     TFile *outfi = TFile::Open(dir+"All_"+mtop[itop]+"_5.root","RECREATE");
     TH1F *outhisto = new TH1F("MTriLept-allPair", "MTriLept-allPair", 25, 0., 250.);
     outhisto->SetXTitle("M(J/#psi+l) (GeV)");
-    outhisto->SetYTitle("Events / 10");
+    outhisto->SetYTitle("Events / (10 GeV)");
     TTree *outtree = new TTree("MTriLept","MTriLept");
     float mass; float weight;
     outtree->Branch("mass",&mass,"mass/F");

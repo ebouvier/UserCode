@@ -1084,10 +1084,27 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_res_data = new TCanvas("cn_res_data","cn_res_data",800,800);
   cn_res_data->cd();
+  double ymax = 110.;
+  if (blind) {
+    if (outDir.Contains("FitEl", TString::kIgnoreCase))
+      ymax = 16000.;
+    if (outDir.Contains("FitMu", TString::kIgnoreCase))
+      ymax = 18000.;
+    if (outDir.Contains("FitAll", TString::kIgnoreCase))
+      ymax = 35000.;
+  } else {
+    if (outDir.Contains("FitEl", TString::kIgnoreCase))
+      ymax = 52.;
+    if (outDir.Contains("FitMu", TString::kIgnoreCase))
+      ymax = 60.;
+    if (outDir.Contains("FitAll", TString::kIgnoreCase))
+      ymax = 105.;
+  }
+  frame->GetYaxis()->SetRangeUser(0., ymax);
   frame->Draw();
-  TLegend *leg_res_data = new TLegend(0.58,0.42,0.9,0.5,NULL,"brNDC");
+  TLegend *leg_res_data = new TLegend(0.56,0.44,0.9,0.52,NULL,"brNDC");
   leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal(), mt.getError()));
-  leg_res_data->SetTextSize(0.035);
+  leg_res_data->SetTextSize(0.04);
   leg_myStyle(leg_res_data);
   leg_res_data->Draw("same");
   channel_tex->Draw("same");
@@ -1106,7 +1123,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   likeframe_zoom->SetYTitle("-log(L/L_{max})");
   likeframe_zoom->SetTitleOffset(3.,"X");
   likeframe_zoom->SetTitleOffset(3.,"Y");
-  likeframe_zoom->SetTitleSize(LABEL_FONTSIZE,"XY");
+  likeframe_zoom->SetTitleSize(LABEL_FONTSIZE+2,"XY");
   likeframe_zoom->GetXaxis()->SetNdivisions(503);
   likeframe_zoom->GetYaxis()->SetNdivisions(506);
   likeframe_zoom->Draw();

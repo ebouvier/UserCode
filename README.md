@@ -177,7 +177,12 @@ after running:
 
 ### Add MC background and signal contributions
 
-This can be done in root:
+Start by morphing tW-channel in root
+    
+    .L morphtW.C++
+    morphtW("date","version","channel")
+
+Then, add MC bacground and signal contributions in root:
 
     .L mergeMC.C++
     mergeMC("date", "version", "electron")

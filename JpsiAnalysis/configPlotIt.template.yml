@@ -61,8 +61,8 @@ files:
     type: mc
     cross-section: 11.1
     generated-events: 497658
-    group: bckg
-    order: 1
+    group: sto
+    order: 2
 
   'Tbar_s-channel.root':
     type: mc
@@ -698,7 +698,7 @@ groups:
     legend: 't#bar{t}'
     fill-color: 633
   sto:
-    legend: 't-channel'
+    legend: 'Single top'
     fill-color: 618
   bckg:
     legend: 'Background'

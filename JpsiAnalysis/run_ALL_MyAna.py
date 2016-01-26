@@ -20,7 +20,7 @@ if not options.filelist or not os.path.isdir(options.filelist):
     parser.error("you must specify a file list directory")
 
 #date = datetime.datetime.now().strftime("%y%b%d")
-date = "15Dec15"
+date = "16Jan24"
 
 outRoot = date
 if not os.path.isdir(outRoot):
