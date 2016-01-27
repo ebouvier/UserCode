@@ -54,8 +54,9 @@ aodsim_names = [
     ["tts", "$\\ttbar \\to \\text{b} \\ell^- \\bar{\\nu} \\bar{\\text{b}}\\text{q}\\bar{\\text{q'}}$"],
     ["ttd", "$\\ttbar \\to \\text{b} \\ell^- \\bar{\\nu} \\bar{\\text{b}} \\ell^+ \\nu$"], 
     ["tth", "$\\ttbar \\to \\text{b}\\bar{\\text{q}}\\text{q'} \\bar{\\text{b}}\\text{q}\\bar{\\text{q'}}$"],
-    ["stt", "single top t-channel"],
-    ["sto", "single top tW- and s-channels"],
+    ["sto", "single top"],
+    #["stt", "single top t-channel"],
+    #["sto", "single top tW- and s-channels"],
     ["tto", "\\ttbar\\PW/\\ttbar\\PW\\PW/\\ttbar\\PZ"],
     ["zll", "$\\text{Z} / \\gamma^* \\to \\ell^+ \\ell^- + \\text{jets}$, $\\text{M}_{\\ell\\ell} > 50 \\; \\text{GeV}$"],
     ["wln", "$\\text{W}^\\pm \\to \\ell^\\pm \\nu + \\text{jets}$"],
@@ -74,10 +75,10 @@ aodsims = [
     # single top 
     ## central
     ["/T\\_s-channel\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "T_s-channel.root", "sto", 3.79, 259961],
-    ["/T\\_t-channel\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "T_t-channel.root", "stt", 56.4, 3758227],
+    ["/T\\_t-channel\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "T_t-channel.root", "sto", 56.4, 3758227],
     ["/T\\_tW-channel-DR\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "T_tW-channel.root", "sto", 11.1, 497658],
     ["/Tbar\\_s-channel\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "Tbar_s-channel.root", "sto", 1.76, 139974],
-    ["/Tbar\\_t-channel\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "Tbar_t-channel.root", "stt", 30.7, 1935072],
+    ["/Tbar\\_t-channel\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "Tbar_t-channel.root", "sto", 30.7, 1935072],
     ["/Tbar\\_tW-channel-DR\\_TuneZ2star\\_8TeV-powheg-tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "Tbar_tW-channel.root", "sto", 11.1, 493460], 
     # diboson
     ["/WW\\_TuneZ2star\\_8TeV\\_pythia6\\_tauola/Summer12\\_DR53X-PU\\_S10\\_START53\\_V7A-v1/AODSIM", "WW-incl.root", "dib", 54.838, 10000431],
@@ -228,7 +229,7 @@ for aodsim_name in aodsim_names:
         ErrNTot[key] = math.sqrt(ErrNTot[key])
 
     tex.write(text+" & $%.1f \\pm %.1f$ & $%.1f \\pm %.1f$ \\\\ \n" % (NTot["mu"], ErrNTot["mu"], NTot["el"], ErrNTot["el"]))
-    if group is "stt":
+    if group is "sto":
         tex.write("\\hline\n")
 
 ErrNSim["mu"] = math.sqrt(ErrNSim["mu"])
