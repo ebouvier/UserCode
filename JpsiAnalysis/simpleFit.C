@@ -468,7 +468,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_0 = new TCanvas("cn_par_0","cn_par_0",800,800);
   cn_par_0->cd();
-  gr_myStyle(gr_mean_gaus,"gr_mean_gaus",1,9,1,9,1001,40.,110.,510,510,20,9,0.1,"M_{t} (GeV)","#mu (GeV)");
+  gr_myStyle(gr_mean_gaus,"gr_mean_gaus",1,9,1,9,1001,66.,82.,510,510,20,9,0.1,"M_{t} (GeV)","#mu (GeV)");
   gr_mean_gaus->Draw("AP");
   fit_mean_gaus_up->SetLineColor(38); fit_mean_gaus_up->SetLineStyle(2); fit_mean_gaus_up->SetLineWidth(2);
   fit_mean_gaus_up->Draw("same");
@@ -511,7 +511,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_1 = new TCanvas("cn_par_1","cn_par_1",800,800);
   cn_par_1->cd();
-  gr_myStyle(gr_width_gaus,"gr_width_gaus",1,9,1,9,1001,10.,30.,510,510,20,9,0.1,"M_{t} (GeV)","#sigma (GeV)");
+  gr_myStyle(gr_width_gaus,"gr_width_gaus",1,9,1,9,1001,14.,26.,510,510,20,9,0.1,"M_{t} (GeV)","#sigma (GeV)");
   gr_width_gaus->Draw("AP");
   fit_width_gaus_up->SetLineColor(38); fit_width_gaus_up->SetLineStyle(2); fit_width_gaus_up->SetLineWidth(2);
   fit_width_gaus_up->Draw("same");
@@ -554,7 +554,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_2 = new TCanvas("cn_par_2","cn_par_2",800,800);
   cn_par_2->cd();
-  gr_myStyle(gr_ncat,"gr_ncat",1,9,1,9,1001,0.,1.,510,510,20,9,0.1,"M_{t} (GeV)","#alpha");
+  gr_myStyle(gr_ncat,"gr_ncat",1,9,1,9,1001,0.2,0.8,510,510,20,9,0.1,"M_{t} (GeV)","#alpha");
   gr_ncat->Draw("AP");
   fit_ncat_up->SetLineColor(38); fit_ncat_up->SetLineStyle(2); fit_ncat_up->SetLineWidth(2);
   fit_ncat_up->Draw("same");
@@ -597,7 +597,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_3 = new TCanvas("cn_par_3","cn_par_3",800,800);
   cn_par_3->cd();
-  gr_myStyle(gr_gamma_gamma,"gr_gamma_gamma",1,9,1,9,1001,0.,5.,510,510,20,9,0.1,"M_{t} (GeV)","#gamma");
+  gr_myStyle(gr_gamma_gamma,"gr_gamma_gamma",1,9,1,9,1001,1.,4.5,510,510,20,9,0.1,"M_{t} (GeV)","#gamma");
   gr_gamma_gamma->Draw("AP");
   fit_gamma_gamma_up->SetLineColor(38); fit_gamma_gamma_up->SetLineStyle(2); fit_gamma_gamma_up->SetLineWidth(2);
   fit_gamma_gamma_up->Draw("same");
@@ -640,7 +640,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_4 = new TCanvas("cn_par_4","cn_par_4",800,800);
   cn_par_4->cd();
-  gr_myStyle(gr_beta_gamma,"gr_beta_gamma",1,9,1,9,1001,0.,60.,510,510,20,9,0.1,"M_{t} (GeV)","#beta (GeV)");
+  gr_myStyle(gr_beta_gamma,"gr_beta_gamma",1,9,1,9,1001,15.,50.,510,510,20,9,0.1,"M_{t} (GeV)","#beta (GeV)");
   gr_beta_gamma->Draw("AP");
   fit_beta_gamma_up->SetLineColor(38); fit_beta_gamma_up->SetLineStyle(2); fit_beta_gamma_up->SetLineWidth(2);
   fit_beta_gamma_up->Draw("same");
@@ -683,7 +683,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_par_5 = new TCanvas("cn_par_5","cn_par_5",800,800);
   cn_par_5->cd();
-  gr_myStyle(gr_mu_gamma,"gr_mu_gamma",1,9,1,9,1001,0.,30.,510,510,20,9,0.1,"M_{t} (GeV)","#mu (GeV)");
+  gr_myStyle(gr_mu_gamma,"gr_mu_gamma",1,9,1,9,1001,0.,20.,510,510,20,9,0.1,"M_{t} (GeV)","#mu (GeV)");
   gr_mu_gamma->Draw("AP");
   fit_mu_gamma_up->SetLineColor(38); fit_mu_gamma_up->SetLineStyle(2); fit_mu_gamma_up->SetLineWidth(2);
   fit_mu_gamma_up->Draw("same");

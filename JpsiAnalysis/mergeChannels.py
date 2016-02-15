@@ -65,8 +65,29 @@ if (os.path.isfile(dirEl+"/TTJets_SemiLeptMGDecays_TuneP11TeV.root") and os.path
 if (os.path.isfile(dirEl+"/TTJets_Powheg.root") and os.path.isfile(dirMu+"/TTJets_Powheg.root")):
     cmd = "hadd -f "+dirAll+"/TTJets_Powheg.root "+dirEl+"/TTJets_Powheg.root "+dirMu+"/TTJets_Powheg.root"
     os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_Powheg_JpsiFilter.root") and os.path.isfile(dirMu+"/TTJets_Powheg_JpsiFilter.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_Powheg_JpsiFilter.root "+dirEl+"/TTJets_Powheg_JpsiFilter.root "+dirMu+"/TTJets_Powheg_JpsiFilter.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_TuneP12.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12loCR.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12loCR.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_TuneP12loCR.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12loCR.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12loCR.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12FT.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12FT.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_TuneP12FT.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12FT.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12FT.root"
+    os.system(cmd)
+if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12FL.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12FL.root")):
+    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_TuneP12FL.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_TuneP12FL.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_TuneP12FL.root"
+    os.system(cmd)
 
-# Merging tW
+# Merging MC
 files = [name for name in os.listdir(dirEl) if name.startswith("All_") and name.endswith("_5.root")]
 for file in files:
     if os.path.isfile(os.path.join(dirMu,file)):
@@ -74,7 +95,7 @@ for file in files:
         os.system(cmd)
 
 
-# Merging MC
+# Merging tW
 files = [name for name in os.listdir(dirEl) if "tW-channel_mass" in name and name.endswith("_5.root")]
 for file in files:
     if os.path.isfile(os.path.join(dirMu,file)):

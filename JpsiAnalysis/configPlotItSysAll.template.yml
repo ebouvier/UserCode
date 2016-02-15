@@ -32,14 +32,14 @@ files:
     generated-events: 5380767
     group: ttbar
     order: 3
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_ElecScale.root', '../../SysForPlotIt/Matching/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Matching.root', '../../SysForPlotIt/Scale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Scale.root', '../../SysForPlotIt/Trigger/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Trigger.root', '../../SysForPlotIt/TopPt/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_TopPtWeights.root','../../SysForPlotIt/CR_15Nov29/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_CR_15Nov29.root','../../SysForPlotIt/UE_15Nov29/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_UE_15Nov29.root', '../../SysForPlotIt/Bfrag_P12_15Nov29/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Bfrag_P12_15Nov29.root','../../SysForPlotIt/PDF/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_PDF.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_ElecScale.root', '../../SysForPlotIt/Matching/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Matching.root', '../../SysForPlotIt/Scale/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_Scale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_0p03TriggerSF.root', '../../SysForPlotIt/TopPt/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_TopPtWeights.root','../../SysForPlotIt/P12CR/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_P12CR.root','../../SysForPlotIt/P12UE/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_P12UE.root', '../../SysForPlotIt/P12frag/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_P12frag.root', '../../SysForPlotIt/ME/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_ME.root', '../../SysForPlotIt/PDF/MyAnaMu/TTJets_MSDecays_JpsiFilter_172_5_PDF.root']
   '../MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5.root':
     type: mc
     cross-section: 245.8
     generated-events: 5380767
     group: ttbar
     order: 3
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_ElecScale.root', '../../SysForPlotIt/Matching/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Matching.root', '../../SysForPlotIt/Scale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Scale.root', '../../SysForPlotIt/Trigger/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Trigger.root', '../../SysForPlotIt/TopPt/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_TopPtWeights.root','../../SysForPlotIt/CR_15Nov29/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_CR_15Nov29.root','../../SysForPlotIt/UE_15Nov29/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_UE_15Nov29.root', '../../SysForPlotIt/Bfrag_P12_15Nov29/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Bfrag_P12_15Nov29.root','../../SysForPlotIt/PDF/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_PDF.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_ElecScale.root', '../../SysForPlotIt/Matching/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Matching.root', '../../SysForPlotIt/Scale/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_Scale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_0p03TriggerSF.root', '../../SysForPlotIt/TopPt/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_TopPtWeights.root','../../SysForPlotIt/P12CR/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_P12CR.root','../../SysForPlotIt/P12UE/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_P12UE.root', '../../SysForPlotIt/P12frag/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_P12frag.root', '../../SysForPlotIt/ME/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_ME.root', '../../SysForPlotIt/PDF/MyAnaEl/TTJets_MSDecays_JpsiFilter_172_5_PDF.root']
 
   'T_s-channel.root':
     type: mc
@@ -47,14 +47,14 @@ files:
     generated-events: 259961
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/T_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_s-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/T_s-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/T_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_s-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/T_s-channel_0p03TriggerSF.root']
   '../MyAnaEl/T_s-channel.root':
     type: mc
     cross-section: 3.79
     generated-events: 259961
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/T_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_s-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/T_s-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/T_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_s-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/T_s-channel_0p03TriggerSF.root']
 
   'T_t-channel.root':
     type: mc
@@ -62,14 +62,14 @@ files:
     generated-events: 3758227
     group: sto
     order: 2
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/T_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_t-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/T_t-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/T_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_t-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/T_t-channel_0p03TriggerSF.root']
   '../MyAnaEl/T_t-channel.root':
     type: mc
     cross-section: 56.4
     generated-events: 3758227
     group: sto
     order: 2
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/T_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_t-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/T_t-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/T_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_t-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/T_t-channel_0p03TriggerSF.root']
 
   'T_tW-channel.root':
     type: mc
@@ -77,14 +77,14 @@ files:
     generated-events: 497658
     group: sto
     order: 2
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/T_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_tW-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/T_tW-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/T_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/T_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/T_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/T_tW-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/T_tW-channel_0p03TriggerSF.root']
   '../MyAnaEl/T_tW-channel.root':
     type: mc
     cross-section: 11.1
     generated-events: 497658
     group: sto
     order: 2
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/T_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_tW-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/T_tW-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/T_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/T_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/T_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/T_tW-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/T_tW-channel_0p03TriggerSF.root']
 
   'Tbar_s-channel.root':
     type: mc
@@ -92,14 +92,14 @@ files:
     generated-events: 139974
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_s-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/Tbar_s-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_s-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/Tbar_s-channel_0p03TriggerSF.root']
   '../MyAnaEl/Tbar_s-channel.root':
     type: mc
     cross-section: 1.76
     generated-events: 139974
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_s-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/Tbar_s-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_s-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_s-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_s-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_s-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/Tbar_s-channel_0p03TriggerSF.root']
 
   'Tbar_t-channel.root':
     type: mc
@@ -107,14 +107,14 @@ files:
     generated-events: 1935072
     group: sto
     order: 2
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_t-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/Tbar_t-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_t-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/Tbar_t-channel_0p03TriggerSF.root']
   '../MyAnaEl/Tbar_t-channel.root':
     type: mc
     cross-section: 30.7
     generated-events: 1935072
     group: sto
     order: 2
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_t-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/Tbar_t-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_t-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_t-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_t-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_t-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/Tbar_t-channel_0p03TriggerSF.root']
 
   'Tbar_tW-channel.root':
     type: mc
@@ -122,14 +122,14 @@ files:
     generated-events: 493460
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_tW-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/Tbar_tW-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/Tbar_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/Tbar_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/Tbar_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/Tbar_tW-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/Tbar_tW-channel_0p03TriggerSF.root']
   '../MyAnaEl/Tbar_tW-channel.root':
     type: mc
     cross-section: 11.1
     generated-events: 493460
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_tW-channel_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/Tbar_tW-channel_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/Tbar_tW-channel_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/Tbar_tW-channel_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/Tbar_tW-channel_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/Tbar_tW-channel_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/Tbar_tW-channel_0p03TriggerSF.root']
 
   'TTWJets.root':
     type: mc
@@ -137,14 +137,14 @@ files:
     generated-events: 196046
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTWJets_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/TTWJets_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTWJets_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/TTWJets_0p03TriggerSF.root']
   '../MyAnaEl/TTWJets.root':
     type: mc
     cross-section: 0.2149
     generated-events: 196046
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTWJets_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/TTWJets_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTWJets_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/TTWJets_0p03TriggerSF.root']
 
   'TTWWJets.root':
     type: mc
@@ -152,14 +152,14 @@ files:
     generated-events: 217820
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTWWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTWWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTWWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTWWJets_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/TTWWJets_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTWWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTWWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTWWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTWWJets_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/TTWWJets_0p03TriggerSF.root']
   '../MyAnaEl/TTWWJets.root':
     type: mc
     cross-section: 0.002037
     generated-events: 217820
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTWWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTWWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTWWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTWWJets_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/TTWWJets_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTWWJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTWWJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTWWJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTWWJets_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/TTWWJets_0p03TriggerSF.root']
 
   'TTZJets.root':
     type: mc
@@ -167,14 +167,14 @@ files:
     generated-events: 210160
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTZJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTZJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTZJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTZJets_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaMu/TTZJets_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/TTZJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/TTZJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/TTZJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/TTZJets_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/TTZJets_0p03TriggerSF.root']
   '../MyAnaEl/TTZJets.root':
     type: mc
     cross-section: 0.172
     generated-events: 210160
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTZJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTZJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTZJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTZJets_ElecScale.root', '../../SysForPlotIt/Trigger/MyAnaEl/TTZJets_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/TTZJets_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/TTZJets_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/TTZJets_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/TTZJets_ElecScale.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/TTZJets_0p03TriggerSF.root']
 
   'WW-incl.root':
     type: mc
@@ -183,7 +183,7 @@ files:
     generated-events: 10000431
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/WW-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/WW-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/WW-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/WW-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/WW-incl_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/WW-incl_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/WW-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/WW-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/WW-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/WW-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/WW-incl_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/WW-incl_0p03TriggerSF.root']
   '../MyAnaEl/WW-incl.root':
     type: mc
     cross-section: 56.0
@@ -191,7 +191,7 @@ files:
     generated-events: 10000431
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/WW-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/WW-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/WW-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/WW-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/WW-incl_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/WW-incl_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/WW-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/WW-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/WW-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/WW-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/WW-incl_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/WW-incl_0p03TriggerSF.root']
 
   'WZ-incl.root':
     type: mc
@@ -200,7 +200,7 @@ files:
     generated-events: 10000283
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/WZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/WZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/WZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/WZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/WZ-incl_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/WZ-incl_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/WZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/WZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/WZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/WZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/WZ-incl_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/WZ-incl_0p03TriggerSF.root']
   '../MyAnaEl/WZ-incl.root':
     type: mc
     cross-section: 33.6
@@ -208,7 +208,7 @@ files:
     generated-events: 10000283
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/WZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/WZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/WZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/WZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/WZ-incl_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/WZ-incl_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/WZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/WZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/WZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/WZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/WZ-incl_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/WZ-incl_0p03TriggerSF.root']
 
   'ZZ-incl.root':
     type: mc
@@ -217,7 +217,7 @@ files:
     generated-events: 9799908
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/ZZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/ZZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/ZZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/ZZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/ZZ-incl_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/ZZ-incl_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/ZZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/ZZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/ZZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/ZZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/ZZ-incl_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/ZZ-incl_0p03TriggerSF.root']
   '../MyAnaEl/ZZ-incl.root':
     type: mc
     cross-section: 7.6
@@ -225,7 +225,7 @@ files:
     generated-events: 9799908
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/ZZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/ZZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/ZZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/ZZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/ZZ-incl_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/ZZ-incl_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/ZZ-incl_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/ZZ-incl_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/ZZ-incl_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/ZZ-incl_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/ZZ-incl_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/ZZ-incl_0p03TriggerSF.root']
 
   'DY1JetsToLL_M-50.root':
     type: mc
@@ -234,7 +234,7 @@ files:
     generated-events: 24045248
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY1JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY1JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY1JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY1JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY1JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/DY1JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY1JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY1JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY1JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY1JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY1JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/DY1JetsToLL_M-50_0p03TriggerSF.root']
   '../MyAnaEl/DY1JetsToLL_M-50.root':
     type: mc
     cross-section: 666.3
@@ -242,7 +242,7 @@ files:
     generated-events: 24045248
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY1JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY1JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY1JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY1JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY1JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/DY1JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY1JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY1JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY1JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY1JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY1JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/DY1JetsToLL_M-50_0p03TriggerSF.root']
 
   'DY2JetsToLL_M-50.root':
     type: mc
@@ -251,7 +251,7 @@ files:
     generated-events: 21852156
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY2JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY2JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY2JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY2JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY2JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/DY2JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY2JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY2JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY2JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY2JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY2JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/DY2JetsToLL_M-50_0p03TriggerSF.root']
   '../MyAnaEl/DY2JetsToLL_M-50.root':
     type: mc
     cross-section: 215.0
@@ -259,7 +259,7 @@ files:
     generated-events: 21852156
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY2JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY2JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY2JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY2JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY2JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/DY2JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY2JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY2JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY2JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY2JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY2JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/DY2JetsToLL_M-50_0p03TriggerSF.root']
 
   'DY3JetsToLL_M-50.root':
     type: mc
@@ -268,7 +268,7 @@ files:
     generated-events: 11015445
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY3JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY3JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY3JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY3JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY3JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/DY3JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY3JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY3JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY3JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY3JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY3JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/DY3JetsToLL_M-50_0p03TriggerSF.root']
   '../MyAnaEl/DY3JetsToLL_M-50.root':
     type: mc
     cross-section: 60.7
@@ -276,7 +276,7 @@ files:
     generated-events: 11015445
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY3JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY3JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY3JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY3JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY3JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/DY3JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY3JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY3JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY3JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY3JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY3JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/DY3JetsToLL_M-50_0p03TriggerSF.root']
 
   'DY4JetsToLL_M-50.root':
     type: mc
@@ -285,7 +285,7 @@ files:
     generated-events: 6402827
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY4JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY4JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY4JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY4JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY4JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/DY4JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/DY4JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/DY4JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/DY4JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/DY4JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/DY4JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/DY4JetsToLL_M-50_0p03TriggerSF.root']
   '../MyAnaEl/DY4JetsToLL_M-50.root':
     type: mc
     cross-section: 27.3
@@ -293,7 +293,7 @@ files:
     generated-events: 6402827
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY4JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY4JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY4JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY4JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY4JetsToLL_M-50_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/DY4JetsToLL_M-50_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/DY4JetsToLL_M-50_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/DY4JetsToLL_M-50_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/DY4JetsToLL_M-50_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/DY4JetsToLL_M-50_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/DY4JetsToLL_M-50_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/DY4JetsToLL_M-50_0p03TriggerSF.root']
 
   'W1JetsToLNu.root':
     type: mc
@@ -302,7 +302,7 @@ files:
     generated-events: 23141598
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W1JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W1JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W1JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W1JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W1JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/W1JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W1JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W1JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W1JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W1JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W1JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/W1JetsToLNu_0p03TriggerSF.root']
   '../MyAnaEl/W1JetsToLNu.root':
     type: mc
     cross-section: 6662.8 
@@ -310,8 +310,8 @@ files:
     generated-events: 23141598
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W1JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W1JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W1JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W1JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W1JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/W1JetsToLNu_Trigger.root']
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W1JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W1JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W1JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W1JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W1JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/W1JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W1JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W1JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W1JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W1JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W1JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/W1JetsToLNu_0p03TriggerSF.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W1JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W1JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W1JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W1JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W1JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/W1JetsToLNu_0p03TriggerSF.root']
 
   'W2JetsToLNu.root':
     type: mc
@@ -320,7 +320,7 @@ files:
     generated-events: 34044921
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W2JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W2JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W2JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W2JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W2JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/W2JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W2JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W2JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W2JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W2JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W2JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/W2JetsToLNu_0p03TriggerSF.root']
   '../MyAnaEl/W2JetsToLNu.root':
     type: mc
     cross-section: 2159.2
@@ -328,7 +328,7 @@ files:
     generated-events: 34044921
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W2JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W2JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W2JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W2JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W2JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/W2JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W2JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W2JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W2JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W2JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W2JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/W2JetsToLNu_0p03TriggerSF.root']
 
   'W3JetsToLNu.root':
     type: mc
@@ -337,7 +337,7 @@ files:
     generated-events: 15539503
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W3JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W3JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W3JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W3JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W3JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/W3JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W3JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W3JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W3JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W3JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W3JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/W3JetsToLNu_0p03TriggerSF.root']
   '../MyAnaEl/W3JetsToLNu.root':
     type: mc
     cross-section: 640.4
@@ -345,7 +345,7 @@ files:
     generated-events: 15539503
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W3JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W3JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W3JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W3JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W3JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/W3JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W3JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W3JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W3JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W3JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W3JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/W3JetsToLNu_0p03TriggerSF.root']
 
   'W4JetsToLNu.root':
     type: mc
@@ -354,7 +354,7 @@ files:
     generated-events: 13382803
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W4JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W4JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W4JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W4JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W4JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaMu/W4JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaMu/W4JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaMu/W4JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaMu/W4JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaMu/W4JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaMu/W4JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaMu/W4JetsToLNu_0p03TriggerSF.root']
   '../MyAnaEl/W4JetsToLNu.root':
     type: mc
     cross-section: 264.0
@@ -362,7 +362,7 @@ files:
     generated-events: 13382803
     group: bckg
     order: 1
-    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W4JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W4JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W4JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W4JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W4JetsToLNu_Bg.root', '../../SysForPlotIt/Trigger/MyAnaEl/W4JetsToLNu_Trigger.root']
+    systematics: ['../../SysForPlotIt/Jpsi/MyAnaEl/W4JetsToLNu_Jpsi.root', '../../SysForPlotIt/PU/MyAnaEl/W4JetsToLNu_PU.root', '../../SysForPlotIt/MuonScale/MyAnaEl/W4JetsToLNu_MuonScale.root', '../../SysForPlotIt/ElecScale/MyAnaEl/W4JetsToLNu_ElecScale.root', '../../SysForPlotIt/Bg/MyAnaEl/W4JetsToLNu_Bg.root', '../../SysForPlotIt/0p03TriggerSF/MyAnaEl/W4JetsToLNu_0p03TriggerSF.root']
 
 plots:
   ##"Histo":

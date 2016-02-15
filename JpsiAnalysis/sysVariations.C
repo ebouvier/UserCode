@@ -236,10 +236,26 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
     sRef += "TTJets_SemiLeptMGDecays_TuneP11TeV.root";
   else if (ref.Contains("P11", TString::kIgnoreCase))
     sRef += "TTJets_SemiLeptMGDecays_TuneP11.root";
+  else if (ref.Contains("Powheg", TString::kIgnoreCase))
+    sRef += "TTJets_Powheg_JpsiFilter.root";
+  else if (ref.Contains("P12FL", TString::kIgnoreCase))
+    sRef += "TTJets_MSDecays_JpsiFilter_TuneP12FL.root";
+  else if (ref.Contains("P12FT", TString::kIgnoreCase))
+    sRef += "TTJets_MSDecays_JpsiFilter_TuneP12FT.root";
+  else if (ref.Contains("P12loCR", TString::kIgnoreCase))
+    sRef += "TTJets_MSDecays_JpsiFilter_TuneP12loCR.root";
+  else if (ref.Contains("P12ueHi", TString::kIgnoreCase))
+    sRef += "TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root";
+  else if (ref.Contains("P12ueLo", TString::kIgnoreCase))
+    sRef += "TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root";
+  else if (ref.Contains("P12", TString::kIgnoreCase))
+    sRef += "TTJets_MSDecays_JpsiFilter_TuneP12.root";
+  /*
   else if (ref.Contains("MCatNLO", TString::kIgnoreCase))
     sRef += "TTJets_MCatNLO.root";
   else if (ref.Contains("Powheg", TString::kIgnoreCase))
     sRef += "TTJets_Powheg.root";
+    */
   else
     sRef += "TTJets_MSDecays_JpsiFilter_172_5.root";
 
@@ -252,10 +268,26 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
     sDown += "TTJets_SemiLeptMGDecays_TuneP11TeV.root";
   else if (down.Contains("P11", TString::kIgnoreCase))
     sDown += "TTJets_SemiLeptMGDecays_TuneP11.root";
+  else if (down.Contains("Powheg", TString::kIgnoreCase))
+    sDown += "TTJets_Powheg_JpsiFilter.root";
+  else if (down.Contains("P12FL", TString::kIgnoreCase))
+    sDown += "TTJets_MSDecays_JpsiFilter_TuneP12FL.root";
+  else if (down.Contains("P12FT", TString::kIgnoreCase))
+    sDown += "TTJets_MSDecays_JpsiFilter_TuneP12FT.root";
+  else if (down.Contains("P12loCR", TString::kIgnoreCase))
+    sDown += "TTJets_MSDecays_JpsiFilter_TuneP12loCR.root";
+  else if (down.Contains("P12ueHi", TString::kIgnoreCase))
+    sDown += "TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root";
+  else if (down.Contains("P12ueLo", TString::kIgnoreCase))
+    sDown += "TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root";
+  else if (down.Contains("P12", TString::kIgnoreCase))
+    sDown += "TTJets_MSDecays_JpsiFilter_TuneP12.root";
+  /*
   else if (down.Contains("MCatNLO", TString::kIgnoreCase))
     sDown += "TTJets_MCatNLO.root";
   else if (down.Contains("Powheg", TString::kIgnoreCase))
     sDown += "TTJets_Powheg.root";
+    */
   else
     sDown += "TTJets_MSDecays_JpsiFilter_172_5.root"; 
 
@@ -268,10 +300,26 @@ int treatHisto(TString date, TString ref, TString down, TString up, TString outd
     sUp += "TTJets_SemiLeptMGDecays_TuneP11TeV.root";
   else if (up.Contains("P11", TString::kIgnoreCase))
     sUp += "TTJets_SemiLeptMGDecays_TuneP11.root";
+  else if (up.Contains("Powheg", TString::kIgnoreCase))
+    sUp += "TTJets_Powheg_JpsiFilter.root";
+  else if (up.Contains("P12FL", TString::kIgnoreCase))
+    sUp += "TTJets_MSDecays_JpsiFilter_TuneP12FL.root";
+  else if (up.Contains("P12FT", TString::kIgnoreCase))
+    sUp += "TTJets_MSDecays_JpsiFilter_TuneP12FT.root";
+  else if (up.Contains("P12loCR", TString::kIgnoreCase))
+    sUp += "TTJets_MSDecays_JpsiFilter_TuneP12loCR.root";
+  else if (up.Contains("P12ueHi", TString::kIgnoreCase))
+    sUp += "TTJets_MSDecays_JpsiFilter_TuneP12ueHi.root";
+  else if (up.Contains("P12ueLo", TString::kIgnoreCase))
+    sUp += "TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root";
+  else if (up.Contains("P12", TString::kIgnoreCase))
+    sUp += "TTJets_MSDecays_JpsiFilter_TuneP12.root";
+  /*
   else if (up.Contains("MCatNLO", TString::kIgnoreCase))
     sUp += "TTJets_MCatNLO.root";
   else if (up.Contains("Powheg", TString::kIgnoreCase))
     sUp += "TTJets_Powheg.root";
+    */
   else
     sUp += "TTJets_MSDecays_JpsiFilter_172_5.root"; 
 

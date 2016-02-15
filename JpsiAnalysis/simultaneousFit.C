@@ -772,6 +772,14 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_par_0->SaveAs(out_par_0+".C");
   cn_par_0->SaveAs(out_par_0+".jpg");
   cn_par_0->SaveAs(out_par_0+".eps");
+  gr_mean_gaus->GetXaxis()->SetRangeUser(165.5,179.5);
+  gr_mean_gaus->GetYaxis()->SetRangeUser(66.,82.);
+  cn_par_0->SaveAs(out_par_0+"_zoom.pdf");
+  cn_par_0->SaveAs(out_par_0+"_zoom.C");
+  cn_par_0->SaveAs(out_par_0+"_zoom.jpg");
+  cn_par_0->SaveAs(out_par_0+"_zoom.eps");
+  gr_mean_gaus->GetXaxis()->SetRangeUser(mtlim[0], mtlim[1]);
+  gr_mean_gaus->GetYaxis()->SetRangeUser(40.,110.);
 
   TCanvas *cn_par_1 = new TCanvas("cn_par_1","cn_par_1",800,800);
   cn_par_1->cd();
@@ -811,6 +819,14 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_par_1->SaveAs(out_par_1+".C");
   cn_par_1->SaveAs(out_par_1+".jpg");
   cn_par_1->SaveAs(out_par_1+".eps");
+  gr_width_gaus->GetXaxis()->SetRangeUser(165.5,179.5);
+  gr_width_gaus->GetYaxis()->SetRangeUser(14.,26.);
+  cn_par_1->SaveAs(out_par_1+"_zoom.pdf");
+  cn_par_1->SaveAs(out_par_1+"_zoom.C");
+  cn_par_1->SaveAs(out_par_1+"_zoom.jpg");
+  cn_par_1->SaveAs(out_par_1+"_zoom.eps");
+  gr_width_gaus->GetXaxis()->SetRangeUser(mtlim[0], mtlim[1]);
+  gr_width_gaus->GetYaxis()->SetRangeUser(10.,30.);
 
   TCanvas *cn_par_2 = new TCanvas("cn_par_2","cn_par_2",800,800);
   cn_par_2->cd();
@@ -850,6 +866,14 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_par_2->SaveAs(out_par_2+".C");
   cn_par_2->SaveAs(out_par_2+".jpg");
   cn_par_2->SaveAs(out_par_2+".eps");
+  gr_ncat->GetXaxis()->SetRangeUser(165.5,179.5);
+  gr_ncat->GetYaxis()->SetRangeUser(0.2,0.8);
+  cn_par_2->SaveAs(out_par_2+"_zoom.pdf");
+  cn_par_2->SaveAs(out_par_2+"_zoom.C");
+  cn_par_2->SaveAs(out_par_2+"_zoom.jpg");
+  cn_par_2->SaveAs(out_par_2+"_zoom.eps");
+  gr_ncat->GetXaxis()->SetRangeUser(mtlim[0], mtlim[1]);
+  gr_ncat->GetYaxis()->SetRangeUser(0.,1.);
 
   TCanvas *cn_par_3 = new TCanvas("cn_par_3","cn_par_3",800,800);
   cn_par_3->cd();
@@ -889,6 +913,14 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_par_3->SaveAs(out_par_3+".C");
   cn_par_3->SaveAs(out_par_3+".jpg");
   cn_par_3->SaveAs(out_par_3+".eps");
+  gr_gamma_gam->GetXaxis()->SetRangeUser(165.5,179.5);
+  gr_gamma_gam->GetYaxis()->SetRangeUser(1.,4.5);
+  cn_par_3->SaveAs(out_par_3+"_zoom.pdf");
+  cn_par_3->SaveAs(out_par_3+"_zoom.C");
+  cn_par_3->SaveAs(out_par_3+"_zoom.jpg");
+  cn_par_3->SaveAs(out_par_3+"_zoom.eps");
+  gr_gamma_gam->GetXaxis()->SetRangeUser(mtlim[0], mtlim[1]);
+  gr_gamma_gam->GetYaxis()->SetRangeUser(0.,5.);
 
   TCanvas *cn_par_4 = new TCanvas("cn_par_4","cn_par_4",800,800);
   cn_par_4->cd();
@@ -928,6 +960,14 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_par_4->SaveAs(out_par_4+".C");
   cn_par_4->SaveAs(out_par_4+".jpg");
   cn_par_4->SaveAs(out_par_4+".eps");
+  gr_beta_gam->GetXaxis()->SetRangeUser(165.5,179.5);
+  gr_beta_gam->GetYaxis()->SetRangeUser(15.,50.);
+  cn_par_4->SaveAs(out_par_4+"_zoom.pdf");
+  cn_par_4->SaveAs(out_par_4+"_zoom.C");
+  cn_par_4->SaveAs(out_par_4+"_zoom.jpg");
+  cn_par_4->SaveAs(out_par_4+"_zoom.eps");
+  gr_beta_gam->GetXaxis()->SetRangeUser(mtlim[0], mtlim[1]);
+  gr_beta_gam->GetYaxis()->SetRangeUser(0.,60.);
 
   TCanvas *cn_par_5 = new TCanvas("cn_par_5","cn_par_5",800,800);
   cn_par_5->cd();
@@ -967,6 +1007,14 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   cn_par_5->SaveAs(out_par_5+".C");
   cn_par_5->SaveAs(out_par_5+".jpg");
   cn_par_5->SaveAs(out_par_5+".eps");
+  gr_mu_gam->GetXaxis()->SetRangeUser(165.5,179.5);
+  gr_mu_gam->GetYaxis()->SetRangeUser(0.,20.);
+  cn_par_5->SaveAs(out_par_5+"_zoom.pdf");
+  cn_par_5->SaveAs(out_par_5+"_zoom.C");
+  cn_par_5->SaveAs(out_par_5+"_zoom.jpg");
+  cn_par_5->SaveAs(out_par_5+"_zoom.eps");
+  gr_mu_gam->GetXaxis()->SetRangeUser(mtlim[0], mtlim[1]);
+  gr_mu_gam->GetYaxis()->SetRangeUser(0.,30.);
 
 
   //===========================
