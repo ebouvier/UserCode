@@ -285,7 +285,8 @@ void cms_myStyle(float lumi = 19.7,bool isData = false){
 int plotMtVsBfrag(TString myanaDate)
 //---------------------------------------------------------------
 {
-  TString date = "15Nov29";
+  //TString date = "15Nov29";
+  TString date = "15Dec05";
   TString var = "xb";
   TString channel = "B decays with J/#psi";
 

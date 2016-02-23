@@ -37,8 +37,8 @@
 
 #pragma once
 
-#define TITLE_FONTSIZE 26
-#define LABEL_FONTSIZE 18
+#define TITLE_FONTSIZE 30
+#define LABEL_FONTSIZE 24
 
 #define LEFT_MARGIN 0.17
 #define RIGHT_MARGIN 0.03
@@ -129,8 +129,8 @@ TStyle* createMyStyle() {
   myStyle->SetTitleColor(1, "XYZ");
   myStyle->SetTitleFont(43, "XYZ");
   myStyle->SetTitleSize(TITLE_FONTSIZE, "XYZ");
-  myStyle->SetTitleYOffset(2.5); 
-  myStyle->SetTitleXOffset(1.5);
+  myStyle->SetTitleYOffset(2.); 
+  myStyle->SetTitleXOffset(1.25);
 
   myStyle->SetLabelColor(1, "XYZ");
   myStyle->SetLabelFont(43, "XYZ");
@@ -202,7 +202,7 @@ void h_myStyle(TH1 *h,
   h->SetMinimum(y_min);
   h->GetXaxis()->SetNdivisions(ndivx);
   h->GetYaxis()->SetNdivisions(ndivy);
-  h->GetYaxis()->SetTitleOffset(2.5);
+  h->GetYaxis()->SetTitleOffset(2.);
 
   h->SetMarkerStyle(marker_style);
   h->SetMarkerColor(marker_color);
@@ -329,7 +329,7 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   TLatex* channel_tex = new TLatex(0.22, 0.9, channel);
   channel_tex->SetNDC(true);
   channel_tex->SetTextFont(43);
-  channel_tex->SetTextSize(TITLE_FONTSIZE - 6);
+  channel_tex->SetTextSize(22);
 
   vector<int> color; color.push_back(419); color.push_back(862); color.push_back(602); color.push_back(907); color.push_back(807); color.push_back(800);
   assert(color.size() == mtop.size());
@@ -819,6 +819,23 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
 
   TCanvas *cn_res_data = new TCanvas("cn_res_data","cn_res_data",800,800);
   cn_res_data->cd();
+  double ymax = 110.;
+  if (blind) {
+    if (outDir.Contains("FitEl", TString::kIgnoreCase))
+      ymax = 16000.;
+    if (outDir.Contains("FitMu", TString::kIgnoreCase))
+      ymax = 18000.;
+    if (outDir.Contains("FitAll", TString::kIgnoreCase))
+      ymax = 35000.;
+  } else {
+    if (outDir.Contains("FitEl", TString::kIgnoreCase))
+      ymax = 52.;
+    if (outDir.Contains("FitMu", TString::kIgnoreCase))
+      ymax = 60.;
+    if (outDir.Contains("FitAll", TString::kIgnoreCase))
+      ymax = 105.;
+  }
+  frame->GetYaxis()->SetRangeUser(0., ymax);
   frame->Draw();
   TLegend *leg_res_data = new TLegend(0.58,0.42,0.9,0.5,NULL,"brNDC");
   leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal(), mt.getError()));
@@ -839,9 +856,9 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooPlot *likeframe_zoom = mt.frame(mt.getVal()-3.*mt.getError(), mt.getVal()+3.*mt.getError());
   nll_res->plotOn(likeframe_zoom,ShiftToZero(),LineColor(9));
   likeframe_zoom->SetYTitle("-log(L/L_{max})");
-  likeframe_zoom->SetTitleOffset(3.,"X");
-  likeframe_zoom->SetTitleOffset(3.,"Y");
-  likeframe_zoom->SetTitleSize(LABEL_FONTSIZE,"XY");
+  likeframe_zoom->SetTitleOffset(2.5,"X");
+  likeframe_zoom->SetTitleOffset(2.5,"Y");
+  likeframe_zoom->SetTitleSize(LABEL_FONTSIZE+2,"XY");
   likeframe_zoom->GetXaxis()->SetNdivisions(503);
   likeframe_zoom->GetYaxis()->SetNdivisions(506);
   likeframe_zoom->Draw();
@@ -999,13 +1016,28 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     cn_mean->cd();
     h_myStyle(hist_mean, 0, 38, 1, 38, 3002, 0, 1.1*hist_mean->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#tilde{M}_{t}^{toy} (GeV)");
     hist_mean->Draw("hist");
-    TLegend *leg_mean = new TLegend(0.7,0.62,0.9,0.7,NULL,"brNDC");
-    leg_mean->SetTextSize(0.025);
+    TPaveText* pave_mean = new TPaveText(0.7,0.62,0.9,0.7,"brNDC");
+    pave_mean->AddText("Generated at");
+    pave_mean->AddText(TString::Format("M_{t} = %4.2f GeV", mti_v[0]));
+    pave_mean->SetBorderSize(1);
+    pave_mean->SetTextAlign(22);
+    pave_mean->SetTextFont(62);
+    pave_mean->SetTextSize(0.0325);
+    pave_mean->SetLineColor(0);
+    pave_mean->SetLineStyle(1);
+    pave_mean->SetLineWidth(0);
+    pave_mean->SetFillColor(10);
+    pave_mean->SetFillStyle(1);
+    pave_mean->Draw();
+    /*
+       TLegend *leg_mean = new TLegend(0.7,0.62,0.9,0.7,NULL,"brNDC");
+       leg_mean->SetTextSize(0.025);
     //leg_mean->SetHeader(TString::Format("Generated at M_{t} = %4.2f GeV", mti_v[0]));
     leg_mean->AddEntry((TObject*)0,"Generated at","");
     leg_mean->AddEntry((TObject*)0,TString::Format("M_{t} = %4.2f GeV", mti_v[0]),"");
     leg_myStyle(leg_mean);
     leg_mean->Draw("same");
+    */
     channel_tex->Draw("same");
     TString out_mean = outDir;
     if (ittbar > 0) {
@@ -1049,11 +1081,25 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     cn_err->cd();
     h_myStyle(hist_err, 0, 38, 1, 38, 3002, 0, 1.1*hist_err->GetMaximum(), 510, 510, 20, 38, 1.2, 1, "#Delta#tilde{M}_{t}^{toy} (GeV)");
     hist_err->Draw("hist");
-    TLegend *leg_err = new TLegend(0.7,0.62,0.9,0.7,NULL,"brNDC");
-    leg_err->SetTextSize(0.025);
-    leg_err->SetHeader(TString::Format("Toys of #approx%d events", nevt));
-    leg_myStyle(leg_err);
-    leg_err->Draw("same");
+    TPaveText* pave_err = new TPaveText(0.7,0.63,0.9,0.7,"brNDC");
+    pave_err->AddText(TString::Format("Toys of #approx%d events", nevt));
+    pave_err->SetBorderSize(1);
+    pave_err->SetTextAlign(22);
+    pave_err->SetTextFont(62);
+    pave_err->SetTextSize(0.0325);
+    pave_err->SetLineColor(0);
+    pave_err->SetLineStyle(1);
+    pave_err->SetLineWidth(0);
+    pave_err->SetFillColor(10);
+    pave_err->SetFillStyle(1);
+    pave_err->Draw();
+    /*
+       TLegend *leg_err = new TLegend(0.7,0.62,0.9,0.7,NULL,"brNDC");
+       leg_err->SetTextSize(0.025);
+       leg_err->SetHeader(TString::Format("Toys of #approx%d events", nevt));
+       leg_myStyle(leg_err);
+       leg_err->Draw("same");
+       */
     channel_tex->Draw("same");
     TString out_err = outDir;
     if (ittbar > 0) {
@@ -1101,13 +1147,29 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     TF1 *fit_pull_gaus = hist_pull->GetFunction("gaus");
     fit_pull_gaus->SetLineColor(38); fit_pull_gaus->SetLineWidth(2);
     fit_pull_gaus->Draw("same");
-    TLegend *leg_pull = new TLegend(0.67,0.62,0.9,0.7,NULL,"brNDC");
-    leg_pull->SetTextSize(0.025);
-    leg_pull->SetHeader("Gaussian fit parameters:");
-    leg_pull->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(1),fit_pull_gaus->GetParError(1)), "");
-    leg_pull->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(2),fit_pull_gaus->GetParError(2)), "");
-    leg_myStyle(leg_pull);
-    leg_pull->Draw("same");
+    TPaveText* pave_pull = new TPaveText(0.21,0.77,0.5,0.88,"brNDC");
+    pave_pull->AddText("Gaussian fit parameters:");
+    pave_pull->AddText(TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(1),fit_pull_gaus->GetParError(1)));
+    pave_pull->AddText(TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(2),fit_pull_gaus->GetParError(2)));
+    pave_pull->SetBorderSize(1);
+    pave_pull->SetTextAlign(22);
+    pave_pull->SetTextFont(62);
+    pave_pull->SetTextSize(0.0325);
+    pave_pull->SetLineColor(0);
+    pave_pull->SetLineStyle(1);
+    pave_pull->SetLineWidth(0);
+    pave_pull->SetFillColor(10);
+    pave_pull->SetFillStyle(1);
+    pave_pull->Draw();
+    /*
+       TLegend *leg_pull = new TLegend(0.67,0.62,0.9,0.7,NULL,"brNDC");
+       leg_pull->SetTextSize(0.025);
+       leg_pull->SetHeader("Gaussian fit parameters:");
+       leg_pull->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(1),fit_pull_gaus->GetParError(1)), "");
+       leg_pull->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_pull_gaus->GetParameter(2),fit_pull_gaus->GetParError(2)), "");
+       leg_myStyle(leg_pull);
+       leg_pull->Draw("same");
+       */
     channel_tex->Draw("same");
     TString out_pull = outDir;
     if (ittbar > 0) {
@@ -1143,13 +1205,29 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     TF1 *fit_residual_gaus = hist_residual->GetFunction("gaus");
     fit_residual_gaus->SetLineColor(38); fit_residual_gaus->SetLineWidth(2);
     fit_residual_gaus->Draw("same");
-    TLegend *leg_residual = new TLegend(0.67,0.62,0.9,0.7,NULL,"brNDC");
-    leg_residual->SetTextSize(0.025);
-    leg_residual->SetHeader("Gaussian fit parameters:");
-    leg_residual->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(1),fit_residual_gaus->GetParError(1)), "");
-    leg_residual->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(2),fit_residual_gaus->GetParError(2)), "");
-    leg_myStyle(leg_residual);
-    leg_residual->Draw("same");
+    TPaveText* pave_res = new TPaveText(0.21,0.77,0.5,0.88,"brNDC");
+    pave_res->AddText("Gaussian fit parameters:");
+    pave_res->AddText(TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(1),fit_residual_gaus->GetParError(1)));
+    pave_res->AddText(TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(2),fit_residual_gaus->GetParError(2)));
+    pave_res->SetBorderSize(1);
+    pave_res->SetTextAlign(22);
+    pave_res->SetTextFont(62);
+    pave_res->SetTextSize(0.0325);
+    pave_res->SetLineColor(0);
+    pave_res->SetLineStyle(1);
+    pave_res->SetLineWidth(0);
+    pave_res->SetFillColor(10);
+    pave_res->SetFillStyle(1);
+    pave_res->Draw();
+    /*
+       TLegend *leg_residual = new TLegend(0.67,0.62,0.9,0.7,NULL,"brNDC");
+       leg_residual->SetTextSize(0.025);
+       leg_residual->SetHeader("Gaussian fit parameters:");
+       leg_residual->AddEntry((TObject*)0, TString::Format("#mu = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(1),fit_residual_gaus->GetParError(1)), "");
+       leg_residual->AddEntry((TObject*)0, TString::Format("#sigma = (%4.3f #pm %4.3f) GeV",fit_residual_gaus->GetParameter(2),fit_residual_gaus->GetParError(2)), "");
+       leg_myStyle(leg_residual);
+       leg_residual->Draw("same");
+       */
     channel_tex->Draw("same");
     TString out_residual = outDir;
     if (ittbar > 0) {

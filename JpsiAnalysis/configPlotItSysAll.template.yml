@@ -15,7 +15,7 @@ configuration:
   labels:
     - text: '@text@'
       position: [0.22, 0.9]
-      size: 24
+      size: 26
 
 files:
   'MuHadASingleMuBCD.root':
