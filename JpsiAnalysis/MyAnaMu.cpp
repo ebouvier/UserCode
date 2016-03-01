@@ -71,6 +71,12 @@ void MyAna::Loop()
 
   /* BfragWeightsProvider */
   /*
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("16Feb23", "Z2star_rbLEP", "xb"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("16Feb23", "Z2star_rbLEP_soft", "xb"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("16Feb23", "Z2star_rbLEP_hard", "xb"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("16Feb23", "P12", "xb"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("16Feb23", "P12FT", "xb"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("16Feb23", "P12FL", "xb"); 
   BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("Inclusive", "Z2star_rbLEPhard", "xb"); 
   BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("15Dec05", "Z2star_rbLEP", "xjpsixb"); 
   BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("15Dec05", "Z2star_rbLEP", "xb"); 
@@ -785,7 +791,7 @@ void MyAna::Loop()
       }
     }
 
-    if (njpsi > 1) cout << "! More than one J/psi (" << njpsi << ") !" << endl;
+    if (njpsi > 1 && _debug) cout << "! More than one J/psi (" << njpsi << ") !" << endl;
     if (njpsi != 1) continue;
     ++counter[5];
 
@@ -1318,12 +1324,12 @@ void MyAna::Loop()
     // Candidates:    
     //======================================================
 
-    if (_debug) {
-      cout << currentfile << " : " 
-           << run << ":" 
+    //if (_debug) {
+    //  cout << currentfile << " : " 
+      cout << run << ":" 
            << lumi << ":" 
            << evtID << endl;
-    }   
+    //}   
 
     //===============================================================================================
     // Write new tree

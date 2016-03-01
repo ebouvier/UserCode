@@ -62,12 +62,12 @@ int mergeMCforSys(TString date, TString version, TString channel){
   if (version.Contains("Powheg", TString::kIgnoreCase)) {
     finames.push_back("TTJets_Powheg_JpsiFilter.root");
   } else {
-    if (version.Contains("P12FL", TString::kIgnoreCase)) {
-      finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12FL.root");
-    } else {
-      if (version.Contains("P12FT", TString::kIgnoreCase)) {
-        finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12FT.root");
-      } else {
+    //if (version.Contains("P12FL", TString::kIgnoreCase)) {
+      //finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12FL.root");
+    //} else {
+      //if (version.Contains("P12FT", TString::kIgnoreCase)) {
+        //finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12FT.root");
+      //} else {
         if (version.Contains("P12loCR", TString::kIgnoreCase)) {
           finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12loCR.root");
         } else {
@@ -77,16 +77,16 @@ int mergeMCforSys(TString date, TString version, TString channel){
             if (version.Contains("P12ueLo", TString::kIgnoreCase)) {
               finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12ueLo.root");
             } else {
-              if (version.Contains("P12", TString::kIgnoreCase)) {
-                finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12.root");
-              } else {
+              //if (version.Contains("P12", TString::kIgnoreCase)) {
+                //finames.push_back("TTJets_MSDecays_JpsiFilter_TuneP12.root");
+              //} else {
                 finames.push_back("TTJets_MSDecays_JpsiFilter_172_5.root");
-              }
+              //}
             }
           }
         }
-      }
-    }
+      //}
+    //}
   }
   finames.push_back("T_t-channel.root");
   finames.push_back("Tbar_t-channel.root");
@@ -124,12 +124,12 @@ int mergeMCforSys(TString date, TString version, TString channel){
           if (version.Contains("Powheg", TString::kIgnoreCase)) {
             nevts.push_back(8855350);
           } else {
-            if (version.Contains("P12FL", TString::kIgnoreCase)) {
-              nevts.push_back(10026551);
-            } else {
-              if (version.Contains("P12FT", TString::kIgnoreCase)) {
-                nevts.push_back(9832345);
-              } else {
+            //if (version.Contains("P12FL", TString::kIgnoreCase)) {
+              //nevts.push_back(10026551);
+            //} else {
+              //if (version.Contains("P12FT", TString::kIgnoreCase)) {
+                //nevts.push_back(9832345);
+              //} else {
                 if (version.Contains("P12loCR", TString::kIgnoreCase)) {
                   nevts.push_back(8379955);
                 } else {
@@ -139,8 +139,8 @@ int mergeMCforSys(TString date, TString version, TString channel){
                     if (version.Contains("P12ueLo", TString::kIgnoreCase)) {
                       nevts.push_back(9172481);
                     } else {
-                      if (version.Contains("P12", TString::kIgnoreCase)) {
-                        nevts.push_back(10061801);
+                      //if (version.Contains("P12", TString::kIgnoreCase)) {
+                        //nevts.push_back(10061801);
                         /*
                            else if (version.Contains("Powheg", TString::kIgnoreCase))
                            nevts.push_back(21675970);
@@ -148,14 +148,14 @@ int mergeMCforSys(TString date, TString version, TString channel){
                            nevts.push_back(32852589);
                            }
                            */
-                      } else {
+                      //} else {
                         nevts.push_back(5380767);
-                      }
+                      //}
                     }
                   }
                 }
-              }
-            }
+              //}
+            //}
           }
         }
       }

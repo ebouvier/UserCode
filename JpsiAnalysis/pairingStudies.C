@@ -197,7 +197,7 @@ void h_myStyle(TH1 *h,
 }
 
 void cms_myStyle(double lumi = 19.7,bool isData = true){
-  std::string status = "Simulation preliminary";
+  std::string status = "Preliminary Simulation";
   if (isData) status = "Preliminary";
   TPaveText* pt_exp = new TPaveText(LEFT_MARGIN, 1 - 0.5 * TOP_MARGIN, 1 - RIGHT_MARGIN, 1, "brNDC");
   pt_exp->SetFillStyle(0);

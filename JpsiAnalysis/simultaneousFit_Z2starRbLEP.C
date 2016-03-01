@@ -46,7 +46,7 @@
 #define TOP_MARGIN 0.05
 #define BOTTOM_MARGIN 0.13
 
-#define NCPU 8 // keep in mind that other people may want to work
+#define NCPU 16 // keep in mind that other people may want to work
 
 /*
  * Simultaneous fit with a gaussian+gamma unbinned likelihood fit
@@ -256,7 +256,7 @@ void gr_myStyle(TGraph *gr,
 }
 
 void cms_myStyle(double lumi = 19.7,bool isData = true){
-  std::string status = "Simulation preliminary";
+  std::string status = "Preliminary Simulation";
   if (isData) status = "Preliminary";
   TPaveText* pt_exp = new TPaveText(LEFT_MARGIN, 1 - 0.5 * TOP_MARGIN, 1 - RIGHT_MARGIN, 1, "brNDC");
   pt_exp->SetFillStyle(0);
@@ -363,6 +363,20 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
     if (decay.Contains("all", TString::kIgnoreCase))
       channel = "e/#mu/ee/#mu#mu/e#mu"+channel;
     //---- simultaneous fit parameters
+    /*
+    p0_mean_gaus_i = 0.; p0_mean_gaus_c = 2.; p0_mean_gaus_s = 5.;
+    p1_mean_gaus_i = 0.43; p1_mean_gaus_c = 0.44; p1_mean_gaus_s = 0.46;
+    p0_width_gaus_i = -4; p0_width_gaus_c = -2.; p0_width_gaus_s = 0.;
+    p1_width_gaus_i = 0.14; p1_width_gaus_c = 0.16; p1_width_gaus_s = 0.18;
+    p0_ncat_i = 0.04; p0_ncat_c = 0.06; p0_ncat_s = 0.09;
+    p1_ncat_i = 0.0025; p1_ncat_c = 0.0027; p1_ncat_s = 0.003;
+    p0_gamma_gam_i = 1.3; p0_gamma_gam_c = 1.5; p0_gamma_gam_s = 2.5;
+    p1_gamma_gam_i = 0.005; p1_gamma_gam_c = 0.006; p1_gamma_gam_s = 0.007;
+    p0_beta_gam_i = 12.; p0_beta_gam_c = 14.; p0_beta_gam_s = 17.;
+    p1_beta_gam_i = 0.1; p1_beta_gam_c = 0.11; p1_beta_gam_s = 0.13;
+    p0_mu_gam_i = 9.; p0_mu_gam_c = 11.; p0_mu_gam_s = 13.;
+    p1_mu_gam_i = -0.05; p1_mu_gam_c = -0.02; p1_mu_gam_s = -0.01;
+    */
     p0_mean_gaus_i = -8.; p0_mean_gaus_c = -2.; p0_mean_gaus_s = 4.;
     p1_mean_gaus_i = 0.41; p1_mean_gaus_c = 0.44; p1_mean_gaus_s = 0.47;
     p0_width_gaus_i = -16; p0_width_gaus_c = -8.; p0_width_gaus_s = 0.;
@@ -1087,7 +1101,10 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   model.plotOn(frame,Components(pdf_gaus),LineStyle(kDashed),LineColor(kRed));
   frame->Draw();
   TLegend *leg_fit_data = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
+  if (blind)
+    leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
+  else
+    leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal()-0.71, mt.getError()));
   leg_myStyle(leg_fit_data);
   leg_fit_data->Draw("same");
   channel_tex->Draw("same");
@@ -1112,7 +1129,10 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   likeframe->SetYTitle("-log(L/L_{max})");
   likeframe->Draw();
   TLegend *leg_nll_data = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
+  if (blind)
+    leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
+  else
+    leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal()-0.71, mt.getError()));
   leg_myStyle(leg_nll_data);
   leg_nll_data->Draw("same");
   channel_tex->Draw("same");
@@ -1151,7 +1171,10 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame->GetYaxis()->SetRangeUser(0., ymax);
   frame->Draw();
   TLegend *leg_res_data = new TLegend(0.56,0.44,0.9,0.52,NULL,"brNDC");
-  leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal(), mt.getError()));
+  if (blind)
+    leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal(), mt.getError()));
+  else
+    leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal()-0.71, mt.getError()));
   leg_res_data->SetTextSize(0.04);
   leg_myStyle(leg_res_data);
   leg_res_data->Draw("same");
@@ -1765,7 +1788,7 @@ double *combi(double mt1, double dmt1, double mt2, double dmt2)
 }
 
 //---------------------------------------------------------------
-int simultaneousFit(TString date = "", TString version = "", TString decay = "",
+int simultaneousFit_Z2starRbLEP(TString date = "", TString version = "", TString decay = "",
     bool blind = true, int nEvtEl = -1, int nEvtMu = -1)
 //---------------------------------------------------------------
 {  
@@ -1785,7 +1808,7 @@ int simultaneousFit(TString date = "", TString version = "", TString decay = "",
     // vector<TString> inDir(3, date+"/v"+version+"/"); inDir[0] += "MyAnaEl/"; inDir[1] += "MyAnaMu/"; inDir[2] += "MyAnaAll/";
     vector<TString> inDir(3, date+"/"+version+"/"); inDir[0] += "MyAnaEl/"; inDir[1] += "MyAnaMu/"; inDir[2] += "MyAnaAll/";
     // vector<TString> outDir = date+"/v"+version+"/"; outDir[0] += "SimultaneousFitEl/"; outDir[1] += "SimultaneousFitMu/"; outDir[2] += "SimultaneousFitAll/";
-    vector<TString> outDir(3, date+"/"+version+"/"); outDir[0] += "SimultaneousFitEl/"; outDir[1] += "SimultaneousFitMu/"; outDir[2] += "SimultaneousFitAll/";
+    vector<TString> outDir(3, date+"/"+version+"/"); outDir[0] += "SimultaneousFitEl/"; outDir[1] += "SimultaneousFitMu/"; outDir[2] += "SimultaneousFitAll_Z2starRbLEP/";
     TString histName = "NJets20";
 
     if (nEvtEl > 0 && nEvtMu > 0) {
@@ -1822,15 +1845,15 @@ int simultaneousFit(TString date = "", TString version = "", TString decay = "",
     my_style->cd();
     gROOT->SetBatch(true);
 
-    double *mtop_el = treat(outDir[0], inDir[0], fileData[0], 19.7, decay, nevt[0], mtop, mtlim, mtoys, nsample, blind); 
-    double *mtop_mu = treat(outDir[1], inDir[1], fileData[1], 19.7, decay, nevt[1], mtop, mtlim, mtoys, nsample, blind); 
+    //double *mtop_el = treat(outDir[0], inDir[0], fileData[0], 19.7, decay, nevt[0], mtop, mtlim, mtoys, nsample, blind); 
+    //double *mtop_mu = treat(outDir[1], inDir[1], fileData[1], 19.7, decay, nevt[1], mtop, mtlim, mtoys, nsample, blind); 
     double *mtop_all = treat(outDir[2], inDir[2], fileData[2], 19.7, decay, nevt[2], mtop, mtlim, mtoys, nsample, blind); 
 
     cout << "\n===================================================\n" <<endl;
 
-    double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
-    TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV", mtop_combi[0], mtop_combi[1]);
-    cout << result1 << endl;
+    //double *mtop_combi = combi(mtop_el[0], mtop_el[1], mtop_mu[0], mtop_mu[1]); 
+    //TString result1 = TString::Format("Combining decay channels AFTER fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV", mtop_combi[0], mtop_combi[1]);
+    //cout << result1 << endl;
     TString result2 = TString::Format("Combining decay channels BEFORE fits: \n \t \t \t M_{t} = (%3.3f #pm %3.3f) GeV", mtop_all[0], mtop_all[1]);
     cout << result2 << endl;
 
