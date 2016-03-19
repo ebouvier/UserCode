@@ -31,10 +31,17 @@ if (os.path.isfile(dirEl+"/ElectronHadASingleElectronBCD.root") and os.path.isfi
     cmd = "hadd -f "+dirAll+"/Run2012ABCD.root "+dirEl+"/ElectronHadASingleElectronBCD.root "+dirMu+"/MuHadASingleMuBCD.root"
     os.system(cmd)
 
+# Merging TTJets_MSDecays_JpsiFilter
+#if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root")):
+#    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root"
+#    os.system(cmd)
+files = [name for name in os.listdir(dirEl) if "TTJets_MSDecays_JpsiFilter_" in name and name.endswith("_5.root")]
+for file in files:
+    if os.path.isfile(os.path.join(dirMu,file)):
+        cmd = "hadd -f "+os.path.join(dirAll,file)+" "+os.path.join(dirEl,file)+" "+os.path.join(dirMu,file)
+        os.system(cmd)
+
 # Merging central mass point
-if (os.path.isfile(dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root") and os.path.isfile(dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root")):
-    cmd = "hadd -f "+dirAll+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirEl+"/TTJets_MSDecays_JpsiFilter_172_5.root "+dirMu+"/TTJets_MSDecays_JpsiFilter_172_5.root"
-    os.system(cmd)
 if (os.path.isfile(dirEl+"/T_t-channel.root") and os.path.isfile(dirMu+"/T_t-channel.root")):
     cmd = "hadd -f "+dirAll+"/T_t-channel.root "+dirEl+"/T_t-channel.root "+dirMu+"/T_t-channel.root"
     os.system(cmd)

@@ -21,8 +21,8 @@
 
 #pragma once
 
-#define TITLE_FONTSIZE 26
-#define LABEL_FONTSIZE 18
+#define TITLE_FONTSIZE 30
+#define LABEL_FONTSIZE 24
 
 #define LEFT_MARGIN 0.17
 #define RIGHT_MARGIN 0.03
@@ -112,8 +112,8 @@ TStyle* createMyStyle() {
   myStyle->SetTitleColor(1, "XYZ");
   myStyle->SetTitleFont(43, "XYZ");
   myStyle->SetTitleSize(TITLE_FONTSIZE, "XYZ");
-  myStyle->SetTitleYOffset(2.5); 
-  myStyle->SetTitleXOffset(1.5);
+  myStyle->SetTitleYOffset(2.); 
+  myStyle->SetTitleXOffset(1.25);
 
   myStyle->SetLabelColor(1, "XYZ");
   myStyle->SetLabelFont(43, "XYZ");
@@ -182,7 +182,7 @@ void h_myStyle(TH1 *h,
   h->SetMinimum(y_min);
   h->GetXaxis()->SetNdivisions(ndivx);
   h->GetYaxis()->SetNdivisions(ndivy);
-  h->GetYaxis()->SetTitleOffset(2.5);
+  h->GetYaxis()->SetTitleOffset(2.);
 
   h->SetMarkerStyle(marker_style);
   h->SetMarkerColor(marker_color);

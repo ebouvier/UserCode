@@ -48,6 +48,8 @@
 
 #define NCPU 16 // keep in mind that other people may want to work
 
+#define RBLEP -0.71
+
 /*
  * Simultaneous fit with a gaussian+gamma unbinned likelihood fit
  */
@@ -430,7 +432,9 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   //    PDF for each mtop
   //=========================
 
-  RooConstVar mt_0("mt_0","mt_0",mtop[0]);
+  double mt0 = mtop[0];
+  if (!blind) mt0 += RBLEP;
+  RooConstVar mt_0("mt_0","mt_0",mt0);
   TFile *fi_0 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[0])));
   TTree *tree_0 = (TTree*)fi_0->Get("MTriLept");
   nentries.push_back(tree_0->GetEntries());
@@ -449,7 +453,9 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooAddPdf model_0("model_0","model_0",RooArgList(pdf_gaus_0,pdf_gam_0),RooArgList(ncat_0)) ;
 
 
-  RooConstVar mt_1("mt_1","mt_1",mtop[1]);
+  double mt1 = mtop[1];
+  if (!blind) mt1 += RBLEP;
+  RooConstVar mt_1("mt_1","mt_1",mt1);
   TFile *fi_1 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[1])));
   TTree *tree_1 = (TTree*)fi_1->Get("MTriLept");
   nentries.push_back(tree_1->GetEntries());
@@ -468,7 +474,9 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooAddPdf model_1("model_1","model_1",RooArgList(pdf_gaus_1,pdf_gam_1),RooArgList(ncat_1)) ;
 
 
-  RooConstVar mt_2("mt_2","mt_2",mtop[2]);
+  double mt2 = mtop[2];
+  if (!blind) mt2 += RBLEP;
+  RooConstVar mt_2("mt_2","mt_2",mt2);
   TFile *fi_2 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[2])));
   TTree *tree_2 = (TTree*)fi_2->Get("MTriLept");
   nentries.push_back(tree_2->GetEntries());
@@ -487,7 +495,9 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooAddPdf model_2("model_2","model_2",RooArgList(pdf_gaus_2,pdf_gam_2),RooArgList(ncat_2)) ;
 
 
-  RooConstVar mt_3("mt_3","mt_3",mtop[3]);
+  double mt3 = mtop[3];
+  if (!blind) mt3 += RBLEP;
+  RooConstVar mt_3("mt_3","mt_3",mt3);
   TFile *fi_3 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[3])));
   TTree *tree_3 = (TTree*)fi_3->Get("MTriLept");
   nentries.push_back(tree_3->GetEntries());
@@ -506,7 +516,9 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooAddPdf model_3("model_3","model_3",RooArgList(pdf_gaus_3,pdf_gam_3),RooArgList(ncat_3)) ;
 
 
-  RooConstVar mt_4("mt_4","mt_4",mtop[4]);
+  double mt4 = mtop[4];
+  if (!blind) mt4 += RBLEP;
+  RooConstVar mt_4("mt_4","mt_4",mt4);
   TFile *fi_4 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[4])));
   TTree *tree_4 = (TTree*)fi_4->Get("MTriLept");
   nentries.push_back(tree_4->GetEntries());
@@ -525,7 +537,9 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   RooAddPdf model_4("model_4","model_4",RooArgList(pdf_gaus_4,pdf_gam_4),RooArgList(ncat_4)) ;
 
 
-  RooConstVar mt_5("mt_5","mt_5",mtop[5]);
+  double mt5 = mtop[5];
+  if (!blind) mt5 += RBLEP;
+  RooConstVar mt_5("mt_5","mt_5",mt5);
   TFile *fi_5 = TFile::Open(inDir+TString::Format("All_%d_5.root",(int)floor(mtop[5])));
   TTree *tree_5 = (TTree*)fi_5->Get("MTriLept");
   nentries.push_back(tree_5->GetEntries());
@@ -589,13 +603,13 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   simPdf.plotOn(frame_0,Slice(mc_sample,"m0"),Components(pdf_gaus_0),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
   frame_0->Draw();
   TLegend *leg_0 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_0->SetHeader(TString::Format("M_{t} = %4.1f GeV",mtop[0]));
+  leg_0->SetHeader(TString::Format("M_{t} = %4.1f GeV",mt0));
   leg_0->SetTextSize(0.035);
   leg_myStyle(leg_0);
   leg_0->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_0 = outDir+TString::Format("Pdf_%d_5", (int)mtop[0]);
+  TString out_0 = outDir + TString::Format("Pdf_%.1f", mt0).ReplaceAll(".","_");
   cn_0->SaveAs(out_0+".pdf");
   cn_0->SaveAs(out_0+".C");
   cn_0->SaveAs(out_0+".jpg");
@@ -611,13 +625,13 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   simPdf.plotOn(frame_1,Slice(mc_sample,"m1"),Components(pdf_gaus_1),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
   frame_1->Draw();
   TLegend *leg_1 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_1->SetHeader(TString::Format("M_{t} = %4.1f GeV",mtop[1]));
+  leg_1->SetHeader(TString::Format("M_{t} = %4.1f GeV",mt1));
   leg_1->SetTextSize(0.035);
   leg_myStyle(leg_1);
   leg_1->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_1 = outDir+TString::Format("Pdf_%d_5", (int)mtop[1]);
+  TString out_1 = outDir + TString::Format("Pdf_%.1f", mt1).ReplaceAll(".","_");
   cn_1->SaveAs(out_1+".pdf");
   cn_1->SaveAs(out_1+".C");
   cn_1->SaveAs(out_1+".jpg");
@@ -633,13 +647,13 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   simPdf.plotOn(frame_2,Slice(mc_sample,"m2"),Components(pdf_gaus_2),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
   frame_2->Draw();
   TLegend *leg_2 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_2->SetHeader(TString::Format("M_{t} = %4.1f GeV",mtop[2]));
+  leg_2->SetHeader(TString::Format("M_{t} = %4.1f GeV",mt2));
   leg_2->SetTextSize(0.035);
   leg_myStyle(leg_2);
   leg_2->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_2 = outDir+TString::Format("Pdf_%d_5", (int)mtop[2]);
+  TString out_2 = outDir + TString::Format("Pdf_%.1f", mt2).ReplaceAll(".","_");
   cn_2->SaveAs(out_2+".pdf");
   cn_2->SaveAs(out_2+".C");
   cn_2->SaveAs(out_2+".jpg");
@@ -655,13 +669,13 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   simPdf.plotOn(frame_3,Slice(mc_sample,"m3"),Components(pdf_gaus_3),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
   frame_3->Draw();
   TLegend *leg_3 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_3->SetHeader(TString::Format("M_{t} = %4.1f GeV",mtop[3]));
+  leg_3->SetHeader(TString::Format("M_{t} = %4.1f GeV",mt3));
   leg_3->SetTextSize(0.035);
   leg_myStyle(leg_3);
   leg_3->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_3 = outDir+TString::Format("Pdf_%d_5", (int)mtop[3]);
+  TString out_3 = outDir + TString::Format("Pdf_%.1f", mt3).ReplaceAll(".","_");
   cn_3->SaveAs(out_3+".pdf");
   cn_3->SaveAs(out_3+".C");
   cn_3->SaveAs(out_3+".jpg");
@@ -677,13 +691,13 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   simPdf.plotOn(frame_4,Slice(mc_sample,"m4"),Components(pdf_gaus_4),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
   frame_4->Draw();
   TLegend *leg_4 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_4->SetHeader(TString::Format("M_{t} = %4.1f GeV",mtop[4]));
+  leg_4->SetHeader(TString::Format("M_{t} = %4.1f GeV",mt4));
   leg_4->SetTextSize(0.035);
   leg_myStyle(leg_4);
   leg_4->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_4 = outDir+TString::Format("Pdf_%d_5", (int)mtop[4]);
+  TString out_4 = outDir + TString::Format("Pdf_%.1f", mt4).ReplaceAll(".","_");
   cn_4->SaveAs(out_4+".pdf");
   cn_4->SaveAs(out_4+".C");
   cn_4->SaveAs(out_4+".jpg");
@@ -699,13 +713,13 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   simPdf.plotOn(frame_5,Slice(mc_sample,"m5"),Components(pdf_gaus_5),ProjWData(mc_sample,combMC),LineStyle(kDashed),LineColor(kRed));
   frame_5->Draw();
   TLegend *leg_5 = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  leg_5->SetHeader(TString::Format("M_{t} = %4.1f GeV",mtop[5]));
+  leg_5->SetHeader(TString::Format("M_{t} = %4.1f GeV",mt5));
   leg_5->SetTextSize(0.035);
   leg_myStyle(leg_5);
   leg_5->Draw("same");
   channel_tex->Draw("same");
   cms_myStyle(lumi, false);
-  TString out_5 = outDir+TString::Format("Pdf_%d_5", (int)mtop[5]);
+  TString out_5 = outDir + TString::Format("Pdf_%.1f", mt5).ReplaceAll(".","_");
   cn_5->SaveAs(out_5+".pdf");
   cn_5->SaveAs(out_5+".C");
   cn_5->SaveAs(out_5+".jpg");
@@ -724,12 +738,12 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame_comp->Draw();
   TLegend *leg_comp = new TLegend(0.55,0.5,0.9,0.9,NULL,"brNDC");
   leg_comp->SetTextSize(0.035);
-  leg_comp->AddEntry(frame_comp->findObject("model0"), TString::Format("M_{t} = %4.1f GeV",mtop[0]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model1"), TString::Format("M_{t} = %4.1f GeV",mtop[1]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model2"), TString::Format("M_{t} = %4.1f GeV",mtop[2]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model3"), TString::Format("M_{t} = %4.1f GeV",mtop[3]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model4"), TString::Format("M_{t} = %4.1f GeV",mtop[4]), "l");
-  leg_comp->AddEntry(frame_comp->findObject("model5"), TString::Format("M_{t} = %4.1f GeV",mtop[5]), "l");
+  leg_comp->AddEntry(frame_comp->findObject("model0"), TString::Format("M_{t} = %4.1f GeV",mt0), "l");
+  leg_comp->AddEntry(frame_comp->findObject("model1"), TString::Format("M_{t} = %4.1f GeV",mt1), "l");
+  leg_comp->AddEntry(frame_comp->findObject("model2"), TString::Format("M_{t} = %4.1f GeV",mt2), "l");
+  leg_comp->AddEntry(frame_comp->findObject("model3"), TString::Format("M_{t} = %4.1f GeV",mt3), "l");
+  leg_comp->AddEntry(frame_comp->findObject("model4"), TString::Format("M_{t} = %4.1f GeV",mt4), "l");
+  leg_comp->AddEntry(frame_comp->findObject("model5"), TString::Format("M_{t} = %4.1f GeV",mt5), "l");
   leg_myStyle(leg_comp);
   leg_comp->Draw("same");
   channel_tex->Draw("same");
@@ -1101,10 +1115,10 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   model.plotOn(frame,Components(pdf_gaus),LineStyle(kDashed),LineColor(kRed));
   frame->Draw();
   TLegend *leg_fit_data = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  if (blind)
+  //if (blind)
     leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
-  else
-    leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal()-0.71, mt.getError()));
+  //else
+  //  leg_fit_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal()-0.71, mt.getError()));
   leg_myStyle(leg_fit_data);
   leg_fit_data->Draw("same");
   channel_tex->Draw("same");
@@ -1129,10 +1143,10 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   likeframe->SetYTitle("-log(L/L_{max})");
   likeframe->Draw();
   TLegend *leg_nll_data = new TLegend(0.58,0.82,0.9,0.9,NULL,"brNDC");
-  if (blind)
+  //if (blind)
     leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal(), mt.getError()));
-  else
-    leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal()-0.71, mt.getError()));
+  //else
+  //  leg_nll_data->SetHeader(TString::Format("M_{t} = (%3.1f #pm %1.1f) GeV", mt.getVal()-0.71, mt.getError()));
   leg_myStyle(leg_nll_data);
   leg_nll_data->Draw("same");
   channel_tex->Draw("same");
@@ -1171,10 +1185,10 @@ double *treat(TString outDir, TString inDir, TString fileData, double lumi, TStr
   frame->GetYaxis()->SetRangeUser(0., ymax);
   frame->Draw();
   TLegend *leg_res_data = new TLegend(0.56,0.44,0.9,0.52,NULL,"brNDC");
-  if (blind)
+  //if (blind)
     leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal(), mt.getError()));
-  else
-    leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal()-0.71, mt.getError()));
+  //else
+  //  leg_res_data->SetHeader(TString::Format("M_{t} = (%3.2f #pm %1.2f) GeV", mt.getVal()-0.71, mt.getError()));
   leg_res_data->SetTextSize(0.04);
   leg_myStyle(leg_res_data);
   leg_res_data->Draw("same");

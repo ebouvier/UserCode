@@ -28,8 +28,8 @@
 
 #pragma once
 
-#define TITLE_FONTSIZE 26
-#define LABEL_FONTSIZE 18
+#define TITLE_FONTSIZE 30
+#define LABEL_FONTSIZE 24
 
 #define LEFT_MARGIN 0.17
 #define RIGHT_MARGIN 0.03
@@ -118,8 +118,8 @@ TStyle* createMyStyle() {
   myStyle->SetTitleColor(1, "XYZ");
   myStyle->SetTitleFont(43, "XYZ");
   myStyle->SetTitleSize(TITLE_FONTSIZE, "XYZ");
-  myStyle->SetTitleYOffset(2.5); 
-  myStyle->SetTitleXOffset(1.5);
+  myStyle->SetTitleYOffset(2.); 
+  myStyle->SetTitleXOffset(1.25);
 
   myStyle->SetLabelColor(1, "XYZ");
   myStyle->SetLabelFont(43, "XYZ");
@@ -208,7 +208,7 @@ void h_myStyle(TH1 *h,
   h->SetMinimum(y_min);
   h->GetXaxis()->SetNdivisions(ndivx);
   h->GetYaxis()->SetNdivisions(ndivy);
-  h->GetYaxis()->SetTitleOffset(2.5);
+  h->GetYaxis()->SetTitleOffset(2.);
 
   h->SetMarkerStyle(marker_style);
   h->SetMarkerColor(marker_color);
@@ -507,8 +507,8 @@ double *treat(TString fileData, double lumi, TString decay, vector<double> mtop,
   gr_down->Fit("pol2","FQ","");
   TF1 *fit_down = gr_down->GetFunction("pol2");  
 
-  TLegend *leg_calib = new TLegend(0.2,0.75,0.5,0.83,NULL,"brNDC");
-  leg_calib->SetTextSize(0.025);
+  TLegend *leg_calib = new TLegend(0.2,0.75,0.65,0.83,NULL,"brNDC");
+  leg_calib->SetTextSize(0.04);
   leg_calib->AddEntry(gr,TString::Format("Slope of %.2f #pm %.2f", slope, errSlope),"lp");
   leg_calib->SetHeader("Calibration curve");
 
@@ -582,7 +582,7 @@ double *treat(TString fileData, double lumi, TString decay, vector<double> mtop,
   mtop_res[1] = pm_fit + max(fabs(p_fit), fabs(m_fit));
 
   TLegend *leg_res = new TLegend(0.2,0.75,0.65,0.87,NULL,"brNDC");
-  leg_res->SetTextSize(0.025);
+  leg_res->SetTextSize(0.04);
   leg_res->AddEntry(gr,TString::Format("Slope of %.2f #pm %.2f", slope, errSlope),"lp");
   leg_res->AddEntry((TObject*)0, mjpsil_res, "");
   leg_res->AddEntry((TObject*)0, mt_res, "");
