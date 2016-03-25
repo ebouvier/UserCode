@@ -23,8 +23,8 @@
 
 #pragma once
 
-#define TITLE_FONTSIZE 26
-#define LABEL_FONTSIZE 18
+#define TITLE_FONTSIZE 30
+#define LABEL_FONTSIZE 24
 
 #define LEFT_MARGIN 0.17
 #define RIGHT_MARGIN 0.03
@@ -111,8 +111,8 @@ TStyle* createMyStyle() {
   myStyle->SetTitleColor(1, "XYZ");
   myStyle->SetTitleFont(43, "XYZ");
   myStyle->SetTitleSize(TITLE_FONTSIZE, "XYZ");
-  myStyle->SetTitleYOffset(2.5); 
-  myStyle->SetTitleXOffset(1.5);
+  myStyle->SetTitleYOffset(2.); 
+  myStyle->SetTitleXOffset(1.25);
 
   myStyle->SetLabelColor(1, "XYZ");
   myStyle->SetLabelFont(43, "XYZ");
@@ -191,11 +191,11 @@ void graphasymerror_mystyle(TGraphAsymmErrors *gr,
   gr->SetMarkerColor(marker_color);
   gr->SetMarkerSize(marker_size);
 
-  gr->GetYaxis()->SetTitleOffset(2.5);
+  gr->GetYaxis()->SetTitleOffset(2.);
 }
 
 void cms_style_bis(double lumi = 15.2, bool isData = true){
-  std::string status = "Simulation preliminary";
+  std::string status = "Preliminary Simulation";
   if (isData) status = "Preliminary";
   TPaveText* pt_exp = new TPaveText(LEFT_MARGIN, 1 - 0.5 * TOP_MARGIN, 1 - RIGHT_MARGIN, 1, "brNDC");
   pt_exp->SetFillStyle(0);
@@ -228,7 +228,7 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
   my_style->cd();
   if (inBatch) gROOT->SetBatch(true);
 
-  TLatex* channel_tex_r = new TLatex(0.75, 0.9, channel);
+  TLatex* channel_tex_r = new TLatex(0.7, 0.9, channel);
   channel_tex_r->SetNDC(true);
   channel_tex_r->SetTextFont(43);
   channel_tex_r->SetTextSize(TITLE_FONTSIZE - 6);  
@@ -242,7 +242,7 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
   TString tree_name = "D0window-b-jets";
   TTree *tree = (TTree*) fi->Get(tree_name);
   RooRealVar weight("Weight", "Weight", 0., 2.);
-  RooRealVar d0mass("D0mass", "D^{0} mass", 1.7, 2., "GeV/c^{2}");  
+  RooRealVar d0mass("D0mass", "D^{0} mass", 1.7, 2., "GeV");  
   RooArgSet variables(weight, d0mass);
   RooRealVar *var[NsPlots];
   for (int iVar = 0; iVar < NsPlots; iVar++) {
@@ -277,29 +277,39 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
 
   RooPlot* fr_discvar = d0mass.frame();
   data->plotOn(fr_discvar, Name("Data"), Binning(30));
-  model->plotOn(fr_discvar, FillStyle(0), MoveToBack(), Name ("total fit")); 
+  model->plotOn(fr_discvar, FillStyle(0), MoveToBack(), Name ("total fit"), LineColor(38)); 
   model->plotOn(fr_discvar, Components(bck), LineColor(1), LineWidth(2), FillStyle(1001), FillColor(920), DrawOption("LF"), MoveToBack(), Name("bck fit"));
 
   TCanvas* cn_discvar = new TCanvas("cn_discvar","cn_discvar",800,800);
   cn_discvar->cd();
   fr_discvar->Draw();
-  TLegend *leg_discvar = new TLegend(0.69,0.74,0.94,0.92);
+  TLegend *leg_discvar = new TLegend(0.2,0.62,0.52,0.88);
   leg_style(leg_discvar, 12);
-  leg_discvar->SetHeader("Discriminating variable");
+  leg_discvar->SetTextSize(0.03);
+  //leg_discvar->SetHeader("Discriminating variable");
   if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged"))
-    leg_discvar->AddEntry("Data","Data - Run 2012 A,B,C,D","P");
+    leg_discvar->AddEntry("Data","Data","P");
   else if (name.Contains("Semi"))
-    leg_discvar->AddEntry("Data","MG+PY6 Z2* Semilept. t#bar{t}","P");
+    leg_discvar->AddEntry("Data","Z2* Semileptonic t#bar{t}","P");
   else 
-    leg_discvar->AddEntry("Data","MG+PY6 Z2* Dilept. t#bar{t}","P");  
+    leg_discvar->AddEntry("Data","Z2* Dileptonic t#bar{t}","P");  
   leg_discvar->AddEntry("total fit",TString::Format("#splitline{Signal:}{N_{sig} = %.0f #pm %.0f}", nsigVal, nsigErr),"F");
   leg_discvar->AddEntry("bck fit",TString::Format("#splitline{Background:}{N_{bck} = %.0f #pm %.0f}", nbckVal, nbckErr),"F");
   leg_discvar->Draw();
+  fr_discvar->Draw("same");
   channel_tex_l->Draw("same");  
   if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged"))
     cms_style_bis(lumi);
   else 
     cms_style_bis(lumi, false);
+  TString peak_text = TString::Format("#splitline{#mu = (%.4f #pm %.4f) GeV}{#sigma = (%.4f #pm %.4f) GeV}", mean.getVal(), mean.getError(), sigma.getVal(), sigma.getError());
+  if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged")) 
+    peak_text = TString::Format("#splitline{#mu = (%.3f #pm %.3f) GeV}{#sigma = (%.3f #pm %.3f) GeV}", mean.getVal(), mean.getError(), sigma.getVal(), sigma.getError());
+  TLatex* peak_tex = new TLatex(0.21, 0.54, peak_text); 
+  peak_tex->SetNDC(true);
+  peak_tex->SetTextFont(43);
+  peak_tex->SetTextSize(TITLE_FONTSIZE - 6);  
+  peak_tex->Draw("same");
   cn_discvar->SaveAs(rep_name+"D0mass_Fit_"+name+".C");
   cn_discvar->SaveAs(rep_name+"D0mass_Fit_"+name+".eps");
   cn_discvar->SaveAs(rep_name+"D0mass_Fit_"+name+".pdf");
@@ -339,10 +349,12 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
     }
     TLegend *leg = new TLegend(xpos[0], 0.76, xpos[1], 0.88);
     leg_style(leg, 12);
-    leg->AddEntry("sigData_"+varName[iVar],"Weighted signal","P");
-    leg->AddEntry("bckData_"+varName[iVar],"Weighted background","P");
+    leg->SetTextSize(0.03);
+    leg->AddEntry("sigData_"+varName[iVar],"Signal","P");
+    leg->AddEntry("bckData_"+varName[iVar],"Background","P");
     leg->SetHeader(leg_header);
     leg->Draw();
+    fr[iVar]->Draw("same");
     if (atRight[iVar]) 
       channel_tex_r->Draw("same");  
     else
@@ -360,10 +372,12 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
 
     gr_all[iVar] = (TGraphAsymmErrors*)cn[iVar]->GetPrimitive("sigData_"+varName[iVar]); 
     gr_all[iVar]->GetXaxis()->SetRangeUser(varMin[iVar],varMax[iVar]);
-    if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged"))
+    if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged")) {
       graphasymerror_mystyle(gr_all[iVar], "Data_Sig_"+varName[iVar], 2, 1, 1, 0, 0, -1111., -1111., 510, 510, 20, 1, 1.2);  
-    else 
-      graphasymerror_mystyle(gr_all[iVar], "MC_Sig_"+varName[iVar], 2, 862, 1, 862, 1001, -1111., -1111., 510, 510, 1, 862, 1.2);
+    } else { 
+      //graphasymerror_mystyle(gr_all[iVar], "MC_Sig_"+varName[iVar], 2, 862, 1, 862, 1001, -1111., -1111., 510, 510, 1, 862, 1.2);
+      graphasymerror_mystyle(gr_all[iVar], "MC_Sig_"+varName[iVar], 2, 632, 1, 632, 3003, -1111., -1111., 510, 510, 1, 632, 1.2);
+    }
   }
 
   if (!name.Contains("El_merged") && !name.Contains("Mu_merged") && !name.Contains("All_merged")) {
@@ -376,10 +390,12 @@ TGraphAsymmErrors **treatHisto(bool inBatch, TStyle* my_style, TString rep_name,
     fr_GenId->Draw();
     TLegend *leg_GenId = new TLegend(0.6,0.76,0.89,0.88);
     leg_style(leg_GenId, 12);
-    leg_GenId->AddEntry("sigData_GenId","Weighted signal","P");
-    leg_GenId->AddEntry("bckData_GenId","Weighted background","P");
+    leg_GenId->SetTextSize(0.03);
+    leg_GenId->AddEntry("sigData_GenId","Signal","P");
+    leg_GenId->AddEntry("bckData_GenId","Background","P");
     leg_GenId->SetHeader(leg_header);
     leg_GenId->Draw();  
+    fr_GenId->Draw("same");
     channel_tex_r->Draw("same");  
     if (name.Contains("El_merged") || name.Contains("Mu_merged") || name.Contains("All_merged")) 
       cms_style_bis(lumi);
@@ -463,10 +479,10 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
   const double norm_sl = 107.6722*lumi*1000./31004465.; 
   const unsigned int NsPlots = 14;
   vector<TString> xTitle; 
-  xTitle.push_back("CSV discriminant"); xTitle.push_back("p(#kappa^{+}#pi^{-}+#mu^{-}) (GeV/c)"); xTitle.push_back("M(#kappa^{+}#pi^{-}+#mu^{-}) (GeV/c^{2})"); 
-  xTitle.push_back("p(#mu^{#pm}) (GeV/c)"); xTitle.push_back("R1");  xTitle.push_back("R2");
-  xTitle.push_back("R3");  xTitle.push_back("Tracks multiplicity"); xTitle.push_back("#sum p (GeV/c)"); 
-  xTitle.push_back("#sum p_{T} (GeV/c)"); xTitle.push_back("#LT p_{T} #GT = #frac{#sum p_{T}}{N_{tracks}} (GeV/c)"); 
+  xTitle.push_back("CSV discriminant"); xTitle.push_back("p(#kappa^{+}#pi^{-}+#mu^{-}) (GeV)"); xTitle.push_back("M(#kappa^{+}#pi^{-}+#mu^{-}) (GeV)"); 
+  xTitle.push_back("p(#mu^{#pm}) (GeV)"); xTitle.push_back("R1");  xTitle.push_back("R2");
+  xTitle.push_back("R3");  xTitle.push_back("Tracks multiplicity"); xTitle.push_back("#sum p (GeV)"); 
+  xTitle.push_back("#sum p_{T} (GeV)"); xTitle.push_back("#LT p_{T} #GT = #sum p_{T}/N_{tracks} (GeV)"); 
   xTitle.push_back("R1 (no #mu)"); xTitle.push_back("R2 (no #mu)"); xTitle.push_back("R3 (no #mu)");
   vector<TString> varName; 
   varName.push_back("CSVdisc"); varName.push_back("Bmomentum");  varName.push_back("Bmass");
@@ -493,10 +509,10 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
   varMax.push_back(400.); varMax.push_back(80.); 
   varMax.push_back(1.); varMax.push_back(1.); varMax.push_back(1.);
   vector<TString> varUnit; 
-  varUnit.push_back(""); varUnit.push_back("GeV/c"); varUnit.push_back("GeV/c^{2}"); 
-  varUnit.push_back("GeV/c"); varUnit.push_back(""); varUnit.push_back(""); 
-  varUnit.push_back(""); varUnit.push_back(""); varUnit.push_back("GeV/c"); 
-  varUnit.push_back("GeV/c"); varUnit.push_back("GeV/c"); 
+  varUnit.push_back(""); varUnit.push_back("GeV"); varUnit.push_back("GeV"); 
+  varUnit.push_back("GeV"); varUnit.push_back(""); varUnit.push_back(""); 
+  varUnit.push_back(""); varUnit.push_back(""); varUnit.push_back("GeV"); 
+  varUnit.push_back("GeV"); varUnit.push_back("GeV"); 
   varUnit.push_back(""); varUnit.push_back(""); varUnit.push_back("");
   vector<bool> atRight; 
   atRight.push_back(false); atRight.push_back(true); atRight.push_back(true); 
@@ -514,9 +530,9 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
 
   TH1F **graph_data_sig = new TH1F*[NsPlots]; 
 
-  TGraphAsymmErrors **gr_all_data = treatHisto(inBatch, my_style, rep_name, lumi, NsPlots, varName, varTitle, varMin, varMax, varUnit, atRight, fi_data, data_name, channel_s, "Data - Run 2012 A,B,C,D");
-  TGraphAsymmErrors **gr_all_sl = treatHisto(inBatch, my_style, rep_name, lumi, NsPlots, varName, varTitle, varMin, varMax, varUnit, atRight, fi_sl, "TTJets_SemiLeptMGDecays", channel_s, "MG+PY6 Z2* Semilept. t#bar{t}");
-  TGraphAsymmErrors **gr_all_dl = treatHisto(inBatch, my_style, rep_name, lumi, NsPlots, varName, varTitle, varMin, varMax, varUnit, atRight, fi_dl, "TTJets_FullLeptMGDecays", channel_s, "MG+PY6 Z2* Dilept. t#bar{t}");
+  TGraphAsymmErrors **gr_all_data = treatHisto(inBatch, my_style, rep_name, lumi, NsPlots, varName, varTitle, varMin, varMax, varUnit, atRight, fi_data, data_name, channel_s, "Data");
+  TGraphAsymmErrors **gr_all_sl = treatHisto(inBatch, my_style, rep_name, lumi, NsPlots, varName, varTitle, varMin, varMax, varUnit, atRight, fi_sl, "TTJets_SemiLeptMGDecays", channel_s, "Z2* Semileptonic t#bar{t}");
+  TGraphAsymmErrors **gr_all_dl = treatHisto(inBatch, my_style, rep_name, lumi, NsPlots, varName, varTitle, varMin, varMax, varUnit, atRight, fi_dl, "TTJets_FullLeptMGDecays", channel_s, "Z2* Dileptonic t#bar{t}");
 
   for (unsigned int ig = 0; ig < NsPlots; ig++) {
     graph_data_sig[ig] = new TH1F(varName[ig], varTitle[ig], gr_all_data[ig]->GetN(), varMin[ig], varMax[ig]);
@@ -579,9 +595,9 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
     gr_all_data[ig]->GetPoint(1, x2_data, y2_data);
     graph_data_sig[ig]->GetXaxis()->SetTitle(xTitle[ig]);
     gr_alldata->GetXaxis()->SetTitle(xTitle[ig]);
-    if (xTitle[ig].Contains("GeV/c")) {
-      graph_data_sig[ig]->GetYaxis()->SetTitle(TString::Format("Events / (%.2f GeV/c)", x2_data-x1_data));
-      gr_alldata->GetYaxis()->SetTitle(TString::Format("Events / (%.2f GeV/c)", x2_data-x1_data));
+    if (xTitle[ig].Contains("GeV")) {
+      graph_data_sig[ig]->GetYaxis()->SetTitle(TString::Format("Events / (%.2f GeV)", x2_data-x1_data));
+      gr_alldata->GetYaxis()->SetTitle(TString::Format("Events / (%.2f GeV)", x2_data-x1_data));
     }
     else {
       graph_data_sig[ig]->GetYaxis()->SetTitle(TString::Format("Events / %.2f", x2_data-x1_data));
@@ -594,9 +610,11 @@ void sPlot_file(bool inBatch, TString date, TString version, int type, double lu
     gr_allmc->Draw("2P");
     TLegend *leg_all = new TLegend(0.56,0.84,0.85,0.92); 
     leg_style(leg_all, 12);
-    leg_all->AddEntry(gr_alldata,"Data - Run 2012 A,B,C,D","P");
-    leg_all->AddEntry(gr_allmc,"MG+PY6 Z2 t#bar{t}","F");
+    leg_all->SetTextSize(0.03);
+    leg_all->AddEntry(gr_alldata,"Data","P");
+    leg_all->AddEntry(gr_allmc,"Z2*","F");
     leg_all->Draw();
+    gr_allmc->Draw("2P");
     gr_alldata->Draw("P");
     TLatex* channel_tex = new TLatex(0.22, 0.9, channel_s); 
     channel_tex->SetNDC(true);

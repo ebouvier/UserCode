@@ -3,6 +3,7 @@
 #include <memory>
 #include "MyAna.h"
 #include "HiggsTriggerEfficiencyProvider.h"
+#include "BfragWeightsProvider.h"
 #include "TopTriggerEfficiencyProvider.h"
 #include "PUReweighter.h"
 
@@ -28,6 +29,49 @@ using namespace std;
   _rootName = "output.root";
   _doSkim   = false;
   _nevt     = -1; 
+
+  _idBHadrons.push_back(411); _idBHadrons.push_back(421); _idBHadrons.push_back(10411); _idBHadrons.push_back(10421); 
+  _idBHadrons.push_back(413); _idBHadrons.push_back(423); _idBHadrons.push_back(10413); _idBHadrons.push_back(10423); 
+  _idBHadrons.push_back(20413); _idBHadrons.push_back(20423); _idBHadrons.push_back(415); _idBHadrons.push_back(425); 
+  _idBHadrons.push_back(431); _idBHadrons.push_back(10431); _idBHadrons.push_back(433); _idBHadrons.push_back(10433); 
+  _idBHadrons.push_back(20433); _idBHadrons.push_back(435); 
+  //bottom mesons
+  _idBHadrons.push_back(511); _idBHadrons.push_back(521); _idBHadrons.push_back(10511); _idBHadrons.push_back(10521); 
+  _idBHadrons.push_back(513); _idBHadrons.push_back(523); _idBHadrons.push_back(10513); _idBHadrons.push_back(10523); 
+  _idBHadrons.push_back(20513); _idBHadrons.push_back(20523); _idBHadrons.push_back(515); _idBHadrons.push_back(525); 
+  _idBHadrons.push_back(531); _idBHadrons.push_back(10531); _idBHadrons.push_back(533); _idBHadrons.push_back(10533); 
+  _idBHadrons.push_back(20533); _idBHadrons.push_back(535); _idBHadrons.push_back(541); _idBHadrons.push_back(10541); 
+  _idBHadrons.push_back(543); _idBHadrons.push_back(10543); _idBHadrons.push_back(20543); _idBHadrons.push_back(545); 
+  // ccbar mesons
+  _idBHadrons.push_back(441); _idBHadrons.push_back(10441); _idBHadrons.push_back(100441); _idBHadrons.push_back(443); 
+  _idBHadrons.push_back(10443); _idBHadrons.push_back(20443); _idBHadrons.push_back(100443); _idBHadrons.push_back(30443); 
+  _idBHadrons.push_back(9000443); _idBHadrons.push_back(9010443); _idBHadrons.push_back(9020443); _idBHadrons.push_back(445); 
+  _idBHadrons.push_back(100445); 
+  //bbar mesons:w
+  _idBHadrons.push_back(551); _idBHadrons.push_back(100551); _idBHadrons.push_back(110551); _idBHadrons.push_back(200551); 
+  _idBHadrons.push_back(210551); _idBHadrons.push_back(553); _idBHadrons.push_back(10553); _idBHadrons.push_back(20553); 
+  _idBHadrons.push_back(30553); _idBHadrons.push_back(100553); _idBHadrons.push_back(110553); _idBHadrons.push_back(120553); 
+  _idBHadrons.push_back(130553); _idBHadrons.push_back(200553); _idBHadrons.push_back(210553); _idBHadrons.push_back(220553); 
+  _idBHadrons.push_back(300553); _idBHadrons.push_back(9000553); _idBHadrons.push_back(9010553); _idBHadrons.push_back(555); 
+  _idBHadrons.push_back(10555); _idBHadrons.push_back(20555); _idBHadrons.push_back(100555); _idBHadrons.push_back(110555); 
+  _idBHadrons.push_back(120555); _idBHadrons.push_back(200555); _idBHadrons.push_back(557); _idBHadrons.push_back(100557); 
+  // charmed baryons
+  _idBHadrons.push_back(4122); _idBHadrons.push_back(4222); _idBHadrons.push_back(4212); _idBHadrons.push_back(4112); 
+  _idBHadrons.push_back(4224); _idBHadrons.push_back(4214); _idBHadrons.push_back(4114); _idBHadrons.push_back(4232); 
+  _idBHadrons.push_back(4132); _idBHadrons.push_back(4322); _idBHadrons.push_back(4312); _idBHadrons.push_back(4324); 
+  _idBHadrons.push_back(4314); _idBHadrons.push_back(4332); _idBHadrons.push_back(4334); _idBHadrons.push_back(4412); 
+  _idBHadrons.push_back(4422); _idBHadrons.push_back(4414); _idBHadrons.push_back(4424); _idBHadrons.push_back(4432); 
+  _idBHadrons.push_back(4434); _idBHadrons.push_back(4444);  
+  // bottom baryons
+  _idBHadrons.push_back(5122); _idBHadrons.push_back(5112); _idBHadrons.push_back(5212); _idBHadrons.push_back(5222); 
+  _idBHadrons.push_back(5114); _idBHadrons.push_back(5214); _idBHadrons.push_back(5224); _idBHadrons.push_back(5132); 
+  _idBHadrons.push_back(5232); _idBHadrons.push_back(5312); _idBHadrons.push_back(5322); _idBHadrons.push_back(5314); 
+  _idBHadrons.push_back(5324); _idBHadrons.push_back(5332); _idBHadrons.push_back(5334); _idBHadrons.push_back(5142); 
+  _idBHadrons.push_back(5242); _idBHadrons.push_back(5412); _idBHadrons.push_back(5422); _idBHadrons.push_back(5414); 
+  _idBHadrons.push_back(5424); _idBHadrons.push_back(5342); _idBHadrons.push_back(5432); _idBHadrons.push_back(5434); 
+  _idBHadrons.push_back(5442); _idBHadrons.push_back(5444); _idBHadrons.push_back(5512); _idBHadrons.push_back(5522); 
+  _idBHadrons.push_back(5514); _idBHadrons.push_back(5524); _idBHadrons.push_back(5532); _idBHadrons.push_back(5534); 
+  _idBHadrons.push_back(5542); _idBHadrons.push_back(5544); _idBHadrons.push_back(5554);  
 }
 
 MyAna::~MyAna()
@@ -42,6 +86,16 @@ void MyAna::Loop()
   PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram.root"); 
   // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUup.root"); 
   // PUReweighter* myPUReweighter = new PUReweighter("../../PatTopFilteredProduction/crab_tasks/15Apr01/LumiAndPU/PUProfiles/MyDataPileupHistogram_PUdown.root"); 
+
+  /* BfragWeightsProvider */
+  /*
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("Z2star_rbLEP"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("Z2star_rbLEP_soft"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("Z2star_rbLEP_hard"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("P12"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("P12FT"); 
+  BfragWeightsProvider* myBfragReweighter = new BfragWeightsProvider("P12FL"); 
+  */
 
   _newfile = new TFile(_rootName.c_str(),"RECREATE");
 
@@ -64,6 +118,8 @@ void MyAna::Loop()
   }
 
   int counter[20]; for (int i=0; i<20; ++i) counter[i] = 0;
+  int nMatchedD0 = 0;
+  int nAllD0 = 0;
   TH1F* _h_iCut = new TH1F("Event-yields","event-yields", 9, 0., 9.);
   _h_iCut->SetOption("bar");
   _h_iCut->SetFillStyle(3008);
@@ -71,7 +127,7 @@ void MyAna::Loop()
   _h_iCut->SetBarOffset(0.125);
 
   TH1F* _h_cuts_jet30_n = new TH1F("NJets30-cuts", "NJets30-cuts", 15, 0., 15.);
-  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV/c (before cut)");
+  _h_cuts_jet30_n->SetXTitle("Number of jets with p_{T} > 30 GeV (before cut)");
   TH1F* _h_cuts_muons_n = new TH1F("NMuons-cuts", "NMuons-cuts", 4, 0., 4.);
   _h_cuts_muons_n->SetXTitle("Number of isolated #mu (before cut)");
   TH1F* _h_cuts_electrons_n = new TH1F("NElectrons-cuts", "NElectrons-cuts", 4, 0., 4.);
@@ -81,10 +137,17 @@ void MyAna::Loop()
   TH1F* _h_cuts_mujets_n = new TH1F("N-b-jets-cuts", "N-b-jets-cuts", 5, 0., 5.);
   _h_cuts_mujets_n->SetXTitle("Number of #mu-tagged jets (before cut)");
 
+  TH1F* _h_dRbjetBhad_gen   = new TH1F("DeltaRbjetBhad-gen", "DeltaRbjetBhad-gen", 250, 0., 5);
+  _h_dRbjetBhad_gen->SetXTitle("#DeltaR(b jet, B hadron)^{gen}");
+  TH1F* _h_dRmujet_genbjet   = new TH1F("DeltaRmujetgenbjet", "DeltaRmujetgenbjet", 250, 0., 5);
+  _h_dRmujet_genbjet->SetXTitle("#DeltaR(#mu-tagged jet, gen b jet)");
+  TH1F* _h_pTBhadOverpTbjet_gen  = new TH1F("PtBhadOverPtbjet-gen", "PtBhadOverPtbjet-gen", 100, 0., 2.);
+  _h_pTBhadOverpTbjet_gen->SetXTitle("p_{T}^{gen}(B hadron)/p_{T}^{gen}(b jet)");  
+
   TH1F* _h_isoLept_n              = new TH1F("NIsoLept", "NIsoLept", 3, 0., 3.);
   _h_isoLept_n->SetXTitle("Number of isolated #mu");
   TH1F* _h_isoLept_pt             = new TH1F("PtIsoLept", "PtIsoLept", 50, 0., 500.);   
-  _h_isoLept_pt->SetXTitle("p_{T}(isolated #mu) (GeV/c)");
+  _h_isoLept_pt->SetXTitle("p_{T}(isolated #mu) (GeV)");
   TH1F* _h_isoLept_eta            = new TH1F("EtaIsoLept", "EtaIsoLept", 30, -3., 3.); 
   _h_isoLept_eta->SetXTitle("#eta(isolated #mu)");
   TH1F* _h_isoLept_phi            = new TH1F("PhiIsoLept", "PhiIsoLept", 32, -3.2, 3.2); 
@@ -93,9 +156,9 @@ void MyAna::Loop()
   _h_isoLept_pfiso->SetXTitle("#mu isolation");
 
   TH1F* _h_jet30_n                = new TH1F("NJets30", "NJets30", 8, 3., 11.); 
-  _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV/c");
+  _h_jet30_n->SetXTitle("Number of jets with p_{T}>30 GeV");
   TH1F* _h_jet30_pt               = new TH1F("PtJets30", "PtJets30", 100, 0., 500.); 
-  _h_jet30_pt->SetXTitle("p_{T}(jets) (GeV/c)");
+  _h_jet30_pt->SetXTitle("p_{T}(jets) (GeV)");
   TH1F* _h_jet30_eta              = new TH1F("EtaJets30", "EtaJets30", 25, -5., 5);
   _h_jet30_eta->SetXTitle("#eta(jets)");
   TH1F* _h_jet30_phi              = new TH1F("PhiJets30", "PhiJets30", 32, -3.2, 3.2);
@@ -119,7 +182,7 @@ void MyAna::Loop()
   TH1F* _h_CSVSelJets = new TH1F("CSV-b-jets", "CSV-b-jets", 100, 0., 1.);
   _h_CSVSelJets->SetXTitle("CSV discriminant");
   TH1F* _h_pTSelJets = new TH1F("TransverseMomentum-b-jets", "TransverseMomentum-b-jets", 100, 0., 500.); 
-  _h_pTSelJets->SetXTitle("p_{T}(jets) (GeV/c)");
+  _h_pTSelJets->SetXTitle("p_{T}(jets) (GeV)");
   TH1F* _h_etaSelJets = new TH1F("Eta-b-jets", "Eta-b-jets", 60, -3., 3.); 
   _h_etaSelJets->SetXTitle("#eta(jets)");
 
@@ -204,18 +267,18 @@ void MyAna::Loop()
   TH1F* _h_Nch = new TH1F("Nch-b-jets", "Nch-b-jets", 45, 0, 45); 
   _h_Nch->SetXTitle("Track multiplicity");
   TH1F* _h_sump = new TH1F("Sump-b-jets", "Sump-b-jets", 200, 0, 1000);
-  _h_sump->SetXTitle("Scalar sum of track momenta (GeV/c)");
+  _h_sump->SetXTitle("Scalar sum of track momenta (GeV)");
   TH1F* _h_sumpvec = new TH1F("VectorialSump-b-jets", "VectorialSump-b-jets", 300, 0, 1500);
-  _h_sumpvec->SetXTitle("Vectorial sum of tracks momenta (GeV/c)");
+  _h_sumpvec->SetXTitle("Vectorial sum of tracks momenta (GeV)");
 
   TH1F* _h_sum1p = new TH1F("Highestp-b-jets", "Highestp-b-jets", 150, 0, 300);
-  _h_sum1p->SetXTitle("Highest track momentum (GeV/c)");
+  _h_sum1p->SetXTitle("Highest track momentum (GeV)");
   TH1F* _h_sum2p = new TH1F("Sum2p-b-jets", "Sum2p-b-jets", 150, 0, 300);
-  _h_sum2p->SetXTitle("Scalar sum of the 2 highest track momenta (GeV/c)");
+  _h_sum2p->SetXTitle("Scalar sum of the 2 highest track momenta (GeV)");
   TH1F* _h_sum3p = new TH1F("Sum3p-b-jets", "Sum3p-b-jets", 150, 0, 300);
-  _h_sum3p->SetXTitle("Scalar sum of the 3 highest track momenta (GeV/c)");
+  _h_sum3p->SetXTitle("Scalar sum of the 3 highest track momenta (GeV)");
   TH1F* _h_mass3 = new TH1F("Mass3-b-jets", "Mass3-b-jets", 40, 0., 10.);
-  _h_mass3->SetXTitle("Invariant mass of the 3 highest momentum tracks (GeV/c^{2})");
+  _h_mass3->SetXTitle("Invariant mass of the 3 highest momentum tracks (GeV)");
   TH1F* _h_R1 = new TH1F("R1-b-jets", "R1-b-jets", 102, 0, 1.02);
   _h_R1->SetXTitle("R_{1}");
   TH1F* _h_R2 = new TH1F("R2-b-jets", "R2-b-jets", 102, 0, 1.02);
@@ -224,13 +287,13 @@ void MyAna::Loop()
   _h_R3->SetXTitle("R_{3}");
 
   TH1F* _h_sum1p_nomu = new TH1F("Highestp-nomu-b-jets", "Highestp-nomu-b-jets", 150, 0, 300);
-  _h_sum1p_nomu->SetXTitle("Highest track momentum (no #mu) (GeV/c)");
+  _h_sum1p_nomu->SetXTitle("Highest track momentum (no #mu) (GeV)");
   TH1F* _h_sum2p_nomu = new TH1F("Sum2p-nomu-b-jets", "Sum2p-nomu-b-jets", 150, 0, 300);
-  _h_sum2p_nomu->SetXTitle("Scalar sum of the 2 highest track momenta (no #mu) (GeV/c)");
+  _h_sum2p_nomu->SetXTitle("Scalar sum of the 2 highest track momenta (no #mu) (GeV)");
   TH1F* _h_sum3p_nomu = new TH1F("Sum3p-nomu-b-jets", "Sum3p-nomu-b-jets", 150, 0, 300);
-  _h_sum3p_nomu->SetXTitle("Scalar sum of the 3 highest track momenta (no #mu) (GeV/c)");
+  _h_sum3p_nomu->SetXTitle("Scalar sum of the 3 highest track momenta (no #mu) (GeV)");
   TH1F* _h_mass3_nomu = new TH1F("Mass3-nomu-b-jets", "Mass3-nomu-b-jets", 40, 0., 10.);
-  _h_mass3_nomu->SetXTitle("Invariant mass of the 3 highest momentum tracks (no #mu) (GeV/c^{2})");
+  _h_mass3_nomu->SetXTitle("Invariant mass of the 3 highest momentum tracks (no #mu) (GeV)");
   TH1F* _h_R1_nomu = new TH1F("R1-nomu-b-jets", "R1-nomu-b-jets", 102, 0, 1.02);
   _h_R1_nomu->SetXTitle("R_{1} (no #mu)");
   TH1F* _h_R2_nomu = new TH1F("R2-nomu-b-jets", "R2-nomu-b-jets", 102, 0, 1.02);
@@ -238,26 +301,34 @@ void MyAna::Loop()
   TH1F* _h_R3_nomu = new TH1F("R3-nomu-b-jets", "R3-nomu-b-jets", 102, 0, 1.02);
   _h_R3_nomu->SetXTitle("R_{3} (no #mu)");
 
+  TH1F* _h_dRd0 = new TH1F("DeltaRRecoD0GenD0-b-jets", "DeltaRRecoD0GenD0-b-jets", 250, 0., 5.);
+  _h_dRd0->SetXTitle("#DeltaR(reco D^{0}, gen D^{0})");
   TH1F* _h_D0Mass = new TH1F("D0Mass-b-jets", "D0Mass-b-jets", 400, 0, 8);
-  _h_D0Mass->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV/c^{2})");
+  _h_D0Mass->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV)");
+  TH1F* _h_D0FromBMass = new TH1F("D0FromBMass-b-jets", "D0FromBMass-b-jets", 250, 0., 5.);
+  _h_D0FromBMass->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV)");
   TH1F* _h_D0Mass_zoom = new TH1F("D0Mass-zoom-b-jets", "D0Mass-zoom-b-jets", 30, 1.7, 2);
-  _h_D0Mass_zoom->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV/c^{2})");
+  _h_D0Mass_zoom->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV)");
+  TH1F* _h_D0FromBMass_zoom = new TH1F("D0FromBMass-zoom-b-jets", "D0FromBMass-zoom-b-jets", 30, 1.7, 2);
+  _h_D0FromBMass_zoom->SetXTitle("M(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV)");
   TH1F* _h_D0p = new TH1F("D0p-b-jets", "D0p-b-jets", 150, 0, 300); 
-  _h_D0p->SetXTitle("p(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV/c)");
+  _h_D0p->SetXTitle("p(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV)");
+  TH1F* _h_D0FromBp = new TH1F("D0FromBp-b-jets", "D0FromBp-b-jets", 150, 0, 300); 
+  _h_D0FromBp->SetXTitle("p(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV)");
   TH1F* _h_D0pT = new TH1F("D0pT-b-jets", "D0pT-b-jets", 100, 0, 400); 
-  _h_D0pT->SetXTitle("p_{T}(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV/c)");
+  _h_D0pT->SetXTitle("p_{T}(D^{0}#rightarrow#kappa^{+}#pi^{-}) (GeV)");
   TH1F* _h_D0eta = new TH1F("D0eta-b-jets", "D0eta-b-jets", 60, -3, 3);
   _h_D0eta->SetXTitle("#eta(D^{0}#rightarrow#kappa^{+}#pi^{-})");
   TH1F* _h_BMomentum_unbiased = new TH1F("BMomentum-nobias-b-jets", "BMomentum-nobias-b-jets", 100, 0, 400);
-  _h_BMomentum_unbiased->SetXTitle("p(#kappa^{+}#pi^{-}+#mu^{-}) (GeV/c)");
+  _h_BMomentum_unbiased->SetXTitle("p(#kappa^{+}#pi^{-}+#mu^{-}) (GeV)");
   TH1F* _h_BMass_unbiased = new TH1F("BMass-nobias-b-jets", "BMass-nobias-b-jets", 100, 0., 10.);
-  _h_BMass_unbiased->SetXTitle("M(#kappa^{+}#pi^{-}+#mu^{-}) (GeV/c^{2})");
+  _h_BMass_unbiased->SetXTitle("M(#kappa^{+}#pi^{-}+#mu^{-}) (GeV)");
   TH1F* _h_BMomentumClean = new TH1F("BMomentum-D0cut-b-jets", "BMomentum-D0cut-b-jets", 100, 0, 400);
-  _h_BMomentumClean->SetXTitle("p(#kappa^{+}#pi^{-}+#mu^{-}) (GeV/c)");
+  _h_BMomentumClean->SetXTitle("p(#kappa^{+}#pi^{-}+#mu^{-}) (GeV)");
   TH1F* _h_BMassClean = new TH1F("BMass-D0cut-b-jets", "BMass-D0cut-b-jets", 100, 0., 10.); 
-  _h_BMassClean->SetXTitle("M(#kappa^{+}#pi^{-}+#mu^{-}) (GeV/c^{2})");
+  _h_BMassClean->SetXTitle("M(#kappa^{+}#pi^{-}+#mu^{-}) (GeV)");
   TH1F* _h_mup_unbiased = new TH1F("Muonp-nobias-b-jets", "Muonp-nobias-b-jets", 150, 0, 300); 
-  _h_mup_unbiased->SetXTitle("p(soft #mu) (GeV/c)");
+  _h_mup_unbiased->SetXTitle("p(soft #mu) (GeV)");
 
   TTree* _t_D0window_bjets = new TTree("D0window-b-jets", "D0window-b-jets", 1);
   float _weight = 1.;
@@ -528,8 +599,8 @@ void MyAna::Loop()
     
     if (n30jet < 4) continue;
     ++counter[4];
-    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "#geq4 jets with p_{T}>30 GeV/c"; ++iCut; // /!\ no scalefactors yet 
-    _h_iCut->GetXaxis()->SetBinLabel(iCut,"#geq4 jets with p_{T}>30 GeV/c");
+    _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "#geq4 jets with p_{T}>30 GeV"; ++iCut; // /!\ no scalefactors yet 
+    _h_iCut->GetXaxis()->SetBinLabel(iCut,"#geq4 jets with p_{T}>30 GeV");
 
     //======================================================
     // MET
@@ -607,6 +678,45 @@ void MyAna::Loop()
     //======================================================
     // Scale factors
     //======================================================
+
+    // Bfrag reweighting
+    if (_isMC && _isSIG) {
+      for (unsigned int imujet = 0; imujet < indmujet.size(); imujet++) {
+        double xB = -1.;
+        double dRmujetgenjetmin = 200.;
+        double dRgenjetBhadmin = 200.;
+        for (unsigned int igenjet = 0; igenjet < n_jets; igenjet++) {
+          if (GetP4(genjet_4vector,igenjet)->Pt() < 1e-4 || GetP4(genjet_4vector,igenjet)->Pt() != GetP4(genjet_4vector,igenjet)->Pt() || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) > 0.999 || fabs(GetP4(genjet_4vector,igenjet)->CosTheta()) < 1e-3) continue;
+          if (abs(jet_algo_parton_flavor[igenjet]) != 5) continue;
+          double dRmujetgenjet = GetP4(genjet_4vector,igenjet)->DeltaR(*GetP4(mujet_mu_4vector,imujet)); 
+          if (dRmujetgenjet < dRmujetgenjetmin) {
+            dRmujetgenjetmin = dRmujetgenjet;
+            dRgenjetBhadmin = 200.;
+            for (int iMC = 0; iMC < n_MCs; iMC++) {
+              bool isBHad = false;
+              for (unsigned int iBHad = 0; iBHad < _idBHadrons.size(); iBHad++) {
+                if (MC_type[iMC] != _idBHadrons[iBHad]) continue;
+                isBHad = true;
+                break;
+              }
+              if (!isBHad) continue;
+              if (GetP4(MC_4vector,iMC)->Pt() < 1e-4 || GetP4(MC_4vector,iMC)->Pt() != GetP4(MC_4vector,iMC)->Pt() || fabs(GetP4(MC_4vector,iMC)->CosTheta()) > 0.999 || fabs(GetP4(MC_4vector,iMC)->CosTheta()) < 1e-3) continue;
+              double dRgenjetBhad = GetP4(genjet_4vector, igenjet)->DeltaR(*GetP4(MC_4vector, iMC));
+              if (dRgenjetBhad < dRgenjetBhadmin) {
+                dRgenjetBhadmin = dRgenjetBhad;
+                xB = GetP4(MC_4vector, iMC)->Pt()/GetP4(genjet_4vector, igenjet)->Pt();
+              }
+            }
+          }
+        }
+        if (dRmujetgenjetmin < 0.5 && dRgenjetBhadmin < 0.4) {
+          // _weight = _weight*myBfragReweighter->getEventWeight(0.7587+(0.2305/0.1612)*(xB-0.3762));
+          _h_dRbjetBhad_gen->Fill(dRgenjetBhadmin, _weight);
+          _h_dRmujet_genbjet->Fill(dRmujetgenjetmin, _weight);
+          _h_pTBhadOverpTbjet_gen->Fill(xB, _weight);
+        }
+      }
+    }
 
     _h_iCut->Fill((float)iCut,_weight); cutName[iCut] = "Event selection"; ++iCut;
     _h_iCut->GetXaxis()->SetBinLabel(iCut,"Event selection");
@@ -869,10 +979,26 @@ void MyAna::Loop()
         _Bmass = p_b.M();        
         _h_BMomentum_unbiased->Fill(p_b.P(), _weight);
         _h_BMass_unbiased->Fill(p_b.M(), _weight);
+        _h_D0FromBMass->Fill(p_d0.M(), _weight);
+        _h_D0FromBp->Fill(p_d0.P(), _weight);
         if (p_d0.M() >= 1.7 && p_d0.M() < 2.) {
           _h_BMomentumClean->Fill(p_b.P(), _weight);
           _h_BMassClean->Fill(p_b.M(), _weight);
           _t_D0window_bjets->Fill();
+
+          _h_D0FromBMass_zoom->Fill(p_d0.M(), _weight);
+          if (_isMC) {
+            ++nAllD0;
+            double deltaRd0min = 200.;
+            for (int iMC = 0; iMC < n_MCs; iMC++) {
+              if (GetP4(MC_D0_4vector,iMC)->Pt() < 1e-4 || GetP4(MC_D0_4vector,iMC)->Pt() != GetP4(MC_D0_4vector,iMC)->Pt() || fabs(GetP4(MC_D0_4vector,iMC)->CosTheta()) > 0.999 || fabs(GetP4(MC_D0_4vector,iMC)->CosTheta()) < 1e-3) continue;
+              double deltaRd0 = p_d0.DeltaR(*GetP4(MC_D0_4vector,iMC));
+              if (deltaRd0 < deltaRd0min)
+                deltaRd0min = deltaRd0;
+            }
+            _h_dRd0->Fill(deltaRd0min, _weight);
+            if (deltaRd0min < 0.05) ++nMatchedD0;
+          }
         }
 
       }
@@ -927,9 +1053,14 @@ void MyAna::Loop()
   cout << "1 iso muon                                                = " << counter[1] << endl;
   cout << "electron veto                                             = " << counter[2] << endl;
   cout << "muon veto                                                 = " << counter[3] << endl;
-  cout << "At least 4 jets pT>30 GeV/c                               = " << counter[4] << endl;
+  cout << "At least 4 jets pT>30 GeV                                 = " << counter[4] << endl;
   cout << "Z veto                                                    = " << counter[5] << endl;
   cout << "At least 1 mu-tagged jet                                  = " << counter[6] << endl;
+  if (_isMC) {
+    cout << "========================================================================" << endl;
+    cout << "Number of matched D^0                                     = " << nMatchedD0 << endl;
+    cout << "Number of D^0 candidates                                  = " << nAllD0 << endl;
+  }
   cout << "========================================================================" << endl;
   cout << "Total Number of events skimmed                            = "  << nwrite			   << endl;
   cout << "========================================================================" << endl;

@@ -67,6 +67,7 @@ private:
   std::string _rootName;
   bool _doSkim;
   int _nevt;
+  std::vector<int> _idBHadrons;
 };
 
 #endif

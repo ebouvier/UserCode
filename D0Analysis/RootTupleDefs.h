@@ -268,6 +268,8 @@ class RootTupleDefs {
     Int_t           MC_D0_daughter0_id[200]; 
     TClonesArray    *MC_D0_daughter1_4vector;
     Int_t           MC_D0_daughter1_id[200]; 
+    TClonesArray    *MC_D0_Bhad_4vector;
+    Int_t           MC_D0_Bhad_id[200]; 
 
     // Mu-tagged jet leaves
     Int_t           n_mujet;
@@ -450,6 +452,7 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
   MC_D0_4vector = NULL;
   MC_D0_daughter0_4vector = NULL;
   MC_D0_daughter1_4vector = NULL;
+  MC_D0_Bhad_4vector = NULL;
   mujet_jet_4vector = NULL;
   mujet_jet_scaleFactor = NULL;
   mujet_mu_4vector = NULL;
@@ -761,6 +764,8 @@ void RootTupleDefs::Init(TTree *_muonstree, TTree *_electronstree, TTree *_jetst
     SetBranchStatusAndAddress(MCChain, "MC_D0_daughter0_id", &MC_D0_daughter0_id);
     SetBranchStatusAndAddress(MCChain, "MC_D0_daughter1_4vector", &MC_D0_daughter1_4vector);
     SetBranchStatusAndAddress(MCChain, "MC_D0_daughter1_id", &MC_D0_daughter1_id);
+    SetBranchStatusAndAddress(MCChain, "MC_D0_Bhad_4vector", &MC_D0_Bhad_4vector);
+    SetBranchStatusAndAddress(MCChain, "MC_D0_Bhad_id", &MC_D0_Bhad_id);
 
   }   
 
